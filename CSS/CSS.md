@@ -255,6 +255,23 @@ BFC指的是块级格式化上下文，一个元素形成了BFC之后，那么�
 flex这些属性时也会创建BFC。还有就是元素的overflow的值不为visible时都会创建BFC。
 ```
 
+```
+块格式化上下文（Block Formatting Context，BFC）是Web页面的可视化CSS渲染的一部分，
+是布局过程中生成块级盒子的区域，也是浮动元素与其他元素的交互限定区域。
+
+通俗来讲
+•BFC是一个独立的布局环境，可以理解为一个容器，在这个容器中按照一定规则进行物品摆放，并且不会影响其它环境中的物品。
+•如果一个元素符合触发BFC的条件，则BFC中的元素布局不受外部影响。
+
+创建BFC:
+（1）根元素或包含根元素的元素
+（2）浮动元素float＝left|right或inherit（≠none）
+（3）绝对定位元素position＝absolute或fixed
+（4）display＝inline-block|flex|inline-flex|table-cell或table-caption
+（5）overflow＝hidden|auto或scroll(≠visible)
+```
+
+
 
 
 
