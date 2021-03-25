@@ -5,7 +5,7 @@
 ### 目录
 
 - [HTML5有哪些新特性、移除了哪些元素？](#html5有哪些新特性、移除了哪些元素)
-
+- [HTML5元素分类](#html5元素分类)
 
 
 #### html5有哪些新特性、移除了哪些元素？
@@ -37,3 +37,15 @@
     纯表现的元素：basefont，big，center，font, s，strike，tt，u;
     对可用性产生负面影响的元素：frame，frameset，noframes；
    ```
+
+#### html5元素分类
+
+   ```
+   HTML4中，元素被分成两大类: inline（内联元素）与 block（块级元素）。但在实际的开发过程中，因为页面表现的需要，
+   前端工程师经常把 inline 元素的 display 值设定为 block （比如 a 标签），也经常把 block 元素的 display 值
+   设定为 inline 之后更是出现了 inline-block 这一对外呈现 inline 对内呈现 block 的属性。
+   因此，简单地把 HTML 元素划分为 inline 与 block 已经不再符合实际需求。
+   
+   HTML5中，元素主要分为7类：Metadata Flow Sectioning Heading Phrasing Embedded Interactive
+   ```
+
