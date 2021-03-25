@@ -228,20 +228,20 @@ box-sizing: border-box;
 备注：盒子默认为标准盒模型。
 
 JS如何设置、获取盒模型对应的宽和高：
-方式一：通过DOM节点的 style 样式获取
+（1）方式一：通过DOM节点的 style 样式获取
 element.style.width/height;
 缺点：通过这种方式，只能获取行内样式，不能获取内嵌的样式和外链的样式。
 这种方式有局限性，但应该了解。
 
-方式二（通用型）
+（2）方式二（通用型）
 window.getComputedStyle(element).width/height;
 方式二能兼容 Chrome、火狐。是通用型方式。
 
-方式三（IE独有的）
+（3）方式三（IE独有的）
 element.currentStyle.width/height;
 和方式二相同，但这种方式只有IE独有。获取到的即时运行完之后的宽高（三种css样式都可以获取）。
 
-方式四
+（4）方式四
 element.getBoundingClientRect().width/height;
 此 api 的作用是：获取一个元素的绝对位置。绝对位置是视窗 viewport 左上角的绝对位置。此 api 可以拿到四个属性：left、top、width、height。
 ```
@@ -292,15 +292,15 @@ margin不会传递给父级(父级触发BFC)
 margin重叠指的是在垂直方向上，两个相邻元素的margin发生重叠的情况。
 
 一般来说可以分为四种情形：
-第一种是相邻兄弟元素的marin-bottom和margin-top的值发生重叠。这种情况下我们可以通过设置其中一个元素为BFC来解决。
-第二种是父元素的margin-top和子元素的margin-top发生重叠。它们发生重叠是因为它们是相邻的，所以
+（1）第一种是相邻兄弟元素的marin-bottom和margin-top的值发生重叠。这种情况下我们可以通过设置其中一个元素为BFC来解决。
+（2）第二种是父元素的margin-top和子元素的margin-top发生重叠。它们发生重叠是因为它们是相邻的，所以
 我们可以通过这一点来解决这个问题。我们可以为父元素设置border-top、padding-top值来分隔它们，
 当然我们也可以将父元素设置为BFC来解决。
-第三种是高度为auto的父元素的margin-bottom和子元素的margin-bottom发生重叠。
+（3）第三种是高度为auto的父元素的margin-bottom和子元素的margin-bottom发生重叠。
 它们发生重叠一个是因为它们相邻，一个是因为父元素的高度不固定。因此我们可以
 为父元素设置border-bottom、padding-bottom来分隔它们，也可以为父元素设置一个高度，
 max-height和min-height也能解决这个问题。当然将父元素设置为BFC是最简单的方法。
-第四种情况，是没有内容的元素，自身的margin-top和margin-bottom发生的重叠。
+（4）第四种情况，是没有内容的元素，自身的margin-top和margin-bottom发生的重叠。
 我们可以通过为其设置border、padding或者高度来解决这个问题。
 ```
 
