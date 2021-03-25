@@ -256,6 +256,20 @@ flex这些属性时也会创建BFC。还有就是元素的overflow的值不为vi
 ```
 
 ```
+BFC布局规则:
+浮动的元素会被父级计算高度(父级元素触发了BFC)
+非浮动元素不会覆盖浮动元素的位置(非浮动元素触发了BFC)
+margin不会传递给父级(父级触发BFC)
+属于同一个BFC的两个相邻元素上下margin会重叠
+
+开发中的应用：
+阻止margin重叠
+可以包含浮动元素 —— 清除内部浮动(清除浮动的原理是两个 div都位于同一个 BFC 区域之中)
+自适应两栏布局
+可以阻止元素被浮动元素覆盖
+```
+
+```
 块格式化上下文（Block Formatting Context，BFC）是Web页面的可视化CSS渲染的一部分，
 是布局过程中生成块级盒子的区域，也是浮动元素与其他元素的交互限定区域。
 
@@ -263,13 +277,17 @@ flex这些属性时也会创建BFC。还有就是元素的overflow的值不为vi
 •BFC是一个独立的布局环境，可以理解为一个容器，在这个容器中按照一定规则进行物品摆放，并且不会影响其它环境中的物品。
 •如果一个元素符合触发BFC的条件，则BFC中的元素布局不受外部影响。
 
-创建BFC:
+创建BFC（触发BFC）:
 （1）根元素或包含根元素的元素
 （2）浮动元素float＝left|right或inherit（≠none）
 （3）绝对定位元素position＝absolute或fixed
 （4）display＝inline-block|flex|inline-flex|table-cell或table-caption
 （5）overflow＝hidden|auto或scroll(≠visible)
 ```
+
+
+
+
 
 
 
