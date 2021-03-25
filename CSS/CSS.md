@@ -217,3 +217,29 @@ IE盒模型和W3C标准盒模型的区别：
 一般来说，我们可以通过修改元素的box-sizing属性来改变元素的盒模型。
 ```
 
+```
+CSS如何设置这两种模型：
+/* 设置当前盒子为 标准盒模型（默认） */
+box-sizing: content-box;
+/* 设置当前盒子为 IE盒模型 */
+box-sizing: border-box;
+备注：盒子默认为标准盒模型。
+
+JS如何设置、获取盒模型对应的宽和高：
+方式一：通过DOM节点的 style 样式获取
+element.style.width/height;
+缺点：通过这种方式，只能获取行内样式，不能获取内嵌的样式和外链的样式。
+这种方式有局限性，但应该了解。
+
+方式二（通用型）
+window.getComputedStyle(element).width/height;
+方式二能兼容 Chrome、火狐。是通用型方式。
+
+方式三（IE独有的）
+element.currentStyle.width/height;
+和方式二相同，但这种方式只有IE独有。获取到的即时运行完之后的宽高（三种css样式都可以获取）。
+
+方式四
+element.getBoundingClientRect().width/height;
+此 api 的作用是：获取一个元素的绝对位置。绝对位置是视窗 viewport 左上角的绝对位置。此 api 可以拿到四个属性：left、top、width、height。
+```
