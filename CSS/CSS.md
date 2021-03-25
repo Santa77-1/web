@@ -7,6 +7,7 @@
 - [css选择符](#css选择符)
 - [css优先级算法](#css优先级算法)
 - [盒模型](#盒模型)
+- [BFC](#BFC)
 
 
 #### 水平垂直居中
@@ -243,3 +244,17 @@ element.currentStyle.width/height;
 element.getBoundingClientRect().width/height;
 此 api 的作用是：获取一个元素的绝对位置。绝对位置是视窗 viewport 左上角的绝对位置。此 api 可以拿到四个属性：left、top、width、height。
 ```
+
+#### BFC
+
+```
+BFC指的是块级格式化上下文，一个元素形成了BFC之后，那么它内部元素产生的布局不会影响到外部元素，
+外部元素的布局也不会影响到BFC中的内部元素。一个BFC就像是一个隔离区域，和其他区域互不影响。
+
+一般来说根元素是一个BFC区域，浮动和绝对定位的元素也会形成BFC，display属性的值为inline-block、
+flex这些属性时也会创建BFC。还有就是元素的overflow的值不为visible时都会创建BFC。
+```
+
+
+
+
