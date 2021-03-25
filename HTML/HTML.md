@@ -15,13 +15,23 @@
 
     新增的有：
     绘画 canvas;
-    用于媒介回放的 video 和 audio 元素;
+    用于媒体播放的 video 和 audio 元素;
     本地离线存储 localStorage 长期存储数据，浏览器关闭后数据不丢失;
     sessionStorage 的数据在浏览器关闭后自动删除;
     语意化更好的内容元素，比如 article、footer、header、nav、section;
     表单控件，calendar、date、time、email、url、search;
-    新的技术 webworker, websocket;
+    多任务 webworker；全双工通信协议 websocket；
     新的文档属性 document.visibilityState
+    页面可见性改变事件 visibilitychange
+    新增选择器 document.querySelector、document.querySelectorAll
+    拖拽释放(Drag and drop) API
+    离线应用 manifest
+    桌面通知 Notifications
+    地理位置 Geolocation
+    历史管理 history
+    跨域资源共享(CORS) Access-Control-Allow-Origin
+    跨窗口通信 PostMessage
+    Form Data 对象
 
     移除的元素有：
     纯表现的元素：basefont，big，center，font, s，strike，tt，u;
