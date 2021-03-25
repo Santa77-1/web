@@ -6,7 +6,7 @@
 
 - [HTML5有哪些新特性、移除了哪些元素？](#html5有哪些新特性、移除了哪些元素)
 - [HTML5元素分类](#html5元素分类)
-
+- [行内元素、块级元素、空元素的区别？](#行内元素、块级元素、空元素的区别？)
 
 #### html5有哪些新特性、移除了哪些元素？
 
@@ -48,4 +48,29 @@
    
    HTML5中，元素主要分为7类：Metadata Flow Sectioning Heading Phrasing Embedded Interactive
    ```
+
+#### 行内元素、块级元素、空元素的区别？
+
+   ```
+   HTML4 中，元素被分成两大类: inline （内联元素）与 block（块级元素）。
+   
+   一个行内元素只占据它对应标签的边框所包含的空间。
+   常见的行内元素有 a b span img strong sub sup button input label select textarea
+   
+   块级元素占据其父元素（容器）的整个宽度，因此创建了一个“块”。
+   常见的块级元素有  div ul ol li dl dt dd h1 h2 h3 h4 h5 h6 p 
+   
+   （1） 格式上，默认情况下，行内元素不会以新行开始，而块级元素会新起一行。
+   （2） 内容上，默认情况下，行内元素只能包含文本和其他行内元素。而块级元素可以包含行内元素和其他块级元素。
+   （3） 行内元素与块级元素属性的不同，主要是盒模型属性上：行内元素设置 width 无效，height 无效
+        （可以设置 line-height），设置 margin 和 padding 的上下不会对其他元素产生影响。
+   
+   空元素：<br> <hr> <img> <input> <link> <meta>
+   行内元素不可以设置宽高，不独占一行
+   块级元素可以设置宽高，独占一行
+   ```
+
+
+
+
 
