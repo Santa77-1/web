@@ -11,6 +11,7 @@
   - [constructor](#constructor)
   - [Object.prototype.toString.call()](#Object.prototype.toString.call())
 - [js原型和原型链](#js原型和原型链)
+  - [js获取原型的方法](#js获取原型的方法)
 
 
 #### js数据类型
@@ -232,7 +233,7 @@ console.log(a.call(null));            // [object Null]
 原型：在 js 中我们是使用构造函数来新建一个对象的，每一个构造函数的内部都有一个 prototype 属性值，
 这个属性值是一个对象，这个对象包含了可以由该构造函数的所有实例共享的属性和方法。
 当我们使用构造函数新建一个对象后，在这个对象的内部将包含一个指针，这个指针指向
-构造函数的 prototype 属性对应的值，在 ES5 中这个指针被称为对象的原型。
+构造函数的 prototype 属性对应的值，在 ES5 中这个指针被称为对象的原型（prototype）。
 
 一般来说我们是不应该能够获取到这个值的，但是现在浏览器中都实现了 __proto__ 属性
 来让我们访问这个属性，但是我们最好不要使用这个属性，因为它不是规范中规定的。
@@ -248,10 +249,17 @@ ES5 中新增了一个 Object.getPrototypeOf() 方法，我们可以通过这个
 特点：
 JavaScript 对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份
 属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。
+
+关系：instance.constructor.prototype = instance.__proto__
 ```
 
+#### js获取原型的方法
 
-
+```
+p.__proto__
+p.constructor.prototype
+Object.getPrototypeOf(p)
+```
 
 
 
