@@ -265,6 +265,17 @@ Object.getPrototypeOf(p)
 ### js继承
 
 ```
+javascript继承的7种方法：
+1.原型链继承：将父类的实例作为子类的原型。
+2.构造函数继承（使用call）：使用父类的构造函数来增强子类实例，等于是复制父类的实例属性给子类。
+3.实例继承：为父类实例添加新特性，作为子类实例返回。
+4.拷贝继承：把父类实例对象上的方法拷贝到子类的原型上。
+5.组合继承：通过调用父类构造函数，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类原型，实现函数复用。
+6.寄生组合继承：通过寄生方式，砍掉父类的实例属性，这样，在调用两次父类的构造的时候，就不会初始化两次实例方法/属性，避免的组合继承的缺点。
+7.使用extends关键字扩展一个类并继承它的行为（es6）。
+```
+
+```
 我了解的 js 中实现继承的几种方式有：
 （1）第一种是以原型链的方式来实现继承，但是这种实现方式存在的缺点是，在包含有引用类型的数据时，
 会被所有的实例对象所共享，容易造成修改的混乱。还有就是在创建子类型的时候不能向超类型传递参数。
@@ -500,83 +511,6 @@ cat.printHabit(); //sleep
 console.log(cat.eat()); //cat正在吃fish
 console.log(cat instanceof Reptile); //true
 console.log(cat instanceof Animal2); //true
-
-总结：
-javascript继承的7种方法：
-1.原型链继承：将父类的实例作为子类的原型。
-2.构造函数继承（使用call）：使用父类的构造函数来增强子类实例，等于是复制父类的实例属性给子类。
-3.实例继承：为父类实例添加新特性，作为子类实例返回。
-4.拷贝继承：把父类实例对象上的方法拷贝到子类的原型上。
-5.组合继承：通过调用父类构造函数，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类原型，实现函数复用。
-6.寄生组合继承：通过寄生方式，砍掉父类的实例属性，这样，在调用两次父类的构造的时候，就不会初始化两次实例方法/属性，避免的组合继承的缺点。
-7.使用extends关键字扩展一个类并继承它的行为（es6）。
-```
-
-寄生式组合继承的实现：
-
-```
-function Person(name) {
-  this.name = name;
-}
-
-Person.prototype.sayName = function() {
-  console.log("My name is " + this.name + ".");
-};
-
-function Student(name, grade) {
-  Person.call(this, name);
-  this.grade = grade;
-}
-
-Student.prototype = Object.create(Person.prototype);
-Student.prototype.constructor = Student;
-
-Student.prototype.sayMyGrade = function() {
-  console.log("My grade is " + this.grade + ".");
-};
-```
-
-```
-构造函数绑定：使用 call 或 apply 方法，将父对象的构造函数绑定在子对象上
-function Cat(name,color){
- 　Animal.apply(this, arguments);
- 　this.name = name;
- 　this.color = color;
-}
-
-实例继承：将子对象的 prototype 指向父对象的一个实例
-Cat.prototype = new Animal();
-Cat.prototype.constructor = Cat;
-
-拷贝继承：如果把父对象的所有属性和方法，拷贝进子对象
-function extend(Child, Parent) {
-　　　var p = Parent.prototype;
-　　　var c = Child.prototype;
-　　　for (var i in p) {
-　　　   c[i] = p[i];
-　　　}
-　　　c.uber = p;
-}
-  
-原型继承：将子对象的 prototype 指向父对象的 prototype
-function extend(Child, Parent) {
-    var F = function(){};
-  　F.prototype = Parent.prototype;
-  　Child.prototype = new F();
-  　Child.prototype.constructor = Child;
-  　Child.uber = Parent.prototype;
-}
-
-ES6 语法糖 extends：class ColorPoint extends Point {}
-class ColorPoint extends Point {
-    constructor(x, y, color) {
-      super(x, y); // 调用父类的constructor(x, y)
-      this.color = color;
-    }
-    toString() {
-      return this.color + ' ' + super.toString(); // 调用父类的toString()
-    }
-}
 ```
 
 
