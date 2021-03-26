@@ -2,7 +2,7 @@
 
 ### 目录
 
-- [js数据类型](#js基本数据类型)
+- [js数据类型](#js数据类型)
   - [js有几种类型的值](#js有几种类型的值)
 
 
@@ -18,8 +18,7 @@ BigInt 是一种数字类型的数据，它可以表示任意精度格式的整�
 ```
 
 ```
-js引用数据类型：
-object、array、function
+js引用数据类型：object、array、function
 ```
 
 ##### js有几种类型的值
@@ -33,7 +32,7 @@ js 可以分为两种类型的值，一种是基本数据类型，一种是复�
 而复杂数据类型的值保存在堆中，通过使用在栈中保存对应的指针来获取堆中的值。
 ```
 
-栈：原始数据类型（Undefined、Null、Boolean、Number、String）
+栈：原始数据类型（Undefined、Null、Boolean、Number、String） <br>
 堆：引用数据类型（对象、数组和函数）
 
 ```
