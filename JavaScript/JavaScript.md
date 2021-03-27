@@ -34,6 +34,8 @@
     - [session-cookie](#session-cookie)
     - [token验证](#token验证)
     - [OAuth](#OAuth)
+- [懒加载 预加载 懒执行](#懒加载-预加载-懒执行)
+
 
 
 #### js数据类型
@@ -1043,6 +1045,72 @@ OAuth认证和授权过程：
 2.获取用户授权的RequestToken
 3.用授权的RequestToken换取AccessToken
 ```
+
+### 懒加载 预加载 懒执行
+
+```
+懒加载也叫延迟加载，指的是在长网页中延迟加载图片的时机，当用户需要访问时，再去加载，
+这样可以提高网站的首屏加载速度，提升用户的体验，并且可以减少服务器的压力。它适用于图片很多，
+页面很长的电商网站的场景。懒加载的实现原理是，将页面上的图片的 src 属性设置为空字符串，
+将图片的真实路径保存在一个自定义属性中，当页面滚动的时候，进行判断，如果图片进入页面可视区域内，
+则从自定义属性中取出真实路径赋值给图片的 src 属性，以此来实现图片的延迟加载。
+懒加载不仅可以用于图片，也可以使用在别的资源上。比如进入可视区域才开始播放视频等等。
+
+预加载指的是将所需的资源提前请求加载到本地，这样后面在需要用到时就直接从缓存取资源。
+通过预加载能够减少用户的等待时间，提高用户的体验。我了解的预加载的最常用的方式是
+使用 js 中的 image 对象，通过为 image 对象来设置 scr 属性，来实现图片的预加载。
+
+这两种方式都是提高网页性能的方式，两者主要区别是一个是提前加载，一个是迟缓甚至不加载。
+懒加载对服务器前端有一定的缓解压力作用，预加载则会增加服务器前端压力。
+
+懒执行就是将某些逻辑延迟到使用时再计算。该技术可以用于首屏优化，
+对于某些耗时逻辑并不需要在首屏就使用的，就可以使用懒执行。
+懒执行需要唤醒，一般可以通过定时器或者事件的调用来唤醒懒加载
+```
+
+```
+预加载：提前加载图片，当用户需要查看时可直接从本地缓存中渲染。
+
+懒加载：懒加载的主要目的是作为服务器前端的优化，减少请求数或延迟请求数。
+
+两种技术的本质：两者的行为是相反的，一个是提前加载，一个是迟缓甚至不加载。 
+懒加载对服务器前端有一定的缓解压力作用，预加载则会增加服务器前端压力。
+```
+
+懒加载实现：
+```
+图片懒加载
+// <img src="default.png" data-src="https://xxxx/real.png">
+function isVisible(el) {
+  const position = el.getBoundingClientRect()
+  const windowHeight = document.documentElement.clientHeight
+  // 顶部边缘可见
+  const topVisible = position.top > 0 && position.top < windowHeight;
+  // 底部边缘可见
+  const bottomVisible = position.bottom < windowHeight && position.bottom > 0;
+  return topVisible || bottomVisible;
+}
+
+function imageLazyLoad() {
+  const images = document.querySelectorAll('img')
+  for (let img of images) {
+    const realSrc = img.dataset.src
+    if (!realSrc) continue
+    if (isVisible(img)) {
+      img.src = realSrc
+      img.dataset.src = ''
+    }
+  }
+}
+
+// 测试
+window.addEventListener('load', imageLazyLoad)
+window.addEventListener('scroll', imageLazyLoad)
+// or
+window.addEventListener('scroll', throttle(imageLazyLoad, 1000))
+```
+
+
 
 
 
