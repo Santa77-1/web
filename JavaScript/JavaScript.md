@@ -230,8 +230,9 @@ console.log(f.constructor===Fn);    // false
 console.log(f.constructor===Array); // true 
 ```
 
-#### Object.prototype.toString.call
+#### Object prototype toString call
 
+Object.prototype.toString.call()
 ```
 使用 Object 对象的原型方法 toString ，使用 call 进行狸猫换太子，借用Object的 toString 方法
 
