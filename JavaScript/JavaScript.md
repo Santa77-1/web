@@ -14,6 +14,10 @@
 - [js原型和原型链](#js原型和原型链)
   - [js获取原型的方法](#js获取原型的方法)
 - [js继承](#js继承)
+- [安全](#安全)
+  - [同源](#同源)
+  - [限制](#限制)
+  - [跨域](#跨域)
 
 
 #### js数据类型
@@ -513,7 +517,220 @@ console.log(cat.eat()); //cat正在吃fish
 console.log(cat instanceof Reptile); //true
 console.log(cat instanceof Animal2); //true
 ```
+### 安全
 
+#### 同源
+
+同源策略是一种安全协议
+```
+我对浏览器的同源政策的理解是，一个域下的 js 脚本在未经允许的情况下，不能够访问另一个域的内容。
+这里的同源的指的是两个域的协议、域名、端口号必须相同，否则则不属于同一个域。
+
+同源政策主要限制了三个方面：
+第一个是当前域下的 js 脚本不能够访问其他域下的 cookie、localStorage 和 indexDB。
+第二个是当前域下的 js 脚本不能够操作访问操作其他域下的 DOM。
+第三个是当前域下 ajax 无法发送跨域请求。
+
+同源政策的目的主要是为了保证用户的信息安全，防止某个文档或脚本从多个不同源装载。
+它只是对 js 脚本的一种限制，并不是对浏览器的限制，对于一般的 img、或者script 脚本请求
+都不会有跨域的限制，这是因为这些操作都不会通过响应结果来进行可能出现安全问题的操作。
+```
+
+```
+举例说明：比如一个黑客程序，他利用Iframe把真正的银行登录页面嵌到他的页面上，当你使用真实的用户名，
+密码登录时，他的页面就可以通过Javascript读取到你的表单中input中的内容，这样用户名，密码就轻松到手了。
+
+缺点：
+现在网站的JS都会进行压缩，一些文件用了严格模式，而另一些没有。这时这些本来是严格模式的文件，
+被 merge后，这个串就到了文件的中间，不仅没有指示严格模式，反而在压缩后浪费了字节
+```
+
+#### 限制
+
+为什么会产生跨域？
+```
+你之所以会遇到跨域问题，正是因为 SOP 的各种限制。
+本质上 SOP 并不是禁止跨域请求，而是在请求后拦截了请求的回应。
+
+其实表面上 SOP 分两种情况：
+可以正常引用 iframe、图片等各种资源，但是限制对其内容进行操作
+直接限制 ajax 请求，准确来说是限制操作 ajax 响应结果，这会引起 CSRF
+但是，本质上这两条是一样的：总之，对于非同源的资源，浏览器可以“直接使用”，但是程序员和用户
+不可以对这些数据进行操作，杜绝某些居心不良的行为。这就是现代安全浏览器对用户的保护之一。
+
+下面是 3 个在实际应用中会遇到的例子：
+使用 ajax 请求其他跨域 API，最常见的情况
+iframe 与父页面交流（如 DOM 或变量的获取），出现率比较低
+对跨域图片（例如来源于 <img> ）进行操作，在 canvas 操作图片的时候会遇到这个问题
+
+如果没有了 SOP：
+iframe 里的机密信息被肆意读取
+更加肆意地进行 CSRF
+接口被第三方滥用
+```
+
+#### 跨域
+
+因为浏览器出于安全考虑，有同源策略。也就是说，如果协议、域名或者端口有一个不同就是跨域
+```
+1. 通过 jsonp 跨域
+2. document.domain + iframe 跨域
+3. location.hash + iframe
+4. window.name + iframe 跨域
+5 .postMessage 跨域
+6. 跨域资源共享（CORS)
+7. nginx 代理跨域
+8. nodejs 中间件代理跨域
+9. WebSocket 协议跨域
+```
+
+```
+解决跨域的方法我们可以根据我们想要实现的目的来划分。
+
+首先我们如果只是想要实现主域名下的不同子域名的跨域操作，我们可以使用设置 document.domain 来解决。
+（1）将 document.domain 设置为主域名，来实现相同子域名的跨域操作，
+这个时候主域名下的 cookie 就能够被子域名所访问。同时如果文档中含有主域名相同，
+子域名不同的 iframe 的话，我们也可以对这个 iframe 进行操作。
+
+如果是想要解决不同跨域窗口间的通信问题，比如说一个页面想要和页面的中的不同源的 iframe 
+进行通信的问题，我们可以使用 location.hash 或者 window.name 或者 postMessage 来解决。
+（2）使用 location.hash 的方法，我们可以在主页面动态的修改 iframe 窗口的 hash 值，
+然后在 iframe 窗口里实现监听函数来实现这样一个单向的通信。因为在 iframe 是没有办法访问
+到不同源的父级窗口的，所以我们不能直接修改父级窗口的 hash 值来实现通信，我们可以在 
+iframe 中再加入一个 iframe ，这个 iframe 的内容是和父级页面同源的，所以我们可以使用
+window.parent.parent 来修改最顶级页面的 src，以此来实现双向通信。
+（3）使用 window.name 的方法，主要是基于同一个窗口中设置了 window.name 后不同源的页面也可以
+访问，所以不同源的子页面可以首先在 window.name 中写入数据，然后跳转到一个和父级同源的页面。
+这个时候父级页面就可以访问同源的子页面中 window.name 中的数据了，这种方式的好处是可以传输的数据量大。
+（4）使用 postMessage 来解决的方法，这是一个 h5 中新增的一个 api。通过它我们可以
+实现多窗口间的信息传递，通过获取到指定窗口的引用，然后调用 postMessage 来发送信息，
+在窗口中我们通过对 message 信息的监听来接收信息，以此来实现不同源间的信息交换。
+
+如果是像解决 ajax 无法提交跨域请求的问题，我们可以使用 jsonp、cors、websocket 协议、服务器代理来解决问题。
+（5）使用 jsonp 来实现跨域请求，它的主要原理是通过动态构建 script  标签来实现跨域请求，
+因为浏览器对 script 标签的引入没有跨域的访问限制 。通过在请求的 url 后指定一个回调函数，
+然后服务器在返回数据的时候，构建一个 json 数据的包装，这个包装就是回调函数，
+然后返回给前端，前端接收到数据后，因为请求的是脚本文件，所以会直接执行，
+这样我们先前定义好的回调函数就可以被调用，从而实现了跨域请求的处理。这种方式只能用于 get 请求。
+（6）使用 CORS 的方式，CORS 是一个 W3C 标准，全称是"跨域资源共享"。CORS 需要
+浏览器和服务器同时支持。目前，所有浏览器都支持该功能，因此我们只需要在服务器端配置就行。
+浏览器将 CORS 请求分成两类：简单请求和非简单请求。对于简单请求，浏览器直接发出 CORS 请求。
+具体来说，就是会在头信息之中，增加一个 Origin 字段。Origin 字段用来说明本次请求来自哪个源。
+服务器根据这个值，决定是否同意这次请求。对于如果 Origin 指定的源，不在许可范围内，
+服务器会返回一个正常的 HTTP 回应。浏览器发现，这个回应的头信息没有包含 Access-Control-Allow-Origin 字段，
+就知道出错了，从而抛出一个错误，ajax 不会收到响应信息。如果成功的话会包含一些以 Access-Control- 开头的字段。
+非简单请求，浏览器会先发出一次预检请求，来判断该域名是否在服务器的白名单中，如果收到肯定回复后才会发起请求。
+（7）使用 websocket 协议，这个协议没有同源限制。
+（8）使用服务器来代理跨域的访问请求，就是有跨域的请求操作时发送请求给后端，让后端代为请求，然后最后将获取的结果发返回。
+```
+
+```
+（1）在CORS和postMessage以前，我们一直都是通过JSONP来做跨域通信的。
+JSONP的原理：通过<script>标签的异步加载来实现的。比如说，实际开发中，我们发现，
+head标签里，可以通过<script>标签的src，里面放url，加载很多在线的插件。这就是用到了JSONP。
+JSONP的实现：
+比如说，客户端这样写：
+    <script src="http://www.smyhvae.com/?data=name&callback=myjsonp"></script>
+
+上面的src中，data=name是get请求的参数，myjsonp是和后台约定好的函数名。 服务器端这样写：
+  myjsonp({
+      data: {}
+  })
+于是，本地要求创建一个myjsonp 的全局函数，才能将返回的数据执行出来。
+实际开发中，前端的JSONP是这样实现的：
+<script>
+    var util = {};
+    //定义方法：动态创建 script 标签
+    /**
+     * [function 在页面中注入js脚本]
+     * @param  {[type]} url     [description]
+     * @param  {[type]} charset [description]
+     * @return {[type]}         [description]
+     */
+    util.createScript = function (url, charset) {
+        var script = document.createElement('script');
+        script.setAttribute('type', 'text/javascript');
+        charset && script.setAttribute('charset', charset);
+        script.setAttribute('src', url);
+        script.async = true;
+        return script;
+    };
+
+    /**
+     * [function 处理jsonp]
+     * @param  {[type]} url      [description]
+     * @param  {[type]} onsucess [description]
+     * @param  {[type]} onerror  [description]
+     * @param  {[type]} charset  [description]
+     * @return {[type]}          [description]
+     */
+    util.jsonp = function (url, onsuccess, onerror, charset) {
+        var callbackName = util.getName('tt_player'); //事先约定好的 函数名
+        window[callbackName] = function () {      //根据回调名称注册一个全局的函数
+            if (onsuccess && util.isFunction(onsuccess)) {
+                onsuccess(arguments[0]);
+            }
+        };
+        var script = util.createScript(url + '&callback=' + callbackName, charset);   //动态创建一个script标签
+        script.onload = script.onreadystatechange = function () {   //监听加载成功的事件，获取数据
+            if (!script.readyState || /loaded|complete/.test(script.readyState)) {
+                script.onload = script.onreadystatechange = null;
+                // 移除该script的 DOM 对象
+                if (script.parentNode) {
+                    script.parentNode.removeChild(script);
+                }
+                // 删除函数或变量
+                window[callbackName] = null;  //最后不要忘了删除
+            }
+        };
+        script.onerror = function () {
+            if (onerror && util.isFunction(onerror)) {
+                onerror();
+            }
+        };
+        document.getElementsByTagName('head')[0].appendChild(script); //往html中增加这个标签，目的是把请求发送出去
+    };
+</script>
+
+（5）H5中新增的postMessage()方法，可以用来做跨域通信。
+场景：窗口 A (http:A.com)向跨域的窗口 B (http:B.com)发送信息。步骤如下
+在A窗口中操作如下：向B窗口发送数据：
+	// 窗口A(http:A.com)向跨域的窗口B(http:B.com)发送信息
+ 	Bwindow.postMessage('data', 'http://B.com'); //这里强调的是B窗口里的window对象
+2. 在B窗口中操作如下：
+    // 在窗口B中监听 message 事件
+    Awindow.addEventListener('message', function (event) {   //这里强调的是A窗口里的window对象
+        console.log(event.origin);  //获取 ：url。这里指：http://A.com
+        console.log(event.source);  //获取：A window对象
+        console.log(event.data);    //获取传过来的数据
+    }, false);
+（6）CORS
+CORS：不受同源策略的限制，支持跨域。一种新的通信协议标准。可以理解成是：同时支持同源和跨域的Ajax。
+CORS为什么支持跨域的通信？
+跨域时，浏览器会拦截Ajax请求，并在http头中加Origin。
+
+（9）WebSocket
+WebSocket不受同源策略的限制，支持跨域
+用法如下：
+    var ws = new WebSocket('wss://echo.websocket.org'); //创建WebSocket的对象。参数可以是 ws 或 wss，后者表示加密。
+
+    //把请求发出去
+    ws.onopen = function (evt) {
+        console.log('Connection open ...');
+        ws.send('Hello WebSockets!');
+    };
+
+    //对方发消息过来时，我接收
+    ws.onmessage = function (evt) {
+        console.log('Received Message: ', evt.data);
+        ws.close();
+    };
+
+    //关闭连接
+    ws.onclose = function (evt) {
+        console.log('Connection closed.');
+    };
+```
 
 
 
