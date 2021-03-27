@@ -10,7 +10,7 @@
   - [typeof操作符](#typeof操作符)
   - [instanceof](#instanceof)
   - [constructor](#constructor)
-  - [Object.prototype.toString.call()](#Object.prototype.toString.call())
+  - [Object.prototype.toString.call](#Object.prototype.toString.call)
 - [js原型和原型链](#js原型和原型链)
   - [js获取原型的方法](#js获取原型的方法)
 - [js继承](#js继承)
@@ -30,7 +30,7 @@
     - [CORS](#CORS)
     - [WebSocket](#WebSocket)
   - [鉴权](#鉴权)
-    - [HTTP Basic Authentication](#HTTP Basic Authentication)
+    - [HTTP Basic Authentication](#HTTP-Basic-Authentication)
     - [session-cookie](#session-cookie)
     - [token验证](#token验证)
     - [OAuth](#OAuth)
@@ -230,8 +230,8 @@ console.log(f.constructor===Fn);    // false
 console.log(f.constructor===Array); // true 
 ```
 
-#### Object.prototype.toString.call()
-
+#### Object.prototype.toString.call
+Object.prototype.toString.call()
 ```
 使用 Object 对象的原型方法 toString ，使用 call 进行狸猫换太子，借用Object的 toString 方法
 
