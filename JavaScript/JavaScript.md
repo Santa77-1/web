@@ -778,6 +778,23 @@ res.end()
   else {
     next();
   }
+  
+项目实例：
+解决方式是给服务器设置允许跨域的字段，一般需要设置如下几个字段，以express框架来说，设置允许cros跨域响应头：
+app.all("*" , function(req,res,next){
+	res.header('Access-Control-Allow-Origin' , "*")  
+	res.header('Access-Control-Allow-Headers' , 'Content-Type,Content-length,Authorization,Accept,X-Requested-With,yourHeaderFeild');  
+	res.header('Access-Control-Allow-Methods' , 'PUT,POST,GEt,DELETE,OPTIONS');  
+	if(req.method == 'OPTIONS'){    
+		res.send(200)  
+	}  else{    
+		next()  
+	}
+})
+上述代码中设置细则如下：  
+Access-Control-Allow-Origin：设置允许cros跨域的网址
+Access-Control-Allow-Headers：设置允许cros跨域的请求头部
+Access-Control-Allow-Methods：设置允许cros跨域的请求方式
 ```
 
 #### WebSocket
@@ -802,6 +819,27 @@ WebSocket不受同源策略的限制，支持跨域
     ws.onclose = function (evt) {
         console.log('Connection closed.');
     };
+```
+
+#### proxy代理跨域(最常见)
+
+```
+使用vue开发的时候，可以使用vue脚手架自带的http-proxy代理程序进行跨域。
+步骤：
+1.在vue脚手架中新增配置文件vue.config.js文件，添加一个新的配置项，如下：
+module.exports = {	
+	devServer:{		
+		proxy:{			
+			'/api':{				
+				target:'http://localhost:3000/'//自己的服务器端口3000							
+				changeOrigin:true //打开跨域			
+			}		
+		}	
+	}
+}
+上述代码中设置了一个接口/api，这个接口作为自己的服务器的代理服务器，即访问这个接口就如访问http://localhost:3000
+然后我们需要将这个/api作为我们提交数据的默认地址，即在vue项目的mian.js文件中设置如下代码，此处以axios为例：
+axios.defalts.baseURL = "/api"
 ```
 
 #### 鉴权
