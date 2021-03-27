@@ -1,4 +1,5 @@
-## JavaScript
+## JavaScript 面试知识点总结
+整理了 JavaScript 面试的部分知识点
 
 ### 目录
 
