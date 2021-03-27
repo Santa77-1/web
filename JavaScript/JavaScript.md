@@ -26,7 +26,14 @@
   - [限制](#限制)
   - [跨域](#跨域)
     - [jsonp](#jsonp) 
+    - [postMessage](#postMessage)
+    - [CORS](#CORS)
+    - [WebSocket](#WebSocket)
   - [鉴权](#鉴权)
+    - [HTTP Basic Authentication](#HTTP Basic Authentication)
+    - [session-cookie](#session-cookie)
+    - [token验证](#token验证)
+    - [OAuth](#OAuth)
 
 
 #### js数据类型
@@ -359,8 +366,9 @@ console.log(cat instanceof Cat);    //true
 4.创建子类的实例时，无法向父类构造函数传参
 ```
 
-#### 构造函数继承（使用call）
+#### 构造函数继承
 ```
+使用call
 核心：使用父类的构造函数来增强子类实例，等于是复制父类的实例属性给子类（没用到原型）
 function Cat2(name) {
     Animal.call(this);
@@ -706,7 +714,8 @@ JSONP的实现：
 </script>
 ```
 
-（5）H5中新增的postMessage()方法，可以用来做跨域通信。
+#### postMessage
+H5中新增的postMessage()方法，可以用来做跨域通信。
 ```
 场景：窗口 A (http:A.com)向跨域的窗口 B (http:B.com)发送信息。步骤如下
 在A窗口中操作如下：向B窗口发送数据：
@@ -721,7 +730,7 @@ JSONP的实现：
     }, false);
 ```
 
-（6）CORS
+#### CORS
 ```
 CORS：不受同源策略的限制，支持跨域。一种新的通信协议标准。可以理解成是：同时支持同源和跨域的Ajax。
 CORS为什么支持跨域的通信？
@@ -770,7 +779,7 @@ res.end()
   }
 ```
 
-（9）WebSocket
+#### WebSocket
 ```
 WebSocket不受同源策略的限制，支持跨域
 用法如下：
@@ -839,7 +848,7 @@ EPS（Evolved Packet System，演进的分组系统）、IMS（IP Multimedia Sub
 IMS网络中，网络可以通过注册或重注册过程，在任何时候对用户进行鉴权。
 ```
 
-HTTP Basic Authentication
+#### HTTP Basic Authentication
 ```
 这种授权方式是浏览器遵守http协议实现的基本授权方式,HTTP协议进行通信的过程中，
 HTTP协议定义了基本认证认证允许HTTP服务器对客户端进行用户身份证的方法。
@@ -878,7 +887,7 @@ Authorization: Basic d2FuZzp3YW5n
 这个时候其实服务当用户输入用户名密码的时候客户端会再次发送带Authentication头的请求。
 ```
 
-session-cookie
+#### session-cookie
 ```
 HTTP Cookie（也叫Web Cookie或浏览器Cookie）是服务器发送到用户浏览器并保存在本地的一小块数据，
 它会在浏览器下次向同一服务器再发起请求时被携带并发送到服务器上。通常，它用于告知服务端两个请求
@@ -905,7 +914,7 @@ Cookie主要用于以下三个方面：
 5.一旦用户登出，服务端和客户端同时销毁该会话在后续请求中，服务器会根据数据库验证会话id，如果验证通过，则继续处理；
 ```
 
-Token验证
+#### token验证
 ```
 认证过程：
 1.用户输入登陆凭据；
@@ -935,8 +944,9 @@ cookie-session机制他限制了客户端的类型，而token验证机制丰富�
 二来我们可以基于token验证机制，专门做一个鉴权服务，用它向多个服务的请求进行统一鉴权。
 ```
 
-OAuth(开放授权)
+#### OAuth
 ```
+(开放授权)
 OAUTH协议为用户资源的授权提供了一个安全的、开放而又简易的标准。与以往的授权方式不同之处
 是OAUTH的授权不会使第三方触及到用户的帐号信息（如用户名与密码），即第三方无需使用
 用户的用户名与密码就可以申请获得该用户资源的授权，因此OAUTH是安全的。同时，
