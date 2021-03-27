@@ -624,10 +624,13 @@ window.parent.parent 来修改最顶级页面的 src，以此来实现双向通�
 （8）使用服务器来代理跨域的访问请求，就是有跨域的请求操作时发送请求给后端，让后端代为请求，然后最后将获取的结果发返回。
 ```
 
-```
 （1）在CORS和postMessage以前，我们一直都是通过JSONP来做跨域通信的。
+```
 JSONP的原理：通过<script>标签的异步加载来实现的。比如说，实际开发中，我们发现，
 head标签里，可以通过<script>标签的src，里面放url，加载很多在线的插件。这就是用到了JSONP。
+JSONP 使用简单且兼容性不错，但是只限于 get 请求。
+在开发中可能会遇到多个 JSONP 请求的回调函数名是相同的，这时候就需要自己封装一个 JSONP
+
 JSONP的实现：
 比如说，客户端这样写：
     <script src="http://www.smyhvae.com/?data=name&callback=myjsonp"></script>
@@ -691,8 +694,10 @@ JSONP的实现：
         document.getElementsByTagName('head')[0].appendChild(script); //往html中增加这个标签，目的是把请求发送出去
     };
 </script>
+```
 
 （5）H5中新增的postMessage()方法，可以用来做跨域通信。
+```
 场景：窗口 A (http:A.com)向跨域的窗口 B (http:B.com)发送信息。步骤如下
 在A窗口中操作如下：向B窗口发送数据：
 	// 窗口A(http:A.com)向跨域的窗口B(http:B.com)发送信息
@@ -704,12 +709,59 @@ JSONP的实现：
         console.log(event.source);  //获取：A window对象
         console.log(event.data);    //获取传过来的数据
     }, false);
+```
+
 （6）CORS
+```
 CORS：不受同源策略的限制，支持跨域。一种新的通信协议标准。可以理解成是：同时支持同源和跨域的Ajax。
 CORS为什么支持跨域的通信？
 跨域时，浏览器会拦截Ajax请求，并在http头中加Origin。
 
+浏览器会自动进行 CORS 通信，实现 CORS 通信的关键是后端。只要后端实现了 CORS，就实现了跨域。
+服务端设置 Access-Control-Allow-Origin 就可以开启 CORS。 该属性表示哪些域名可以访问资源，
+如果设置通配符则表示所有网站都可以访问资源。 虽然设置 CORS和前端没什么关系，但是通过
+这种方式解决跨域问题的话，会在发送请求时出现两种情况，分别为简单请求和复杂请求。
+
+简单请求：
+以 Ajax 为例，当满足以下条件时，会触发简单请求
+1.使用下列方法之一：GET、HEAD、POST
+2.Content-Type 的值仅限于下列三者之一：text/plain、multipart/form-data、application/x-www-form-urlencoded
+请求中的任意 XMLHttpRequestUpload 对象均没有注册任何事件监听器； 
+XMLHttpRequestUpload 对象可以使用XMLHttpRequest.upload 属性访问
+
+复杂请求：
+对于复杂请求来说，首先会发起一个预检请求，该请求是 option 方法的，通过该请求来知道服务端是否允许跨域请求。
+对于预检请求来说，如果你使用过 Node 来设置 CORS 的话，可能会遇到过这么一个坑。
+
+以下以 express框架举例
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials'
+  )
+  next()
+})
+该请求会验证你的 Authorization 字段，没有的话就会报错。
+当前端发起了复杂请求后，你会发现就算你代码是正确的，返回结果也永远是报错的。因为预检请求也会
+进入回调中，也会触发 next 方法，因为预检请求并不包含 Authorization 字段，所以服务端会报错。
+想解决这个问题很简单，只需要在回调中过滤 option 方法即可
+
+res.statusCode = 204
+res.setHeader('Content-Length', '0')
+res.end()
+
+  if (req.method == "OPTIONS") {
+    res.send(200);
+  }
+  else {
+    next();
+  }
+```
+
 （9）WebSocket
+```
 WebSocket不受同源策略的限制，支持跨域
 用法如下：
     var ws = new WebSocket('wss://echo.websocket.org'); //创建WebSocket的对象。参数可以是 ws 或 wss，后者表示加密。
