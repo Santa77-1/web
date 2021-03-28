@@ -299,7 +299,7 @@ localStorage（本地存储）
 
 ### cookies、sessionStorage、localStorage的区别
 
-    ```
+```
     浏览器端常用的存储技术是 cookie 、localStorage 和 sessionStorage。
 
     cookie 其实最开始是服务器端用于记录用户状态的一种方式，由服务器设置，在客户端存储，
@@ -316,14 +316,13 @@ localStorage（本地存储）
     上面几种方式都是存储少量数据的时候的存储方式，当我们需要在本地存储大量数据的时候，
     我们可以使用浏览器的 indexDB 这是浏览器提供的一种本地的数据库存储机制。
     它不是关系型数据库，它内部采用对象仓库的形式存储数据，它更接近 NoSQL 数据库。
-   ```
+```
 
-   ```
+```
     SessionStorage， LocalStorage， Cookie 这三者都可以被用来在浏览器端存储数据，而且都是字符串类型
     的键值对。区别在于前两者属于 HTML5 WebStorage，创建它们的目的便于客户端存储数据。而 cookie 是
     网站为了标示用户身份而储存在用户本地终端上的数据（通常经过加密）。cookie 数据始终在同源
     （协议、主机、端口相同）的 http 请求中携带（即使不需要），会在浏览器和服务器间来回传递。
-    
     
     存储大小：
       	cookie 数据大小不能超过4 k 。
@@ -344,7 +343,7 @@ localStorage（本地存储）
     操作：
         localStroage：localStroage.setItem('a' , '111')
         sessionStroage：sessionStroage.setItem('a' , '111')
-   ```
+```
 
 Cookie的弊端
 ```
