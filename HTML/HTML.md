@@ -5,10 +5,12 @@
 ### 目录
 
 - [html5新特性、移除了哪些元素？](#html5新特性-移除了哪些元素)
+  - [html5新增的表单元素](#html5新增的表单元素)
+  - [如何处理html5新标签的浏览器兼容问题](#如何处理html5新标签的浏览器兼容问题)
 - [html5元素分类](#html5元素分类)
-- [行内元素、块级元素、空元素](#行内元素-块级元素-空元素)
+  - [行内元素、块级元素、空元素](#行内元素-块级元素-空元素)
 - [HTML全局属性(global attribute)有哪些](#HTML全局属性global-attribute有哪些)
-- [常用的meta标签](#常用的meta标签)
+
 - [语义化](#语义化)
 - [优化](#优化)
   - [前端需要注意哪些SEO](#前端需要注意哪些SEO)
@@ -17,11 +19,14 @@
   - [渲染优化](#渲染优化)
   - [关键渲染路径优化（浏览器渲染过程）](#关键渲染路径优化浏览器渲染过程)
   - [大量图片加载慢如何优化](#大量图片加载慢如何优化)
-- [cookies、sessionStorage、localStorage的区别](#cookiessessionStoragelocalStorage的区别)
-  - [常见的浏览器端的存储技术](#常见的浏览器端的存储技术)
+ 
+- [常见的浏览器端的存储技术](#常见的浏览器端的存储技术)
+  - [cookies、sessionStorage、localStorage的区别](#cookiessessionStoragelocalStorage的区别)
+  
 - [重绘和回流（浏览器绘制过程）](#重绘和回流浏览器绘制过程)
   - [如何减少回流（浏览器绘制过程）](#如何减少回流浏览器绘制过程)
-- [http的几种请求方法用途](#http的几种请求方法用途)
+
+
 - [从浏览器地址栏输入url到显示页面的步骤](#从浏览器地址栏输入url到显示页面的步骤)
 - [浏览器](#浏览器)
   - [对浏览器的理解](#对浏览器的理解)
@@ -29,8 +34,10 @@
   - [常见的浏览器内核比较](#常见的浏览器内核比较)
   - [常见浏览器所用内核](#常见浏览器所用内核)
   - [浏览器的渲染原理](#浏览器的渲染原理)
+
 - [网页验证码是干嘛的，是为了解决什么安全问题](#网页验证码是干嘛的是为了解决什么安全问题)
 - [扫描二维码登录网页是什么原理，前后两个事件是如何联系的](#扫描二维码登录网页是什么原理前后两个事件是如何联系的)
+
 - [页面导入样式时，使用 link 和 @import 有什么区别](#页面导入样式时使用-link-和-import-有什么区别)
   - [link标签定义](#link标签定义)
 - [SGML、HTML、XML 和 XHTML 的区别](#SGMLHTMLXML-和-XHTML-的区别)
@@ -40,8 +47,12 @@
   - [标准模式与兼容模式各有什么区别](#标准模式与兼容模式各有什么区别)
   - [DTD](#DTD)
   - [HTML5 为什么只需要写 &lt;!DOCTYPE HTML&gt;，而不需要引入 DTD](#html5-为什么只需要写-doctype-html而不需要引入-dtd)
+
+- [常用的meta标签](#常用的meta标签)
 - [src与href的区别](#src与href的区别)
 
+- [http](#http)
+  - [http的几种请求方法用途](#http的几种请求方法用途)
 
 
 
@@ -49,7 +60,7 @@
 
 
 
-#### html5新特性 移除了哪些元素
+### html5新特性 移除了哪些元素
 
    ```
     HTML5 现在已经不是 SGML 的子集，主要是关于图像，位置，存储，多任务等功能的增加。
@@ -79,7 +90,27 @@
     对可用性产生负面影响的元素：frame，frameset，noframes；
    ```
 
-#### html5元素分类
+#### html5新增的表单元素
+   ```
+    datalist 规定输入域的选项列表，通过 option 创建！ 
+    keygen 提供一种验证用户的可靠方法，密钥对生成器，私钥存于客户端，公钥发到服务器，用于之后验证客户端证书！
+    output 元素用于不同类型的输出！
+   ```
+
+#### 如何处理html5新标签的浏览器兼容问题
+   ```
+    （1） IE8/IE7/IE6 支持通过 document.createElement 方法产生的标签，可以利用这一特性让这些浏览器
+        支持 HTML5 新标签，浏览器支持新标签后，还需要添加标签默认的样式。
+
+    （2） 当然也可以直接使用成熟的框架，比如 html5shiv ;
+         `<!--[if lt IE 9]>
+         <script> src="https://cdn.jsdelivr.net/npm/html5shiv/dist/html5shiv.min.js"</script>
+         <![endif]-->`
+
+         [if lte IE 9]……[endif] 判断 IE 的版本，限定只有 IE9 以下浏览器版本需要执行的语句。
+   ```
+
+### html5元素分类
 
    ```
    HTML4中，元素被分成两大类: inline（内联元素）与 block（块级元素）。但在实际的开发过程中，因为页面表现的需要，
@@ -121,69 +152,7 @@ style: 行内css样式
 title: 元素相关的建议信息
 ```
 
-#### 常用的meta标签
-   ```
-    <meta> 元素可提供有关页面的元信息（meta-information），比如针对搜索引擎和更新频度的描述和关键词。
-    <meta> 标签位于文档的头部，不包含任何内容。<meta> 标签的属性定义了与文档相关联的名称/值对。
-
-    <!DOCTYPE html>  H5标准声明，使用 HTML5 doctype，不区分大小写
-    <head lang=”en”> 标准的 lang 属性写法
-    <meta charset=’utf-8′>    声明文档使用的字符编码
-    <meta http-equiv=”X-UA-Compatible” content=”IE=edge,chrome=1″/>   优先使用 IE 最新版本和 Chrome
-    <meta name=”description” content=”不超过150个字符”/>       页面描述
-    <meta name=”keywords” content=””/>      页面关键词者
-    <meta name=”author” content=”name, email@gmail.com”/>    网页作者
-    <meta name=”robots” content=”index,follow”/>      搜索引擎抓取
-    <meta name=”viewport” content=”initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no”> 为移动设备添加 viewport
-    <meta name=”apple-mobile-web-app-title” content=”标题”> iOS 设备 begin
-    <meta name=”apple-mobile-web-app-capable” content=”yes”/>  添加到主屏后的标题（iOS 6 新增）
-    是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏
-    <meta name=”apple-itunes-app” content=”app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL”>
-    添加智能 App 广告条 Smart App Banner（iOS 6+ Safari）
-    <meta name=”apple-mobile-web-app-status-bar-style” content=”black”/>
-    <meta name=”format-detection” content=”telphone=no, email=no”/>  设置苹果工具栏颜色
-    <meta name=”renderer” content=”webkit”>  启用360浏览器的极速模式(webkit)
-    <meta http-equiv=”X-UA-Compatible” content=”IE=edge”>     避免IE使用兼容模式
-    <meta http-equiv=”Cache-Control” content=”no-siteapp” />    不让百度转码
-    <meta name=”HandheldFriendly” content=”true”>     针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓
-    <meta name=”MobileOptimized” content=”320″>   微软的老式浏览器
-    <meta name=”screen-orientation” content=”portrait”>   uc强制竖屏
-    <meta name=”x5-orientation” content=”portrait”>    QQ强制竖屏
-    <meta name=”full-screen” content=”yes”>              UC强制全屏
-    <meta name=”x5-fullscreen” content=”true”>       QQ强制全屏
-    <meta name=”browsermode” content=”application”>   UC应用模式
-    <meta name=”x5-page-mode” content=”app”>    QQ应用模式
-    <meta name=”msapplication-tap-highlight” content=”no”>    windows phone 点击无高光
-    设置页面不缓存
-    <meta http-equiv=”pragma” content=”no-cache”>
-    <meta http-equiv=”cache-control” content=”no-cache”>
-    <meta http-equiv=”expires” content=”0″>
-   ```
-
-viewport
-```
- <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    // width    设置viewport宽度，为一个正整数，或字符串‘device-width’
-    // device-width  设备宽度
-    // height   设置viewport高度，一般设置了宽度，会自动解析出高度，可以不用设置
-    // initial-scale    默认缩放比例（初始缩放比例），为一个数字，可以带小数
-    // minimum-scale    允许用户最小缩放比例，为一个数字，可以带小数
-    // maximum-scale    允许用户最大缩放比例，为一个数字，可以带小数
-    // user-scalable    是否允许手动缩放
-```
-
-延伸提问：怎样处理 移动端 1px 被渲染成 2px问题
-```
-局部处理：
-meta标签中的 viewport属性 ，initial-scale 设置为 1
-rem按照设计稿标准走，外加利用transfrome 的scale(0.5) 缩小一倍即可；
-
-全局处理：
-mate标签中的 viewport属性 ，initial-scale 设置为 0.5
-rem 按照设计稿标准走即可
-```
-
-#### 语义化
+### 语义化
 
    ```
     （1） 用正确的标签做正确的事情。
@@ -402,7 +371,16 @@ localStorage（本地存储）
 (5)如果图片展示区域小于图片的真实大小，则因在服务器端根据业务需要先行进行图片压缩，图片压缩后大小与展示一致。
 ```
 
-### cookies、sessionStorage、localStorage的区别
+### 常见的浏览器端的存储技术
+   ```
+    浏览器常见的存储技术有 cookie、localStorage 和 sessionStorage。
+
+    还有两种存储技术用于大规模数据存储，webSQL（已被废除）和 indexDB。
+
+    IE 支持 userData 存储数据，但是基本很少使用到，除非有很强的浏览器兼容需求。
+   ```
+
+#### cookies、sessionStorage、localStorage的区别
 
 ```
     浏览器端常用的存储技术是 cookie 、localStorage 和 sessionStorage。
@@ -464,14 +442,6 @@ cookie 的最大大约为 4096 字节，为了兼容性，一般设置不超过 
 如果 cookie 被人拦截了，就可以取得所有的 session 信息
 ```
 
-#### 常见的浏览器端的存储技术
-   ```
-    浏览器常见的存储技术有 cookie、localStorage 和 sessionStorage。
-
-    还有两种存储技术用于大规模数据存储，webSQL（已被废除）和 indexDB。
-
-    IE 支持 userData 存储数据，但是基本很少使用到，除非有很强的浏览器兼容需求。
-   ```
 
 ### 重绘和回流（浏览器绘制过程）
   
@@ -872,6 +842,70 @@ XHTML 元素必须被正确地嵌套，闭合，区分大小写，文档必须�
    
    而 HTML4.01 基于 SGML ，所以需要对 DTD 进行引用，才能告知浏览器文档所使用的文档类型。
    ```
+
+
+#### 常用的meta标签
+   ```
+    <meta> 元素可提供有关页面的元信息（meta-information），比如针对搜索引擎和更新频度的描述和关键词。
+    <meta> 标签位于文档的头部，不包含任何内容。<meta> 标签的属性定义了与文档相关联的名称/值对。
+
+    <!DOCTYPE html>  H5标准声明，使用 HTML5 doctype，不区分大小写
+    <head lang=”en”> 标准的 lang 属性写法
+    <meta charset=’utf-8′>    声明文档使用的字符编码
+    <meta http-equiv=”X-UA-Compatible” content=”IE=edge,chrome=1″/>   优先使用 IE 最新版本和 Chrome
+    <meta name=”description” content=”不超过150个字符”/>       页面描述
+    <meta name=”keywords” content=””/>      页面关键词者
+    <meta name=”author” content=”name, email@gmail.com”/>    网页作者
+    <meta name=”robots” content=”index,follow”/>      搜索引擎抓取
+    <meta name=”viewport” content=”initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no”> 为移动设备添加 viewport
+    <meta name=”apple-mobile-web-app-title” content=”标题”> iOS 设备 begin
+    <meta name=”apple-mobile-web-app-capable” content=”yes”/>  添加到主屏后的标题（iOS 6 新增）
+    是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏
+    <meta name=”apple-itunes-app” content=”app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL”>
+    添加智能 App 广告条 Smart App Banner（iOS 6+ Safari）
+    <meta name=”apple-mobile-web-app-status-bar-style” content=”black”/>
+    <meta name=”format-detection” content=”telphone=no, email=no”/>  设置苹果工具栏颜色
+    <meta name=”renderer” content=”webkit”>  启用360浏览器的极速模式(webkit)
+    <meta http-equiv=”X-UA-Compatible” content=”IE=edge”>     避免IE使用兼容模式
+    <meta http-equiv=”Cache-Control” content=”no-siteapp” />    不让百度转码
+    <meta name=”HandheldFriendly” content=”true”>     针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓
+    <meta name=”MobileOptimized” content=”320″>   微软的老式浏览器
+    <meta name=”screen-orientation” content=”portrait”>   uc强制竖屏
+    <meta name=”x5-orientation” content=”portrait”>    QQ强制竖屏
+    <meta name=”full-screen” content=”yes”>              UC强制全屏
+    <meta name=”x5-fullscreen” content=”true”>       QQ强制全屏
+    <meta name=”browsermode” content=”application”>   UC应用模式
+    <meta name=”x5-page-mode” content=”app”>    QQ应用模式
+    <meta name=”msapplication-tap-highlight” content=”no”>    windows phone 点击无高光
+    设置页面不缓存
+    <meta http-equiv=”pragma” content=”no-cache”>
+    <meta http-equiv=”cache-control” content=”no-cache”>
+    <meta http-equiv=”expires” content=”0″>
+   ```
+
+viewport
+```
+ <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    // width    设置viewport宽度，为一个正整数，或字符串‘device-width’
+    // device-width  设备宽度
+    // height   设置viewport高度，一般设置了宽度，会自动解析出高度，可以不用设置
+    // initial-scale    默认缩放比例（初始缩放比例），为一个数字，可以带小数
+    // minimum-scale    允许用户最小缩放比例，为一个数字，可以带小数
+    // maximum-scale    允许用户最大缩放比例，为一个数字，可以带小数
+    // user-scalable    是否允许手动缩放
+```
+
+延伸提问：怎样处理 移动端 1px 被渲染成 2px问题
+```
+局部处理：
+meta标签中的 viewport属性 ，initial-scale 设置为 1
+rem按照设计稿标准走，外加利用transfrome 的scale(0.5) 缩小一倍即可；
+
+全局处理：
+mate标签中的 viewport属性 ，initial-scale 设置为 0.5
+rem 按照设计稿标准走即可
+```
+
 
 ### src与href的区别
 
