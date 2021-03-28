@@ -28,7 +28,7 @@
 - [DOCTYPE、标准模式与兼容模式、DTD](#DOCTYPE标准模式与兼容模式DTD)
   - [DOCTYPE 的作用是什么](#DOCTYPE-的作用是什么)
   - [标准模式与兼容模式各有什么区别](#标准模式与兼容模式各有什么区别)
-  - [HTML5 为什么只需要写 `<!DOCTYPE HTML>`，而不需要引入 DTD](#HTML5-为什么只需要写DOCTYPE-HTML-而不需要引入-DTD)
+  - [HTML5 为什么只需要写 `<!DOCTYPE HTML>`，而不需要引入 DTD](#HTML5-为什么只需要写DOCTYPE-HTML)
 
 
 
