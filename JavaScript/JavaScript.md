@@ -37,6 +37,7 @@
 - [优化](#优化)
   - [项目做过哪些性能优化](#项目做过哪些性能优化)
   - [懒加载 预加载 懒执行](#懒加载-预加载-懒执行)
+  
 
 
 #### js数据类型
@@ -1134,7 +1135,6 @@ window.addEventListener('scroll', imageLazyLoad)
 // or
 window.addEventListener('scroll', throttle(imageLazyLoad, 1000))
 ```
-
 
 
 
