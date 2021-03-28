@@ -34,8 +34,9 @@
     - [session-cookie](#session-cookie)
     - [token验证](#token验证)
     - [OAuth](#OAuth)
-- [懒加载 预加载 懒执行](#懒加载-预加载-懒执行)
-
+- [优化](#优化)
+  - [项目做过哪些性能优化](#项目做过哪些性能优化)
+  - [懒加载 预加载 懒执行](#懒加载-预加载-懒执行)
 
 
 #### js数据类型
@@ -1046,7 +1047,29 @@ OAuth认证和授权过程：
 3.用授权的RequestToken换取AccessToken
 ```
 
-### 懒加载 预加载 懒执行
+#### 项目做过哪些性能优化
+
+```
+减少 HTTP 请求数
+减少 DNS 查询
+使用 CDN
+避免重定向
+图片懒加载
+减少 DOM 元素数量
+减少DOM 操作
+使用外部 JavaScript 和 CSS
+压缩 JavaScript 、 CSS 、字体、图片等
+优化 CSS Sprite
+使用 iconfont
+字体裁剪
+多域名分发划分内容到不同域名
+尽量减少 iframe 使用
+避免图片 src 为空
+把样式表放在link 中
+把JavaScript放在页面底部
+```
+
+#### 懒加载 预加载 懒执行
 
 ```
 懒加载也叫延迟加载，指的是在长网页中延迟加载图片的时机，当用户需要访问时，再去加载，
@@ -1109,10 +1132,6 @@ window.addEventListener('scroll', imageLazyLoad)
 // or
 window.addEventListener('scroll', throttle(imageLazyLoad, 1000))
 ```
-
-
-
-
 
 
 
