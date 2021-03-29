@@ -88,6 +88,7 @@
   - [HTTP response报文结构是怎样的](#HTTP-response报文结构是怎样的)
 
 - [对web标准、可用性、可访问性的理解](#对web标准可用性可访问性的理解)
+- [WEB标准以及W3C标准是什么](#WEB标准以及W3C标准是什么)
 - [web开发中会话跟踪的方法有哪些](#web开发中会话跟踪的方法有哪些)
 - [IE各版本和Chrome可以并行下载多少个资源](#ie各版本和chrome可以并行下载多少个资源)
 - [Chrome中的Waterfall](#chrome中的waterfall)
@@ -102,9 +103,9 @@
 - [主流浏览器内核私有属性css前缀](#主流浏览器内核私有属性css前缀)
 - [简述一下src与href的区别](#简述一下src与href的区别)
 - [知道的网页制作会用到的图片格式有哪些](#知道的网页制作会用到的图片格式有哪些)
-- [文档的不同注释方式？](#文档的不同注释方式)
+- [文档的不同注释方式](#文档的不同注释方式)
 
-- [实现不使用border画出1px高的线，在不同浏览器的标准模式与怪异模式下都能保持一致的效果。](#实现不使用border画出1px高的线在不同浏览器的标准模式与怪异模式下都能保持一致的效果)
+- [实现不使用border画出1px高的线，在不同浏览器的标准模式与怪异模式下都能保持一致的效果](#实现不使用border画出1px高的线在不同浏览器的标准模式与怪异模式下都能保持一致的效果)
 - [如何在页面上实现一个圆形的可点击区域](#如何在页面上实现一个圆形的可点击区域)
 
 - [常见排序算法的时间复杂度,空间复杂度](#常见排序算法的时间复杂度空间复杂度)
@@ -1169,16 +1170,88 @@ rem 按照设计稿标准走即可
     iframe 元素会创建包含另外一个文档的内联框架（即行内框架）。
 
     主要缺点有：
-    （1） iframe 会阻塞主页面的 onload 事件。window 的 onload 事件需要在所有 iframe 加载完毕后（包含里面的元素）才
-         会触发。在 Safari 和 Chrome 里，通过 JavaScript 动态设置 iframe 的 src 可以避免这种阻塞情况。
+    （1）iframe 会阻塞主页面的 onload 事件。window 的 onload 事件需要
+        在所有 iframe 加载完毕后（包含里面的元素）才会触发。在 Safari 和 Chrome 里，
+        通过 JavaScript 动态设置 iframe 的 src 可以避免这种阻塞情况。
     （2） 搜索引擎的检索程序无法解读这种页面，不利于网页的 SEO 。
     （3） iframe 和主页面共享连接池，而浏览器对相同域的连接有限制，所以会影响页面的并行加载。
     （4） 浏览器的后退按钮失效。
     （5） 小型的移动设备无法完全显示框架。
    ```
 
+### label的作用是什么？是怎么用的
+   ```
+    label 标签来定义表单控制间的关系，当用户选择该标签时，浏览器会自动将焦点转到和标签相关的表单控件上。
 
+    <label for="Name">Number:</label>
+    <input type=“text“ name="Name" id="Name"/>
+   ```
 
+### html5的form的自动完成功能是什么
+   ```
+    autocomplete 属性规定输入字段是否应该启用自动完成功能。
+    默认为启用，设置为 autocomplete=off 可以关闭该功能。
+
+    自动完成允许浏览器预测对字段的输入。当用户在字段开始键入时，
+    浏览器基于之前键入过的值，应该显示出在字段中填写的选项。
+
+    autocomplete 属性适用于 <form>，以及下面的 <input> 类型：text, search, 
+    url, telephone, email, password, datepickers, range 以及 color。
+   ```
+
+### title与h1的区别
+   ```
+    title 属性没有明确意义只表示是个标题，
+    h1 则表示层次明确的标题，对页面信息的抓取也有很大的影响。
+   ```
+
+### b与strong的区别和i与em的区别
+   ```
+    从页面显示效果来看，被 <b> 和 <strong> 包围的文字将会被加粗，
+    而被 <i> 和 <em> 包围的文字将以斜体的形式呈现。
+
+    但是 <b> <i> 是自然样式标签，分别表示无意义的加粗，无意义的斜体，
+    表现样式为 { font-weight: bolder}，仅仅表示「这里应该用粗体显示」
+    或者「这里应该用斜体显示」，此两个标签在 HTML4.01 中并不被推荐使用。
+
+    而 <em> 和 <strong> 是语义样式标签。 
+    <em> 表示一般的强调文本，而 <strong> 表示比 <em> 语义更强的强调文本。
+    
+    使用阅读设备阅读网页时：<strong> 会重读，而 <b> 是展示强调内容。
+   ``` 
+
+### `<img>`的title和alt有什么区别
+   ```
+    title 通常当鼠标滑动到元素上的时候显示
+
+    alt 是 <img> 的特有属性，是图片内容的等价描述，用于图片无法加载时显示、读屏器阅读图片。
+    可提图片高可访问性，除了纯装饰图片外都必须设置有意义的值，搜索引擎会重点分析。
+   ```
+
+```
+alt(alt text):为不能显示图像、窗体或applets的用户代理（UA），alt属性用来指定替换文字。
+替换文字的语言由lang属性指定。(在IE浏览器下会在没有title时把alt当成 tool tip显示)
+
+title(tool tip):该属性为设置该属性的元素提供建议性的信息
+```
+
+### Canvas和SVG有什么区别
+   ```
+    Canvas 是一种通过 JavaScript 来绘制 2D 图形的方法。Canvas 是逐像素来进行渲染的，
+    因此当我们对 Canvas 进行缩放时，会出现锯齿或者失真的情况。
+    
+    SVG 是一种使用 XML 描述 2D 图形的语言。SVG 基于 XML，这意味着 SVG DOM 中的
+    每个元素都是可用的。我们可以为某个元素附加 JavaScript 事件监听函数。
+    并且 SVG 保存的是图形的绘制方法，因此当 SVG 图形缩放时并不会失真。
+   ```
+
+```
+svg绘制出来的每一个图形的元素都是独立的DOM节点，能够方便的绑定事件或用来修改。
+canvas输出的是一整幅画布
+
+svg输出的图形是矢量图形，后期可以修改参数来自由放大缩小，不会失真和锯齿。
+而canvas输出标量画布，就像一张图片一样，放大会失真或者锯齿
+```
 
 ### src与href的区别
 
@@ -1197,9 +1270,85 @@ href是Hypertext Reference的缩写，指向网络资源所在位置，建立和
 这也是为什么建议使用link方式来加载css，而不是使用@import方式
 ```
 
+### disabled和readonly的区别
+   ```
+    disabled 指当 input 元素加载时禁用此元素。input 内容不会随着表单提交。
+     
+    readonly 规定输入字段为只读。input 内容会随着表单提交。
 
+    无论设置 readonly 还是 disabled，通过 js 脚本都能更改 input 的 value
+   ```  
 
-### http的几种请求方法用途
+### attribute和property的区别是什么
+   ```
+    attribute 是 dom 元素在文档中作为 html 标签拥有的属性；
+    property 就是 dom 元素在 js 中作为对象拥有的属性。
+    对于 html 的标准属性来说，attribute 和 property 是同步的，是会自动更新的，
+    但是对于自定义的属性来说，他们是不同步的。
+   ```
+
+### css reset和normalize.css有什么区别
+
+   ```
+    css reset 是最早的一种解决浏览器间样式不兼容问题的方案，它的基本思想是
+    将浏览器的所有样式都重置掉，从而达到所有浏览器样式保持一致的效果。
+    但是使用这种方法，可能会带来一些性能上的问题，并且对于一些元素的
+    不必要的样式的重置，其实反而会造成画蛇添足的效果。
+
+    后面出现一种更好的解决浏览器间样式不兼容的方法，就是 normalize.css ，
+    它的思想是尽量的保留浏览器自带的样式，通过在原有的样式的基础上进行调整，
+    来保持各个浏览器间的样式表现一致。相对与 css reset，
+    normalize.css 的方法保留了有价值的默认值，并且修复了一些浏览器的 bug，
+    而且使用 normalize.css 不会造成元素复杂的继承链。
+   ```
+   
+   ```
+    为什么会有 CSS Reset 的存在呢？那是因为早期的浏览器支持和理解的 CSS 规范不同，
+    导致渲染页面时效果不一致，会出现很多兼容性问题。
+
+    reset 的目的，是将所有的浏览器的自带样式重置掉，这样更易于保持各浏览器渲染的一致性。
+
+    normalize 的理念则是尽量保留浏览器的默认样式，不进行太多的重置，
+    而尽力让这些样式保持一致并尽可能与现代标准相符合。
+
+    1.Normalize.css 保护了有价值的默认值
+    Reset 通过为几乎所有的元素施加默认样式，强行使得元素有相同的视觉效果。 
+    相比之下，Normalize.css 保持了许多默认的浏览器样式。 这就意味着
+    你不用再为所有公共的排版元素重新设置样式。当一个元素在不同的浏览器中有不同的默认值时，
+    Normalize.css 会力求让这些样式保持一致并尽可能与现代标准相符合。
+
+    2.Normalize.css 修复了浏览器的 bug
+    它修复了常见的桌面端和移动端浏览器的 bug。这往往超出了 Reset 所能做到的范畴。
+    关于这一点，Normalize.css 修复的问题包含了 HTML5 元素的显示设置、预格式化文字的 font-size 问题、
+    在 IE9 中 SVG 的溢出、许多出现在各浏览器和操作系统中的与表单相关的 bug。
+
+    3.Normalize.css 没有复杂的继承链
+    使用 Reset 最让人困扰的地方莫过于在浏览器调试工具中大段大段的继承链。
+    在 Normalize.css 中就不会有这样的问题，因为在我们的准则中对多选择器的使用时非常谨慎的，
+    我们仅会有目的地对目标元素设置样式。
+
+    4.Normalize.css 是模块化的
+    这个项目已经被拆分为多个相关却又独立的部分，这使得你能够很容易也很清楚地知道
+    哪些元素被设置了特定的值。因此这能让你自己选择性地移除掉某些永远不会用到部分（比如表单的一般化）。
+
+    5.Normalize.css 拥有详细的文档
+    Normalize.css 的代码基于详细而全面的跨浏览器研究与测试。这个文件中拥有详细的代码说明
+    并在 Github Wiki 中有进一步的说明。这意味着你可以找到每一行代码具体完成了什么工作、
+    为什么要写这句代码、浏览器之间的差异，并且你可以更容易地进行自己的测试。
+   ```
+
+### div+css的布局较table布局有什么优点
+
+```
+改版的时候更方便，只要改css文件。
+页面加载速度更快、结构化清晰、页面显示简洁。
+表现与结构相分离。
+易于优化（seo）搜索引擎更友好，排名更容易靠前。
+```
+
+### http
+
+#### http的几种请求方法用途
 
 ```
 GET方法：发送一个请求来取得服务器上的某一资源
@@ -1219,6 +1368,184 @@ TRACE方法：TRACE方法被用于激发一个远程的，应用层的请求消�
 CONNECT方法：把请求连接转换到透明的TCP/IP通道
 ```
 
+#### http状态码及其含义
+
+```
+1XX：信息状态码
+  100 Continue 继续，一般在发送post请求时，已发送了http header之后服务端将返回此信息，
+  表示确认，之后发送具体参数信息
+  101	Switching Protocols	切换协议。服务器根据客户端的请求切换协议。
+  只能切换到更高级的协议，例如，切换到HTTP的新版本协议
+  
+2XX：成功状态码
+  200 OK 正常返回信息
+  201 Created 请求成功并且服务器创建了新的资源
+  202 Accepted 服务器已接受请求，但尚未处理
+  203	Non-Authoritative Information	非授权信息。请求成功。
+  但返回的meta信息不在原始的服务器，而是一个副本
+  204	No Content	无内容。服务器成功处理，但未返回内容。
+  在未更新网页的情况下，可确保浏览器继续显示当前文档
+  205	Reset Content	重置内容。服务器处理成功，
+  用户终端（例如：浏览器）应重置文档视图。可通过此返回码清除浏览器的表单域
+  206	Partial Content	部分内容。服务器成功处理了部分GET请求
+
+3XX：重定向
+  300	Multiple Choices	多种选择。请求的资源可包括多个位置，
+  相应可返回一个资源特征与地址的列表用于用户终端（例如：浏览器）选择
+  301 Moved Permanently 请求的网页已永久移动到新位置。
+  302 Found 临时性重定向。
+  303 See Other 临时性重定向，且总是使用 GET 请求新的 URI。
+  304 Not Modified 自从上次请求后，请求的网页未修改过。
+  305	Use Proxy	使用代理。所请求的资源必须通过代理访问
+  306	Unused	已经被废弃的HTTP状态码
+  307	Temporary Redirect	临时重定向。与302类似。使用GET请求重定向
+
+4XX：客户端错误
+  400 Bad Request 服务器无法理解请求的格式，客户端不应当尝试再次使用相同的内容发起请求。
+  401 Unauthorized 请求未授权。
+  402	Payment Required	保留，将来使用
+  403 Forbidden 禁止访问。
+  404 Not Found 找不到如何与 URI 相匹配的资源。
+  405	Method Not Allowed	客户端请求中的方法被禁止
+  406	Not Acceptable	服务器无法根据客户端请求的内容特性完成请求
+  407	Proxy Authentication Required	请求要求代理的身份认证，与401类似
+  408	Request Time-out	服务器等待客户端发送的请求时间过长，超时
+  409	Conflict	服务器完成客户端的PUT请求是可能返回此代码，服务器处理请求时发生了冲突
+  410	Gone	客户端请求的资源已经不存在。410不同于404，如果资源以前有现在被永久删除了
+  可使用410代码，网站设计人员可通过301代码指定资源的新位置
+  411	Length Required	服务器无法处理客户端发送的不带Content-Length的请求信息
+  412	Precondition Failed	客户端请求信息的先决条件错误
+  413	Request Entity Too Large	由于请求的实体过大，服务器无法处理，因此拒绝请求。
+  为防止客户端的连续请求，服务器可能会关闭连接。如果只是服务器暂时无法处理，则会包含一个Retry-After的响应信息
+  414	Request-URI Too Large	请求的URI过长（URI通常为网址），服务器无法处理
+  415	Unsupported Media Type	服务器无法处理请求附带的媒体格式
+  416	Requested range not satisfiable	客户端请求的范围无效
+  417	Expectation Failed	服务器无法满足Expect的请求头信息
+
+5XX: 服务器错误
+  500 Internal Server Error 最常见的服务器端错误。
+  501	Not Implemented	服务器不支持请求的功能，无法完成请求
+  502	Bad Gateway	充当网关或代理的服务器，从远端服务器接收到了一个无效的请求
+  503 Service Unavailable 服务器端暂时无法处理请求（可能是过载或维护）。
+  504	Gateway Time-out	充当网关或代理的服务器，未及时从远端服务器获取请求
+  505	HTTP Version not supported	服务器不支持请求的HTTP协议的版本，无法完成处理
+```
+
+#### html规范中为什么要求引用资源不加协议头http或者https
+
+   ```
+    如果用户当前访问的页面是通过 HTTPS 协议来浏览的，那么网页中的资源也只能
+    通过 HTTPS 协议来引用，否则浏览器会出现警告信息，不同浏览器警告信息展现形式不同。
+
+    为了解决这个问题，我们可以省略 URL 的协议声明，省略后浏览器照样可以正常引用相应的资源，
+    这项解决方案称为protocol-relative URL，暂且可译作协议相对 URL。
+
+    如果使用协议相对 URL，无论是使用 HTTPS，还是 HTTP 访问页面，浏览器都会
+    以相同的协议请求页面中的资源，避免弹出类似的警告信息，同时还可以节省5字节的数据量。
+   ```
+
+#### HTTP request报文结构是怎样的
+
+```
+1.首行是Request-Line包括：请求方法，请求URI，协议版本，CRLF(Carriage-Return Line-Feed的缩写，意思是回车换行)
+2.首行之后是若干行请求头，包括general-header，request-header或者entity-header，每个一行以CRLF结束
+3.请求头和消息实体之间有一个CRLF分隔
+4.根据实际请求需要可能包含一个消息实体 一个请求报文例子如下：
+GET /Protocols/rfc2616/rfc2616-sec5.html HTTP/1.1
+Host: www.w3.org
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36
+Referer: https://www.google.com.hk/
+Accept-Encoding: gzip,deflate,sdch
+Accept-Language: zh-CN,zh;q=0.8,en;q=0.6
+Cookie: authorstyle=yes
+If-None-Match: "2cc8-3e3073913b100"
+If-Modified-Since: Wed, 01 Sep 2004 13:24:52 GMT
+
+name=qiu&age=6
+```
+
+#### HTTP response报文结构是怎样的
+
+```
+1.首行是状态行包括：HTTP版本，状态码，状态描述，后面跟一个CRLF
+2.首行之后是若干行响应头，包括：通用头部，响应头部，实体头部
+3.响应头部和响应实体之间用一个CRLF空行分隔
+4.最后是一个可能的消息实体 响应报文例子如下：
+HTTP/1.1 200 OK
+Date: Tue, 08 Jul 2014 05:28:43 GMT
+Server: Apache/2
+Last-Modified: Wed, 01 Sep 2004 13:24:52 GMT
+ETag: "40d7-3e3073913b100"
+Accept-Ranges: bytes
+Content-Length: 16599
+Cache-Control: max-age=21600
+Expires: Tue, 08 Jul 2014 11:28:43 GMT
+P3P: policyref="http://www.w3.org/2001/05/P3P/p3p.xml"
+Content-Type: text/html; charset=iso-8859-1
+
+{"name": "qiu", "age": 6}
+```
+
+### 对web标准 可用性、可访问性的理解
+
+   ```
+    可用性（Usability）：产品是否容易上手，用户能否完成任务，效率如何，
+    以及这过程中用户的主观感受可好，是从用户的角度来看产品的质量。
+    可用性好意味着产品质量高，是企业的核心竞争力
+
+    可访问性（Accessibility）：Web 内容对于残障用户的可阅读和可理解性
+    
+    可维护性（Maintainability）：一般包含两个层次，
+    一是当系统出现问题时，快速定位并解决问题的成本，成本低则可维护性好。
+    二是代码是否容易被人理解，是否容易修改和增强功能。
+   ```
+
+### WEB标准以及W3C标准是什么
+```
+标签闭合、标签小写、不乱嵌套、使用外链css和js、结构行为表现的分离
+```
+
+### web开发中会话跟踪的方法有哪些
+
+```
+cookie
+session
+url重写
+隐藏input
+ip地址
+```
+
+### IE各版本和Chrome可以并行下载多少个资源
+
+   ```
+    （1）  IE6 2 个并发
+    （2）  iE7 升级之后的 6 个并发，之后版本也是 6 个
+    （3）  Firefox，chrome 也是6个
+   ```
+
+### Chrome中的Waterfall
+
+
+### webSocket如何兼容低版本浏览器
+### Flash、Ajax各自的优缺点，在使用中如何取舍
+### git fetch和git pull的区别
+### 为什么利用多个域名来存储网站资源会更有效
+### 页面可见性（Page Visibility API）可以有哪些用途
+### 从用户刷新网页开始，一次js请求一般情况下有哪些地方会有缓存处理
+### 在html5中，哪个方法用于获得用户的当前位置
+### 渐进增强和优雅降级的定义
+### 主流浏览器内核私有属性css前缀
+### 简述一下src与href的区别
+### 知道的网页制作会用到的图片格式有哪些
+### 文档的不同注释方式
+
+### 实现不使用border画出1px高的线，在不同浏览器的标准模式与怪异模式下都能保持一致的效果
+### 如何在页面上实现一个圆形的可点击区域
+
+### 常见排序算法的时间复杂度,空间复杂度
 
 
 
