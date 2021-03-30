@@ -1279,7 +1279,7 @@ href是Hypertext Reference的缩写，指向网络资源所在位置，建立和
     无论设置 readonly 还是 disabled，通过 js 脚本都能更改 input 的 value
    ```  
 
-### attribute和property的区别是什么
+### attribute和property的区别
    ```
     attribute 是 dom 元素在文档中作为 html 标签拥有的属性；
     property 就是 dom 元素在 js 中作为对象拥有的属性。
