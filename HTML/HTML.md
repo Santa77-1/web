@@ -72,7 +72,7 @@
 
 - [title与h1的区别](#title与h1的区别)
 - [b与strong的区别、i与em的区别](#b与strong的区别i与em的区别)
-- [&lt;img&gt;的title和alt有什么区别](#-img-的title和alt有什么区别)
+- [img的title和alt有什么区别](#img的title和alt有什么区别)
 - [Canvas和SVG有什么区别？](#canvas和svg有什么区别)
 - [src与href的区别](#src与href的区别)
 - [disabled和readonly的区别](#disabled和readonly的区别)
@@ -1205,7 +1205,7 @@ rem 按照设计稿标准走即可
     h1 则表示层次明确的标题，对页面信息的抓取也有很大的影响。
    ```
 
-### b与strong的区别和i与em的区别
+### b与strong的区别、i与em的区别
    ```
     从页面显示效果来看，被 <b> 和 <strong> 包围的文字将会被加粗，
     而被 <i> 和 <em> 包围的文字将以斜体的形式呈现。
@@ -1220,7 +1220,7 @@ rem 按照设计稿标准走即可
     使用阅读设备阅读网页时：<strong> 会重读，而 <b> 是展示强调内容。
    ``` 
 
-### `<img>`的title和alt有什么区别
+### img的title和alt有什么区别
    ```
     title 通常当鼠标滑动到元素上的时候显示
 
