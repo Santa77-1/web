@@ -45,7 +45,6 @@ CSS3 的 Flexbox（弹性盒布局模型）以及适⽤场景](#)
   - [css选择符		 56 CSS选择符有哪些？哪些属性可以继承](#)
   - [css优先级算法． 12 CSS优先级算法如何计算？](#)
   - [23 CSS不同选择器的权重(CSS层叠的规则)](#)
-  - [31 css样式（选择器）的优先级](#)
 
 - [定位](#)
   - [⽔平垂直居中 9.如何居中 div？ 51 两种以上⽅式实现已知或者未知宽度的垂直⽔平居中](#)
@@ -225,195 +224,6 @@ base64的使⽤](#)
   - [43 Sass、LESS是什么？⼤家为什么要使⽤他们？](#)
   - [29 stylus/sass/less区别](#)
   - [30 postcss的作用](#)
-
-
-
-
-#### 水平垂直居中
-
-```
-一般常见的几种居中的方法有：
-
-对于宽高固定的元素
-（1）我们可以利用margin:0 auto来实现元素的水平居中。
-（2）利用绝对定位，设置四个方向的值都为0，并将margin设置为auto，由于宽高固定，因此对应方向实现平分，
-     可以实现水平和垂直方向上的居中。
-（3）利用绝对定位，先将元素的左上角通过top:50%和left:50%定位到页面的中心，
-     然后再通过margin负值来调整元素的中心点到页面的中心。
-（4）利用绝对定位，先将元素的左上角通过top:50%和left:50%定位到页面的中心，
-     然后再通过translate来调整元素的中心点到页面的中心。
-（5）使用flex布局，通过align-items:center和justify-content:center设置容器的垂直和
-     水平方向上为居中对齐，然后它的子元素也可以实现垂直和水平的居中。
-
-对于宽高不定的元素，上面的后面两种方法，可以实现元素的垂直和水平的居中。
-```
-
-水平居中：给 div 设置一个宽度，然后添加 margin:0 auto 属性
-```css
-div {
-  width: 200px;
-  margin: 0 auto;
-}
-```
-水平居中，利用 text-align:center 实现
-```css
-.container {
-  background: rgba(0, 0, 0, 0.5);
-  text-align: center;
-  font-size: 0;
-}
-.box {
-  display: inline-block;
-  width: 500px;
-  height: 400px;
-  background-color: pink;
-}
-```
-让绝对定位的 div 居中
-```css
-div {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  margin: auto;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: pink; /*方便看效果*/
-}
-```
-水平垂直居中一
-```css
-/*确定容器的宽高宽500高300的层设置层的外边距div{*/
-position: absolute;/*绝对定位*/
-width: 500px;
-height: 300px;
-top: 50%;
-left: 50%;
-margin: -150px00-250px;/*外边距为自身宽高的一半*/
-background-color: pink;/*方便看效果*/
-}
-```
-水平垂直居中二
-```css
-/*未知容器的宽高，利用`transform`属性*/
-div {
-  position: absolute; /*相对定位或绝对定位均可*/
-  width: 500px;
-  height: 300px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: pink; /*方便看效果*/
-}
-```
-水平垂直居中三
-```css
-/*利用flex布局实际使用时应考虑兼容性*/
-.container {
-  display: flex;
-  align-items: center; /*垂直居中*/
-  justify-content: center; /*水平居中*/
-}
-.containerdiv {
-  width: 100px;
-  height: 100px;
-  background-color: pink; /*方便看效果*/
-}
-```
-水平垂直居中四
-```css
-/*利用text-align:center和vertical-align:middle属性*/
-.container {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  text-align: center;
-  font-size: 0;
-  white-space: nowrap;
-  overflow: auto;
-}
-.container::after {
-  content: '';
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-}
-.box {
-  display: inline-block;
-  width: 500px;
-  height: 400px;
-  background-color: pink;
-  white-space: normal;
-  vertical-align: middle;
-}
-```
-
-#### css选择符
-
-```
-（1）id选择器（#myid）
-（2）类选择器（.myclassname）
-（3）标签选择器（div,h1,p）
-（4）后代选择器（h1 p）
-（5）相邻后代选择器（子）选择器（ul>li）
-（6）兄弟选择器（li~a）
-（7）相邻兄弟选择器（li+a）
-（8）属性选择器（a[rel="external"]）
-（9）伪类选择器（a:hover,li:nth-child）
-（10）伪元素选择器（::before、::after）
-（11）通配符选择器（*）
-```
-
-#### css优先级算法
-
-```
-判断优先级时，首先我们会判断一条属性声明是否有权重，也就是是否在声明后面加上了!important。一条声明如果加上了权重，
-那么它的优先级就是最高的，前提是它之后不再出现相同权重的声明。如果权重相同，我们则需要去比较匹配规则的特殊性。
-
-一条匹配规则一般由多个选择器组成，一条规则的特殊性由组成它的选择器的特殊性累加而成。选择器的特殊性可以分为四个等级，
-第一个等级是行内样式，为1000，第二个等级是id选择器，为0100，第三个等级是类选择器、伪类选择器和属性选择器，为0010，
-第四个等级是元素选择器和伪元素选择器，为0001。规则中每出现一个选择器，就将它的特殊性进行叠加，这个叠加只限于对应的
-等级的叠加，不会产生进位。选择器特殊性值的比较是从左向右排序的，也就是说以1开头的特殊性值比所有以0开头的特殊性值要大。
-比如说特殊性值为1000的的规则优先级就要比特殊性值为0999的规则高。如果两个规则的特殊性值相等的时候，那么就会根据
-它们引入的顺序，后出现的规则的优先级最高。
-```
-
-```
-CSS的优先级是根据样式声明的特殊性值来判断的。
-
-选择器的特殊性值分为四个等级，如下：
-（1）标签内选择符x,0,0,0
-（2）ID选择符0,x,0,0
-（3）class选择符/属性选择符/伪类选择符	0,0,x,0
-（4）元素和伪元素选择符0,0,0,x
-
-计算方法：
-（1）每个等级的初始值为0
-（2）每个等级的叠加为选择器出现的次数相加
-（3）不可进位，比如0,99,99,99
-（4）依次表示为：0,0,0,0
-（5）每个等级计数之间没关联
-（6）等级判断从左向右，如果某一位数值相同，则判断下一位数值
-（7）如果两个优先级相同，则最后出现的优先级高，!important也适用
-（8）通配符选择器的特殊性值为：0,0,0,0
-（9）继承样式优先级最低，通配符样式优先级高于继承样式
-（10）!important（权重），它没有特殊性值，但它的优先级是最高的，为了方便记忆，可以认为它的特殊性值为1,0,0,0,0。
-
-计算实例：
-（1）#demo a{color: orange;}/*特殊性值：0,1,0,1*/
-（2）div#demo a{color: red;}/*特殊性值：0,1,0,2*/
-
-注意：
-（1）样式应用时，css会先查看规则的权重（!important），加了权重的优先级最高，当权重相同的时候，会比较规则的特殊性。
-（2）特殊性值越大的声明优先级越高。
-（3）相同特殊性值的声明，根据样式引入的顺序，后声明的规则优先级高（距离元素出现最近的）
- (4) 部分浏览器由于字节溢出问题出现的进位表现不做考虑
-```
 
 
 
@@ -1224,7 +1034,8 @@ element.currentStyle.width/height;
 
 （4）方式四
 element.getBoundingClientRect().width/height;
-此 api 的作用是：获取一个元素的绝对位置。绝对位置是视窗 viewport 左上角的绝对位置。此 api 可以拿到四个属性：left、top、width、height。
+此 api 的作用是：获取一个元素的绝对位置。绝对位置是视窗 viewport 左上角的绝对位置。
+此 api 可以拿到四个属性：left、top、width、height。
 ```
 
   ### 内联盒模型基本概念
@@ -1246,29 +1057,319 @@ element.getBoundingClientRect().width/height;
 
 ## 选择符
 
-  - [css选择符		 56 CSS选择符有哪些？哪些属性可以继承](#)
-  ### 
-  
-  
-  - [css优先级算法． 12 CSS优先级算法如何计算？](#)
-  - [23 CSS不同选择器的权重(CSS层叠的规则)](#)
-  - [31 css样式（选择器）的优先级](#)
+  ### css选择符
+```
+（1）id选择器（#myid）
+（2）类选择器（.myclassname）
+（3）标签选择器（div,h1,p）
+（4）后代选择器（h1 p）
+（5）相邻后代选择器（子）选择器（ul>li）
+（6）兄弟选择器（li~a）
+（7）相邻兄弟选择器（li+a）
+（8）属性选择器（a[rel="external"]）
+（9）伪类选择器（a:hover,li:nth-child）
+（10）伪元素选择器（::before、::after）
+（11）通配符选择器（*）
+```
 
+  ### css优先级算法
+```
+判断优先级时，首先我们会判断一条属性声明是否有权重，也就是是否在声明后面加上了!important。一条声明如果加上了权重，
+那么它的优先级就是最高的，前提是它之后不再出现相同权重的声明。如果权重相同，我们则需要去比较匹配规则的特殊性。
+
+一条匹配规则一般由多个选择器组成，一条规则的特殊性由组成它的选择器的特殊性累加而成。选择器的特殊性可以分为四个等级，
+第一个等级是行内样式，为1000，第二个等级是id选择器，为0100，第三个等级是类选择器、伪类选择器和属性选择器，为0010，
+第四个等级是元素选择器和伪元素选择器，为0001。规则中每出现一个选择器，就将它的特殊性进行叠加，这个叠加只限于对应的
+等级的叠加，不会产生进位。选择器特殊性值的比较是从左向右排序的，也就是说以1开头的特殊性值比所有以0开头的特殊性值要大。
+比如说特殊性值为1000的的规则优先级就要比特殊性值为0999的规则高。如果两个规则的特殊性值相等的时候，那么就会根据
+它们引入的顺序，后出现的规则的优先级最高。
+```
+
+```
+CSS的优先级是根据样式声明的特殊性值来判断的。
+
+选择器的特殊性值分为四个等级，如下：
+（1）标签内选择符x,0,0,0
+（2）ID选择符0,x,0,0
+（3）class选择符/属性选择符/伪类选择符	0,0,x,0
+（4）元素和伪元素选择符0,0,0,x
+
+计算方法：
+（1）每个等级的初始值为0
+（2）每个等级的叠加为选择器出现的次数相加
+（3）不可进位，比如0,99,99,99
+（4）依次表示为：0,0,0,0
+（5）每个等级计数之间没关联
+（6）等级判断从左向右，如果某一位数值相同，则判断下一位数值
+（7）如果两个优先级相同，则最后出现的优先级高，!important也适用
+（8）通配符选择器的特殊性值为：0,0,0,0
+（9）继承样式优先级最低，通配符样式优先级高于继承样式
+（10）!important（权重），它没有特殊性值，但它的优先级是最高的，为了方便记忆，可以认为它的特殊性值为1,0,0,0,0。
+
+计算实例：
+（1）#demo a{color: orange;}/*特殊性值：0,1,0,1*/
+（2）div#demo a{color: red;}/*特殊性值：0,1,0,2*/
+
+注意：
+（1）样式应用时，css会先查看规则的权重（!important），加了权重的优先级最高，当权重相同的时候，会比较规则的特殊性。
+（2）特殊性值越大的声明优先级越高。
+（3）相同特殊性值的声明，根据样式引入的顺序，后声明的规则优先级高（距离元素出现最近的）
+ (4) 部分浏览器由于字节溢出问题出现的进位表现不做考虑
+
+优先级就近原则，同权重情况下样式定义最近者为准
+载入样式以最后载入的定位为准
+优先级为: !important > id > class > tag; !important 比 内联优先级高
+```
+
+  ### CSS不同选择器的权重(CSS层叠的规则)
+```
+！important规则最重要，大于其它规则
+行内样式规则，加1000
+对于选择器中给定的各个ID属性值，加100
+对于选择器中给定的各个类属性、属性选择器或者伪类选择器，加10
+对于选择其中给定的各个元素标签选择器，加1
+如果权值一样，则按照样式规则的先后顺序来应用，顺序靠后的覆盖靠前的规则
+
+以下是权重的规则：标签的权重为1，class的权重为10，id的权重为100，以下例子是演示各种定义的权重值：
+/*权重为1*/
+div{
+}
+/*权重为10*/
+.class1{
+}
+/*权重为100*/
+#id1{
+}
+/*权重为100+1=101*/
+#id1 div{
+}
+/*权重为10+1=11*/
+.class1 div{
+}
+/*权重为10+10+1=21*/
+.class1 .class2 div{
+}
+
+如果权重相同，则最后定义的样式会起作用，但是应该避免这种情况出现
+```
 
 ## 定位
 
-  - [⽔平垂直居中 9.如何居中 div？ 51 两种以上⽅式实现已知或者未知宽度的垂直⽔平居中](#)
-  ### 
+  ### 水平垂直居中
+```
+一般常见的几种居中的方法有：
+
+对于宽高固定的元素
+（1）我们可以利用margin:0 auto来实现元素的水平居中。
+（2）利用绝对定位，设置四个方向的值都为0，并将margin设置为auto，由于宽高固定，因此对应方向实现平分，
+     可以实现水平和垂直方向上的居中。
+（3）利用绝对定位，先将元素的左上角通过top:50%和left:50%定位到页面的中心，
+     然后再通过margin负值来调整元素的中心点到页面的中心。
+（4）利用绝对定位，先将元素的左上角通过top:50%和left:50%定位到页面的中心，
+     然后再通过translate来调整元素的中心点到页面的中心。
+（5）使用flex布局，通过align-items:center和justify-content:center设置容器的垂直和
+     水平方向上为居中对齐，然后它的子元素也可以实现垂直和水平的居中。
+
+对于宽高不定的元素，上面的后面两种方法，可以实现元素的垂直和水平的居中。
+```
+
+水平居中：给 div 设置一个宽度，然后添加 margin:0 auto 属性
+```css
+div {
+  width: 200px;
+  margin: 0 auto;
+}
+```
+水平居中，利用 text-align:center 实现
+```css
+.container {
+  background: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  font-size: 0;
+}
+.box {
+  display: inline-block;
+  width: 500px;
+  height: 400px;
+  background-color: pink;
+}
+```
+让绝对定位的 div 居中
+```css
+div {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: pink; /*方便看效果*/
+}
+```
+水平垂直居中一
+```css
+/*确定容器的宽高宽500高300的层设置层的外边距div{*/
+position: absolute;/*绝对定位*/
+width: 500px;
+height: 300px;
+top: 50%;
+left: 50%;
+margin: -150px00-250px;/*外边距为自身宽高的一半*/
+background-color: pink;/*方便看效果*/
+}
+```
+水平垂直居中二
+```css
+/*未知容器的宽高，利用`transform`属性*/
+div {
+  position: absolute; /*相对定位或绝对定位均可*/
+  width: 500px;
+  height: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: pink; /*方便看效果*/
+}
+```
+水平垂直居中三
+```css
+/*利用flex布局实际使用时应考虑兼容性*/
+.container {
+  display: flex;
+  align-items: center; /*垂直居中*/
+  justify-content: center; /*水平居中*/
+}
+.containerdiv {
+  width: 100px;
+  height: 100px;
+  background-color: pink; /*方便看效果*/
+}
+```
+水平垂直居中四
+```css
+/*利用text-align:center和vertical-align:middle属性*/
+.container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  font-size: 0;
+  white-space: nowrap;
+  overflow: auto;
+}
+.container::after {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.box {
+  display: inline-block;
+  width: 500px;
+  height: 400px;
+  background-color: pink;
+  white-space: normal;
+  vertical-align: middle;
+}
+```
+
+  ### ⽔平居中的⽅法
+```
+元素为行内元素，设置父元素text-align:center
+如果元素宽度固定，可以设置左右margin为auto;
+绝对定位和移动: absolute + transform
+使用flex-box布局，指定justify-content属性为center
+display设置为tabel-ceil
+```
+
+  ### 垂直居中的⽅法
+```
+将显示方式设置为表格，display:table-cell,同时设置vertial-align：middle
+使用flex布局，设置为align-item：center
+绝对定位中设置bottom:0,top:0,并设置margin:auto
+绝对定位中固定高度时设置top:50%，margin-top值为高度一半的负值
+文本垂直居中设置line-height为height值
+
+如果是单行文本, line-height 设置成和 height 值
+.vertical {
+    height: 100px;
+    line-height: 100px;
+  }
   
-  
-  
-  - [45 ⽔平居中的⽅法](#)
-  - [46 垂直居中的⽅法](#)
+已知高度的块级子元素，采用绝对定位和负边距
+.container {
+  position: relative;
+}
+.vertical {
+  height: 300px;  /*子元素高度*/
+  position: absolute;
+  top:50%;  /*父元素高度50%*/
+  margin-top: -150px; /*自身高度一半*/
+}
+
+未知高度的块级父子元素居中，模拟表格布局
+缺点：IE67不兼容，父级 overflow：hidden 失效
+.container {
+    display: table;
+  }
+  .content {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+新增 inline-block 兄弟元素，设置 vertical-align
+	缺点：需要增加额外标签，IE67不兼容
+.container {
+  height: 100%;/*定义父级高度，作为参考*/
+}
+.extra .vertical{
+  display: inline-block;  /*行内块显示*/
+  vertical-align: middle; /*垂直居中*/
+}
+.extra {
+  height: 100%; /*设置新增元素高度为100%*/
+}
+
+绝对定位配合 CSS3 位移
+.vertical {
+  position: absolute;
+  top:50%;  /*父元素高度50%*/
+  transform:translateY(-50%, -50%);
+}
+
+CSS3弹性盒模型
+.container {
+  display:flex;
+  justify-content: center; /*子元素水平居中*/
+  align-items: center; /*子元素垂直居中*/
+}
+```
+
   - [41 如何垂直居中⼀个浮动元素？](#)
+  ### 
+
+
   - [58 如何居中div？如何居中⼀个浮动元素？如何让绝对定位的div居中](#)
+  ### 
+
+
   - [40 css中可以让⽂字在垂直和⽔平⽅向上重叠的两个属性是什么？](#)
+  ### 
+
+
   - [23.绝对定位元素与⾮绝对定位元素的百分⽐计算的区别](#)
+  ### 
+
+
   - [83.⽆依赖绝对定位是什么？](#)
+  ### 
+
+
 	 
 	 
 	 
@@ -1390,7 +1491,7 @@ CSS怎么做？（IOS⼿机浏览器字体⻮轮设置）](#)
   - [95.white-space 与换⾏和空格的控制？](#)
   - [94.word-spacing 与单词间距？](#)
   - [79.什么是基线和 x-height？](#)
-
+css哪些属性可以继承](#)
 
 
 ## 样式
