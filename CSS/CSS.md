@@ -1909,94 +1909,405 @@ pageX、pageY属性，但是没有x、y属性。
 （9）怪异模式问题：漏写DTD声明，Firefox仍然会按照标准模式来解析网页，
 但在IE中会触发怪异模式。为避免怪异模式给我们带来不必要的麻烦，最好养成书写DTD声明的好习惯。
 ```
-  
-  - [53 css hack原理及常⽤hack](#)
 
-  ### 
-  
-  
-  - [67 经常遇到的浏览器的JS兼容性有哪些？解决⽅法是什么](#)
+  ### css hack原理及常⽤hack
+```
+原理：利用不同浏览器对CSS的支持和解析结果不一样编写针对特定浏览器样式。
+常见的hack有：
+	属性hack
+	选择器hack
+	IE条件注释
+```
 
-  ### 
-  
-  
-  - [36.在⽹⻚中应该使⽤奇数还是偶数的字体？为什么呢？ 19 在⽹⻚中的应该使⽤奇数还是偶
-数的字体？为什么呢？ 72 在⽹⻚中的应该使⽤奇数还是偶数的字体](#)
+  ### 经常遇到的浏览器的JS兼容性有哪些？解决⽅法是什么
+```
+当前样式：getComputedStyle(el, null) VS el.currentStyle
+事件对象：e VS window.event
+鼠标坐标：e.pageX, e.pageY VS window.event.x, window.event.y
+按键码：e.which VS event.keyCode
+文本节点：el.textContent VS el.innerText
+```
 
-  ### 
-  
-  
-  - [21.CSS ⾥的 visibility 属性有个 collapse 属性值是⼲嘛⽤的？在不同浏览器下以后什么区别？](#)
+  ### 在网页中应该使用奇数还是偶数的字体？为什么呢？
+```
+（1）偶数字号相对更容易和web设计的其他部分构成比例关系。比如：当我用了14px的正文字号，
+我可能会在一些地方用14×0.5=7px的margin，在另一些地方用14×1.5=21px的标题字号。
+（2）浏览器缘故，低版本的浏览器ie6会把奇数字体强制转化为偶数，即13px渲染为14px。
+（3）系统差别，早期的Windows里，中易宋体点阵只有12和14、15、16px，唯独缺少13px。
+```
 
-  ### 
-  
-  
-  - [47.如何修改 chrome 记住密码后⾃动填充表单的⻩⾊背景？82 如何修改Chrome记住密码后
-⾃动填充表单的⻩⾊背景	](#)
+```
+在网页中的应该使用“偶数”字体：
+使用奇数号字体时文本段落无法对齐
+宋体的中文网页排布中使用最多的就是 12 和 14
+```
 
-  ### 
-  
-  
-  - [48.怎么让 Chrome ⽀持⼩于 12px 的⽂字？](#)
+  ### CSS 里的 visibility 属性有个 collapse 属性值是干嘛用的？在不同浏览器下以后什么区别？
+```
+（1）对于一般的元素，它的表现跟visibility：hidden;是一样的。
+元素是不可见的，但此时仍占用页面空间。
 
-  ### 
-  
-  
-  - [63 iOS safari 如何阻⽌“橡⽪筋效果”](#)
+（2）但例外的是，如果这个元素是table相关的元素，例如table行，
+table group，table列，table column group，
+它的表现却跟display:none一样，也就是说，它们占用的空间也会释放。
 
-  ### 
+在不同浏览器下的区别：
 
+在谷歌浏览器里，使用collapse值和使用hidden值没有什么区别。
 
+在火狐浏览器、Opera和IE11里，使用collapse值的效果就如它的字面意思：
+table的行会消失，它的下面一行会补充它的位置。
+```
+
+  ### 如何修改 chrome 记住密码后自动填充表单的黄色背景
+```
+chrome表单自动填充后，input文本框的背景会变成黄色的，
+通过审查元素可以看到这是由于chrome会默认给自动填充的input表单
+加上input:-webkit-autofill私有属性，然后对其赋予以下样式：
+{
+background-color:rgb(250,255,189)!important;
+background-image:none!important;
+color:rgb(0,0,0)!important;
+}
+
+对chrome默认定义的background-color，background-image，
+color使用important是不能提高其优先级的，但是其他属性可使用。
+
+使用足够大的纯色内阴影来覆盖input输入框的黄色背景，处理如下
+input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill{
+-webkit-box-shadow:000px 1000px white inset;
+border:1px solid #CCC !important;
+}
+```
+
+```
+产生原因：由于Chrome默认会给自动填充的input表单加上 input:-webkit-autofill 私有属性造成的
+解决方案1：在form标签上直接关闭了表单的自动填充：autocomplete="off"
+解决方案2：input:-webkit-autofill { background-color: transparent; }
+```
+
+  ### 怎么让 Chrome ⽀持⼩于 12px 的⽂字
+```
+在谷歌下css设置字体大小为12px及以下时，显示都是一样大小，都是默认12px。
+
+解决办法：
+（1）可以使用Webkit的内核的-webkit-text-size-adjust的私有CSS属性来解决，
+只要加了-webkit-text-size-adjust:none;字体大小就不受限制了。
+但是chrome更新到27版本之后就不可以用了。所以高版本chrome谷歌浏览器
+已经不再支持-webkit-text-size-adjust样式，所以要使用时候慎用。
+
+（2）还可以使用css3的transform缩放属性-webkit-transform:scale(0.5);
+注意-webkit-transform:scale(0.75);收缩的是整个元素的大小，这时候，
+如果是内联元素，必须要将内联元素转换成块元素，可以使用display：block/inline-block/...；
+
+（3）使用图片：如果是内容固定不变情况下，使用将小于12px文字内容切出做图片，
+这样不影响兼容也不影响美观。
+```
+
+  ### iOS safari 如何阻⽌“橡⽪筋效果”
+```
+  $(document).ready(function(){
+      var stopScrolling = function(event) {
+          event.preventDefault();
+      }
+      document.addEventListener('touchstart', stopScrolling, false);
+      document.addEventListener('touchmove', stopScrolling, false);
+  });
+```
 
 ## 标签、属性
+  ### absolute 与 overflow 的关系？
+```
+（1）如果overflow不是定位元素，同时绝对定位元素和overflow容器之间也没有定位元素，
+则overflow无法对absolute元素进行剪裁。
 
-  - [84.absolute 与 overflow 的关系？](#)
+（2）如果overflow的属性值不是hidden而是auto或者scroll，
+即使绝对定位元素高宽比overflow元素高宽还要大，也都不会出现滚动条。
+
+（3）overflow元素自身transform的时候，Chrome和Opera浏览器下的overflow剪裁是无效的。
+```
+
+  ### absolute 的 containingblock（包含块）计算方式跟正常流有什么不同？
+```
+（1）内联元素也可以作为“包含块”所在的元素；
+（2）“包含块”所在的元素不是父块级元素，而是最近的position不为static的祖先元素或根元素；
+（3）边界是padding box而不是content box。
+```
+
+  ### 简单说一下 css3 的 all 属性。
+```
+all属性实际上是所有CSS属性的缩写，表示，所有的CSS属性都怎样怎样，
+但是，不包括unicode-bidi和direction这两个CSS属性。
+支持三个CSS通用属性值，initial,inherit,unset。
+
+initial是初始值的意思，也就是该元素元素都除了unicode-bidi和
+direction以外的CSS属性都使用属性的默认初始值。
+
+inherit是继承的意思，也就是该元素除了unicode-bidi和
+direction以外的CSS属性都继承父元素的属性值。
+
+unset是取消设置的意思，也就是当前元素浏览器或用户设置的CSS忽略，
+然后如果是具有继承特性的CSS，如color，则使用继承值；
+如果是没有继承特性的CSS属性，如background-color，则使用初始值。
+```
+
+  ### border 的特殊性
+```
+（1）border-width却不支持百分比。
+
+（2）border-style的默认值是none，有一部分人可能会误以为是solid。
+这也是单纯设置border-width或border-color没有边框显示的原因。
+
+（3）border-style:double的表现规则：双线宽度永远相等，中间间隔±1。
+
+（4）border-color默认颜色就是color色值。
+
+（5）默认background背景图片是相对于padding box定位的。
+```
+
+  ### clip 裁剪是什么？
+```
+所谓“可访问性隐藏”，指的是虽然内容肉眼看不见，但是其他辅助设备却能够进行识别和访问的隐藏。
+
+clip剪裁被我称为“最佳可访问性隐藏”的另外一个原因就是，
+它具有更强的普遍适应性，任何元素、任何场景都可以无障碍使用。
+```
+
+  ### display 有哪些值？说明他们的作用。
+```
+block	块类型。默认宽度为父元素宽度，可设置宽高，换行显示。
+none	元素不显示，并从文档流中移除。
+inline	行内元素类型。默认宽度为内容宽度，不可设置宽高，同行显示。
+inline-block 默认宽度为内容宽度，可以设置宽高，同行显示。
+list-item	像块类型元素一样显示，并添加样式列表标记。
+table	此元素会作为块级表格来显示。
+inherit	规定应该从父元素继承display属性的值。
+```
+
+  ### display: none;与visibility: hidden;的区别
+```
+联系：它们都能让元素不可见
+
+区别：
+display:none;会让元素完全从渲染树中消失，渲染的时候不占据任何空间；
+visibility: hidden;不会让元素从渲染树消失，渲染师元素继续占据空间，只是内容不可见
+
+display: none;是非继承属性，子孙节点消失由于元素从渲染树消失造成，
+	通过修改子孙节点属性无法显示；
+visibility: hidden;是继承属性，子孙节点消失由于继承了hidden，
+	通过设置visibility: visible;可以让子孙节点显式
+
+修改常规流中元素的display通常会造成文档重排。修改visibility属性只会造成本元素的重绘。
+
+读屏器不会读取display: none;元素内容；会读取visibility: hidden;元素内容
+```
+
+  ### 'display'、'position'和'float'的相互关系？
+```
+（1）首先我们判断display属性是否为none，如果为none，
+则position和float属性的值不影响元素最后的表现。
+
+（2）然后判断position的值是否为absolute或者fixed，如果是，则float属性失效，
+并且display的值应该被设置为table或者block，具体转换需要看初始转换值。
+
+（3）如果position的值不为absolute或者fixed，则判断float属性的值是否为none，
+如果不是，则display的值则按上面的规则转换。注意，如果position的值
+为relative并且float属性的值存在，则relative相对于浮动后的最终位置定位。
+
+（4）如果float的值为none，则判断元素是否为根元素，如果是根元素
+则display属性按照上面的规则转换，如果不是，则保持指定的display属性值不变。
+
+总的来说，可以把它看作是一个类似优先级的机制，"position:absolute"和"position:fixed"
+优先级最高，有它存在的时候，浮动不起作用，'display'的值也需要调整；
+其次，元素的'float'特性的值不是"none"的时候或者它是根元素的时候，
+调整'display'的值；最后，非根元素，并且非浮动元素，
+并且非绝对定位的元素，'display'特性值同设置值。
+```
+
+  ### display:inline-block 什么时候不会显示间隙？(携程)
+```
+移除空格
+使用margin负值
+使用font-size:0
+letter-spacing
+word-spacing
+```
+
+  ### display:inline-block 什么时候会显示间隙
+```
+·相邻的 inline-block 元素之间有换行或空格分隔的情况下会产生间距
+·非 inline-block 水平元素设置为 inline-block 也会有水平间距
+·可以借助 vertical-align:top; 消除垂直间隙
+·可以在父级加 font-size：0; 在子元素里设置需要的字体大小，消除垂直间隙
+·把 li 标签写到同一行可以消除垂直间隙，但代码可读性差
+```
+
+  ### font-weight 的特殊性？
+```
+如果使用数值作为font-weight属性值，必须是100～900的整百数。
+因为这里的数值仅仅是外表长得像数值，实际上是一个具有特定含义的关键字，
+并且这里的数值关键字和字母关键字之间是有对应关系的。
+```
+
+  ### font-style 属性中 italic 和 oblique 的区别？
+```
+italic和oblique这两个关键字都表示“斜体”的意思。
+
+它们的区别在于，italic是使用当前字体的斜体字体，而oblique只是单纯地让文字倾斜。
+如果当前字体没有对应的斜体字体，则退而求其次，解析为oblique，也就是单纯形状倾斜。
+```
+
+  ### font-style 属性 oblique 是什么意思
+```
+font-style: oblique; 使没有 italic 属性的文字实现倾斜
+```
+
+  ### 对于 hasLayout 的理解？
+```
+hasLayout是IE特有的一个属性。很多的IE下的css bug都与其息息相关。
+在IE中，一个元素要么自己对自身的内容进行计算大小和组织，
+要么依赖于父元素来计算尺寸和组织内容。当一个元素的hasLayout属性值为true时，
+它负责对自己和可能的子孙元素进行尺寸计算和定位。虽然这意味着这个元素需要花
+更多的代价来维护自身和里面的内容，而不是依赖于祖先元素来完成这些工作。
+```
+
+  ### 如何让去除 inline-block 元素间间距？
+```
+移除空格、使用margin负值、使用font-size:0、letter-spacing、word-spacing
+```
+
+  ### layout viewport、visual viewport 和 ideal viewport 的区别？
+```
+移动端一共需要理解三个viewport的概念的理解。
+
+第一个视口是布局视口，在移动端显示网页时，由于移动端的屏幕尺寸比较小，
+如果网页使用移动端的屏幕尺寸进行布局的话，那么整个页面的布局都会显示错乱。
+所以移动端浏览器提供了一个layout viewport布局视口的概念，
+使用这个视口来对页面进行布局展示，一般layout viewport的大小为980px，
+因此页面布局不会有太大的变化，我们可以通过拖动和缩放来查看到这个页面。
+
+第二个视口指的是视觉视口，visual viewport指的是移动设备上我们可见的区域的视口大小，
+一般为屏幕的分辨率的大小。visual viewport和layout viewport的关系，
+就像是我们通过窗户看外面的风景，视觉视口就是窗户，而外面的风景就是布局视口的网页内容。
+
+第三个视口是理想视口，由于layout viewport一般比visual viewport要大，
+所以想要看到整个页面必须通过拖动和缩放才能实现。所以又提出了ideal viewport的概念，
+ideal viewport下用户不用缩放和滚动条就能够查看到整个页面，并且页面在不同分辨率下
+显示的内容大小相同。ideal viewport其实就是通过修改layout viewport的大小，
+让它等于设备的宽度，这个宽度可以理解为是设备独立像素，
+因此根据ideal viewport设计的页面，在不同分辨率的屏幕下，显示应该相同。
+```
+
+```
+如果把移动设备上浏览器的可视区域设为viewport的话，某些网站就会因为viewport太窄
+而显示错乱，所以这些浏览器就决定默认情况下把viewport设为一个较宽的值，
+比如980px，这样的话即使是那些为桌面设计的网站也能在移动浏览器上正常显示了。
+ppk把这个浏览器默认的viewport叫做layout viewport。
+
+layout viewport的宽度是大于浏览器可视区域的宽度的，所以我们还需要一个
+viewport来代表浏览器可视区域的大小，ppk把这个viewport叫做visual viewport。
+
+ideal viewport是最适合移动设备的viewport，ideal viewport的宽度等于
+移动设备的屏幕宽度，只要在css中把某一元素的宽度设为ideal viewport
+的宽度（单位用px），那么这个元素的宽度就是设备屏幕的宽度了，
+也就是宽度为100%的效果。ideal viewport的意义在于，无论在何种分辨率的屏幕下，
+那些针对ideal viewport而设计的网站，不需要用户手动缩放，
+也不需要出现横向滚动条，都可以完美的呈现给用户。
+```
+  - [93.letter-spacing 与字符间距？](#)
   ### 
   
   
-  - [41.absolute 的 containingblock（包含块）计算⽅式跟正常流有什么不同](#)
-  - [39.简单说⼀下 css3 的 all 属性](#)
-  - [78.border 的特殊性？](#)
-  - [85.clip 裁剪是什么？](#)
-  - [10.display 有哪些值？说明他们的作⽤。 10 display有哪些值？说明他们的作⽤](#)
-  - [2 display: none;与visibility: hidden;的区别](#)
-  - [25.'display'、'position'和'float'的相互关系？ 6 display、float、position的关系](#)
-  - [16 display:inline-block 什么时候不会显示间隙？(携程)](#)
-  - [89 display:inline-block 什么时候会显示间隙](#)
-  - [91.font-weight 的特殊性？](#)
-  - [50.font-style 属性中 italic 和 oblique 的区别？](#)
-  - [88 font-style 属性 oblique 是什么意思	 ](#)
-  - [42.对于 hasLayout 的理解？](#)
-  - [55.如何让去除 inline-block 元素间间距？](#)
-  - [52.layout viewport、visual viewport 和 ideal viewport 的区别？](#)
-  - [93.letter-spacing 与字符间距？](#)
   - [18·li与 li 之间有看不⻅的空⽩间隔是什么原因引起的？有什么解决办法？ 61 li与li之间有看不
 ⻅的空⽩间隔是什么原因引起的？有什么解决办法](#)
+  ### 
+  
+  
   - [84 你对 line-height 是如何理解的](#)
+  ### 
+  
+  
   - [80.line-height 的特殊性？](#)
+  ### 
+  
+  
   - [85 line-height 三种赋值⽅式有何区别？（带单位、纯数字、百分⽐）](#)
+  ### 
+  
+  
   - [3 link与@import的区别](#)
+  ### 
+  
+  
   - [37.margin 和 padding 分别适合什么场景使⽤？73 margin和padding分别适合什么场景使⽤](#)
+  ### 
+  
+  
   - [76.margin:auto 的填充规则？](#)
+  ### 
+  
+  
   - [77.margin ⽆效的情形](#)
+  ### 
+  
+  
   - [70.min-width/max-width 和 min-height/max-height 属性间的覆盖规则？](#)
+  ### 
+  
+  
   - [82.overflow 的特殊性？](#)
+  ### 
+  
+  
   - [56.overflow:scroll 时不能平滑滚动的问题怎么处理？](#)
+  ### 
+  
+  
   - [11.position 的值 relative 和 absolute 定位原点是？ 15 position的值， relative和absolute定
 位原点是](#)
+  ### 
+  
+  
   - [53.position:fixed;在 android 下⽆效怎么处理？](#)
+  ### 
+  
+  
   - [86.relative 的特殊性？](#)
+  ### 
+  
+  
   - [67.transition 和 animation 的区别](#)
+  ### 
+  
+  
   - [61.style 标签写在 body 后与 body 前有什么区别？](#)
+  ### 
+  
+  
   - [92.text-indent 的特殊性？](#)
+  ### 
+  
+  
   - [81.vertical-align 的特殊性？](#)
+  ### 
+  
+  
   - [22.width:auto 和 width:100\x 的区别](#)
+  ### 
+  
+  
   - [95.white-space 与换⾏和空格的控制？](#)
+  ### 
+  
+  
   - [94.word-spacing 与单词间距？](#)
+  ### 
+  
+  
   - [79.什么是基线和 x-height？](#)
-css哪些属性可以继承](#)
-
-
+  ### 
+  
+  
 ## 样式
 
   - [初始化](#)
