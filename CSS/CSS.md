@@ -289,65 +289,7 @@ margin合并的3种场景：
 
 ### 优化
 
-#### css优化、提高性能的方法
-
-```
-加载性能：
-（1）css压缩：将写好的css进行打包压缩，可以减少很多的体积。
-（2）css单一样式：当需要下边距和左边距的时候，很多时候选择:margin:top 0 bottom 0;
-但margin-bottom:bottom;margin-left:left;执行的效率更高。
-（3）减少使用@import,而建议使用link，因为后者在页面加载时一起加载，前者是等待页面加载完成之后再进行加载。
-
-选择器性能：
-（1）关键选择器（key selector）。选择器的最后面的部分为关键选择器（即用来匹配目标元素的部分）。
-CSS选择符是从右到左进行匹配的。当使用后代选择器的时候，浏览器会遍历所有子元素来确定是否是指定的元素等等；
-（2）如果规则拥有ID选择器作为其关键选择器，则不要为规则增加标签。
-过滤掉无关的规则（这样样式系统就不会浪费时间去匹配它们了）。
-（3）避免使用通配规则，如*{}计算次数惊人！只对需要用到的元素进行选择。
-（4）尽量少的去对标签进行选择，而是用class。
-（5）尽量少的去使用后代选择器，降低选择器的权重值。后代选择器的开销是最高的，
-尽量将选择器的深度降到最低，最高不要超过三层，更多的使用类来关联每一个标签元素。
-（6）了解哪些属性是可以通过继承而来的，然后避免对这些属性重复指定规则。
-
-渲染性能：
-（1）慎重使用高性能属性：浮动、定位。
-（2）尽量减少页面重排、重绘。
-（3）去除空规则：｛｝。空规则的产生原因一般来说是为了预留样式。去除这些空规则无疑能减少css文档体积。
-（4）属性值为0时，不加单位。
-（5）属性值为浮动小数0.**，可以省略小数点之前的0。
-（6）标准化各种浏览器前缀：带浏览器前缀的在前。标准属性在后。
-（7）不使用@import前缀，它会影响css的加载速度。
-（8）选择器优化嵌套，尽量避免层级过深。
-（9）css雪碧图，同一页面相近部分的小图标，方便使用，减少页面的请求次数，
-但是同时图片本身会变大，使用时，优劣考虑清楚，再使用。
-（10）正确使用display的属性，由于display的作用，某些样式组合会无效，徒增样式体积的同时也影响解析性能。
-（11）不滥用web字体。对于中文网站来说WebFonts可能很陌生，国外却很流行。
-web fonts通常体积庞大，而且一些浏览器在下载web fonts时会阻塞页面渲染损伤性能。
-
-可维护性、健壮性：
-（1）将具有相同属性的样式抽离出来，整合并通过class在页面中进行使用，提高css的可维护性。
-（2）样式与内容分离：将css代码定义到外部css中。
-```
-
-CSS在性能优化方面的实践：
-```
-css压缩与合并、Gzip压缩
-css文件放在head里、不要用@import
-尽量用缩写、避免用滤镜、合理使用选择器
-```
-
-```
-多个css合并，尽量减少HTTP请求
-将css文件放在页面最上面
-移除空的css规则
-避免使用CSS表达式
-选择器优化嵌套，尽量避免层级过深
-充分利用css继承属性，减少代码量
-抽象提取公共样式，减少代码量
-属性值为0时，不加单位
-属性值为小于1的小数时，省略小数点前面的0
-css雪碧图
-```
+#### 
 
 
 
@@ -1350,98 +1292,659 @@ CSS3弹性盒模型
 }
 ```
 
-  - [41 如何垂直居中⼀个浮动元素？](#)
-  ### 
+  ### 如何垂直居中⼀个浮动元素
+```
+/**方法一：已知元素的高宽**/
+#div1{
+  background-color:#6699FF;
+  width:200px;
+  height:200px;
+  position: absolute;        //父元素需要相对定位
+  top: 50%;
+  left: 50%;
+  margin-top:-100px ;   //二分之一的height，width
+  margin-left: -100px;
+}
 
+/**方法二:**/
+#div1{
+  width: 200px;
+  height: 200px;
+  background-color: #6699FF;
+  margin:auto;
+  position: absolute;        //父元素需要相对定位
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
 
-  - [58 如何居中div？如何居中⼀个浮动元素？如何让绝对定位的div居中](#)
-  ### 
+如何垂直居中一个<img>?（用更简便的方法。）
+#container     /**<img>的容器设置如下**/
+{
+    display:table-cell;
+    text-align:center;
+    vertical-align:middle;
+}
+```
 
+  ### 如何居中div？如何居中⼀个浮动元素？如何让绝对定位的div居中
+```
+给div设置一个宽度，然后添加margin:0 auto属性
+div{
+  width:200px;
+  margin:0 auto;
+ 
+居中一个浮动元素
+/* 确定容器的宽高 宽500 高 300 的层
+设置层的外边距 */
+.div {
+  width:500px ; height:300px;//高度可以不设
+  margin: -150px 0 0 -250px;
+  position:relative;         //相对定位
+  background-color:pink;     //方便看效果
+  left:50%;
+  top:50%;
+}
 
-  - [40 css中可以让⽂字在垂直和⽔平⽅向上重叠的两个属性是什么？](#)
-  ### 
+让绝对定位的div居中
+position: absolute;
+width: 1200px;
+background: none;
+margin: 0 auto;
+top: 0;
+left: 0;
+bottom: 0;
+right: 0;
+```
 
+  ### css中可以让⽂字在垂直和⽔平⽅向上重叠的两个属性是什么
+```
+垂直方向：line-height
+水平方向：letter-spacing
+```
 
-  - [23.绝对定位元素与⾮绝对定位元素的百分⽐计算的区别](#)
-  ### 
+  ### 绝对定位元素与⾮绝对定位元素的百分⽐计算的区别
+```
+绝对定位元素的宽高百分比是相对于临近的position不为static的祖先元素的padding box来计算的。
 
+非绝对定位元素的宽高百分比则是相对于父元素的content box来计算的。
+```
 
-  - [83.⽆依赖绝对定位是什么？](#)
-  ### 
+  ### ⽆依赖绝对定位是什么
+```
+没有设置left/top/right/bottom属性值的绝对定位称为“无依赖绝对定位”。
 
-
-	 
-	 
+无依赖绝对定位其定位的位置和没有设置position:absolute时候的位置相关。
+```
 	 
 ## 优化
+  ### css优化、提高性能的方法
+```
+加载性能：
+（1）css压缩：将写好的css进行打包压缩，可以减少很多的体积。
+（2）css单一样式：当需要下边距和左边距的时候，很多时候选择:margin:top 0 bottom 0;
+但margin-bottom:bottom;margin-left:left;执行的效率更高。
+（3）减少使用@import,而建议使用link，因为后者在页面加载时一起加载，前者是等待页面加载完成之后再进行加载。
 
-  - [css优化、提⾼性能的⽅法 70 CSS优化、提⾼性能的⽅法有哪些](#)
-  ### 
-  
-  
-  - [25 CSS在性能优化⽅⾯的实践](#)
+选择器性能：
+（1）关键选择器（key selector）。选择器的最后面的部分为关键选择器（即用来匹配目标元素的部分）。
+CSS选择符是从右到左进行匹配的。当使用后代选择器的时候，浏览器会遍历所有子元素来确定是否是指定的元素等等；
+（2）如果规则拥有ID选择器作为其关键选择器，则不要为规则增加标签。
+过滤掉无关的规则（这样样式系统就不会浪费时间去匹配它们了）。
+（3）避免使用通配规则，如*{}计算次数惊人！只对需要用到的元素进行选择。
+（4）尽量少的去对标签进行选择，而是用class。
+（5）尽量少的去使用后代选择器，降低选择器的权重值。后代选择器的开销是最高的，
+尽量将选择器的深度降到最低，最高不要超过三层，更多的使用类来关联每一个标签元素。
+（6）了解哪些属性是可以通过继承而来的，然后避免对这些属性重复指定规则。
 
+渲染性能：
+（1）慎重使用高性能属性：浮动、定位。
+（2）尽量减少页面重排、重绘。
+（3）去除空规则：｛｝。空规则的产生原因一般来说是为了预留样式。去除这些空规则无疑能减少css文档体积。
+（4）属性值为0时，不加单位。
+（5）属性值为浮动小数0.**，可以省略小数点之前的0。
+（6）标准化各种浏览器前缀：带浏览器前缀的在前。标准属性在后。
+（7）不使用@import前缀，它会影响css的加载速度。
+（8）选择器优化嵌套，尽量避免层级过深。
+（9）css雪碧图，同一页面相近部分的小图标，方便使用，减少页面的请求次数，
+但是同时图片本身会变大，使用时，优劣考虑清楚，再使用。
+（10）正确使用display的属性，由于display的作用，某些样式组合会无效，徒增样式体积的同时也影响解析性能。
+（11）不滥用web字体。对于中文网站来说WebFonts可能很陌生，国外却很流行。
+web fonts通常体积庞大，而且一些浏览器在下载web fonts时会阻塞页面渲染损伤性能。
 
+可维护性、健壮性：
+（1）将具有相同属性的样式抽离出来，整合并通过class在页面中进行使用，提高css的可维护性。
+（2）样式与内容分离：将css代码定义到外部css中。
+```
+
+CSS在性能优化方面的实践：
+```
+css压缩与合并、Gzip压缩
+css文件放在head里、不要用@import
+尽量用缩写、避免用滤镜、合理使用选择器
+```
+
+```
+多个css合并，尽量减少HTTP请求
+将css文件放在页面最上面
+移除空的css规则
+避免使用CSS表达式
+选择器优化嵌套，尽量避免层级过深
+充分利用css继承属性，减少代码量
+抽象提取公共样式，减少代码量
+属性值为0时，不加单位
+属性值为小于1的小数时，省略小数点前面的0
+css雪碧图
+```
+
+  ### CSS在性能优化⽅⾯的实践
+```
+css压缩与合并、Gzip压缩
+css文件放在head里、不要用@import
+尽量用缩写、避免用滤镜、合理使用选择器
+```
 
 ## 实现
+  ### 实现⼀个三⻆形
+```css
+/*三角形的实现原理是利用了元素边框连接处的等分原理。*/
+.triangle {
+  width: 0;
+  height: 0;
+  border-width: 100px;
+  border-style: solid;
+  border-color: tomato transparent transparent transparent;
+}
+```
 
-  - [103.实现⼀个三⻆形](#)
-  ### 
-  
-  
-  
-  - [14.⽤纯 CSS 创建⼀个三⻆形的原理是什么？ 59 ⽤纯CSS创建⼀个三⻆形的原理是什么](#)
-  - [102.实现⼀个宽⾼⾃适应的正⽅形](#)
-  - [104.⼀个⾃适应矩形，⽔平垂直居中，且宽⾼⽐为 2:1](#)
-  - [15.⼀个满屏品字布局如何设计?	 60 ⼀个满屏 品 字布局 如何设计?](#)
-  - [66.画⼀条 0.5px 的线](#)
-  - [37 请⽤CSS写⼀个简单的幻灯⽚效果⻚⾯](#)
-  - [49.让⻚⾯⾥的字体变清晰，变细⽤ CSS 怎么做？．		 87 让⻚⾯⾥的字体变清晰，变细⽤
-CSS怎么做？（IOS⼿机浏览器字体⻮轮设置）](#)
-  - [50 左边宽度固定，右边⾃适应](#)
-  - [57.有⼀个⾼度⾃适应的 div，⾥⾯有两个 div，⼀个⾼度 100px，希望另⼀个填满剩下的⾼
-度。90 ⼀个⾼度⾃适应的div，⾥⾯有两个div，⼀个⾼度100px，希望另⼀个填满剩下的⾼度](#)
-  - [54.如果需要⼿动写动画，你认为最⼩时间间隔是多久，为什么？（阿⾥）21 如果需要⼿动写
-动画，你认为最⼩时间间隔是多久，为什么？（阿⾥）](#)
-  - [49 说⼀说css3的animation](#)
-  - [26 CSS3动画（简单动画的实现，如旋转等）](#)
-  - [52 如何实现⼩于12px的字体效果](#)
+  ### ⽤纯CSS创建⼀个三⻆形的原理是什么
+```css
+采用的是相邻边框连接处的均分原理。将元素的宽高设为0，只设置border，
+把任意三条边隐藏掉（颜色设为transparent），剩下的就是一个三角形。
+/* 把上、左、右三条边隐藏掉（颜色设为 transparent） */
+  #demo {
+	  width: 0;
+	  height: 0;
+	  border-width: 20px;
+	  border-style: solid;
+	  border-color: transparent transparent red transparent;
+  }
+```
 
+  ### 实现⼀个宽⾼⾃适应的正⽅形
+```css
+/*1.第一种方式是利用vw来实现*/
+.square {
+  width: 10%;
+  height: 10vw;
+  background: tomato;
+}
 
+/*2.第二种方式是利用元素的margin/padding百分比是相对父元素width的性质来实现*/
+.square {
+  width: 20%;
+  height: 0;
+  padding-top: 20%;
+  background: orange;
+}
 
+/*3.第三种方式是利用子元素的margin-top的值来实现的*/
+.square {
+  width: 30%;
+  overflow: hidden;
+  background: yellow;
+}
+
+.square::after {
+  content: '';
+  display: block;
+  margin-top: 100%;
+}
+```
+
+  ### 一个自适应矩形，水平垂直居中，且宽高比为 2:1
+```css
+/*实现原理参考自适应正方形和水平居中方式*/
+.box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+
+  width: 10%;
+  height: 0;
+  padding-top: 20%;
+  background: tomato;
+}
+```
+
+  ### 一个满屏品字布局如何设计
+```
+简单的方式：
+	上面的div宽100%，
+	下面的两个div分别宽50%，
+	然后用float或者inline使其不换行即可
+```
+
+  ### 画一条 0.5px 的线
+```
+采用meta viewport的方式
+采用border-image的方式
+采用transform:scale()的方式
+```
+
+  ### 请⽤CSS写⼀个简单的幻灯⽚效果⻚⾯
+```
+知道是要用CSS3。使用animation动画实现一个简单的幻灯片效果
+/**css**/
+.ani{
+  width:480px;
+  height:320px;
+  margin:50px auto;
+  overflow: hidden;
+  box-shadow:0 0 5px rgba(0,0,0,1);
+  background-size: cover;
+  background-position: center;
+  -webkit-animation-name: "loops";
+  -webkit-animation-duration: 20s;
+  -webkit-animation-iteration-count: infinite;
+}
+@-webkit-keyframes "loops" {
+    0% {
+        background:url(http://d.hiphotos.baidu.com/image/w%3D400/sign=c01e6adca964034f0fcdc3069fc27980/e824b899a9014c08e5e38ca4087b02087af4f4d3.jpg) no-repeat;             
+    }
+    25% {
+        background:url(http://b.hiphotos.baidu.com/image/w%3D400/sign=edee1572e9f81a4c2632edc9e72b6029/30adcbef76094b364d72bceba1cc7cd98c109dd0.jpg) no-repeat;
+    }
+    50% {
+        background:url(http://b.hiphotos.baidu.com/image/w%3D400/sign=937dace2552c11dfded1be2353266255/d8f9d72a6059252d258e7605369b033b5bb5b912.jpg) no-repeat;
+    }
+    75% {
+        background:url(http://g.hiphotos.baidu.com/image/w%3D400/sign=7d37500b8544ebf86d71653fe9f9d736/0df431adcbef76095d61f0972cdda3cc7cd99e4b.jpg) no-repeat;
+    }
+    100% {
+        background:url(http://c.hiphotos.baidu.com/image/w%3D400/sign=cfb239ceb0fb43161a1f7b7a10a54642/3b87e950352ac65ce2e73f76f9f2b21192138ad1.jpg) no-repeat;
+    }
+}
+```
+
+  ### 让页面里的字体变清晰，变细用 CSS 怎么做？
+```
+webkit内核的私有属性：-webkit-font-smoothing，用于字体抗锯齿，使用后字体看起来会更清晰舒服。
+
+在MacOS测试环境下面设置-webkit-font-smoothing:antialiased;
+但是这个属性仅仅是面向MacOS，其他操作系统设置后无效。
+```
+
+  ### 左边宽度固定，右边⾃适应
+```
+左侧固定宽度，右侧自适应宽度的两列布局实现
+
+html结构
+<div class="outer">
+    <div class="left">固定宽度</div>
+    <div class="right">自适应宽度</div>
+</div>
+
+在外层div（类名为outer）的div中，有两个子div，类名分别为left和right，其中left为固定宽度，而right为自适应宽度
+
+方法1：左侧div设置成浮动：float: left，右侧div宽度会自拉升适应
+.outer {
+    width: 100%;
+    height: 500px;
+    background-color: yellow;
+}
+.left {
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    float: left;
+}
+.right {
+    height: 200px;
+    background-color: blue;
+}
+
+方法2：对右侧:div进行绝对定位，然后再设置right=0，即可以实现宽度自适应
+
+绝对定位元素的第一个高级特性就是其具有自动伸缩的功能，当我们将 width设置为 auto 的时候
+（或者不设置，默认为 auto ），绝对定位元素会根据其 left 和 right 自动伸缩其大小
+
+.outer {
+    width: 100%;
+    height: 500px;
+    background-color: yellow;
+    position: relative;
+}
+.left {
+    width: 200px;
+    height: 200px;
+    background-color: red;
+}
+.right {
+    height: 200px;
+    background-color: blue;
+    position: absolute;
+    left: 200px;
+    top:0;          
+    right: 0;
+}
+
+方法3：将左侧div进行绝对定位，然后右侧div设置margin-left: 200px
+.outer {
+    width: 100%;
+    height: 500px;
+    background-color: yellow;
+    position: relative;
+}
+.left {
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    position: absolute;
+}
+.right {
+    height: 200px;
+    background-color: blue;
+    margin-left: 200px;
+}
+
+方法4：使用flex布局
+.outer {
+    width: 100%;
+    height: 500px;
+    background-color: yellow;
+    display: flex;
+    flex-direction: row;
+}
+.left {
+    width: 200px;
+    height: 200px;
+    background-color: red;
+}
+.right {
+    height: 200px;
+    background-color: blue;
+    flex: 1;
+}
+```
+
+  ### 有一个高度自适应的 div，里面有两个 div，一个高度 100px，希望另一个填满剩下的高度。
+```
+（1）外层div使用position：relative；
+高度要求自适应的div使用position:absolute;top:100px;bottom:0;left:0;right:0;
+
+（2）使用flex布局，设置主轴为竖轴，第二个div的flex-grow为1。
+```
+
+```
+方案1：
+.sub { height: calc(100%-100px); }
+方案2：
+.container { position:relative; }
+.sub { position: absolute; top: 100px; bottom: 0; }
+方案3：
+.container { display:flex; flex-direction:column; }
+.sub { flex:1; }
+```
+
+  ### 如果需要手动写动画，你认为最小时间间隔是多久，为什么？（阿里）
+```
+多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小间隔为1/60*1000ms＝16.7ms
+```
+
+  ### 说⼀说css3的animation
+```
+css3的animation是css3新增的动画属性，这个css3动画的每一帧是通过@keyframes来声明的，
+keyframes声明了动画的名称，通过from、to或者是百分比来定义每一帧动画元素的状态，
+通过animation-name来引用这个动画，同时css3动画也可以定义动画运行的时长、
+动画开始时间、动画播放方向、动画循环次数、动画播放的方式，
+
+这些相关的动画子属性有：
+animation-name定义动画名、
+animation-duration定义动画播放的时长、
+animation-delay定义动画延迟播放的时间、
+animation-direction定义 动画的播放方向、
+animation-iteration-count定义播放次数、
+animation-fill-mode定义动画播放之后的状态、
+animation-play-state定义播放状态，如暂停运行等、
+animation-timing-function定义播放的方式，如恒速播放、艰涩播放等。
+```
+
+  ### CSS3动画（简单动画的实现，如旋转等）
+```
+依靠CSS3中提出的三个属性：transition、transform、animation
+
+transition：定义了元素在变化过程中是怎么样的，
+包含transition-property、transition-duration、transition-timing-function、transition-delay。
+
+transform：定义元素的变化结果，包含rotate、scale、skew、translate。
+
+animation：动画定义了动作的每一帧（@keyframes）有什么效果，包括animation-name，animation-duration、
+animation-timing-function、animation-delay、animation-iteration-count、animation-direction
+```
+
+  ### 如何实现⼩于12px的字体效果
+```
+transform:scale()这个属性只可以缩放可以定义宽高的元素，而行内元素是没有宽高的，
+我们可以加上一个display:inline-block;
+
+transform: scale(0.7);
+css的属性，可以缩放大小
+```
 
 ## 浮动
+  ### 请解释一下为什么需要清除浮动？清除浮动的方式
+```
+浮动元素可以左右移动，直到遇到另一个浮动元素或者遇到它外边缘的包含框。
+浮动框不属于文档流中的普通流，当元素浮动之后，不会影响块级元素的布局，
+只会影响内联元素布局。此时文档流中的普通流就会表现得该浮动框不存在一样的布局模式。
+当包含框的高度小于浮动框的时候，此时就会出现“高度塌陷”。
 
-  - [29.请解释⼀下为什么需要清除浮动？清除浮动的⽅式](#)
-  ### 
-  
-  
-  - [30.使⽤ clear 属性清除浮动的原理？](#)
-  - [31.zoom:1 的清除浮动原理?](#)
-  - [7 清除浮动的⼏种⽅式，各⾃的优缺点](#)
-  - [14 谈谈浮动和清除浮动](#)
-  - [69 浮动元素引起的问题](#)
-  - [86 设置元素浮动后，该元素的 display 值会如何变化](#)
+清除浮动是为了清除使用浮动元素产生的影响。浮动的元素，高度会塌陷，
+而高度的塌陷使我们页面后面的布局不能正常显示。
 
+清除浮动的方式
+（1）使用clear属性清除浮动。
+（2）使用BFC块级格式化上下文来清除浮动。
 
+因为BFC元素不会影响外部元素的特点，所以BFC元素也可以用来清除浮动的影响，
+因为如果不清除，子元素浮动则父元素高度塌陷，必然会影响后面元素布局和定位，
+这显然有违BFC元素的子元素不会影响外部元素的设定。
+```
+
+  ### 使用 clear 属性清除浮动的原理？
+```
+使用clear属性清除浮动，其语法如下：
+clear:none|left|right|both
+
+如果单看字面意思，clear:left应该是“清除左浮动”，clear:right应该是“清除右浮动”的意思，
+实际上，这种解释是有问题的，因为浮动一直还在，并没有清除。
+
+官方对clear属性的解释是：“元素盒子的边不能和前面的浮动元素相邻。”，
+我们对元素设置clear属性是为了避免浮动元素对该元素的影响，而不是清除掉浮动。
+
+还需要注意的一点是clear属性指的是元素盒子的边不能和前面的浮动元素相邻，
+注意这里“前面的”3个字，也就是clear属性对“后面的”浮动元素是不闻不问的。
+考虑到float属性要么是left，要么是right，不可能同时存在，
+同时由于clear属性对“后面的”浮动元素不闻不问，因此，当clear:left有效的时候，
+clear:right必定无效，也就是此时clear:left等同于设置clear:both；
+同样地，clear:right如果有效也是等同于设置clear:both。由此可见，
+clear:left和clear:right这两个声明就没有任何使用的价值，
+至少在CSS世界中是如此，直接使用clear:both吧。
+
+一般使用伪元素的方式清除浮动
+.clear::after{
+content:'';
+display:table;//也可以是'block'，或者是'list-item'
+clear:both;
+}
+
+clear属性只有块级元素才有效的，而::after等伪元素默认都是内联水平，
+这就是借助伪元素清除浮动影响时需要设置display属性值的原因。
+```
+
+  ### zoom:1 的清除浮动原理?
+```
+清除浮动，触发hasLayout；
+zoom属性是IE浏览器的专有属性，它可以设置或检索对象的缩放比例。
+解决ie下比较奇葩的bug。譬如外边距（margin）的重叠，浮动清除，触发ie的haslayout属性等。
+
+来龙去脉大概如下：
+当设置了zoom的值之后，所设置的元素就会就会扩大或者缩小，
+高度宽度就会重新计算了，这里一旦改变zoom值时其实也会发生重新渲染，
+运用这个原理，也就解决了ie下子元素浮动时候父元素不随着自动扩大的问题。
+
+zoom属性是IE浏览器的专有属性，火狐和老版本的webkit核心的浏览器都不支持这个属性。
+然而，zoom现在已经被逐步标准化，出现在CSS3.0规范草案中。
+
+目前非ie由于不支持这个属性，它们又是通过什么属性来实现元素的缩放呢？
+可以通过css3里面的动画属性scale进行缩放。
+```
+
+  ### 清除浮动的⼏种⽅式，各⾃的优缺点
+```
+父级div定义height
+结尾处加空div标签clear:both
+父级div定义伪类:after和zoom
+父级div定义overflow:hidden
+父级div也浮动，需要定义宽度
+结尾处加br标签clear:both
+比较好的是第3种方式，好多网站都这么用
+```
+
+  ### 谈谈浮动和清除浮动
+```
+浮动的框可以向左或向右移动，直到他的外边缘碰到包含框或另一个浮动框的边框为止。
+由于浮动框不在文档的普通流中，所以文档的普通流的块框表现得就像浮动框不存在一样。
+浮动的块框会漂浮在文档普通流的块框上
+```
+
+  ### 浮动元素引起的问题
+```
+父元素的高度无法被撑开，影响与父元素同级的元素
+与浮动元素同级的非浮动元素会跟随其后
+```
+
+  ### 设置元素浮动后，该元素的 display 值会如何变化
+```
+设置元素浮动后，该元素的 display 值自动变成 block
+```
 
 ## 浏览器
+  ### 浏览器是怎样解析CSS选择器的
+```
+样式系统从关键选择器开始匹配，然后左移查找规则选择器的祖先元素。
+只要选择器的子树一直在工作，样式系统就会持续左移，
+直到和规则匹配，或者是因为不匹配而放弃该规则。
 
-  - [35.浏览器是怎样解析 CSS 选择器的？ 71 浏览器是怎样解析CSS选择器的](#)
+试想一下，如果采用从左至右的方式读取CSS规则，那么大多数规则
+读到最后（最右）才会发现是不匹配的，这样做会费时耗能，
+最后有很多都是无用的；而如果采取从右向左的方式，
+那么只要发现最右边选择器不匹配，就可以直接舍弃了，避免了许多无效匹配。
+
+浏览器解析 CSS 选择器的方式是从右到左
+```
+
+  ### 浏览器如何判断是否支持 webp 格式图片
+```
+（1）宽高判断法。通过创建image对象，将其src属性设置为webp格式的图片，
+然后在onload事件中获取图片的宽高，如果能够获取，则说明浏览器支持webp格式图片。
+如果不能获取或者触发了onerror函数，那么就说明浏览器不支持webp格式的图片。
+
+（2）canvas判断方法。我们可以动态的创建一个canvas对象，
+通过canvas的toDataURL将设置为webp格式，
+然后判断返回值中是否含有image/webp字段，如果包含则说明支持WebP，反之则不支持。
+```
+
+  ### 经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么，常用 hack 的技巧？
+```
+（1）png24位的图片在iE6浏览器上出现背景
+解决方案：做成PNG8，也可以引用一段脚本处理。
+
+（2）浏览器默认的margin和padding不同
+解决方案：加一个全局的*{margin:0;padding:0;}来统一。
+
+（3）IE6双边距bug：在IE6下，如果对元素设置了浮动，
+同时又设置了margin-left或margin-right，margin值会加倍。
+
+#box{float:left;width:10px;margin:0 0 0 10px;}
+
+这种情况之下IE会产生20px的距离
+解决方案：在float的标签样式控制中加入_display:inline;将其转化为行内属性。
+	 (_这个符号只有ie6会识别)
+
+（4）渐进识别的方式，从总体中逐渐排除局部。
+首先，巧妙的使用"\9"这一标记，将IE游览器从所有情况中分离出来。
+接着，再次使用"+"将IE8和IE7、IE6分离开来，这样IE8已经独立识别。
+.bb{
+background-color:#f1ee18;/*所有识别*/
+.background-color:#00deff\9;/*IE6、7、8识别*/
++background-color:#a200ff;/*IE6、7识别*/
+_background-color:#1e0bd1;/*IE6识别*/
+}
+
+（5）IE下，可以使用获取常规属性的方法来获取自定义属性，也可以使用getAttribute()获取自定义
+属性；Firefox下，只能使用getAttribute()获取自定义属性
+解决方法：统一通过getAttribute()获取自定义属性。
+
+（6）IE下，event对象有x、y属性，但是没有pageX、pageY属性;Firefox下，event对象有
+pageX、pageY属性，但是没有x、y属性。
+解决方法：（条件注释）缺点是在IE浏览器下可能会增加额外的HTTP请求数。
+
+（7）Chrome中文界面下默认会将小于12px的文本强制按照12px显示
+解决方法：
+1.可通过加入CSS属性-webkit-text-size-adjust:none;解决。
+  但是，在chrome更新到27版本之后就不可以用了。
+
+2.还可以使用-webkit-transform:scale(0.5);注意-webkit-transform:scale(0.75);
+收缩的是整个span的大小，这时候，必须要将span转换成块元素，可以使用display：block/inline-block/...；
+
+（8）超链接访问过后hover样式就不出现了，被点击访问过的超链接样式不再具有hover和active了
+解决方法：改变CSS属性的排列顺序L-V-H-A
+
+（9）怪异模式问题：漏写DTD声明，Firefox仍然会按照标准模式来解析网页，
+但在IE中会触发怪异模式。为避免怪异模式给我们带来不必要的麻烦，最好养成书写DTD声明的好习惯。
+```
+  
+  - [53 css hack原理及常⽤hack](#)
+
   ### 
   
   
-  - [59.浏览器如何判断是否⽀持 webp 格式图⽚](#)
-  - [17.经常遇到的浏览器的兼容性有哪些？原因，解决⽅法是什么，常⽤ hack 的技巧？](#)
-  - [53 css hack原理及常⽤hack](#)
   - [67 经常遇到的浏览器的JS兼容性有哪些？解决⽅法是什么](#)
+
+  ### 
+  
+  
   - [36.在⽹⻚中应该使⽤奇数还是偶数的字体？为什么呢？ 19 在⽹⻚中的应该使⽤奇数还是偶
 数的字体？为什么呢？ 72 在⽹⻚中的应该使⽤奇数还是偶数的字体](#)
+
+  ### 
+  
+  
   - [21.CSS ⾥的 visibility 属性有个 collapse 属性值是⼲嘛⽤的？在不同浏览器下以后什么区别？](#)
+
+  ### 
+  
+  
   - [47.如何修改 chrome 记住密码后⾃动填充表单的⻩⾊背景？82 如何修改Chrome记住密码后
 ⾃动填充表单的⻩⾊背景	](#)
+
+  ### 
+  
+  
   - [48.怎么让 Chrome ⽀持⼩于 12px 的⽂字？](#)
+
+  ### 
+  
+  
   - [63 iOS safari 如何阻⽌“橡⽪筋效果”](#)
+
+  ### 
 
 
 
