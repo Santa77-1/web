@@ -408,7 +408,7 @@ Flex是FlexibleBox的缩写，意为"弹性布局"，用来为盒状模型提供
 <div class="left"></div>
 <div class="right"></div>
 ```
-    - [36 ⾃适应布局](#)
+
    ### ⾃适应布局
 ```
 左侧浮动或者绝对定位，然后右侧margin撑开
