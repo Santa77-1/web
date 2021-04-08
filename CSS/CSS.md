@@ -418,7 +418,7 @@ Flex是FlexibleBox的缩写，意为"弹性布局"，用来为盒状模型提供
 
   ### 实现
 
-   #### css实现上下固定中间⾃适应布局
+   #### css实现上下固定中间自适应布局
 
 ```css
 利用绝对定位实现body {
@@ -784,12 +784,12 @@ margin 值来实现的，而不是通过父元素的 padding 来实现的。
 }
 ```
 
-   #### 列出你所知道可以改变⻚⾯布局的属性
+   #### 列出你所知道可以改变页面布局的属性
 ```
 position、display、float、width、height、margin、padding、top、left、right
 ```
 
-   #### CSS多列等⾼如何实现？请写出多种等⾼布局
+   #### CSS多列等高如何实现？请写出多种等高布局
 ```
 （1）利用padding-bottom|margin-bottom正负值相抵，不会影响页面布局的特点。
 设置父容器设置超出隐藏（overflow:hidden），这样父容器的高度就还是它
