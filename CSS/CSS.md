@@ -90,7 +90,7 @@
   - [display有哪些值?他们的作用](#display有哪些值他们的作用)
   - [display:none与visibility:hidden的区别](#displaynone与visibilityhidden的区别)
   - [display、float、position的关系](#displayfloatposition的关系)
-  - [display:inline-block什么时候不会显示间隙(携程)](#display:inline-block什么时候不会显示间隙携程)
+  - [display:inline-block什么时候不会显示间隙(携程)](#display-inline-block什么时候不会显示间隙携程)
   - [89 display:inline-block 什么时候会显示间隙](#)
   - [91.font-weight 的特殊性？](#)
   - [50.font-style 属性中 italic 和 oblique 的区别？](#)
