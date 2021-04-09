@@ -1830,7 +1830,7 @@ pageX、pageY属性，但是没有x、y属性。
 	IE条件注释
 ```
 
-  ### 经常遇到的浏览器的JS兼容性有哪些解决⽅法是什么
+  ### 经常遇到的浏览器的JS兼容性有哪些？解决方法是什么
 ```
 当前样式：getComputedStyle(el, null) VS el.currentStyle
 事件对象：e VS window.event
@@ -1839,7 +1839,7 @@ pageX、pageY属性，但是没有x、y属性。
 文本节点：el.textContent VS el.innerText
 ```
 
-  ### 在⽹⻚中应该使⽤奇数还是偶数的字体
+  ### 在网页中应该使用奇数还是偶数的字体
 ```
 （1）偶数字号相对更容易和web设计的其他部分构成比例关系。比如：当我用了14px的正文字号，
 我可能会在一些地方用14×0.5=7px的margin，在另一些地方用14×1.5=21px的标题字号。
