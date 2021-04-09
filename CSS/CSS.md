@@ -90,7 +90,7 @@
   - [display有哪些值?他们的作用](#display有哪些值他们的作用)
   - [display:none与visibility:hidden的区别](#displaynone与visibilityhidden的区别)
   - [display、float、position的关系](#displayfloatposition的关系)
-  - [display:inline-block什么时候不会显示间隙(携程)](#display-inline-block什么时候不会显示间隙携程)
+  - [display:inline-block什么时候不会显示间隙(携程)](#displayinline-block什么时候不会显示间隙携程)
   - [display:inline-block什么时候会显示间隙](#display-inline-block什么时候会显示间隙)
   - [font-weight的特殊性](#font-weight的特殊性)
   - [font-style属性中italic和oblique的区别](#font-style属性中italic和oblique的区别)
@@ -103,7 +103,7 @@
   - [line-height](#line-height)
   - [line-height的特殊性](#line-height的特殊性)
   - [line-height三种赋值方式区别(带单位、纯数字、百分比)](#line-height三种赋值方式区别带单位纯数字百分比)
-  - [link与@import的区别](#link与-import的区别)
+  - [link与@import的区别](#link与import的区别)
   - [margin和padding分别适合什么场景使用](#margin和padding分别适合什么场景使用)
   - [margin:auto的填充规则](#margin-auto的填充规则)
   - [margin无效的情况](#margin无效的情况)
@@ -2034,7 +2034,7 @@ visibility: hidden;是继承属性，子孙节点消失由于继承了hidden，
 并且非绝对定位的元素，'display'特性值同设置值。
 ```
 
-  ### display inline-block什么时候不会显示间隙(携程)
+  ### display:inline-block什么时候不会显示间隙(携程)
 ```
 移除空格
 使用margin负值
