@@ -91,7 +91,7 @@
   - [display:none与visibility:hidden的区别](#displaynone与visibilityhidden的区别)
   - [display、float、position的关系](#displayfloatposition的关系)
   - [display:inline-block什么时候不会显示间隙(携程)](#displayinline-block什么时候不会显示间隙携程)
-  - [display:inline-block什么时候会显示间隙](#display-inline-block什么时候会显示间隙)
+  - [display:inline-block什么时候会显示间隙](#displayinline-block什么时候会显示间隙)
   - [font-weight的特殊性](#font-weight的特殊性)
   - [font-style属性中italic和oblique的区别](#font-style属性中italic和oblique的区别)
   - [font-style属性oblique是什么意思](#font-style属性oblique是什么意思)
@@ -105,9 +105,9 @@
   - [line-height三种赋值方式区别(带单位、纯数字、百分比)](#line-height三种赋值方式区别带单位纯数字百分比)
   - [link与@import的区别](#link与import的区别)
   - [margin和padding分别适合什么场景使用](#margin和padding分别适合什么场景使用)
-  - [margin:auto的填充规则](#margin-auto的填充规则)
+  - [margin:auto的填充规则](#marginauto的填充规则)
   - [margin无效的情况](#margin无效的情况)
-  - [min-width/max-width和min-height/max-height属性间的覆盖规则](#min-width-max-width和min-height-max-height属性间的覆盖规则)
+  - [min-width/max-width和min-height/max-height属性间的覆盖规则](#min-widthmax-width和min-heightmax-height属性间的覆盖规则)
   - [overflow的特殊性](#overflow的特殊性)
   - [overflow-scroll时不能平滑滚动的问题怎么处理](#overflow-scroll时不能平滑滚动的问题怎么处理)
   - [position的值relative和absolute定位原点是](#position的值relative和absolute定位原点是)
@@ -117,7 +117,7 @@
   - [style标签写在body后与body前有什么区别](#style标签写在body后与body前有什么区别)
   - [text-indent的特殊性](#text-indent的特殊性)
   - [vertical-align的特殊性](#vertical-align的特殊性)
-  - [width:auto和width:100\x区别](#width:auto和width:100\x区别)
+  - [width:auto和width:100%区别](#widthauto和width100区别)
   - [white-space与换行和空格的控制](#white-space与换行和空格的控制)
   - [word-spacing与单词间距](#word-spacing与单词间距)
   - [什么是基线和x-height](#什么是基线和x-height)
@@ -2043,7 +2043,7 @@ letter-spacing
 word-spacing
 ```
 
-  ### display inline-block什么时候会显示间隙
+  ### display:inline-block什么时候会显示间隙
 ```
 ·相邻的 inline-block 元素之间有换行或空格分隔的情况下会产生间距
 ·非 inline-block 水平元素设置为 inline-block 也会有水平间距
