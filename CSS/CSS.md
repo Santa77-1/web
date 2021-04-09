@@ -76,7 +76,7 @@
   - [css hack原理及常用hack](#css-hack原理及常用hack)
   - [经常遇到的浏览器的JS兼容性有哪些？解决方法是什么](#经常遇到的浏览器的JS兼容性有哪些解决方法是什么)
   - [在网页中应该使用奇数还是偶数的字体](#在网页中应该使用奇数还是偶数的字体)
-  - [](#CSS⾥的visibility属性有个collapse属性值是⼲嘛⽤的？在不同浏览器下以后什么区别)
+  - [visibility属性的collapse属性值？在不同浏览器的区别](#visibility属性的collapse属性值在不同浏览器的区别)
   - [如何修改chrome记住密码后⾃动填充表单的⻩⾊背景](#如何修改chrome记住密码后⾃动填充表单的⻩⾊背景)
   - [怎么让Chrome⽀持⼩于12px的⽂字](#怎么让Chrome⽀持⼩于12px的⽂字)
   - [iOS safari如何阻⽌“橡⽪筋效果”](#iOS-safari如何阻⽌橡⽪筋效果)
@@ -1853,7 +1853,7 @@ pageX、pageY属性，但是没有x、y属性。
 宋体的中文网页排布中使用最多的就是 12 和 14
 ```
 
-  ### CSS⾥的visibility属性有个collapse属性值是⼲嘛⽤的？在不同浏览器下以后什么区别
+  ### visibility属性的collapse属性值？在不同浏览器的区别
 ```
 （1）对于一般的元素，它的表现跟visibility：hidden;是一样的。
 元素是不可见的，但此时仍占用页面空间。
