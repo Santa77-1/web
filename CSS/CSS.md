@@ -77,9 +77,9 @@
   - [经常遇到的浏览器的JS兼容性有哪些？解决方法是什么](#经常遇到的浏览器的JS兼容性有哪些解决方法是什么)
   - [在网页中应该使用奇数还是偶数的字体](#在网页中应该使用奇数还是偶数的字体)
   - [visibility属性的collapse属性值？在不同浏览器的区别](#visibility属性的collapse属性值在不同浏览器的区别)
-  - [如何修改chrome记住密码后⾃动填充表单的⻩⾊背景](#如何修改chrome记住密码后⾃动填充表单的⻩⾊背景)
-  - [怎么让Chrome⽀持⼩于12px的⽂字](#怎么让Chrome⽀持⼩于12px的⽂字)
-  - [iOS safari如何阻⽌“橡⽪筋效果”](#iOS-safari如何阻⽌橡⽪筋效果)
+  - [如何修改chrome记住密码后自动填充表单的黄色背景](#如何修改chrome记住密码后自动填充表单的黄色背景)
+  - [怎么让chrome支持小于12px的文字](#怎么让chrome支持小于12px的文字)
+  - [ios safari如何阻止“橡皮筋效果”](#ios safari如何阻止“橡皮筋效果”)
 
 - [标签、属性](#标签属性)
   - [84.absolute 与 overflow 的关系？](#)
@@ -1870,7 +1870,7 @@ table group，table列，table column group，
 table的行会消失，它的下面一行会补充它的位置。
 ```
 
-  ### 如何修改chrome记住密码后⾃动填充表单的⻩⾊背景
+  ### 如何修改chrome记住密码后自动填充表单的黄色背景
 ```
 chrome表单自动填充后，input文本框的背景会变成黄色的，
 通过审查元素可以看到这是由于chrome会默认给自动填充的input表单
@@ -1897,7 +1897,7 @@ border:1px solid #CCC !important;
 解决方案2：input:-webkit-autofill { background-color: transparent; }
 ```
 
-  ### 怎么让Chrome⽀持⼩于12px的⽂字
+  ### 怎么让chrome支持小于12px的文字
 ```
 在谷歌下css设置字体大小为12px及以下时，显示都是一样大小，都是默认12px。
 
@@ -1915,7 +1915,7 @@ border:1px solid #CCC !important;
 这样不影响兼容也不影响美观。
 ```
 
-  ### iOS safari如何阻⽌“橡⽪筋效果”
+  ### ios safari如何阻止“橡皮筋效果”
 ```
   $(document).ready(function(){
       var stopScrolling = function(event) {
