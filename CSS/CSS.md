@@ -82,9 +82,9 @@
   - [ios safari如何阻止“橡皮筋效果”](#ios-safari如何阻止橡皮筋效果)
 
 - [标签、属性](#标签属性)
-  - [84.absolute 与 overflow 的关系？](#)
-  - [41.absolute 的 containingblock（包含块）计算⽅式跟正常流有什么不同](#)
-  - [39.简单说⼀下 css3 的 all 属性](#)
+  - [absolute与overflow的关系](#absolute与overflow的关系)
+  - [absolute的containing block(包含块)计算方式跟正常流](#absolute的containing block(包含块)计算方式跟正常流)
+  - [css3的all属性](#css3的all属性)
   - [78.border 的特殊性？](#)
   - [85.clip 裁剪是什么？](#)
   - [10.display 有哪些值？说明他们的作⽤。 10 display有哪些值？说明他们的作⽤](#)
