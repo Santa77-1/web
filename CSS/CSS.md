@@ -91,19 +91,18 @@
   - [display:none与visibility:hidden的区别](#displaynone与visibilityhidden的区别)
   - [display、float、position的关系](#displayfloatposition的关系)
   - [display:inline-block什么时候不会显示间隙(携程)](#display-inline-block什么时候不会显示间隙携程)
-  - [89 display:inline-block 什么时候会显示间隙](#)
-  - [91.font-weight 的特殊性？](#)
-  - [50.font-style 属性中 italic 和 oblique 的区别？](#)
-  - [88 font-style 属性 oblique 是什么意思	 ](#)
-  - [42.对于 hasLayout 的理解？](#)
-  - [55.如何让去除 inline-block 元素间间距？](#)
-  - [52.layout viewport、visual viewport 和 ideal viewport 的区别？](#)
-  - [93.letter-spacing 与字符间距？](#)
-  - [18·li与 li 之间有看不⻅的空⽩间隔是什么原因引起的？有什么解决办法？ 61 li与li之间有看不
-⻅的空⽩间隔是什么原因引起的？有什么解决办法](#)
-  - [84 你对 line-height 是如何理解的](#)
-  - [80.line-height 的特殊性？](#)
-  - [85 line-height 三种赋值⽅式有何区别？（带单位、纯数字、百分⽐）](#)
+  - [display:inline-block什么时候会显示间隙](#display-inline-block什么时候会显示间隙)
+  - [font-weight的特殊性](#font-weight的特殊性)
+  - [font-style属性中italic和oblique的区别](#font-style属性中italic和oblique的区别)
+  - [font-style属性oblique是什么意思](#font-style属性oblique是什么意思)
+  - [对于hasLayout的理解](#对于hasLayout的理解)
+  - [如何去除inline-block元素间间距](#如何去除inline-block元素间间距)
+  - [layout viewport、visual viewport和ideal viewport区别](#layout-viewportvisual-viewport和ideal-viewport区别)
+  - [letter-spacing与字符间距](#letter-spacing与字符间距)
+  - [li与li之间有看不见的空白间隔是为什么，怎么解决](#li与li之间有看不见的空白间隔是为什么怎么解决)
+  - [line-height](#line-height)
+  - [line-height的特殊性](#line-height的特殊性)
+  - [line-height三种赋值方式区别(带单位、纯数字、百分比)](#line-height三种赋值方式区别带单位纯数字百分比)
   - [3 link与@import的区别](#)
   - [37.margin 和 padding 分别适合什么场景使⽤？73 margin和padding分别适合什么场景使⽤](#)
   - [76.margin:auto 的填充规则？](#)
@@ -2045,7 +2044,7 @@ letter-spacing
 word-spacing
 ```
 
-  ### display:inline-block 什么时候会显示间隙
+  ### display:inline-block什么时候会显示间隙
 ```
 ·相邻的 inline-block 元素之间有换行或空格分隔的情况下会产生间距
 ·非 inline-block 水平元素设置为 inline-block 也会有水平间距
@@ -2054,14 +2053,14 @@ word-spacing
 ·把 li 标签写到同一行可以消除垂直间隙，但代码可读性差
 ```
 
-  ### font-weight 的特殊性？
+  ### font-weight的特殊性
 ```
 如果使用数值作为font-weight属性值，必须是100～900的整百数。
 因为这里的数值仅仅是外表长得像数值，实际上是一个具有特定含义的关键字，
 并且这里的数值关键字和字母关键字之间是有对应关系的。
 ```
 
-  ### font-style 属性中 italic 和 oblique 的区别？
+  ### font-style属性中italic和oblique的区别
 ```
 italic和oblique这两个关键字都表示“斜体”的意思。
 
@@ -2069,12 +2068,12 @@ italic和oblique这两个关键字都表示“斜体”的意思。
 如果当前字体没有对应的斜体字体，则退而求其次，解析为oblique，也就是单纯形状倾斜。
 ```
 
-  ### font-style 属性 oblique 是什么意思
+  ### font-style属性oblique是什么意思
 ```
 font-style: oblique; 使没有 italic 属性的文字实现倾斜
 ```
 
-  ### 对于 hasLayout 的理解？
+  ### 对于hasLayout的理解
 ```
 hasLayout是IE特有的一个属性。很多的IE下的css bug都与其息息相关。
 在IE中，一个元素要么自己对自身的内容进行计算大小和组织，
@@ -2083,12 +2082,12 @@ hasLayout是IE特有的一个属性。很多的IE下的css bug都与其息息相
 更多的代价来维护自身和里面的内容，而不是依赖于祖先元素来完成这些工作。
 ```
 
-  ### 如何让去除 inline-block 元素间间距？
+  ### 如何去除inline-block元素间间距
 ```
 移除空格、使用margin负值、使用font-size:0、letter-spacing、word-spacing
 ```
 
-  ### layout viewport、visual viewport 和 ideal viewport 的区别？
+  ### layout viewport、visual viewport和ideal viewport区别
 ```
 移动端一共需要理解三个viewport的概念的理解。
 
@@ -2127,7 +2126,7 @@ ideal viewport是最适合移动设备的viewport，ideal viewport的宽度等�
 也不需要出现横向滚动条，都可以完美的呈现给用户。
 ```
 
-  ### letter-spacing 与字符间距？
+  ### letter-spacing与字符间距
 ```
 letter-spacing可以用来控制字符之间的间距，这里说的“字符”包括英文字母、汉字以及空格等。
 
@@ -2141,7 +2140,7 @@ letter-spacing具有以下一些特性。
 （6）暂不支持百分比值。
 ```
 
-  ### li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法？
+  ### li与li之间有看不见的空白间隔是为什么，怎么解决
 ```
 浏览器会把inline元素间的空白字符（空格、换行、Tab等）渲染成一个空格。
 而为了美观。我们通常是一个<li>放在一行，这导致<li>换行后产生换行字符，
@@ -2164,7 +2163,7 @@ letter-spacing具有以下一些特性。
 这些空白也会被应用样式，占据空间，所以会有间隔，把字符大小设为0，就没有空格了
 ```
 
-  ### 你对 line-height 是如何理解的
+  ### line-height
   ```
 ·line-height 指一行字的高度，包含了字间距，实际上是下一行基线到上一行基线距离
 ·如果一个标签没有定义 height 属性，那么其最终表现的高度是由 line-height 决定的
@@ -2173,7 +2172,7 @@ letter-spacing具有以下一些特性。
 ·line-height 和 height 都能撑开一个高度，height 会触发 haslayout，而 line-height 不会
   ```
 
-  ### line-height 的特殊性？
+  ### line-height的特殊性
 ```
 （1）对于非替换元素的纯内联元素，其可视高度完全由line-height决定。
 对于文本这样的纯内联元素，line-height就是高度计算的基石，
@@ -2211,7 +2210,7 @@ letter-spacing具有以下一些特性。
 有一个宽度为0的具有该元素的字体和行高属性的看不见的“幽灵空白节点”。
 ```
 
-  ### line-height 三种赋值⽅式有何区别？（带单位、纯数字、百分⽐）
+  ### line-height三种赋值方式区别(带单位、纯数字、百分比)
 ```
 带单位：px 是固定值，而 em 会参考父元素 font-size 值计算自身的行高
 
