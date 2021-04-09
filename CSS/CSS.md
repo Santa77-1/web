@@ -79,7 +79,7 @@
   - [visibility属性的collapse属性值？在不同浏览器的区别](#visibility属性的collapse属性值在不同浏览器的区别)
   - [如何修改chrome记住密码后自动填充表单的黄色背景](#如何修改chrome记住密码后自动填充表单的黄色背景)
   - [怎么让chrome支持小于12px的文字](#怎么让chrome支持小于12px的文字)
-  - [ios safari如何阻止“橡皮筋效果”](#ios safari如何阻止“橡皮筋效果”)
+  - [ios safari如何阻止“橡皮筋效果”](#ios-safari如何阻止橡皮筋效果)
 
 - [标签、属性](#标签属性)
   - [84.absolute 与 overflow 的关系？](#)
