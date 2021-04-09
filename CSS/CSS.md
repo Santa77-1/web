@@ -103,25 +103,24 @@
   - [line-height](#line-height)
   - [line-height的特殊性](#line-height的特殊性)
   - [line-height三种赋值方式区别(带单位、纯数字、百分比)](#line-height三种赋值方式区别带单位纯数字百分比)
-  - [3 link与@import的区别](#)
-  - [37.margin 和 padding 分别适合什么场景使⽤？73 margin和padding分别适合什么场景使⽤](#)
-  - [76.margin:auto 的填充规则？](#)
-  - [77.margin ⽆效的情形](#)
-  - [70.min-width/max-width 和 min-height/max-height 属性间的覆盖规则？](#)
-  - [82.overflow 的特殊性？](#)
-  - [56.overflow:scroll 时不能平滑滚动的问题怎么处理？](#)
-  - [11.position 的值 relative 和 absolute 定位原点是？ 15 position的值， relative和absolute定
-位原点是](#)
-  - [53.position:fixed;在 android 下⽆效怎么处理？](#)
-  - [86.relative 的特殊性？](#)
-  - [67.transition 和 animation 的区别](#)
-  - [61.style 标签写在 body 后与 body 前有什么区别？](#)
-  - [92.text-indent 的特殊性？](#)
-  - [81.vertical-align 的特殊性？](#)
-  - [22.width:auto 和 width:100\x 的区别](#)
-  - [95.white-space 与换⾏和空格的控制？](#)
-  - [94.word-spacing 与单词间距？](#)
-  - [79.什么是基线和 x-height？](#)
+  - [link与@import的区别](#link与-import的区别)
+  - [margin和padding分别适合什么场景使用](#margin和padding分别适合什么场景使用)
+  - [margin:auto的填充规则](#margin-auto的填充规则)
+  - [margin无效的情况](#margin无效的情况)
+  - [min-width/max-width和min-height/max-height属性间的覆盖规则](#min-width-max-width和min-height-max-height属性间的覆盖规则)
+  - [overflow的特殊性](#overflow的特殊性)
+  - [overflow-scroll时不能平滑滚动的问题怎么处理](#overflow-scroll时不能平滑滚动的问题怎么处理)
+  - [position的值relative和absolute定位原点是](#position的值relative和absolute定位原点是)
+  - [position-fixed在安卓(android)下无效怎么处理](#position-fixed在安卓android下无效怎么处理)
+  - [relative的特殊性](#relative的特殊性)
+  - [transition和animation区别](#transition和animation区别)
+  - [style标签写在body后与body前有什么区别](#style标签写在body后与body前有什么区别)
+  - [text-indent的特殊性](#text-indent的特殊性)
+  - [vertical-align的特殊性](#vertical-align的特殊性)
+  - [width:auto和width:100\x区别](#width:auto和width:100\x区别)
+  - [white-space与换行和空格的控制](#white-space与换行和空格的控制)
+  - [word-spacing与单词间距](#word-spacing与单词间距)
+  - [什么是基线和x-height](#什么是基线和x-height)
 
 - [样式](#)
   - [初始化](#)
@@ -2035,7 +2034,7 @@ visibility: hidden;是继承属性，子孙节点消失由于继承了hidden，
 并且非绝对定位的元素，'display'特性值同设置值。
 ```
 
-  ### display inline block什么时候不会显示间隙(携程)
+  ### display inline-block什么时候不会显示间隙(携程)
 ```
 移除空格
 使用margin负值
@@ -2044,7 +2043,7 @@ letter-spacing
 word-spacing
 ```
 
-  ### display:inline-block什么时候会显示间隙
+  ### display inline-block什么时候会显示间隙
 ```
 ·相邻的 inline-block 元素之间有换行或空格分隔的情况下会产生间距
 ·非 inline-block 水平元素设置为 inline-block 也会有水平间距
@@ -2230,7 +2229,7 @@ letter-spacing具有以下一些特性。
 总体来说：link优于@import
 ```
 
-  ### margin 和 padding 分别适合什么场景使用？
+  ### margin和padding分别适合什么场景使用
 ```
 margin是用来隔开元素与元素的间距；padding是用来隔开元素与内容的间隔。
 margin用于布局分开元素使元素与元素互不相干。
@@ -2252,7 +2251,7 @@ padding用于元素与内容之间的间隔，让内容（文字）与（包裹�
 需要在border内测添加空白，且空白处需要背景（色）时，使用 padding
 ```
 
-  ### margin:auto 的填充规则？
+  ### margin:auto的填充规则
 ```
 margin的'auto'可不是摆设，是具有强烈的计算意味的关键字，
 用来计算元素对应方向应该获得的剩余间距大小。但是触发margin:auto计算
@@ -2262,7 +2261,7 @@ margin的'auto'可不是摆设，是具有强烈的计算意味的关键字，
 （2）如果两侧均是auto，则平分剩余空间。
 ```
 
-  ### margin 无效的情形
+  ### margin无效的情况
 ```
 （1）display计算值inline的非替换元素的垂直margin是无效的。
 对于内联替换元素，垂直margin有效，并且没有margin合并的问题。
@@ -2275,13 +2274,13 @@ table-cell或table-row的元素的margin都是无效的。
 （4）定高容器的子元素的margin-bottom或者宽度定死的子元素的margin-right的定位“失效”。
 ```
 
-  ### min-width/max-width 和 min-height/max-height 属性间的覆盖规则？
+  ### min-width/max-width和min-height/max-height属性间的覆盖规则
 ```
 （1）max-width会覆盖width，即使width是行类样式或者设置了!important。
 （2）min-width会覆盖max-width，此规则发生在min-width和max-width冲突的时候。
 ```
 
-  ### overflow 的特殊性？
+  ### overflow的特殊性
 ```
 （1）一个设置了overflow:hidden声明的元素，假设同时存在border属性和padding属性，
 则当子元素内容超出容器宽度高度限制的时候，剪裁的边界是border box的内边缘，
@@ -2296,13 +2295,13 @@ table-cell或table-row的元素的margin都是无效的。
 滚动依然存在，仅仅滚动条不存在！
 ```
 
-  ### overflow:scroll 时不能平滑滚动的问题怎么处理？
+  ### overflow-scroll时不能平滑滚动的问题怎么处理
 ```
 以下代码可解决这种卡顿的问题：-webkit-overflow-scrolling:touch;
 是因为这行代码启用了硬件加速特性，所以滑动很流畅。
 ```
 
-  ### position 的值 relative 和 absolute 定位原点是？
+  ### position的值relative和absolute定位原点是
 ```
 relative定位的元素，是相对于元素本身的正常位置来进行定位的。
 
@@ -2331,7 +2330,7 @@ inherit
 规定从父元素继承position属性的值。
 ```
 
-  ### position:fixed;在 android 下无效怎么处理？
+  ### position-fixed在安卓(android)下无效怎么处理
 ```
 因为移动端浏览器默认的viewport叫做layout viewport。在移动端显示时，
 因为layout viewport的宽度大于移动端屏幕的宽度，所以页面会出现滚动条左右移动，
@@ -2344,7 +2343,7 @@ fixed的元素是相对layout viewport来固定位置的，而不是移动端屏
 <metaname="viewport"content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"/>
 ```
 
-  ### relative 的特殊性？
+  ### relative的特殊性
 ```
 （1）相对定位元素的left/top/right/bottom的百分比值是相对于包含块计算的，
 而不是自身。注意，虽然定位位移是相对自身，但是百分比值的计算值不是。
@@ -2361,14 +2360,14 @@ left/right同时使用的时候，只有一个方向的定位属性会起作用�
 left/right同时使用的时候，right失效。
 ```
 
-  ### transition 和 animation 的区别
+  ### transition和animation区别
 ```
 transition关注的是CSS property的变化，property值和时间的关系是一个三次贝塞尔曲线。
 
 animation作用于元素本身而不是样式属性，可以使用关键帧的概念，应该说可以实现更自由的动画效果。
 ```
 
-  ### style 标签写在 body 后与 body 前有什么区别？
+  ### style标签写在body后与body前有什么区别
 ```
 页面加载自上而下当然是先加载样式。写在body标签后由于浏览器以逐行方式对
 HTML文档进行解析，当解析到写在尾部的样式表（外联或写在style标签）
@@ -2376,7 +2375,7 @@ HTML文档进行解析，当解析到写在尾部的样式表（外联或写在s
 在windows的IE下可能会出现FOUC现象（即样式失效导致的页面闪烁问题）
 ```
 
-  ### text-indent 的特殊性？
+  ### text-indent的特殊性
 ```
 （1）text-indent仅对第一行内联盒子内容有效。
 
@@ -2390,7 +2389,7 @@ HTML文档进行解析，当解析到写在尾部的样式表（外联或写在s
 （5）text-indent的百分比值是相对于当前元素的“包含块”计算的，而不是当前元素。
 ```
 
-  ### vertical-align 的特殊性？
+  ### vertical-align的特殊性
 ```
 （1）vertical-align的默认值是baseline，即基线对齐，而基线的定义是字母x的下边缘。
 因此，内联元素默认都是沿着字母x的下边缘对齐的。对于图片等替换元素，
@@ -2418,7 +2417,7 @@ HTML文档进行解析，当解析到写在尾部的样式表（外联或写在s
 但是其作用的并不是子元素，而是table-cell元素自身。
 ```
 
-  ### width:auto 和 width:100%的区别
+  ### width:auto和width:100%区别
 ```
 一般而言
 width:100%会使元素box的宽度等于父元素的content box的宽度。
@@ -2426,7 +2425,7 @@ width:100%会使元素box的宽度等于父元素的content box的宽度。
 width:auto会使元素撑满整个父元素，margin、border、padding、content区域会自动分配水平空间。
 ```
 
-  ### white-space 与换行和空格的控制？
+  ### white-space与换行和空格的控制
 ```
 white-space属性声明了如何处理元素内的空白字符，这类空白字符包括Space（空格）键、
 Enter（回车）键、Tab（制表符）键产生的空白。因此，white-space可以决定图文内容
@@ -2440,13 +2439,13 @@ Enter（回车）键、Tab（制表符）键产生的空白。因此，white-spa
 •pre-line：合并空白字符，但只在有换行符的地方换行，允许文本环绕。
 ```
 
-  ### word-spacing 与单词间距？
+  ### word-spacing与单词间距
 ```
 letter-spacing作用于所有字符，但word-spacing仅作用于空格字符。
 换句话说，word-spacing的作用就是增加空格的间隙宽度。
 ```
 
-  ### 什么是基线和 x-height？
+  ### 什么是基线和x-height
 ```
 字母x的下边缘（线）就是我们的基线。
 
