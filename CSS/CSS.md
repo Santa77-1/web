@@ -83,7 +83,7 @@
 
 - [标签、属性](#标签属性)
   - [absolute与overflow的关系](#absolute与overflow的关系)
-  - [absolute的containing block(包含块)计算方式跟正常流](#absolute的containing block(包含块)计算方式跟正常流)
+  - [absolute的containing block(包含块)计算方式跟正常流](#absolute的containing-block包含块计算方式跟正常流)
   - [css3的all属性](#css3的all属性)
   - [78.border 的特殊性？](#)
   - [85.clip 裁剪是什么？](#)
@@ -1927,7 +1927,8 @@ border:1px solid #CCC !important;
 ```
 
 ## 标签、属性
-  ### absolute 与 overflow 的关系？
+
+  ### absolute与overflow的关系
 ```
 （1）如果overflow不是定位元素，同时绝对定位元素和overflow容器之间也没有定位元素，
 则overflow无法对absolute元素进行剪裁。
@@ -1938,14 +1939,14 @@ border:1px solid #CCC !important;
 （3）overflow元素自身transform的时候，Chrome和Opera浏览器下的overflow剪裁是无效的。
 ```
 
-  ### absolute 的 containingblock（包含块）计算方式跟正常流有什么不同？
+  ### absolute的containing block(包含块)计算方式跟正常流
 ```
 （1）内联元素也可以作为“包含块”所在的元素；
 （2）“包含块”所在的元素不是父块级元素，而是最近的position不为static的祖先元素或根元素；
 （3）边界是padding box而不是content box。
 ```
 
-  ### 简单说一下 css3 的 all 属性。
+  ### css3的all属性
 ```
 all属性实际上是所有CSS属性的缩写，表示，所有的CSS属性都怎样怎样，
 但是，不包括unicode-bidi和direction这两个CSS属性。
