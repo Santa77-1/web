@@ -1963,7 +1963,7 @@ unset是取消设置的意思，也就是当前元素浏览器或用户设置的
 如果是没有继承特性的CSS属性，如background-color，则使用初始值。
 ```
 
-  ### border 的特殊性
+  ### border的特殊性
 ```
 （1）border-width却不支持百分比。
 
@@ -1977,7 +1977,7 @@ unset是取消设置的意思，也就是当前元素浏览器或用户设置的
 （5）默认background背景图片是相对于padding box定位的。
 ```
 
-  ### clip 裁剪是什么？
+  ### clip裁剪是什么
 ```
 所谓“可访问性隐藏”，指的是虽然内容肉眼看不见，但是其他辅助设备却能够进行识别和访问的隐藏。
 
@@ -1985,7 +1985,7 @@ clip剪裁被我称为“最佳可访问性隐藏”的另外一个原因就是�
 它具有更强的普遍适应性，任何元素、任何场景都可以无障碍使用。
 ```
 
-  ### display 有哪些值？说明他们的作用。
+  ### display有哪些值?他们的作用
 ```
 block	块类型。默认宽度为父元素宽度，可设置宽高，换行显示。
 none	元素不显示，并从文档流中移除。
@@ -1996,7 +1996,7 @@ table	此元素会作为块级表格来显示。
 inherit	规定应该从父元素继承display属性的值。
 ```
 
-  ### display: none;与visibility: hidden;的区别
+  ### display:none与visibility:hidden的区别
 ```
 联系：它们都能让元素不可见
 
@@ -2014,7 +2014,7 @@ visibility: hidden;是继承属性，子孙节点消失由于继承了hidden，
 读屏器不会读取display: none;元素内容；会读取visibility: hidden;元素内容
 ```
 
-  ### 'display'、'position'和'float'的相互关系？
+  ### display、float、position的关系
 ```
 （1）首先我们判断display属性是否为none，如果为none，
 则position和float属性的值不影响元素最后的表现。
@@ -2036,7 +2036,7 @@ visibility: hidden;是继承属性，子孙节点消失由于继承了hidden，
 并且非绝对定位的元素，'display'特性值同设置值。
 ```
 
-  ### display:inline-block 什么时候不会显示间隙？(携程)
+  ### display:inline-block什么时候不会显示间隙(携程)
 ```
 移除空格
 使用margin负值
