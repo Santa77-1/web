@@ -3,6 +3,361 @@
 
 ### 目录
 
+- [JS的基本数据类型和引用数据类型](#JS的基本数据类型和引用数据类型)
+
+·	js数据类型  1. 介绍 js 的基本数据类型。 
+o	js有几种类型的值  2. JavaScript 有几种类型的值？你能画一下他们的内存图吗？  33 JavaScript有几种类型的值 114 JavaScript有几种类型的值？，你能画一下他们的内存图吗
+o	堆和栈。 3. 什么是堆？什么是栈？它们之间有什么区别和联系？
+o	6. undefined 与 undeclared 的区别？
+o	7. null 和 undefined 的区别？  36 null，undefined 的区别
+o	8. 如何获取安全的 undefined 值？
+o	15. isNaN 和 Number.isNaN 函数的区别？
+o	13. js 中整数的安全范围是多少？
+o	130. Symbol 类型的注意点？
+o	30 JS的基本数据类型和引用数据类型
+o	141 属性的遍历
+o	76 Javascript全局函数和全局变量
+o	
+·	类和对象
+o	21 javascript有哪些方法定义对象
+o	34. javascript 创建对象的几种方式？  34 javascript创建对象的几种方式
+o	5. 介绍 js 有哪些内置对象？  31 介绍js有哪些内置对象 108 介绍JS有哪些内置对象
+o	21. 什么是假值对象？
+o	69. ECMAScript6 怎么写 class，为什么会出现 class 这种东西?  47 ECMAScript6 怎么写class么
+o	48. 如何判断一个对象是否属于某个类？
+o	159. 如何判断一个对象是否为空对象？
+o	79 怎么判断两个对象相等？
+o	115 JavaScript如何实现一个类，怎么实例化这个类
+o	130 简单实现 Function.bind 函数
+·	
+·	js类型判断
+o	typeof操作符。  14. typeof NaN 的结果是什么？
+o	instanceof。 49. instanceof 的作用？
+o	constructor
+o	Object.prototype.toString.call()
+o	158. 如何封装一个 javascript 的类型判断函数？
+o	
+·	js类型转换
+o	17. 其他值到字符串的转换规则？
+o	18. 其他值到数字值的转换规则？
+o	19. 其他值到布尔类型的值的转换规则？
+o	 25. 什么情况下会发生布尔值的隐式强制类型转换？
+o	 27. Symbol 值的强制类型转换？
+o	 29. 如何将字符串转化为数字，例如 '12.3b'?
+o	 30. 如何将浮点数点左边的数每三位添加一个逗号，如 12000000.11 转化为『12,000,000.11』?
+o	 23. 解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字，它们之间的区别是什么？
+o	
+·	js原型和原型链  10. JavaScript 原型，原型链？ 有什么特点？
+o	js获取原型的方法。11. js 获取原型的方法？
+o	51. Javascript 中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？
+o	50. new 操作符具体干了什么呢？如何实现？    8 new操作符具体干了什么呢?
+o	37. Javascript 的作用域链？ 2 说说你对作用域链的理解  117 Javascript作用链域
+o	78. JavaScript 中的作用域与变量声明提升？ 113 解释JavaScript中的作用域与变量声明提升
+o	46. 什么是闭包，为什么要用它？  1 闭包
+o	160. 使用闭包实现每隔一秒打印 1,2,3,4
+o	3 JavaScript原型，原型链 ? 有什么特点？
+o	
+·	js继承
+o	原型链继承
+o	构造函数继承
+o	实例继承
+o	拷贝继承
+o	组合继承
+o	寄生组合继承
+o	es6使用extends关键字扩展一个类并继承它的行为
+o	35. JavaScript 继承的几种实现方式？
+o	36. 寄生式组合继承的实现？
+o	5 Javascript如何实现继承？ 116 Javascript如何实现继承
+o	135 继承
+o	
+·	属性
+o	4. 内部属性 [[Class]] 是什么？
+
+·	安全
+o	同源  19 为什么要有同源限制？
+o	125 请解释一下 JavaScript 的同源策略
+o	
+o	限制
+o	跨域。60. 如何解决跨域问题？10 如何解决跨域问题?
+▪	jsonp
+▪	postMessage
+▪	CORS
+▪	WebSocket
+o	55. Ajax 是什么? 如何创建一个 Ajax？  9 Ajax原理
+o	161. 手写一个 jsonp
+o	105 ajax、axios、fetch区别
+o	
+o	鉴权
+▪	HTTP Basic Authentication
+▪	session-cookie
+▪	token验证
+▪	OAuth
+o	102. 什么是 XSS 攻击？如何防范 XSS 攻击？
+o	103. 什么是 CSP？
+o	104. 什么是 CSRF 攻击？如何防范 CSRF 攻击？
+o	105. 什么是 Samesite Cookie 属性？
+o	106. 什么是点击劫持？如何防范点击劫持？
+o	107. SQL 注入攻击？
+o	81. 哪些操作会造成内存泄漏？
+o	17 常见web安全及防护原理
+o	
+·	优化
+o	项目做过哪些性能优化
+o	懒加载 预加载 懒执行  123. 图片的懒加载和预加载
+·	浏览器
+o	56. 谈一谈浏览器的缓存机制？  81 浏览器缓存
+o	57. Ajax 解决浏览器缓存问题？
+o	59. 什么是浏览器的同源政策？
+o	88. 检测浏览器版本版本有哪些方式？  107 检测浏览器版本版本有哪些方式？
+o	22 常见兼容性问题？
+o	121. URL 和 URI 的区别？
+o	100 说说从输入URL到看到页面发生的全过程，越详细越好
+o	102 说一下浏览器的缓存机制
+o	111 描述浏览器的渲染过程，DOM树和渲染树的区别
+o	80. 简单介绍一下 V8 引擎的垃圾回收机制
+o	138. 如何检测浏览器所支持的最小字体大小？
+o	84. 把 script 标签放在页面的最底部的 body 封闭之前和封闭之后有什么区别？浏览器会如何解析它们？
+o	82. 需求：实现一个页面操作不会整页刷新的网站，并且能在浏览器前进、后退时正确响应。给出你的技术实现方案？
+o	134 WEB应用从服务器主动推送Data到客户端有那些方式
+o	94 实现Storage，使得该对象为单例，并对localStorage进行封装设置值setItem(key,value)和getItem(key)
+o	请求方式
+▪	120. get 请求传参长度的误区
+▪	122. get 和 post 请求在缓存方面的区别
+·	数组
+o	33. 如何实现数组的随机排序？
+o	 74. JavaScript 类数组对象的定义？ 
+o	75. 数组和对象有哪些原生方法，列举一下？
+o	 76. 数组的 fill 方法？
+o	45. ["1", "2", "3"].map(parseInt) 答案是多少？  37 ["1", "2", "3"].map(parseInt) 答案是多少
+o	16. Array 构造函数只有一个参数值时的表现？
+o	131. Set 和 WeakSet 结构？
+o	132. Map 和 WeakMap 结构？
+o	53. [].forEach.call($$(""),function(a){a.style.outline="1px solid #" (~~(Math.random()(1<<24))).toString(16)}) 能解释一下这段代码的意思吗？
+o	53 map与forEach的区别
+o	60 JS 数组和对象的遍历方式，以及几种方式的比较
+o	51 如何通过JS判断一个数组
+o	137 判断是否是数组
+o	132 Array.splice() 与 Array.splice() 的区别？
+o	
+·	字符串
+o	项目做
+·	Cookie 
+o	 61. 服务器代理转发时，该如何处理 cookie？
+o	 62. 简单谈一下 cookie ？
+o	126 如何删除一个cookie
+o	
+·	This
+o	38. 谈谈 This 对象的理解。   6 谈谈This对象的理解 101 描述一下this
+o	 73. .call() 和 .apply() 的区别？ 
+o	97. 手写 call、apply 及 bind 函数
+o	56 谈一谈函数中this的指向
+o	136 this指向
+
+·	操作符
+o	26. || 和 && 操作符的返回值？
+o	 28. == 操作符的强制类型转换规则？  
+o	 24. 操作符什么时候用于字符串的拼接？
+o	22. ~ 操作符的作用？
+
+·	事件
+o	41. 写一个通用的事件侦听器函数。
+o	42. 事件是什么？IE 与火狐的事件机制有什么区别？ 如何阻止冒泡？
+o	43. 三种事件模型是什么？7 事件模型
+o	44. 事件委托是什么？
+o	95. js 的事件循环是什么？
+o	4 请解释什么是事件代理
+o	63 事件的各个阶段
+o	120 介绍事件“捕获”和“冒泡”执行顺序和事件的执行次数
+o	96 说说事件流
+o	
+·	算法
+o	12. 在 js 中不同进制数字的表示方式
+o	31. 常用正则表达式
+o	32. 生成随机数的各种方法？
+o	171. 一个列表，假设有 100000 个数据，这个该怎么办？
+o	172. js 中倒计时的纠偏实现？
+o	99. 为什么 0.1 0.2 != 0.3？如何解决这个问题？
+o	100. 原码、反码和补码的介绍
+o	68 怎样添加、移除、移动、复制、创建和查找节点
+o	69 正则表达式
+o	66 如何渲染几万条数据并不卡住界面
+o	74 数组去重方法总结
+o	65 快速的让一个数组乱序
+o	
+·	字符串
+o	12. 在 js 中不同进制数字的表示方式
+·	同步和异步
+o	58. 同步和异步的区别？
+o	118. 异步编程的实现方式？
+o	136. 什么是 Promise 对象，什么是 Promises/A 规范？  23 说说你对promise的了解  99 请手写实现一个promise
+o	137. 手写一个 Promise
+o	57 异步编程的实现方式  
+o	87 什么是单线程，和异步的关系
+o	43 defer和async
+
+·	同步和异步
+o	58. 同步和异步的区别？   41 同步和异步的区别
+o	12 异步加载JS的方式有哪些？
+o	
+·	DOM
+o	40. 什么是 DOM 和 BOM？
+o	71. DOM 操作——怎样添加、移除、移动、复制、创建和查找节点？
+o	112. 什么是 Virtual DOM？为什么 Virtual DOM 比原生 DOM 快？
+o	113. 如何比较两个 DOM 树的差异？
+o	118 介绍 DOM 的发展
+o	119 介绍DOM0，DOM2，DOM3事件处理方式区别
+
+·	模块化
+o	40. 什么是 DOM 和 BOM？
+o	63. 模块化开发怎么做？  11 模块化开发怎么做？
+o	64. js 的几种模块规范？
+o	65. AMD 和 CMD 规范的区别？   27 谈谈你对AMD、CMD的理解
+o	66. ES6 模块与 CommonJS 模块、AMD、CMD 的差异。
+o	68. JS 模块加载器的轮子怎么造，也就是如何实现一个模块加载器？
+o	135. require 模块引入的查找方式？
+
+
+·	概念
+o	9. 说几条写 JavaScript 的基本规范？  32 说几条写JavaScript的基本规范  109 说几条写JavaScript的基本规范
+o	52. 对于 JSON 的了解？  39 JSON 的了解
+o	14 XML和JSON的区别？
+o	54. js 延迟加载的方式有哪些？  40 js延迟加载的方式有哪些
+o	90. 使用 JS 实现获取文件扩展名？
+o	91. 介绍一下 js 的节流与防抖？
+o	96. js 中的深浅拷贝实现？
+o	98. 函数柯里化的实现
+o	79. 如何编写高性能的 Javascript ？   110 如何编写高性能的JavaScript
+o	67. requireJS 的核心原理是什么？（如何动态加载的？如何避免多次加载的？如何 缓存的？）
+o	83. 如何判断当前脚本运行在浏览器还是 node 环境中？（阿里）
+o	85. 移动端的点击事件的有延迟，时间是多久，为什么会有？ 怎么解决这个延时？
+o	86. 什么是“前端路由”？什么时候适合使用“前端路由”？“前端路由”有哪些优点和缺点？
+o	87. 如何测试前端代码么？ 知道 BDD, TDD, Unit Test 么？ 知道怎么测试你的前端工程么(mocha, sinon, jasmin, qUnit..)？
+o	89. 什么是 Polyfill ？
+o	166. js 中的命名规则
+o	167. js 语句末尾分号是否可以省略？
+o	128. 什么是 rest 参数？
+o	133. 什么是 Proxy ？
+o	134. Reflect 对象创建目的？
+o	129. 什么是尾调用，使用尾调用有什么好处？
+o	58 对原生Javascript了解程度
+o	42 渐进增强和优雅降级
+o	46 谈谈你对ES6的理解
+o	61 gulp是什么
+o	84 深浅拷贝
+o	85 防抖/节流
+o	86 谈谈变量提升？
+
+·	函数
+o	40. 什么是 DOM 和 BOM？
+o	117. 谈一谈你理解的函数式编程？
+o	54 谈一谈你理解的函数式编程
+o	55 谈一谈箭头函数与普通函数的区别？
+o	129 JavaScript 中，调用函数有哪几种方式
+o	121 什么是函数节流？介绍一下应用场景和原理？
+o	78 封装一个函数，参数是定时器的时间，.then执行回调函数
+o	97 JavaScript 对象生命周期的理解
+
+
+·	模式
+o	140. 单例模式模式是什么？
+o	141. 策略模式是什么？
+o	142. 代理模式是什么？
+o	143. 中介者模式是什么？
+o	144. 适配器模式是什么？
+o	145. 观察者模式和发布订阅模式有什么不同？
+o	162. 手写一个观察者模式？
+o	18 用过哪些设计模式？
+o	44 说说严格模式的限制
+o	
+
+
+·	20. {} 和 [] 的 valueOf 和 toString 的结果是什么？
+·	39. eval 是做什么的？  35 eval是做什么的
+·	47. javascript 代码中的 "use strict"; 是什么意思 ? 使用它区别是什么？ 38 javascript 代码中的"use strict";是什么意思
+·	92. Object.is() 与原来的比较操作符 “===”、“==” 的区别？
+·	93. escape,encodeURI,encodeURIComponent 有什么区别？
+·	94. Unicode 和 UTF-8 之间的关系？
+·	70. documen.write 和 innerHTML 的区别？
+·	72. innerHTML 与 outerHTML 的区别？
+·	101. toPrecision 和 toFixed 和 Math.round 的区别？
+·	77. [,,,] 的长度？
+·	168. Object.assign()
+·	169. Math.ceil 和 Math.floor
+·	170. js for 循环注意点
+·	124. mouseover 和 mouseenter 的区别？
+·	127. let 和 const 的注意点？  64 let var const
+·	
+·	
+·	
+·	
+·	52 谈一谈let与var的区别
+·	126. 为什么使用 setTimeout 实现 setInterval？怎么模拟？
+·	157. 开发中常用的几种 Content-Type ？
+·	115. 谈谈你对 webpack 的看法   15 谈谈你对webpack的看法
+·	110. Object.defineProperty 介绍？
+·	111. 使用 Object.defineProperty() 来进行数据劫持有什么缺点？
+·	114. 什么是 requestAnimationFrame ？
+·	116. offsetWidth/offsetHeight,clientWidth/clientHeight 与 scrollWidth/scrollHeight 的区别？
+·	119. Js 动画与 CSS 动画区别及相应实现
+·	125. js 拖拽功能的实现
+·	139. 怎么做 JS 代码 Error 统计？
+·	163. EventEmitter 实现
+·	164. 一道常被人轻视的前端 JS 面试题
+·	165. 如何确定页面的可用性时间，什么是 Performance API？
+·	173. 进程间通信的方式？
+·	174. 如何查找一篇英文文章中出现频率最高的单词？
+·	13 那些操作会造成内存泄漏？  28 那些操作会造成内存泄漏
+·	106 JavaScript的组成
+o	124 Javascript垃圾回收方法  139 垃圾回收
+
+o	70 Javascript中callee和caller的作用？
+o	71 window.onload和$(document).ready
+o	72 addEventListener()和attachEvent()的区别
+o	75 （设计题）想实现一个对页面某个节点的拖曳？如何做？（使用原生JS）
+o	77 使用js实现一个持续的动画效果
+o	82 WebSocket
+o	83 尽可能多的说出你对 Electron 的理解
+o	88 是否用过 jQuery 的 Deferred
+o	89 前端面试之hybrid
+o	90 前端面试之组件化
+o	92 实现效果，点击容器内的图标，图标边框变成border 1px solid red，点击空白处重置
+o	95 说说event loop
+o	98 我现在有一个canvas，上面随机布着一些黑块，请实现方法，计算canvas上有多少个黑块
+o	103 现在要你完成一个Dialog组件，说说你设计的思路？它应该有什么功能？
+o	104 caller和callee的区别
+o	112 script 的位置是否会影响首屏显示时间
+o	122 区分什么是“客户区坐标”、“页面坐标”、“屏幕坐标”
+o	123 解释一下这段代码的意思
+o	127 页面编码和被请求的资源编码如果不一致如何处理
+o	128 把<script>放在</body>之前和之后有什么区别？浏览器会如何解析它们？
+o	138 加载
+o	140 有四个操作会忽略enumerable为false的属性
+o	142 为什么通常在发送数据埋点请求的时候使用的是 1x1 像素的透明 gif 图片
+·	143 在输入框中如何判断输入的是一个正确的网址
+o	26 Node的应用场景
+o	16 说说你对AMD和Commonjs的理解
+o	20 offsetWidth/offsetHeight,clientWidth/clientHeight与scrollWidth/scrollHeight的区别
+o	24 你觉得jQuery源码有哪些写的好的地方
+o	29 web开发中会话跟踪的方法有哪些
+o	45 attribute和property的区别是什么
+o	50 对web标准、可用性、可访问性的理解
+o	59 Js动画与CSS动画区别及相应实现
+o	67 希望获取到页面中所有的checkbox怎么做？  73 获取页面所有的checkbox
+·	
+
+
+·	优化
+o	80 项目做过哪些性能优化？
+
+·	面向对象
+o	48 什么是面向对象编程及面向过程编程，它们的异同和优缺点
+o	49 面向对象编程思想
+
+
+
+
+
+
 - [js数据类型](#js数据类型)
   - [js有几种类型的值](#js有几种类型的值)
   - [堆和栈](#堆和栈)
@@ -38,7 +393,6 @@
   - [项目做过哪些性能优化](#项目做过哪些性能优化)
   - [懒加载 预加载 懒执行](#懒加载-预加载-懒执行)
   
-
 
 #### js数据类型
 
@@ -1135,6 +1489,11 @@ window.addEventListener('scroll', imageLazyLoad)
 // or
 window.addEventListener('scroll', throttle(imageLazyLoad, 1000))
 ```
+
+
+### JS的基本数据类型和引用数据类型
+
+
 
 
 
