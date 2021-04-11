@@ -204,7 +204,7 @@
     - [proxy代理跨域(最常见)](#proxy代理跨域最常见)
   - [鉴权](#鉴权)
     - [HTTP Basic Authentication](#HTTP-Basic-Authentication)
-    - [session-cookie](#sessioncookie)
+    - [session-cookie](#session-cookie)
     - [token验证](#token验证)
     - [OAuth](#OAuth)
   - [常见web安全及防护原理](#常见web安全及防护原理)
