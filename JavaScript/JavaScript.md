@@ -263,7 +263,7 @@
   - [函数柯里化的实现--98. 函数柯里化的实现](#函数柯里化的实现)
   - [EventEmitter实现--163. EventEmitter 实现](#EventEmitter实现)
   - [如何查找一篇英文文章中出现频率最高的单词--174. 如何查找一篇英文文章中出现频率最高的单词？](#如何查找一篇英文文章中出现频率最高的单词)
-  *- [94 实现Storage，使得该对象为单例，并对localStorage进行封装设置值setItem(key,value)和getItem(key)](#)
+  - [实现Storage，使得该对象为单例，并对localStorage进行封装设置值setItem(key,value)和getItem(key)](#实现Storage使得该对象为单例并对localStorage进行封装设置值setItemkeyvalue和getItemkey)
   - [获取页面所有的checkbox--67 希望获取到页面中所有的checkbox怎么做？  73 获取页面所有的checkbox](#获取页面所有的checkbox)
 
 - [宏任务和微任务](#宏任务和微任务)
@@ -6361,18 +6361,53 @@ function findMostWord(article) {
   return maxWord + "  " + maxNum;
 }
 ```
-  - [94 实现Storage，使得该对象为单例，并对localStorage进行封装设置值setItem(key,value)和getItem(key)](#)
-  - [获取页面所有的checkbox--67 希望获取到页面中所有的checkbox怎么做？  73 获取页面所有的checkbox](#获取页面所有的checkbox)
 
+  #### 实现Storage，使得该对象为单例，并对localStorage进行封装设置值setItem(key,value)和getItem(key)
+```
+var instance = null;
+class Storage {
+  static getInstance() {
+    if (!instance) {
+      instance = new Storage();
+    }
+    return instance;
+  }
+  setItem = (key, value) => localStorage.setItem(key, value),
+  getItem = key => localStorage.getItem(key)
+}
+```
 
+  #### 获取页面所有的checkbox
+```
+ var domList = document.getElementsByTagName(‘input’)
+ var checkBoxList = [];
+ var len = domList.length;　　//缓存到局部变量
+ while (len--) {　　//使用while的效率会比for循环更高
+ 　　if (domList[len].type == ‘checkbox’) {
+     　　checkBoxList.push(domList[len]);
+ 　　}
+ }
 
+```
 
+```
+var resultArr= [];
+var input = document.querySelectorAll('input');
+for( var i = 0; i < input.length; i++ ) {
+    if( input[i].type == 'checkbox' ) {
+        resultArr.push( input[i] );
+    }
+}
+//resultArr即中获取到了页面中的所有checkbox
+```
 
-
-
-- [宏任务和微任务](#宏任务和微任务)
   - [requestAnimationFrame--114. 什么是 requestAnimationFrame ？](#requestAnimationFrame)
   - [为什么使用setTimeout实现setInterval？怎么模拟--126. 为什么使用 setTimeout 实现 setInterval？怎么模拟？](#为什么使用setTimeout实现setInterval怎么模拟)
+### 宏任务和微任务
+
+  
+
+
 
 - [对比](#对比)
   - [addEventListener()和attachEvent()的区别--72 addEventListener()和attachEvent()的区别](#addEventListener和attachEvent的区别)
