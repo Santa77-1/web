@@ -65,12 +65,12 @@
   - [JavaScript类数组对象的定义--74. JavaScript 类数组对象的定义？ ](#JavaScript类数组对象的定义)
   - [Array构造函数只有一个参数值时的表现--16. Array 构造函数只有一个参数值时的表现？](#Array构造函数只有一个参数值时的表现)
   - [Array.splice()与Array.splice()的区别--132 Array.splice() 与 Array.splice() 的区别？](#Arraysplice与Arraysplice的区别)
-  *- [53. [].forEach.call($$(""),function(a){a.style.outline="1px solid #" (~~(Math.random()(1<<24))).toString(16)}) 能解释一下这段代码的意思吗？](#)
-  *- [45. ["1", "2", "3"].map(parseInt) 答案是多少？  37 ["1", "2", "3"].map(parseInt) 答案是多少](#)
+  - [[].forEach.call(\$\$("<em>"),function(a){a.style.outline="1px solid #" (~~(Math.random()</em>(1&lt;&lt;24))).toString(16)}) 能解释一下这段代码的意思吗](#foreachcallfunctionaastyleoutline1px-solid-mathrandom124tostring16-能解释一下这段代码的意思吗)
+  - [["1","2","3"].map(parseInt)答案是多少](#123mapparseint答案是多少)
   - [map与forEach的区别--53 map与forEach的区别](#map与forEach的区别)
   - [Map和WeakMap结构--132. Map 和 WeakMap 结构？](#Map和WeakMap结构)
   - [Set和WeakSet结构--131. Set 和 WeakSet 结构？](#Set和WeakSet结构)
-  *- [{}和[]的valueOf和toString的结果是什么--20. {} 和 [] 的 valueOf 和 toString 的结果是什么？](#{}和[]的valueOf和toString的结果是什么)
+  - [{}和[]的valueOf和toString的结果是什么](#--和--的valueof和tostring的结果是什么)
 
 - [函数](#函数)
   - [JavaScript中，调用函数有哪几种方式--129 JavaScript 中，调用函数有哪几种方式](#JavaScript中调用函数有哪几种方式)
@@ -110,6 +110,8 @@
   - [事件是什么？IE与火狐的事件机制有什么区别？如何阻止冒泡--42. 事件是什么？IE 与火狐的事件机制有什么区别？ 如何阻止冒泡？](#事件是什么IE与火狐的事件机制有什么区别如何阻止冒泡)
   - [事件的各个阶段--63 事件的各个阶段](#事件的各个阶段)
   - [事件“捕获”和“冒泡”执行顺序和事件的执行次数--120 介绍事件“捕获”和“冒泡”执行顺序和事件的执行次数](#事件“捕获”和“冒泡”执行顺序和事件的执行次数)
+  - [在一个DOM上同时绑定两个点击事件：一个用捕获，一个用冒泡。事件会执行几次，先执行冒泡还是捕获](#在一个DOM上同时绑定两个点击事件一个用捕获一个用冒泡事件会执行几次先执行冒泡还是捕获)
+  - [如何派发事件(dispatchEvent)？（如何进行事件广播？）](#如何派发事件dispatchEvent如何进行事件广播)
   - [事件代理--4 请解释什么是事件代理](#事件代理)
   - [三种事件模型是什么--43. 三种事件模型是什么？7 事件模型](#三种事件模型是什么)
   - [事件委托--44. 事件委托是什么？](#事件委托)
@@ -128,13 +130,14 @@
     - [get和post请求在缓存方面的区别--122. get 和 post 请求在缓存方面的区别](#get和post请求在缓存方面的区别)
     - [get请求传参长度的误区--120. get 请求传参长度的误区](#get请求传参长度的误区)
   - [检测浏览器版本版本有哪些方式--88. 检测浏览器版本版本有哪些方式？  107 检测浏览器版本版本有哪些方式？](#检测浏览器版本版本有哪些方式)
-  *- [84. 把 script 标签放在页面的最底部的 body 封闭之前和封闭之后有什么区别？浏览器会如何解析它们？  128 把<script>放在</body>之前和之后有什么区别？浏览器会如何解析它们？](#)
+  - [把script标签放在页面的最底部的body封闭之前和封闭之后有什么区别？浏览器会如何解析它们](#把script标签放在页面的最底部的body封闭之前和封闭之后有什么区别浏览器会如何解析它们)
   - [script的位置是否会影响首屏显示时间--112 script 的位置是否会影响首屏显示时间](#script的位置是否会影响首屏显示时间)
-  *- [82. 需求：实现一个页面操作不会整页刷新的网站，并且能在浏览器前进、后退时正确响应。给出你的技术实现方案？](#)
+  - [实现一个页面操作不会整页刷新的网站，并且能在浏览器前进、后退时正确响应。给出你的技术实现方案](#实现一个页面操作不会整页刷新的网站并且能在浏览器前进后退时正确响应给出你的技术实现方案)
   - [如何检测浏览器所支持的最小字体大小--138. 如何检测浏览器所支持的最小字体大小？](#如何检测浏览器所支持的最小字体大小)
   - [开发中常用的几种Content-Type--157. 开发中常用的几种 Content-Type ？](#开发中常用的几种ContentType)
   - [如何判断当前脚本运行在浏览器还是node环境中？（阿里）--83. 如何判断当前脚本运行在浏览器还是 node 环境中？（阿里）](#如何判断当前脚本运行在浏览器还是node环境中阿里)
   - [V8引擎的垃圾回收机制--80. 简单介绍一下 V8 引擎的垃圾回收机制](#V8引擎的垃圾回收机制)
+  - [垃圾回收](#垃圾回收)
   - [Javascript垃圾回收方法--124 Javascript垃圾回收方法  139 垃圾回收](#Javascript垃圾回收方法)
   - [URL和URI的区别--121. URL 和 URI 的区别？](#URL和URI的区别)
   - [在输入框中如何判断输入的是一个正确的网址--143 在输入框中如何判断输入的是一个正确的网址](#在输入框中如何判断输入的是一个正确的网址)
@@ -155,7 +158,7 @@
   - [异步加载JS的方式有哪些--12 异步加载JS的方式有哪些？](#异步加载JS的方式有哪些)
   - [异步编程的实现方式--118. 异步编程的实现方式？ 57 异步编程的实现方式  ](#异步编程的实现方式)
   - [什么是单线程，和异步的关系--87 什么是单线程，和异步的关系](#什么是单线程和异步的关系)
-  *- [136. 什么是 Promise 对象，什么是 Promises/A 规范？  23 说说你对promise的了解  99 请手写实现一个promise](#)
+  - [什么是Promise对象，什么是Promises/A+规范](#什么是Promise对象什么是PromisesA规范)
   - [手写一个Promise--137. 手写一个 Promise](#手写一个Promise)
   - [defer和async--43 defer和async](#defer和async)
 
@@ -646,69 +649,1142 @@ function getType(value) {
 }
 ```
 
-- [js类型转换](#js类型转换)
-  - [其他值到字符串的转换规则--17. 其他值到字符串的转换规则？](#其他值到字符串的转换规则)
-  - [其他值到数字值的转换规则--18. 其他值到数字值的转换规则？](#其他值到数字值的转换规则)
-  - [其他值到布尔类型的值的转换规则--19. 其他值到布尔类型的值的转换规则？](#其他值到布尔类型的值的转换规则)
-  - [如何将字符串转化为数字，例如'12.3b'--29. 如何将字符串转化为数字，例如 '12.3b'?](#如何将字符串转化为数字例如123b)
-  - [什么情况下会发生布尔值的隐式强制类型转换--25. 什么情况下会发生布尔值的隐式强制类型转换？](#什么情况下会发生布尔值的隐式强制类型转换)
-  - [Symbol值的强制类型转换--27. Symbol值的强制类型转换？](#Symbol值的强制类型转换)
-  - [将浮点数点左边的数每三位添加一个逗号,12000000.11转化为『12,000,000.11』--30. 如何将浮点数点左边的数每三位添加一个逗号，如 12000000.11 转化为『12,000,000.11』?](#将浮点数点左边的数每三位添加一个逗号1200000011转化为1200000011)
-  - [解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字,区别--23. 解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字，它们之间的区别是什么？](#解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字区别)
+### js类型转换
 
-- [js属性](#js属性)
-  - [内部属性[[Class]]是什么--4. 内部属性 [[Class]] 是什么？](#内部属性Class是什么)
-  - [属性的遍历--141 属性的遍历](#属性的遍历)
+  #### 其他值到字符串的转换规则
+```
+规范的 9.8 节中定义了抽象操作 ToString ，
+它负责处理非字符串到字符串的强制类型转换。
+（1）Null 和 Undefined 类型 ，null 转换为 "null"，
+undefined 转换为 "undefined"，
 
-- [js操作符](#js操作符)
-  - [||和&&操作符的返回值--26. || 和 && 操作符的返回值？](#和操作符的返回值)
-  - [==操作符的强制类型转换规则--28. == 操作符的强制类型转换规则？  ](#操作符的强制类型转换规则)
-  - [操作符什么时候用于字符串的拼接--24. 操作符什么时候用于字符串的拼接？](#操作符什么时候用于字符串的拼接)
-  - [~操作符的作用--22. ~ 操作符的作用？](#操作符的作用)
+（2）Boolean 类型，true 转换为 "true"，false 转换为 "false"。
 
-- [类和对象](#类和对象)
-  - [JavaScript如何实现一个类，怎么实例化这个类--115 JavaScript如何实现一个类，怎么实例化这个类](#JavaScript如何实现一个类怎么实例化这个类)
-  - [ECMAScript6怎么写class，为什么会出现class这种东西--69. ECMAScript6 怎么写 class，为什么会出现 class 这种东西?  47 ECMAScript6 怎么写class么](#ECMAScript6怎么写class为什么会出现class这种东西)
-  - [javascript创建对象的几种方式--21 javascript有哪些方法定义对象  34. javascript 创建对象的几种方式？  34 javascript创建对象的几种方式](#javascript创建对象的几种方式)
-  - [如何判断一个对象是否属于某个类--48. 如何判断一个对象是否属于某个类？](#如何判断一个对象是否属于某个类)
-  - [如何判断一个对象是否为空对象--159. 如何判断一个对象是否为空对象？](#如何判断一个对象是否为空对象)
-  - [怎么判断两个对象相等--79 怎么判断两个对象相等？](#怎么判断两个对象相等)
-  - [js有哪些内置对象--5. 介绍 js 有哪些内置对象？  31 介绍js有哪些内置对象 108 介绍JS有哪些内置对象](#js有哪些内置对象)
-  - [什么是假值对象--21. 什么是假值对象？](什么是假值对象)
-  - [Object.is()与原来的比较操作符“===”、“==”的区别--92. Object.is() 与原来的比较操作符 “===”、“==” 的区别？](#Objectis与原来的比较操作符的区别)
-  - [Object.assign()--168. Object.assign()](#Objectassign)
-  - [使用Object.defineProperty()来进行数据劫持有什么缺点--110. Object.defineProperty 介绍？  111. 使用 Object.defineProperty() 来进行数据劫持有什么缺点？](#使用ObjectdefineProperty来进行数据劫持有什么缺点)
+（3）Number 类型的值直接转换，不过那些极小和极大的数字会使用指数形式。
 
-- [数组和对象](#数组和对象)
-  - [如何实现数组的随机排序--33. 如何实现数组的随机排序？](#如何实现数组的随机排序)
-  - [快速的让一个数组乱序--65 快速的让一个数组乱序](#快速的让一个数组乱序)
-  - [数组去重方法总结--74 数组去重方法总结](#数组去重方法总结)
-  - [判断是否是数组--137 判断是否是数组](#判断是否是数组)
-  - [如何通过JS判断一个数组--51 如何通过JS判断一个数组](#如何通过JS判断一个数组)
-  - [数组的fill方法--76. 数组的 fill 方法？](#数组的fill方法)
-  - [数组和对象有哪些原生方法--75. 数组和对象有哪些原生方法，列举一下？](#数组和对象有哪些原生方法)
-  - [JS数组和对象的遍历方式，以及几种方式的比较--60 JS 数组和对象的遍历方式，以及几种方式的比较](#JS数组和对象的遍历方式以及几种方式的比较)
-  - [JavaScript类数组对象的定义--74. JavaScript 类数组对象的定义？ ](#JavaScript类数组对象的定义)
-  - [Array构造函数只有一个参数值时的表现--16. Array 构造函数只有一个参数值时的表现？](#Array构造函数只有一个参数值时的表现)
-  - [Array.splice()与Array.splice()的区别--132 Array.splice() 与 Array.splice() 的区别？](#Arraysplice与Arraysplice的区别)
-  *- [53. [].forEach.call($$(""),function(a){a.style.outline="1px solid #" (~~(Math.random()(1<<24))).toString(16)}) 能解释一下这段代码的意思吗？](#)
-  *- [45. ["1", "2", "3"].map(parseInt) 答案是多少？  37 ["1", "2", "3"].map(parseInt) 答案是多少](#)
-  - [map与forEach的区别--53 map与forEach的区别](#map与forEach的区别)
-  - [Map和WeakMap结构--132. Map 和 WeakMap 结构？](#Map和WeakMap结构)
-  - [Set和WeakSet结构--131. Set 和 WeakSet 结构？](#Set和WeakSet结构)
-  *- [{}和[]的valueOf和toString的结果是什么--20. {} 和 [] 的 valueOf 和 toString 的结果是什么？](#{}和[]的valueOf和toString的结果是什么)
+（4）Symbol 类型的值直接转换，但是只允许显式强制类型转换，
+使用隐式强制类型转换会产生错误。
 
-- [函数](#函数)
-  - [JavaScript中，调用函数有哪几种方式--129 JavaScript 中，调用函数有哪几种方式](#JavaScript中调用函数有哪几种方式)
-  - [函数式编程--117. 谈一谈你理解的函数式编程？  54 谈一谈你理解的函数式编程](#函数式编程)
-  - [箭头函数与普通函数的区别--55 谈一谈箭头函数与普通函数的区别？](#箭头函数与普通函数的区别)
-  - [封装一个函数，参数是定时器的时间，.then执行回调函数--78 封装一个函数，参数是定时器的时间，.then执行回调函数](#封装一个函数参数是定时器的时间then执行回调函数)
-  - [函数节流，应用场景和原理--121 什么是函数节流？介绍一下应用场景和原理？](#函数节流应用场景和原理)
+（5）对普通对象来说，除非自行定义 toString() 方法，否则会调用 
+toString()（Object.prototype.toString()）来返回内部属性 
+[[Class]] 的值，如"[object Object]"。如果对象有自己的 
+toString() 方法，字符串化时就会调用该方法并使用其返回值。
+```
+
+  #### 其他值到数字值的转换规则
+```
+有时我们需要将非数字值当作数字来使用，比如数学运算。
+为此 ES5 规范在 9.3 节定义了抽象操作 ToNumber。
+
+（1）Undefined 类型的值转换为 NaN。
+
+（2）Null 类型的值转换为 0。
+
+（3）Boolean 类型的值，true 转换为 1，false 转换为 0。
+
+（4）String 类型的值转换如同使用 Number() 函数进行转换，
+如果包含非数字值则转换为 NaN，空字符串为 0。
+
+（5）Symbol 类型的值不能转换为数字，会报错。
+
+（6）对象（包括数组）会首先被转换为相应的基本类型值，如果
+返回的是非数字的基本类型值，则再遵循以上规则将其强制转换为数字。
+
+为了将值转换为相应的基本类型值，抽象操作 ToPrimitive 会首先
+（通过内部操作 DefaultValue）检查该值是否有valueOf() 方法。
+如果有并且返回基本类型值，就使用该值进行强制类型转换。
+如果没有就使用 toString() 的返回值（如果存在）来进行强制类型转换。
+
+如果 valueOf() 和 toString() 均不返回基本类型值，会产生 TypeError 错误。
+```
+
+  #### 其他值到布尔类型的值的转换规则
+```
+ES5 规范 9.2 节中定义了抽象操作 ToBoolean，
+列举了布尔强制类型转换所有可能出现的结果。
+
+以下这些是假值：
+• undefined
+• null
+• false
+• +0、-0 和 NaN
+• ""
+
+假值的布尔强制类型转换结果为 false。
+从逻辑上说，假值列表以外的都应该是真值。
+```
+
+  #### 如何将字符串转化为数字，例如'12.3b'
+```
+（1）使用 Number() 方法，前提是所包含的字符串不包含不合法字符。
+
+（2）使用 parseInt() 方法，parseInt() 函数可解析一个字符串，
+并返回一个整数。还可以设置要解析的数字的基数。当基数的值为 0，
+或没有设置该参数时，parseInt() 会根据 string 来判断数字的基数。
+
+（3）使用 parseFloat() 方法，该函数解析一个字符串参数并返回一个浮点数。
+
+（4）使用 + 操作符的隐式转换。
+```
+
+  #### 什么情况下会发生布尔值的隐式强制类型转换
+```
+（1） if (..) 语句中的条件判断表达式。
+（2） for ( .. ; .. ; .. ) 语句中的条件判断表达式（第二个）。
+（3） while (..) 和 do..while(..) 循环中的条件判断表达式。
+（4） ? : 中的条件判断表达式。
+（5） 逻辑运算符 ||（逻辑或）和 &&（逻辑与）左边的操作数（作为条件判断表达式）。
+```
+
+  #### Symbol值的强制类型转换
+```
+ES6 允许从符号到字符串的显式强制类型转换，
+然而隐式强制类型转换会产生错误。
+
+Symbol 值不能够被强制类型转换为数字（显式和隐式都会产生错误），
+但可以被强制类型转换为布尔值（显式和隐式结果都是 true ）。
+```
+
+  #### 将浮点数点左边的数每三位添加一个逗号,12000000.11转化为『12,000,000.11』
+```js
+// 方法一
+function format(number) {
+  return number && number.replace(/(?!^)(?=(\d{3})+\.)/g, ",");
+}
+// 方法二
+function format1(number) {
+  return Intl.NumberFormat().format(number)
+}
+// 方法三
+function format2(number) {
+  return number.toLocaleString('en')
+}
+```
+
+  #### 解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字,区别
+```
+解析允许字符串（如 parseInt() ）中含有非数字字符，
+解析按从左到右的顺序，如果遇到非数字字符就停止。而转换
+（如 Number ()）不允许出现非数字字符，否则会失败并返回 NaN。
+```
+
+### js属性
+
+  #### 4. 内部属性Class是什么
+```
+所有 typeof 返回值为 "object" 的对象（如数组）都包含一个
+内部属性 [[Class]]（我们可以把它看作一个内部的分类，而非
+传统的面向对象意义上的类）。这个属性无法直接访问，
+一般通过 Object.prototype.toString(..) 来查看。例如：
+
+Object.prototype.toString.call( [1,2,3] );
+// "[object Array]"
+
+Object.prototype.toString.call( /regex-literal/i );
+// "[object RegExp]"
+
+// 我们自己创建的类就不会有这份特殊待遇，因为 toString() 找不到 toStringTag 属性时只好返回默认的 Object 标签
+// 默认情况类的[[Class]]返回[object Object]
+class Class1 {}
+Object.prototype.toString.call(new Class1()); // "[object Object]"
+// 需要定制[[Class]]
+class Class2 {
+  get [Symbol.toStringTag]() {
+    return "Class2";
+  }
+}
+Object.prototype.toString.call(new Class2()); // "[object Class2]"
+```
+
+  #### 属性的遍历
+```
+ES6 一共有 5 种方法可以遍历对象的属性。
+
+（1）for...in
+for...in循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）。
+
+（2）Object.keys(obj)
+Object.keys返回一个数组，包括对象自身的（不含继承的）
+所有可枚举属性（不含 Symbol 属性）的键名。
+
+（3）Object.getOwnPropertyNames(obj)
+Object.getOwnPropertyNames返回一个数组，包含对象自身的
+所有属性（不含 Symbol 属性，但是包括不可枚举属性）的键名。
+
+（4）Object.getOwnPropertySymbols(obj)
+Object.getOwnPropertySymbols返回一个数组，
+包含对象自身的所有 Symbol 属性的键名。
+
+（5）Reflect.ownKeys(obj)
+Reflect.ownKeys返回一个数组，包含对象自身的（不含继承的）所有键名，
+不管键名是 Symbol 或字符串，也不管是否可枚举。
+
+以上的 5 种方法遍历对象的键名，都遵守同样的属性遍历的次序规则。
+
+首先遍历所有数值键，按照数值升序排列。
+其次遍历所有字符串键，按照加入时间升序排列。
+最后遍历所有 Symbol 键，按照加入时间升序排列。
+Reflect.ownKeys({ [Symbol()]:0, b:0, 10:0, 2:0, a:0 })
+// ['2', '10', 'b', 'a', Symbol()]
+上面代码中，Reflect.ownKeys方法返回一个数组，包含了参数对象的所有属性。
+这个数组的属性次序是这样的，首先是数值属性2和10，
+其次是字符串属性b和a，最后是 Symbol 属性。
+```
+
+### js操作符
+
+  #### ||和&&操作符的返回值
+```
+|| 和 && 首先会对第一个操作数执行条件判断，如果其不是布尔值
+就先进行 ToBoolean 强制类型转换，然后再执行条件判断。
+
+对于 || 来说，如果条件判断结果为 true 就返回第一个操作数的值，
+如果为 false 就返回第二个操作数的值。
+
+&& 则相反，如果条件判断结果为 true 就返回第二个操作数的值，
+如果为 false 就返回第一个操作数的值。
+
+|| 和 && 返回它们其中一个操作数的值，而非条件判断的结果
+```
+
+  #### ==操作符的强制类型转换规则
+```
+（1）字符串和数字之间的相等比较，将字符串转换为数字之后再进行比较。
+
+（2）其他类型和布尔类型之间的相等比较，先将布尔值转换为数字后，
+再应用其他规则进行比较。
+
+（3）null 和 undefined 之间的相等比较，结果为真。
+其他值和它们进行比较都返回假值。
+
+（4）对象和非对象之间的相等比较，对象先调用 ToPrimitive 
+抽象操作后，再进行比较。
+
+（5）如果一个操作值为 NaN ，则相等比较返回 false
+（ NaN 本身也不等于 NaN ）。
+
+（6）如果两个操作值都是对象，则比较它们是不是指向同一个对象。
+如果两个操作数都指向同一个对象，则相等操作符返回 true，否则，返回 false。
+```
+
+  #### 操作符什么时候用于字符串的拼接
+```
+根据 ES5 规范 11.6.1 节，如果某个操作数是字符串或者
+能够通过以下步骤转换为字符串的话，+ 将进行拼接操作。
+如果其中一个操作数是对象（包括数组），则首先对其调用 
+ToPrimitive 抽象操作，该抽象操作再调用 [[DefaultValue]]，
+以数字作为上下文。如果不能转换为字符串，
+则会将其转换为数字类型来进行计算。
+
+简单来说就是，如果 + 的其中一个操作数是字符串
+（或者通过以上步骤最终得到字符串），则执行字符串拼接，
+否则执行数字加法。
+
+那么对于除了加法的运算符来说，只要其中一方是数字，
+那么另一方就会被转为数字。
+```
+
+  #### ~操作符的作用
+```
+~ 返回 2 的补码，并且 ~ 会将数字转换为 32 位整数，
+因此我们可以使用 ~ 来进行取整操作。
+
+~x 大致等同于 -(x+1)。
+```
+
+
+### 类和对象
+
+  #### JavaScript如何实现一个类，怎么实例化这个类
+```
+构造函数法（this + prototype） -- 用 new 关键字 生成实例对象
+缺点：用到了 this 和 prototype，编写复杂，可读性差
+function Mobile(name, price){
+  this.name = name;
+  this.price = price;
+}
+Mobile.prototype.sell = function(){
+  alert(this.name + "，售价 $" + this.price);
+}
+var iPhone7 = new Mobile("iPhone7", 1000);
+iPhone7.sell();
+Object.create 法 -- 用 Object.create() 生成实例对象
+缺点：不能实现私有属性和私有方法，实例对象之间也不能共享数据
+ var Person = {
+     firstname: "Mark",
+     lastname: "Yun",
+     age: 25,
+     introduce: function(){
+         alert('I am ' + Person.firstname + ' ' + Person.lastname);
+     }
+ };
+
+ var person = Object.create(Person);
+ person.introduce();
+
+ // Object.create 要求 IE9+，低版本浏览器可以自行部署：
+ if (!Object.create) {
+　   Object.create = function (o) {
+　　　 function F() {}
+　　　 F.prototype = o;
+　　　 return new F();
+　　};
+　}
+极简主义法（消除 this 和 prototype） -- 调用 createNew() 得到实例对象
+优点：容易理解，结构清晰优雅，符合传统的"面向对象编程"的构造
+ var Cat = {
+   age: 3, // 共享数据 -- 定义在类对象内，createNew() 外
+   createNew: function () {
+     var cat = {};
+     // var cat = Animal.createNew(); // 继承 Animal 类
+     cat.name = "小咪";
+     var sound = "喵喵喵"; // 私有属性--定义在 createNew() 内，输出对象外
+     cat.makeSound = function () {
+       alert(sound);  // 暴露私有属性
+     };
+     cat.changeAge = function(num){
+       Cat.age = num; // 修改共享数据
+     };
+     return cat; // 输出对象
+   }
+ };
+
+ var cat = Cat.createNew();
+ cat.makeSound();
+ES6 语法糖 class -- 用 new 关键字 生成实例对象
+
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+  toString() {
+    return '(' + this.x + ', ' + this.y + ')';
+  }
+}
+
+var point = new Point(2, 3);
+```
+
+  #### ECMAScript6怎么写class，为什么会出现class这种东西
+```
+在我看来 ES6 新添加的 class 只是为了补充 js 中缺少的一些
+面向对象语言的特性，但本质上来说它只是一种语法糖，
+不是一个新的东西，其背后还是原型继承的思想。
+通过加入 class 可以有利于我们更好的组织代码。
+
+在 class 中添加的方法，其实是添加在类的原型上的。
+```
+
+```
+这个语法糖可以让有OOP基础的人更快上手js，至少是一个官方的实现了
+但对熟悉js的人来说，这个东西没啥大影响；
+一个Object.creat()搞定继承，比class简洁清晰的多
+```
+
+  #### javascript创建对象的几种方式
+
+```
+我们一般使用字面量的形式直接创建对象，但是这种创建方式
+对于创建大量相似对象的时候，会产生大量的重复代码。但 js
+和一般的面向对象的语言不同，在 ES6 之前它没有类的概念。
+但是我们可以使用函数来进行模拟，从而产生出可复用的对象
+创建方式，我了解到的方式有这么几种：
+
+（1）第一种是工厂模式，工厂模式的主要工作原理是用函数来
+封装创建对象的细节，从而通过调用函数来达到复用的目的。
+但是它有一个很大的问题就是创建出来的对象无法和某个类型联系起来，
+它只是简单的封装了复用代码，而没有建立起对象和类型间的关系。
+
+（2）第二种是构造函数模式。js 中每一个函数都可以作为构造函数，
+只要一个函数是通过 new 来调用的，那么我们就可以把它称为构造函数。
+执行构造函数首先会创建一个对象，然后将对象的原型指向构造函数的 
+prototype 属性，然后将执行上下文中的 this 指向这个对象，
+最后再执行整个函数，如果返回值不是对象，则返回新建的对象。
+因为 this 的值指向了新建的对象，因此我们可以使用 this 给对象赋值。
+构造函数模式相对于工厂模式的优点是，所创建的对象和构造函数建立起了联系，
+因此我们可以通过原型来识别对象的类型。但是构造函数存在一个缺点就是，
+造成了不必要的函数对象的创建，因为在 js 中函数也是一个对象，
+因此如果对象属性中如果包含函数的话，那么每次我们都会新建一个函数对象，
+浪费了不必要的内存空间，因为函数是所有的实例都可以通用的。
+
+（3）第三种模式是原型模式，因为每一个函数都有一个 prototype 属性，
+这个属性是一个对象，它包含了通过构造函数创建的所有实例都能共享的属
+性和方法。因此我们可以使用原型对象来添加公用属性和方法，从而实现代码
+的复用。这种方式相对于构造函数模式来说，解决了函数对象的复用问题。
+但是这种模式也存在一些问题，一个是没有办法通过传入参数来初始化值，
+另一个是如果存在一个引用类型如 Array 这样的值，那么所有的实例将
+共享一个对象，一个实例对引用类型值的改变会影响所有的实例。
+
+（4）第四种模式是组合使用构造函数模式和原型模式，这是创建自定义类型
+的最常见方式。因为构造函数模式和原型模式分开使用都存在一些问题，
+因此我们可以组合使用这两种模式，通过构造函数来初始化对象的属性，
+通过原型对象来实现函数方法的复用。这种方法很好的解决了两种模式单独
+使用时的缺点，但是有一点不足的就是，因为使用了两种不同的模式，
+所以对于代码的封装性不够好。
+
+（5）第五种模式是动态原型模式，这一种模式将原型方法赋值的创建过程移动到了
+构造函数的内部，通过对属性是否存在的判断，可以实现仅在第一次调用函数时
+对原型对象赋值一次的效果。这一种方式很好地对上面的混合模式进行了封装。
+
+（6）第六种模式是寄生构造函数模式，这一种模式和工厂模式的实现基本相同，
+我对这个模式的理解是，它主要是基于一个已有的类型，在实例化时对实例化的
+对象进行扩展。这样既不用修改原来的构造函数，也达到了扩展对象的目的。
+它的一个缺点和工厂模式一样，无法实现对象的识别。
+
+嗯我目前了解到的就是这么几种方式。
+```
+
+```
+javascript创建对象简单的说,无非就是使用内置对象或各种自定义对象，
+当然还可以用JSON；但写法有很多种，也能混合使用
+
+对象字面量的方式：
+person={firstname:"Mark",lastname:"Yun",age:25,eyecolor:"black"};
+：
+用function来模拟无参的构造函数
+function Person(){}
+	var person=new Person();//定义一个function，如果使用new"实例化",该function可以看作是一个Class
+        person.name="Mark";
+        person.age="25";
+        person.work=function(){
+        alert(person.name+" hello...");
+}
+person.work();
+
+用function来模拟参构造函数来实现（用this关键字定义构造的上下文属性）：
+function Pet(name,age,hobby){
+       this.name=name;//this作用域：当前对象
+       this.age=age;
+       this.hobby=hobby;
+       this.eat=function(){
+           alert("我叫"+this.name+",我喜欢"+this.hobby+",是个程序员");
+       }
+}
+var maidou =new Pet("麦兜",25,"coding");//实例化、创建对象
+maidou.eat();//调用eat方法
+
+用工厂方式来创建（内置对象）：
+var wcDog =new Object();
+     wcDog.name="旺财";
+     wcDog.age=3;
+     wcDog.work=function(){
+       alert("我是"+wcDog.name+",汪汪汪......");
+     }
+     wcDog.work();
+     
+用原型方式来创建：
+function Dog(){}
+Dog.prototype.name="旺财";
+Dog.prototype.eat=function(){
+	alert(this.name+"是个吃货");
+}
+var wangcai =new Dog();
+wangcai.eat();
+
+用混合方式来创建：
+ function Car(name,price){
+	this.name=name;
+	this.price=price;
+}
+Car.prototype.sell=function(){
+	alert("我是"+this.name+"，我现在卖"+this.price+"万元");
+}
+var camry =new Car("凯美瑞",27);
+camry.sell();
+```
+
+  #### javascript有哪些方法定义对象
+```
+对象字面量： var obj = {};
+构造函数： var obj = new Object();
+Object.create(): var obj = Object.create(Object.prototype);
+```
+
+  #### 如何判断一个对象是否属于某个类
+```
+第一种方式是使用 instanceof 运算符来判断构造函数的 
+prototype 属性是否出现在对象的原型链中的任何位置。
+
+第二种方式可以通过对象的 constructor 属性来判断，
+对象的 constructor 属性指向该对象的构造函数，但是
+这种方式不是很安全，因为 constructor 属性可以被改写。
+
+第三种方式，如果需要判断的是某个内置的引用类型的话，
+可以使用 Object.prototype.toString() 方法来打印对象的
+[[Class]] 属性来进行判断。
+```
+
+  #### 如何判断一个对象是否为空对象
+```js
+function checkNullObj(obj) {
+  return Object.keys(obj).length === 0 && Object.getOwnPropertySymbols(obj).length === 0;
+}
+```
+
+  #### 怎么判断两个对象相等
+```
+obj={
+    a:1,
+    b:2
+}
+obj2={
+    a:1,
+    b:2
+}
+obj3={
+    a:1,
+    b:'2'
+}
+可以转换为字符串来判断
+
+JSON.stringify(obj)==JSON.stringify(obj2);//true
+JSON.stringify(obj)==JSON.stringify(obj3);//false
+```
+
+  #### js有哪些内置对象
+```
+js 中的内置对象主要指的是在程序执行前存在全局作用域里的
+由 js 定义的一些全局值属性、函数和用来实例化其他对象的
+构造函数对象。一般我们经常用到的如全局变量值 NaN、undefined，
+全局函数如 parseInt()、parseFloat() 用来实例化对象的
+构造函数如 Date、Object 等，还有提供数学计算的单体内置对象如 Math 对象。
+
+Object 是 JavaScript 中所有对象的父对象
+数据封装类对象：Object、Array、Boolean、Number 和 String
+其他对象：Function、Arguments、Math、Date、RegExp、Error
+ES6新增对象：Symbol、Map、Set、Promises、Proxy、Reflect
+```
+
+```
+全局的对象（ global objects ）或称标准内置对象，
+不要和 "全局对象（global object）" 混淆。这里说的全局的对象是
+说在全局作用域里的对象。全局作用域中的其他对象
+可以由用户的脚本创建或由宿主程序提供。
+
+标准内置对象的分类：
+（1）值属性，这些全局属性返回一个简单值，这些值没有自己的属性和方法。
+例如 Infinity、NaN、undefined、null 字面量
+
+（2）函数属性，全局函数可以直接调用，不需要在调用时指定所属对象，
+执行结束后会将结果直接返回给调用者。
+例如 eval()、parseFloat()、parseInt() 等
+
+（3）基本对象，基本对象是定义或使用其他对象的基础。
+基本对象包括一般对象、函数对象和错误对象。
+
+例如 Object、Function、Boolean、Symbol、Error 等
+
+（4）数字和日期对象，用来表示数字、日期和执行数学计算的对象。
+例如 Number、Math、Date
+
+（5）字符串，用来表示和操作字符串的对象。
+例如 String、RegExp
+
+（6）可索引的集合对象，这些对象表示按照索引值来排序的数据集合，
+包括数组和类型数组，以及类数组结构的对象。例如 Array
+
+（7）使用键的集合对象，这些集合对象在存储数据时会使用到键，
+支持按照插入顺序来迭代元素。
+例如 Map、Set、WeakMap、WeakSet
+
+（8）矢量集合，SIMD 矢量集合中的数据会被组织为一个数据序列。
+例如 SIMD 等
+
+（9）结构化数据，这些对象用来表示和操作结构化的缓冲区数据，
+或使用 JSON 编码的数据。
+例如 JSON 等
+
+（10）控制抽象对象
+例如 Promise、Generator 等
+
+（11）反射
+例如 Reflect、Proxy
+
+（12）国际化，为了支持多语言处理而加入 ECMAScript 的对象。
+例如 Intl、Intl.Collator 等
+
+（13）WebAssembly
+
+（14）其他
+例如 arguments
+
+```
+
+  #### 什么是假值对象
+```
+浏览器在某些特定情况下，在常规 JavaScript 语法基础上自己
+创建了一些外来值，这些就是“假值对象”。假值对象看起来和
+普通对象并无二致（都有属性，等等），但将它们强制类型转换
+为布尔值时结果为 false 最常见的例子是 document.all，
+它是一个类数组对象，包含了页面上的所有元素，由 DOM
+（而不是 JavaScript 引擎）提供给 JavaScript 程序使用。
+```
+
+  #### Object.is()与原来的比较操作符“===”、“==”的区别
+```
+使用双等号进行相等判断时，如果两边的类型不一致，
+则会进行强制类型转化后再进行比较。
+
+使用三等号进行相等判断时，如果两边的类型不一致时，
+不会做强制类型准换，直接返回 false。
+
+使用 Object.is 来进行相等判断时，一般情况下和三等号的判断相同，
+它处理了一些特殊的情况，比如 -0 和 +0 不再相等，两个 NaN 认定为是相等的。
+```
+
+```
+两等号判等，会在比较时进行类型转换。
+三等号判等（判断严格），比较时不进行隐式类型转换，（类型不同则会返回false）。
+
+Object.is 在三等号判等的基础上特别处理了 NaN 、-0 和 +0 ，
+保证 -0 和 +0 不再相同，但 Object.is(NaN, NaN) 会返回 true.
+
+Object.is 应被认为有其特殊的用途，而不能用它认为它比其它的相等对比更宽松或严格。
+```
+
+  #### Object.assign()
+```
+Object.assign() 方法用于将所有可枚举属性的值从一个
+或多个源对象复制到目标对象。它将返回目标对象。
+```
+
+  #### 使用Object.defineProperty()来进行数据劫持有什么缺点
+```
+Object.defineProperty 函数一共有三个参数，第一个参数是需要
+定义属性的对象，第二个参数是需要定义的属性，第三个是该属性描述符。
+
+一个属性的描述符有四个属性，分别是 value 属性的值，writable 属性
+是否可写，enumerable 属性是否可枚举，configurable 属性是否可配置修改。
+```
+
+```
+有一些对属性的操作，使用这种方法无法拦截，比如说通过下标方式
+修改数组数据或者给对象新增属性，vue 内部通过重写函数解决了
+这个问题。在 Vue3.0 中已经不使用这种方式了，而是通过使用 
+Proxy 对对象进行代理，从而实现数据劫持。使用 Proxy 的好处是
+它可以完美的监听到任何方式的数据改变，唯一的缺点是兼容性的问题，
+因为这是 ES6 的语法。
+```
+
+
+### 数组和对象
+
+  #### 如何实现数组的随机排序
+```js
+// （1）使用数组 sort 方法对数组元素随机排序，让 Math.random() 
+出来的数与 0.5 比较，如果大于就返回 1 交换位置，
+如果小于就返回 -1，不交换位置。
+
+function randomSort(a, b) {
+  return Math.random() > 0.5 ? -1 : 1;
+}
+
+//  缺点：每个元素被派到新数组的位置不是随机的，
+原因是 sort() 方法是依次比较的。
+
+// （2）随机从原数组抽取一个元素，加入到新数组
+
+function randomSort(arr) {
+  var result = [];
+
+  while (arr.length > 0) {
+    var randomIndex = Math.floor(Math.random() * arr.length);
+    result.push(arr[randomIndex]);
+    arr.splice(randomIndex, 1);
+  }
+
+  return result;
+}
+
+// （3）随机交换数组内的元素（洗牌算法类似）
+
+function randomSort(arr) {
+  var index,
+    randomIndex,
+    temp,
+    len = arr.length;
+
+  for (index = 0; index < len; index++) {
+    randomIndex = Math.floor(Math.random() * (len - index)) + index;
+
+    temp = arr[index];
+    arr[index] = arr[randomIndex];
+    arr[randomIndex] = temp;
+  }
+
+  return arr;
+}
+
+// es6
+function randomSort(array) {
+  let length = array.length;
+
+  if (!Array.isArray(array) || length <= 1) return;
+
+  for (let index = 0; index < length - 1; index++) {
+    let randomIndex = Math.floor(Math.random() * (length - index)) + index;
+
+    [array[index], array[randomIndex]] = [array[randomIndex], array[index]];
+  }
+
+  return array;
+}
+```
+
+  #### 快速的让一个数组乱序
+```
+var arr = [1,2,3,4,5,6,7,8,9,10];
+arr.sort(function(){
+    return Math.random() - 0.5;
+})
+console.log(arr);
+```
+
+  #### 数组去重方法总结
+```
+(1)方法一、利用ES6 Set去重（ES6中最常用）
+function unique (arr) {
+  return Array.from(new Set(arr))
+}
+var arr = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a',{},{}];
+console.log(unique(arr))
+ //[1, "true", true, 15, false, undefined, null, NaN, "NaN", 0, "a", {}, {}]
+ 
+(2)方法二、利用for嵌套for，然后splice去重（ES5中最常用）
+function unique(arr){            
+        for(var i=0; i<arr.length; i++){
+            for(var j=i+1; j<arr.length; j++){
+                if(arr[i]==arr[j]){         //第一个等同于第二个，splice方法删除第二个
+                    arr.splice(j,1);
+                    j--;
+                }
+            }
+        }
+	return arr;
+}
+var arr = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a',{},{}];
+console.log(unique(arr))
+    //[1, "true", 15, false, undefined, NaN, NaN, "NaN", "a", {…}, {…}]     //NaN和{}没有去重，两个null直接消失了
+双层循环，外层循环元素，内层循环时比较值。值相同时，则删去这个值。
+
+(3)方法三、利用indexOf去重
+function unique(arr) {
+    if (!Array.isArray(arr)) {
+        console.log('type error!')
+        return
+    }
+    var array = [];
+    for (var i = 0; i < arr.length; i++) {
+        if (array .indexOf(arr[i]) === -1) {
+            array .push(arr[i])
+        }
+    }
+    return array;
+}
+var arr = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a',{},{}];
+console.log(unique(arr))
+   // [1, "true", true, 15, false, undefined, null, NaN, NaN, "NaN", 0, "a", {…}, {…}]  //NaN、{}没有去重
+新建一个空的结果数组，for 循环原数组，判断结果数组是否
+存在当前元素，如果有相同的值则跳过，不相同则push进数组
+
+(4)方法四、利用sort()
+function unique(arr) {
+    if (!Array.isArray(arr)) {
+        console.log('type error!')
+        return;
+    }
+    arr = arr.sort()
+    var arrry= [arr[0]];
+    for (var i = 1; i < arr.length; i++) {
+        if (arr[i] !== arr[i-1]) {
+            arrry.push(arr[i]);
+        }
+    }
+    return arrry;
+}
+var arr = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a',{},{}];
+console.log(unique(arr))
+// [0, 1, 15, "NaN", NaN, NaN, {…}, {…}, "a", false, null, true, "true", undefined]      //NaN、{}没有去重
+利用sort()排序方法，然后根据排序后的结果进行遍历及相邻元素比对
+
+(5)方法五、利用对象的属性不能相同的特点进行去重
+function unique(arr) {
+    if (!Array.isArray(arr)) {
+        console.log('type error!')
+        return
+    }
+    var arrry= [];
+     var  obj = {};
+    for (var i = 0; i < arr.length; i++) {
+        if (!obj[arr[i]]) {
+            arrry.push(arr[i])
+            obj[arr[i]] = 1
+        } else {
+            obj[arr[i]]++
+        }
+    }
+    return arrry;
+}
+var arr = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a',{},{}];
+console.log(unique(arr))
+//[1, "true", 15, false, undefined, null, NaN, 0, "a", {…}]    //两个true直接去掉了，NaN和{}去重
+
+(6)方法六、利用includes
+function unique(arr) {
+    if (!Array.isArray(arr)) {
+        console.log('type error!')
+        return
+    }
+    var array =[];
+    for(var i = 0; i < arr.length; i++) {
+            if( !array.includes( arr[i]) ) {//includes 检测数组是否有某个值
+                    array.push(arr[i]);
+              }
+    }
+    return array
+}
+var arr = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a',{},{}];
+console.log(unique(arr))
+    //[1, "true", true, 15, false, undefined, null, NaN, "NaN", 0, "a", {…}, {…}]     //{}没有去重
+
+(7)方法七、利用hasOwnProperty
+function unique(arr) {
+    var obj = {};
+    return arr.filter(function(item, index, arr){
+        return obj.hasOwnProperty(typeof item + item) ? false : (obj[typeof item + item] = true)
+    })
+}
+    var arr = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a',{},{}];
+        console.log(unique(arr))
+//[1, "true", true, 15, false, undefined, null, NaN, "NaN", 0, "a", {…}]   //所有的都去重了
+利用hasOwnProperty 判断是否存在对象属性
+
+(8)方法八、利用filter
+function unique(arr) {
+  return arr.filter(function(item, index, arr) {
+    //当前元素，在原始数组中的第一个索引==当前索引值，否则返回当前元素
+    return arr.indexOf(item, 0) === index;
+  });
+}
+var arr = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a',{},{}];
+console.log(unique(arr))
+//[1, "true", true, 15, false, undefined, null, "NaN", 0, "a", {…}, {…}]
+
+(9)方法九、利用递归去重
+function unique(arr) {
+    var array= arr;
+    var len = array.length;
+
+	array.sort(function(a,b){   //排序后更加方便去重
+		return a - b;
+	})
+
+	function loop(index){
+        if(index >= 1){
+            if(array[index] === array[index-1]){
+            array.splice(index,1);
+            }
+            loop(index - 1);    //递归loop，然后数组去重
+        }
+	}
+	loop(len-1);
+	return array;
+}
+var arr = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a',{},{}];
+console.log(unique(arr))
+//[1, "a", "true", true, 15, false, 1, {…}, null, NaN, NaN, "NaN", 0, "a", {…}, undefined]
+
+(10)方法十、利用Map数据结构去重
+function arrayNonRepeatfy(arr) {
+	let map = new Map();
+		let array = new Array();  // 数组用于返回结果
+		for (let i = 0; i < arr.length; i++) {
+			if(map .has(arr[i])) {  // 如果有该key值
+			map .set(arr[i], true);
+		} else {
+			map .set(arr[i], false);   // 如果没有该key值
+			array .push(arr[i]);
+		}
+	}
+	return array ;
+}
+ var arr = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a',{},{}];
+    console.log(unique(arr))
+//[1, "a", "true", true, 15, false, 1, {…}, null, NaN, NaN, "NaN", 0, "a", {…}, undefined]
+创建一个空Map数据结构，遍历需要去重的数组，把数组的每一个
+元素作为key存到Map中。由于Map中不会出现相同的key值，
+所以最终得到的就是去重后的结果
+
+(11)方法十一、利用reduce+includes
+function unique(arr){
+    return arr.reduce((prev,cur) => prev.includes(cur) ? prev : [...prev,cur],[]);
+}
+var arr = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a',{},{}];
+console.log(unique(arr));
+// [1, "true", true, 15, false, undefined, null, NaN, "NaN", 0, "a", {…}, {…}]
+
+(12)方法十二、[...new Set(arr)]
+[...new Set(arr)]
+//代码就是这么少----（其实，严格来说并不算是一种，相对于第一种方法来说只是简化了代码）
+```
+
+  #### 判断是否是数组
+```
+Array.isArray(arr
+Object.prototype.toString.call(arr) === '[Object Array]'
+arr instanceof Array
+array.constructor === Array
+```
+
+  #### 数组的fill方法
+```
+fill() 方法用一个固定值填充一个数组中从起始索引到
+终止索引内的全部元素。不包括终止索引。
+
+fill 方法接受三个参数 value，start 以及 end，start 和 end 
+参数是可选的，其默认值分别为 0 和 this 对象的 length 属性值。
+```
+
+  #### 数组和对象有哪些原生方法
+```
+数组和字符串的转换方法：toString()、toLocalString()、join() 
+其中 join() 方法可以指定转换为字符串时的分隔符。
+
+数组尾部操作的方法 pop() 和 push()，push 方法可以传入多个参数。
+
+数组首部操作的方法 shift() 和 unshift() 重排序的方法 reverse() 
+和 sort()，sort() 方法可以传入一个函数来进行比较，
+传入前后两个值，如果返回值为正数，则交换两个参数的位置。
+
+数组连接的方法 concat() ，返回的是拼接好的数组，不影响原数组。
+
+数组截取办法 slice()，用于截取数组中的一部分返回，不影响原数组。
+
+数组插入方法 splice()，影响原数组查找特定项的索引的方法，indexOf() 和 
+lastIndexOf() 迭代方法 every()、some()、filter()、map() 和 forEach() 方法
+
+数组归并方法 reduce() 和 reduceRight() 方法
+```
+
+  #### JS数组和对象的遍历方式，以及几种方式的比较
+```
+通常我们会用循环的方式来遍历数组。但是循环是 导致js 性能
+问题的原因之一。一般我们会采用下几种方式来进行数组的遍历：
+
+(1)for in循环
+for-in需要分析出array的每个属性，这个操作性能开销很大。
+用在 key 已知的数组上是非常不划算的。所以尽量不要用for-in，
+除非你不清楚要处理哪些属性，例如 JSON对象这样的情况
+
+(2)for循环
+循环每进行一次，就要检查一下数组长度。读取属性（数组长度）要比
+读局部变量慢，尤其是当 array 里存放的都是 DOM 元素，
+因为每次读取都会扫描一遍页面上的选择器相关元素，速度会大大降低
+
+(3)forEach
+这里的 forEach回调中两个参数分别为 value，index
+forEach 无法遍历对象
+IE不支持该方法；Firefox 和 chrome 支持
+forEach 无法使用 break，continue 跳出循环，
+且使用 return 是跳过本次循环
+```
+
+  #### JavaScript类数组对象的定义
+```
+一个拥有 length 属性和若干索引属性的对象就可以被称为
+类数组对象，类数组对象和数组类似，但是不能调用数组的方法。
+
+常见的类数组对象有 arguments 和 DOM 方法的返回结果，
+还有一个函数也可以被看作是类数组对象，因为它含有 
+length属性值，代表可接收的参数个数。
+```
+
+常见的类数组转换为数组的方法有这样几种：
+（1）通过 call 调用数组的 slice 方法来实现转换
+```js
+Array.prototype.slice.call(arrayLike);
+```
+
+（2）通过 call 调用数组的 splice 方法来实现转换
+```js
+Array.prototype.splice.call(arrayLike, 0);
+```
+
+（3）通过 apply 调用数组的 concat 方法来实现转换
+```js
+Array.prototype.concat.apply([], arrayLike);
+```
+
+（4）通过 Array.from 方法来实现转换
+```js
+Array.from(arrayLike);
+```
+
+  #### Array构造函数只有一个参数值时的表现
+```
+Array 构造函数只带一个数字参数的时候，该参数会被作为
+数组的预设长度（length），而非只充当数组中的一个元素。这样
+创建出来的只是一个空数组，只不过它的 length 属性被设置成了指定的值。
+
+构造函数 Array(..) 不要求必须带 new 关键字。不带时，它会被自动补上。
+```
+
+  #### Array.splice()与Array.splice()的区别
+```
+slice
+“读取”数组指定的元素，不会对原数组进行修改
+
+语法：arr.slice(start, end)
+start 指定选取开始位置（含）
+end 指定选取结束位置（不含）
+
+splice
+“操作”数组指定的元素，会修改原数组，返回被删除的元素
+
+语法：arr.splice(index, count, [insert Elements])
+index 是操作的起始位置
+count = 0 插入元素，count > 0 删除元素
+[insert Elements] 向数组新插入的元素
+```
+
+  #### ["1","2","3"].map(parseInt)答案是多少
+```
+parseInt() 函数能解析一个字符串，并返回一个整数，需要两个参数
+(val, radix)，其中 radix 表示要解析的数字的基数。（该值介于 2 ~ 36 
+之间，并且字符串中的数字不能大于 radix 才能正确返回数字结果值）。
+
+
+此处 map 传了 3 个参数 (element, index, array)，默认第三个参数
+被忽略掉，因此三次传入的参数分别为 "1-0", "2-1", "3-2"
+
+因为字符串的值不能大于基数，因此后面两次调用均失败，
+返回 NaN ，第一次基数为 0 ，按十进制解析返回 1。
+```
+
+```
+[1, NaN, NaN]因为 parseInt 需要两个参数 (val, radix)，
+其中radix 表示解析时用的基数。
+map传了 3个(element, index, array)，对应的 radix 不合法导致解析失败。
+```
+
+  #### map与forEach的区别
+```
+forEach方法，是最基本的方法，就是遍历与循环，默认有3个传参：
+分别是遍历的数组内容item、数组索引index、和当前遍历数组Array map方法，
+基本用法与forEach一致，但是不同的，它会返回一个新的数组，
+所以在callback需要有return值，如果没有，会返回undefined
+```
+
+  #### [].forEach.call(\$\$("<em>"),function(a){a.style.outline="1px solid #" (~~(Math.random()</em>(1&lt;&lt;24))).toString(16)}) 能解释一下这段代码的意思吗
+```
+（1）选取页面所有 DOM 元素。在浏览器的控制台中可以使用$$()方法
+来获取页面中相应的元素，这是现代浏览器提供的一个命令行 API 
+相当于 document.querySelectorAll 方法。
+
+（2）循环遍历 DOM 元素
+
+（3）给元素添加 outline 。由于渲染的 outline 是不在 CSS 盒模型
+中的，所以为元素添加 outline 并不会影响元素的大小和页面的布局。
+
+（4）生成随机颜色函数。Math.random()*(1<<24) 可以得到 0~2^24 - 1 
+之间的随机数，因为得到的是一个浮点数，但我们只需要整数部分，
+使用取反操作符 ~ 连续两次取反获得整数部分，
+然后再用 toString(16) 的方式，转换为一个十六进制的字符串。
+```
+
+  #### Map和WeakMap结构
+```
+1.Map 数据结构。它类似于对象，也是键值对的集合，但是“键”的
+范围不限于字符串，各种类型的值（包括对象）都可以当作键。
+2.WeakMap 结构与 Map 结构类似，也是用于生成键值对的集合。
+但是 WeakMap 只接受对象作为键名（ null 除外），
+不接受其他类型的值作为键名。
+而且 WeakMap 的键名所指向的对象，不计入垃圾回收机制。
+```
+
+  #### Set和WeakSet结构
+```
+1.ES6 提供了新的数据结构 Set。它类似于数组，
+但是成员的值都是唯一的，没有重复的值。
+2.WeakSet 结构与 Set 类似，也是不重复的值的集合。但是 
+WeakSet 的成员只能是对象，而不能是其他类型的值。WeakSet 
+中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，
+```
+
+  #### {}和[]的valueOf和toString的结果是什么
+```
+{} 的 valueOf 结果为 {} ，toString 的结果为 "[object Object]"
+
+[] 的 valueOf 结果为 [] ，toString 的结果为 ""
+```
+
+
+### 函数
+
+  #### JavaScript中，调用函数有哪几种方式
+```
+方法调用模式 Foo.foo(arg1, arg2);
+函数调用模式 foo(arg1, arg2);
+构造器调用模式 (new Foo())(arg1, arg2);
+call/applay调用模式 Foo.foo.call(that, arg1, arg2);
+bind调用模式 Foo.foo.bind(that)(arg1, arg2)();
+```
+
+  #### 函数式编程
+```
+简单说，"函数式编程"是一种"编程范式"（programming paradigm），
+也就是如何编写程序的方法论。
+
+它具有以下特性：闭包和高阶函数、惰性计算、递归、函数
+是"第一等公民"、只用"表达式"。
+```
+
+  #### 箭头函数与普通函数的区别
+```
+函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象
+不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误
+不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替
+不可以使用yield命令，因此箭头函数不能用作Generator函数
+```
+
+  #### 封装一个函数，参数是定时器的时间，.then执行回调函数
+```
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+```
   - [isNaN和Number.isNaN函数的区别--15. isNaN 和 Number.isNaN 函数的区别？](#isNaN和NumberisNaN函数的区别)
   - [Javascript全局函数和全局变量--76 Javascript全局函数和全局变量](#Javascript全局函数和全局变量)
   - [什么是闭包，为什么要用它--46. 什么是闭包，为什么要用它？  1 闭包](#什么是闭包，为什么要用它)
   - [使用闭包实现每隔一秒打印--160. 使用闭包实现每隔一秒打印 1,2,3,4](#使用闭包实现每隔一秒打印)
   - [eval是做什么的--39. eval 是做什么的？  35 eval是做什么的](#eval是做什么的)
+
+  #### 函数节流，应用场景和原理
+```
+函数节流(throttle)是指阻止一个函数在很短时间间隔内连续调用。 
+只有当上一次函数执行后达到规定的时间间隔，才能进行下一次调用。 
+但要保证一个累计最小调用间隔（否则拖拽类的节流都将无连续效果）
+
+函数节流用于 onresize, onscroll 等短时间内会多次触发的事件
+
+函数节流的原理：使用定时器做时间节流。 当触发一个事件时，
+先用 setTimout 让这个事件延迟一小段时间再执行。 如果在这个
+时间间隔内又触发了事件，就 clearTimeout 原来的定时器， 
+再 setTimeout 一个新的定时器重复以上流程。
+
+函数节流简单实现：
+function throttle(method, context) {
+     clearTimeout(methor.tId);
+     method.tId = setTimeout(function(){
+         method.call(context);
+     }， 100); // 两次调用至少间隔 100ms
+}
+// 调用
+window.onresize = function(){
+  throttle(myFunc, window);
+}
+```
 
 
 ### js原型和原型链
@@ -1051,94 +2127,1729 @@ console.log(cat instanceof Reptile); //true
 console.log(cat instanceof Animal2); //true
 ```
 
-- [this对象](#this对象)  38. 谈谈 This 对象的理解。   6 谈谈This对象的理解 101 描述一下this
-  - [this指向--56 谈一谈函数中this的指向  136 this指向](#this指向)
-  - [.call()和.apply()的区别--73. .call() 和 .apply() 的区别？ ](#call和apply的区别)
-  - [手写call、apply及bind函数--97. 手写 call、apply 及 bind 函数](#手写callapply及bind函数)
-  - [简单实现Function.bind函数--130 简单实现 Function.bind 函数](#简单实现Functionbind函数)
+### this对象
+```
+this 是执行上下文中的一个属性，它指向最后一次调用这个方法的对象。
+在实际开发中，this 的指向可以通过四种调用模式来判断。
+
+第一种是函数调用模式，当一个函数不是一个对象的属性时，
+直接作为函数来调用时，this 指向全局对象。
+
+第二种是方法调用模式，如果一个函数作为一个对象的方法
+来调用时，this 指向这个对象。
+
+第三种是构造器调用模式，如果一个函数用 new 调用时，
+函数执行前会新创建一个对象，this 指向这个新创建的对象。
+
+第四种是 apply 、 call 和 bind 调用模式，这三个方法都
+可以显示的指定调用函数的 this 指向。其中 apply 方法接收
+两个参数：一个是 this 绑定的对象，一个是参数数组。
+call 方法接收的参数，第一个是 this 绑定的对象，后面的
+其余参数是传入函数执行的参数。也就是说，在使用 call() 方法时，
+传递给函数的参数必须逐个列举出来。bind 方法通过传入一个对象，
+返回一个 this 绑定了传入对象的新函数。这个函数的 this 
+指向除了使用 new 时会被改变，其他情况下都不会改变。
+
+这四种方式，使用构造器调用模式的优先级最高，然后是 apply 、
+call 和 bind 调用模式，然后是方法调用模式，然后是函数调用模式。
+```
+
+```
+this总是指向函数的直接调用者（而非间接调用者）
+如果有new关键字，this指向new出来的那个对象
+在事件中，this指向触发这个事件的对象，特殊的是，
+IE中的attachEvent中的this总是指向全局对象Window
+```
+
+  #### this指向
+```
+this的指向在函数定义的时候是确定不了的，只有函数执行的时候才能
+确定this到底指向谁，实际上this的最终指向的是那个调用它的对象
+
+《javascript语言精髓》中大概概括了4种调用方式：
+方法调用模式
+
+函数调用模式
+
+构造器调用模式
+graph LR
+A-->B
+
+apply/call调用模式
+```
+
+```
+默认绑定：全局环境中，this默认绑定到window
+
+隐式绑定：一般地，被直接对象所包含的函数调用时，
+也称为方法调用，this隐式绑定到该直接对象
+
+隐式丢失：隐式丢失是指被隐式绑定的函数丢失绑定对象，
+从而默认绑定到window。显式绑定：通过call()、apply()、
+bind()方法把对象绑定到this上，叫做显式绑定
+
+new绑定：如果函数或者方法调用之前带有关键字new，
+它就构成构造函数调用。对于this绑定来说，称为new绑定
+
+构造函数通常不使用return关键字，它们通常初始化新对象，
+当构造函数的函数体执行完毕时，它会显式返回。在这种情况下，
+构造函数调用表达式的计算结果就是这个新对象的值
+
+如果构造函数使用return语句但没有指定返回值，或者返回一个原始值，
+那么这时将忽略返回值，同时使用这个新对象作为调用结果
+
+如果构造函数显式地使用return语句返回一个对象，
+那么调用表达式的值就是这个对象
+```
+
+  #### .call()和.apply()的区别
+```
+它们的作用一模一样，区别仅在于传入参数的形式的不同。
+
+apply 接受两个参数，第一个参数指定了函数体内 this 对象的指向，
+第二个参数为一个带下标的集合，这个集合可以为数组，也可以为类数组，
+apply 方法把这个集合中的元素作为参数传递给被调用的函数。
+
+call 传入的参数数量不固定，跟 apply 相同的是，
+第一个参数也是代表函数体内的 this 指向，
+从第二个参数开始往后，每个参数被依次传入函数。
+```
+
+  #### 手写call、apply及bind函数
+call 函数的实现步骤：
+```
+判断调用对象是否为函数，即使我们是定义在函数的
+原型上的，但是可能出现使用 call 等方式调用的情况。
+
+判断传入上下文对象是否存在，如果不存在，则设置为 window 。
+
+处理传入的参数，截取第一个参数后的所有参数。
+
+将函数作为上下文对象的一个属性。
+
+使用上下文对象来调用这个方法，并保存返回结果。
+
+删除刚才新增的属性。
+
+返回结果。
+```
+
+apply 函数的实现步骤：
+```
+判断调用对象是否为函数，即使我们是定义在函数的原型上的，
+但是可能出现使用 call 等方式调用的情况。
+
+判断传入上下文对象是否存在，如果不存在，则设置为 window 。
+
+将函数作为上下文对象的一个属性。
+
+判断参数值是否传入
+
+使用上下文对象来调用这个方法，并保存返回结果。
+
+删除刚才新增的属性
+
+返回结果
+```
+
+bind 函数的实现步骤：
+```
+判断调用对象是否为函数，即使我们是定义在函数的
+原型上的，但是可能出现使用 call 等方式调用的情况。
+
+保存当前函数的引用，获取其余传入参数值。
+
+创建一个函数返回
+
+函数内部使用 apply 来绑定函数调用，需要判断函数作为
+构造函数的情况，这个时候需要传入当前函数的 this 给 
+apply 调用，其余情况都传入指定的上下文对象。
+```
+
+```js
+// call函数实现
+Function.prototype.myCall = function(context) {
+  // 判断调用对象
+  if (typeof this !== "function") {
+    console.error("type error");
+  }
+
+  // 获取参数
+  let args = [...arguments].slice(1),
+    result = null;
+
+  // 判断 context 是否传入，如果未传入则设置为 window
+  context = context || window;
+
+  // 将调用函数设为对象的方法
+  context.fn = this;
+
+  // 调用函数
+  result = context.fn(...args);
+
+  // 将属性删除
+  delete context.fn;
+
+  return result;
+};
+
+// apply 函数实现
+Function.prototype.myApply = function(context) {
+  // 判断调用对象是否为函数
+  if (typeof this !== "function") {
+    throw new TypeError("Error");
+  }
+
+  let result = null;
+
+  // 判断 context 是否存在，如果未传入则为 window
+  context = context || window;
+
+  // 将函数设为对象的方法
+  context.fn = this;
+
+  // 调用方法
+  if (arguments[1]) {
+    result = context.fn(...arguments[1]);
+  } else {
+    result = context.fn();
+  }
+
+  // 将属性删除
+  delete context.fn;
+
+  return result;
+};
+
+// bind 函数实现
+Function.prototype.myBind = function(context) {
+  // 判断调用对象是否为函数
+  if (typeof this !== "function") {
+    throw new TypeError("Error");
+  }
+
+  // 获取参数
+  var args = [...arguments].slice(1),
+    fn = this;
+
+  return function Fn() {
+    // 根据调用方式，传入不同绑定值
+    return fn.apply(
+      this instanceof Fn ? this : context,
+      args.concat(...arguments)
+    );
+  };
+};
+```
+
+  #### 简单实现Function.bind函数
+```
+ if (!Function.prototype.bind) {
+    Function.prototype.bind = function(that) {
+      var func = this, args = arguments;
+      return function() {
+        return func.apply(that, Array.prototype.slice.call(args, 1));
+      }
+    }
+  }
+  // 只支持 bind 阶段的默认参数：
+  func.bind(that, arg1, arg2)();
+
+  // 不支持以下调用阶段传入的参数：
+  func.bind(that)(arg1, arg2);
+```
   - [new操作符具体干了什么呢？如何实现--50. new 操作符具体干了什么呢？如何实现？    8 new操作符具体干了什么呢?](#new操作符具体干了什么呢如何实现)
   - [Javascript的作用域链--37. Javascript 的作用域链？ 2 说说你对作用域链的理解  117 Javascript作用链域](#Javascript的作用域链)
   - [JavaScript中的作用域与变量声明提升--78. JavaScript 中的作用域与变量声明提升？ 113 解释JavaScript中的作用域与变量声明提升  86 谈谈变量提升？](#JavaScript中的作用域与变量声明提升)
 
-- [事件](#事件)
-  - [事件是什么？IE与火狐的事件机制有什么区别？如何阻止冒泡--42. 事件是什么？IE 与火狐的事件机制有什么区别？ 如何阻止冒泡？](#事件是什么IE与火狐的事件机制有什么区别如何阻止冒泡)
-  - [事件的各个阶段--63 事件的各个阶段](#事件的各个阶段)
-  - [事件“捕获”和“冒泡”执行顺序和事件的执行次数--120 介绍事件“捕获”和“冒泡”执行顺序和事件的执行次数](#事件“捕获”和“冒泡”执行顺序和事件的执行次数)
-  - [事件代理--4 请解释什么是事件代理](#事件代理)
-  - [三种事件模型是什么--43. 三种事件模型是什么？7 事件模型](#三种事件模型是什么)
-  - [事件委托--44. 事件委托是什么？](#事件委托)
-  - [js的事件循环是什么--95. js 的事件循环是什么？](#js的事件循环是什么)
-  - [事件流--96 说说事件流](#事件流)
-  - [写一个通用的事件侦听器函数--41. 写一个通用的事件侦听器函数。](#写一个通用的事件侦听器函数)
-  - [移动端的点击事件的有延迟，时间是多久，为什么会有？怎么解决这个延时--85. 移动端的点击事件的有延迟，时间是多久，为什么会有？ 怎么解决这个延时？](#移动端的点击事件的有延迟时间是多久为什么会有怎么解决这个延时)
+  #### new操作符具体干了什么呢？如何实现
+```js
+（1）首先创建了一个新的空对象
+（2）设置原型，将对象的原型设置为函数的 prototype 对象。
+（3）让函数的 this 指向这个对象，执行构造函数的代码（为这个新对象添加属性）
+（4）判断函数的返回值类型，如果是值类型，返回创建的对象。如果是引用类型，就返回这个引用类型的对象。
 
-- [浏览器](#浏览器)
-  - [从输入URL到看到页面发生的全过程--100 说说从输入URL到看到页面发生的全过程，越详细越好](#从输入URL到看到页面发生的全过程)
-  - [浏览器的渲染过程，DOM树和渲染树的区别--111 描述浏览器的渲染过程，DOM树和渲染树的区别](#浏览器的渲染过程DOM树和渲染树的区别)
-  - [浏览器的缓存机制--56. 谈一谈浏览器的缓存机制？  81 浏览器缓存  102 说一下浏览器的缓存机制](#浏览器的缓存机制)
-  - [Ajax解决浏览器缓存问题--57. Ajax 解决浏览器缓存问题？](#Ajax解决浏览器缓存问题)
-  - [常见兼容性问题--22 常见兼容性问题？](#常见兼容性问题)
-  - [请求方式](#请求方式)
-    - [get和post请求在缓存方面的区别--122. get 和 post 请求在缓存方面的区别](#get和post请求在缓存方面的区别)
-    - [get请求传参长度的误区--120. get 请求传参长度的误区](#get请求传参长度的误区)
-  - [检测浏览器版本版本有哪些方式--88. 检测浏览器版本版本有哪些方式？  107 检测浏览器版本版本有哪些方式？](#检测浏览器版本版本有哪些方式)
-  *- [84. 把 script 标签放在页面的最底部的 body 封闭之前和封闭之后有什么区别？浏览器会如何解析它们？  128 把<script>放在</body>之前和之后有什么区别？浏览器会如何解析它们？](#)
-  - [script的位置是否会影响首屏显示时间--112 script 的位置是否会影响首屏显示时间](#script的位置是否会影响首屏显示时间)
-  *- [82. 需求：实现一个页面操作不会整页刷新的网站，并且能在浏览器前进、后退时正确响应。给出你的技术实现方案？](#)
-  - [如何检测浏览器所支持的最小字体大小--138. 如何检测浏览器所支持的最小字体大小？](#如何检测浏览器所支持的最小字体大小)
-  - [开发中常用的几种Content-Type--157. 开发中常用的几种 Content-Type ？](#开发中常用的几种ContentType)
-  - [如何判断当前脚本运行在浏览器还是node环境中？（阿里）--83. 如何判断当前脚本运行在浏览器还是 node 环境中？（阿里）](#如何判断当前脚本运行在浏览器还是node环境中阿里)
-  - [V8引擎的垃圾回收机制--80. 简单介绍一下 V8 引擎的垃圾回收机制](#V8引擎的垃圾回收机制)
-  - [Javascript垃圾回收方法--124 Javascript垃圾回收方法  139 垃圾回收](#Javascript垃圾回收方法)
-  - [URL和URI的区别--121. URL 和 URI 的区别？](#URL和URI的区别)
-  - [在输入框中如何判断输入的是一个正确的网址--143 在输入框中如何判断输入的是一个正确的网址](#在输入框中如何判断输入的是一个正确的网址)
-  - [页面编码和被请求的资源编码如果不一致如何处理--127 页面编码和被请求的资源编码如果不一致如何处理](#页面编码和被请求的资源编码如果不一致如何处理)
-  - [加载--138 加载](#加载)
-  - [WEB应用从服务器主动推送Data到客户端有那些方式--134 WEB应用从服务器主动推送Data到客户端有那些方式](#WEB应用从服务器主动推送Data到客户端有那些方式)
+创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型
+属性和方法被加入到 this 引用的对象中
+新创建的对象由 this 所引用，并且最后隐式的返回 this
 
-- [cookie](#cookie)  62. 简单谈一下 cookie ？
-  - [如何删除一个cookie--126 如何删除一个cookie](#如何删除一个cookie)
-  - [服务器代理转发时，该如何处理cookie--61. 服务器代理转发时，该如何处理 cookie？](#服务器代理转发时该如何处理cookie)
-  - [什么是Samesite Cookie属性--105. 什么是 Samesite Cookie 属性？](#什么是Samesite-Cookie属性)
+实现:
+function objectFactory() {
+  let newObject = null,
+    constructor = Array.prototype.shift.call(arguments),
+    result = null;
 
-- [面向对象](#面向对象)
-  - [什么是面向对象编程及面向过程编程，它们的异同和优缺点--48 什么是面向对象编程及面向过程编程，它们的异同和优缺点 49 面向对象编程思想](#什么是面向对象编程及面向过程编程它们的异同和优缺点)
+  // 参数判断
+  if (typeof constructor !== "function") {
+    console.error("type error");
+    return;
+  }
 
-- [同步和异步](#同步和异步)
-  - [同步和异步的区别--58. 同步和异步的区别？   41 同步和异步的区别](#同步和异步的区别)
-  - [异步加载JS的方式有哪些--12 异步加载JS的方式有哪些？](#异步加载JS的方式有哪些)
-  - [异步编程的实现方式--118. 异步编程的实现方式？ 57 异步编程的实现方式  ](#异步编程的实现方式)
-  - [什么是单线程，和异步的关系--87 什么是单线程，和异步的关系](#什么是单线程和异步的关系)
-  *- [136. 什么是 Promise 对象，什么是 Promises/A 规范？  23 说说你对promise的了解  99 请手写实现一个promise](#)
-  - [手写一个Promise--137. 手写一个 Promise](#手写一个Promise)
-  - [defer和async--43 defer和async](#defer和async)
+  // 新建一个空对象，对象的原型为构造函数的 prototype 对象
+  newObject = Object.create(constructor.prototype);
 
-- [模式](#模式)
-  - [用过哪些设计模式--18 用过哪些设计模式？](#用过哪些设计模式)
-  - [单例模式模式--140. 单例模式模式是什么？](#单例模式模式)
-  - [策略模式--141. 策略模式是什么？](#策略模式)
-  - [代理模式--142. 代理模式是什么？](#代理模式)
-  - [中介者模式--143. 中介者模式是什么？](#中介者模式)
-  - [适配器模式--144. 适配器模式是什么？](#适配器模式)
-  - [观察者模式和发布订阅模式有什么不同--145. 观察者模式和发布订阅模式有什么不同？](#观察者模式和发布订阅模式有什么不同)
-  - [严格模式的限制--44 说说严格模式的限制](#严格模式的限制)
-  - [手写一个观察者模式--162. 手写一个观察者模式？](#手写一个观察者模式)
+  // 将 this 指向新建对象，并执行函数
+  result = constructor.apply(newObject, arguments);
 
-- [模块化](#模块化)
-  - [模块化开发怎么做--63. 模块化开发怎么做？  11 模块化开发怎么做？](#模块化开发怎么做)
-  - [js的几种模块规范--64. js 的几种模块规范？](#js的几种模块规范)
-  - [ES6模块与CommonJS模块、AMD、CMD的差异--66. ES6 模块与 CommonJS 模块、AMD、CMD 的差异。 65. AMD 和 CMD 规范的区别？   27 谈谈你对AMD、CMD的理解  16 说说你对AMD和Commonjs的理解](#ES6模块与CommonJS模块AMDCMD的差异)
-  - [JS模块加载器的轮子怎么造，也就是如何实现一个模块加载器--68. JS 模块加载器的轮子怎么造，也就是如何实现一个模块加载器？](#JS模块加载器的轮子怎么造也就是如何实现一个模块加载器)
-  - [require模块引入的查找方式--135. require 模块引入的查找方式？](#require模块引入的查找方式)
+  // 判断返回对象
+  let flag =
+    result && (typeof result === "object" || typeof result === "function");
 
-- [DOM](#DOM)
-  - [什么是DOM和BOM--40. 什么是 DOM 和 BOM？](#什么是DOM和BOM)
-  - [介绍DOM的发展--118 介绍 DOM 的发展](#介绍DOM的发展)
-  - [DOM操作怎样添加、移除、移动、复制、创建和查找节点--71. DOM 操作——怎样添加、移除、移动、复制、创建和查找节点？   怎样添加、移除、移动、复制、创建和查找节点](#DOM操作怎样添加移除移动复制创建和查找节点)
-  - [虚拟DOM(Virtual DOM),为什么虚拟DOM比原生DOM快--112. 什么是 虚拟DOM Virtual DOM？为什么 Virtual DOM 比原生 DOM 快？](#虚拟DOMVirtual-DOM为什么虚拟DOM比原生DOM快)
-  - [如何比较两个DOM树的差异--113. 如何比较两个 DOM 树的差异？](#如何比较两个DOM树的差异)
-  - [介绍DOM0，DOM2，DOM3事件处理方式区别--119 介绍DOM0，DOM2，DOM3事件处理方式区别](#介绍DOM0DOM2DOM3事件处理方式区别)
+  // 判断返回结果
+  return flag ? result : newObject;
+}
 
+// 使用方法
+// objectFactory(构造函数, 初始化参数);
+```
+
+
+### 事件
+
+  #### 事件是什么？IE与火狐的事件机制有什么区别？如何阻止冒泡
+```
+事件是用户操作网页时发生的交互动作，比如 click/move， 
+事件除了用户触发的动作外，还可以是文档加载，窗口滚动和大小调整。
+事件被封装成一个 event 对象，包含了该事件发生时的所有相关信息
+（ event 的属性）以及可以对事件进行的操作（ event 的方法）。
+
+事件处理机制：IE 支持事件冒泡、Firefox 同时支持两种事件模型，
+也就是：事件冒泡和事件捕获。
+
+event.stopPropagation() 或者 ie 下的方法 event.cancelBubble = true;
+```
+
+  #### 事件的各个阶段
+```
+1：捕获阶段 ---> 2：目标阶段 ---> 3：冒泡阶段
+
+document ---> target目标 ----> document
+
+由此，addEventListener的第三个参数设置为true和false的区别已经非常清晰了
+
+true表示该元素在事件的“捕获阶段”（由外往内传递时）响应事件
+false表示该元素在事件的“冒泡阶段”（由内向外传递时）响应事件
+```
+
+  #### 事件“捕获”和“冒泡”执行顺序和事件的执行次数
+```
+按照W3C标准的事件：首是进入捕获阶段，直到达到目标元素，再进入冒泡阶段
+
+事件执行次数（DOM2-addEventListener）：元素上绑定事件的个数
+    注意1：前提是事件被确实触发
+    注意2：事件绑定几次就算几个事件，即使类型和功能完全一样也不会“覆盖”
+   
+事件执行顺序：判断的关键是否目标元素
+    1.非目标元素：根据W3C的标准执行：捕获->目标元素->冒泡
+    （不依据事件绑定顺序）
+    2.目标元素：依据事件绑定顺序：先绑定的事件先执行（不依据捕获冒泡标准）
+    3.最终顺序：父元素捕获->目标元素事件1->目标元素事件2->子元素捕获->
+    子元素冒泡->父元素冒泡
+    
+    注意：子元素事件执行前提 事件确实“落”到子元素布局区域上，
+    而不是简单的具有嵌套关系
+```
+
+  #### 在一个DOM上同时绑定两个点击事件：一个用捕获，一个用冒泡。事件会执行几次，先执行冒泡还是捕获
+```
+该DOM上的事件如果被触发，会执行两次（执行次数等于绑定次数）
+如果该DOM是目标元素，则按事件绑定顺序执行，不区分冒泡/捕获
+如果该DOM是处于事件流中的非目标元素，则先执行捕获，后执行冒泡
+```
+
+  #### 如何派发事件(dispatchEvent)？（如何进行事件广播？）
+```
+W3C: 使用 dispatchEvent 方法
+IE: 使用 fireEvent 方法
+var fireEvent = function(element, event){
+    if (document.createEventObject){
+        var mockEvent = document.createEventObject();
+        return element.fireEvent('on' + event, mockEvent)
+    }else{
+        var mockEvent = document.createEvent('HTMLEvents');
+        mockEvent.initEvent(event, true, true);
+        return !element.dispatchEvent(mockEvent);
+    }
+}
+```
+
+  #### 事件代理
+```
+事件代理（Event Delegation），又称之为事件委托。是 JavaScript 中常用
+绑定事件的常用技巧。顾名思义，“事件代理”即是把原本需要绑定的事件委托给
+父元素，让父元素担当事件监听的职务。事件代理的原理是DOM元素的事件冒泡。
+使用事件代理的好处是可以提高性能
+
+可以大量节省内存占用，减少事件注册，
+比如在table上代理所有td的click事件就非常棒
+
+可以实现当新增子对象时无需再次对其绑定
+```
+
+  #### 三种事件模型是什么
+```
+事件是用户操作网页时发生的交互动作或者网页本身的一些操作，
+现代浏览器一共有三种事件模型。
+
+第一种事件模型是最早的 DOM0 级模型，这种模型不会传播，
+所以没有事件流的概念，但是现在有的浏览器支持以冒泡的方式实现，
+它可以在网页中直接定义监听函数，也可以通过 js 属性来指定监听函数。
+这种方式是所有浏览器都兼容的。
+
+第二种事件模型是 IE 事件模型，在该事件模型中，一次事件共有两个过程，
+事件处理阶段，和事件冒泡阶段。事件处理阶段会首先执行目标元素绑定的
+监听事件。然后是事件冒泡阶段，冒泡指的是事件从目标元素冒泡到 document，
+依次检查经过的节点是否绑定了事件监听函数，如果有则执行。这种模型通过 attachEvent 来添加监听函数，可以添加多个监听函数，会按顺序依次执行。
+
+第三种是 DOM2 级事件模型，在该事件模型中，一次事件共有三个过程，
+第一个过程是事件捕获阶段。捕获指的是事件从 document 一直向下传播到
+目标元素，依次检查经过的节点是否绑定了事件监听函数，如果有则执行。
+后面两个阶段和 IE 事件模型的两个阶段相同。这种事件模型，
+事件绑定的函数是 addEventListener，其中第三个参数可以指定事件
+是否在捕获阶段执行。
+```
+
+```
+W3C中定义事件的发生经历三个阶段：捕获阶段（capturing）、
+目标阶段（targetin）、冒泡阶段（bubbling）
+
+冒泡型事件：当你使用事件冒泡时，子级元素先触发，父级元素后触发
+
+捕获型事件：当你使用事件捕获时，父级元素先触发，子级元素后触发
+
+DOM事件流：同时支持两种事件模型：捕获型事件和冒泡型事件
+
+阻止冒泡：在W3c中，使用stopPropagation()方法；
+在IE下设置cancelBubble = true
+
+阻止捕获：阻止事件的默认行为，例如click - <a>后的跳转。
+在W3c中，使用preventDefault()方法，
+在IE下设置window.event.returnValue = false
+```
+
+  #### 事件委托
+```
+事件委托本质上是利用了浏览器事件冒泡的机制。因为事件在冒泡过程中会
+上传到父节点，并且父节点可以通过事件对象获取到
+目标节点，因此可以把子节点的监听函数定义在父节点上，由父节点的
+监听函数统一处理多个子元素的事件，这种方式称为事件代理。
+
+使用事件代理我们可以不必要为每一个子元素都绑定一个监听事件，这样减少了
+内存上的消耗。并且使用事件代理我们还可以实现事件的动态绑定，比如说
+新增了一个子节点，我们并不需要单独地为它添加一个监听事件，
+它所发生的事件会交给父元素中的监听函数来处理。
+```
+
+  #### js的事件循环是什么
+```
+事件队列是一个存储着待执行任务的队列，其中的任务严格按照时间先后顺序
+执行，排在队头的任务将会率先执行，而排在队尾的任务会最后执行。
+事件队列每次仅执行一个任务，在该任务执行完毕之后，再执行下一个任务。
+执行栈则是一个类似于函数调用栈的运行容器，当执行栈为空时，
+JS 引擎便检查事件队列，如果不为空的话，
+事件队列便将第一个任务压入执行栈中运行。
+```
+
+```
+因为 js 是单线程运行的，在代码执行的时候，通过将不同函数的执行上下文
+压入执行栈中来保证代码的有序执行。在执行同步代码的时候，如果遇到了
+异步事件，js 引擎并不会一直等待其返回结果，而是会将这个事件挂起，
+继续执行执行栈中的其他任务。当异步事件执行完毕后，再将异步事件对应的
+回调加入到与当前执行栈中不同的另一个任务队列中等待执行。任务队列可以
+分为宏任务对列和微任务对列，当当前执行栈中的事件执行完毕后，js 引擎
+首先会判断微任务对列中是否有任务可以执行，如果有就将微任务队首的事件
+压入栈中执行。当微任务对列中的任务都执行完成后再去判断宏任务对列中的任务。
+
+微任务包括了 promise 的回调、node 中的 process.nextTick 、
+对 Dom 变化监听的 MutationObserver。
+
+宏任务包括了 script 脚本的执行、setTimeout ，setInterval ，
+setImmediate 一类的定时事件，还有如 I/O 操作、UI 渲染等。
+```
+
+  #### 事件流
+```
+事件流分为两种，捕获事件流和冒泡事件流
+
+捕获事件流从根节点开始执行，一直往子节点查找执行，直到查找执行到目标节点
+
+冒泡事件流从目标节点开始执行，一直往父节点冒泡查找执行，直到查到到根节点
+
+事件流分为三个阶段，一个是捕获节点，
+一个是处于目标节点阶段，一个是冒泡阶段
+```
+
+  #### 写一个通用的事件侦听器函数
+```js
+const EventUtils = {
+  // 视能力分别使用dom0||dom2||IE方式 来绑定事件
+  // 添加事件
+  addEvent: function(element, type, handler) {
+    if (element.addEventListener) {
+      element.addEventListener(type, handler, false);
+    } else if (element.attachEvent) {
+      element.attachEvent("on" + type, handler);
+    } else {
+      element["on" + type] = handler;
+    }
+  },
+
+  // 移除事件
+  removeEvent: function(element, type, handler) {
+    if (element.removeEventListener) {
+      element.removeEventListener(type, handler, false);
+    } else if (element.detachEvent) {
+      element.detachEvent("on" + type, handler);
+    } else {
+      element["on" + type] = null;
+    }
+  },
+
+  // 获取事件目标
+  getTarget: function(event) {
+    return event.target || event.srcElement;
+  },
+
+  // 获取 event 对象的引用，取到事件的所有信息，确保随时能使用 event
+  getEvent: function(event) {
+    return event || window.event;
+  },
+
+  // 阻止事件（主要是事件冒泡，因为 IE 不支持事件捕获）
+  stopPropagation: function(event) {
+    if (event.stopPropagation) {
+      event.stopPropagation();
+    } else {
+      event.cancelBubble = true;
+    }
+  },
+
+  // 取消事件的默认行为
+  preventDefault: function(event) {
+    if (event.preventDefault) {
+      event.preventDefault();
+    } else {
+      event.returnValue = false;
+    }
+  }
+};
+```
+
+  #### 移动端的点击事件的有延迟，时间是多久，为什么会有？怎么解决这个延时
+```
+移动端点击有 300ms 的延迟是因为移动端会有双击缩放的这个操作，
+因此浏览器在 click 之后要等待 300ms，看用户有没有下一次点击，
+来判断这次操作是不是双击。
+
+有三种办法来解决这个问题：
+1.通过 meta 标签禁用网页的缩放。
+2.通过 meta 标签将网页的 viewport 设置为 ideal viewport。
+3.调用一些 js 库，比如 FastClick
+
+click 延时问题还可能引起点击穿透的问题，就是如果我们在一个元素上
+注册了 touchStart 的监听事件，这个事件会将这个元素隐藏掉，
+我们发现当这个元素隐藏后，触发了这个元素下的一个元素的点击事件，
+这就是点击穿透。
+```
+
+
+### 浏览器
+
+  #### 从输入URL到看到页面发生的全过程
+```
+首先浏览器主进程接管，开了一个下载线程。
+
+然后进行HTTP请求（DNS查询、IP寻址等等），中间会有三次捂手，
+等待响应，开始下载响应报文。
+
+将下载完的内容转交给Renderer进程管理。
+
+Renderer进程开始解析css rule tree和dom tree，
+这两个过程是并行的，所以一般我会把link标签放在页面顶部。
+
+解析绘制过程中，当浏览器遇到link标签或者script、
+img等标签，浏览器会去下载这些内容，遇到时候缓存的使用缓存，
+不适用缓存的重新下载资源。
+
+css rule tree和dom tree生成完了之后，开始合成render tree，
+这个时候浏览器会进行layout，开始计算每一个节点的位置，然后进行绘制。
+
+绘制结束后，关闭TCP连接，过程有四次挥手
+```
+
+  #### 浏览器的渲染过程，DOM树和渲染树的区别
+```
+浏览器的渲染过程：
+
+解析HTML构建 DOM(DOM树)，并行请求 css/image/js
+CSS 文件下载完成，开始构建 CSSOM(CSS树)
+CSSOM 构建结束后，和 DOM 一起生成 Render Tree(渲染树)
+布局(Layout)：计算出每个节点在屏幕中的位置
+显示(Painting)：通过显卡把页面画到屏幕上
+DOM树 和 渲染树 的区别：
+
+DOM树与HTML标签一一对应，包括head和隐藏元素
+渲染树不包括head和隐藏元素，大段文本的每一个行都是独立节点，
+每一个节点都有对应的css属性
+```
+
+  #### 浏览器的缓存机制
+```
+浏览器的缓存机制指的是通过在一段时间内保留已接收到的 web 资源
+的一个副本，如果在资源的有效时间内，发起了对这个资源的再一次请求，
+那么浏览器会直接使用缓存的副本，而不是向服务器发起请求。使用 
+web 缓存可以有效地提高页面的打开速度，减少不必要的网络带宽的消耗。
+
+web 资源的缓存策略一般由服务器来指定，可以分为两种，
+分别是强缓存策略和协商缓存策略。
+
+使用强缓存策略时，如果缓存资源有效，则直接使用缓存资源，
+不必再向服务器发起请求。强缓存策略可以通过两种方式来设置，
+分别是 http 头信息中的 Expires 属性和 Cache-Control 属性。
+
+服务器通过在响应头中添加 Expires 属性，来指定资源的过期时间。
+在过期时间以内，该资源可以被缓存使用，不必再向服务器发送请求。
+这个时间是一个绝对时间，它是服务器的时间，因此可能存在这样的问题，
+就是客户端的时间和服务器端的时间不一致，或者用户可以对客户端
+时间进行修改的情况，这样就可能会影响缓存命中的结果。
+
+Expires 是 http1.0 中的方式，因为它的一些缺点，在 http 1.1 
+中提出了一个新的头部属性就是 Cache-Control 属性，
+它提供了对资源的缓存的更精确的控制。它有很多不同的值，
+常用的比如我们可以通过设置 max-age 来指定资源能够被缓存的时间
+的大小，这是一个相对的时间，它会根据这个时间的大小和资源第一次
+请求时的时间来计算出资源过期的时间，因此相对于 Expires来说，
+这种方式更加有效一些。常用的还有比如 private ，用来规定资源
+只能被客户端缓存，不能够代理服务器所缓存。还有如 no-store ，
+用来指定资源不能够被缓存，no-cache 代表该资源能够被缓存，
+但是立即失效，每次都需要向服务器发起请求。
+
+一般来说只需要设置其中一种方式就可以实现强缓存策略，
+当两种方式一起使用时，Cache-Control 的优先级要高于 Expires 。
+
+使用协商缓存策略时，会先向服务器发送一个请求，如果资源
+没有发生修改，则返回一个 304 状态，让浏览器使用本地的缓存副本。
+如果资源发生了修改，则返回修改后的资源。协商缓存也可以通过两种
+方式来设置，分别是 http 头信息中的 Etag 和 Last-Modified 属性。
+
+服务器通过在响应头中添加 Last-Modified 属性来指出资源最后一次
+修改的时间，当浏览器下一次发起请求时，会在请求头中添加一个 
+If-Modified-Since 的属性，属性值为上一次资源返回时的 Last-Modified 
+的值。当请求发送到服务器后服务器会通过这个属性来和资源的最后一次
+的修改时间来进行比较，以此来判断资源是否做了修改。如果资源没有修改，
+那么返回 304 状态，让客户端使用本地的缓存。如果资源已经被修改了，
+则返回修改后的资源。使用这种方法有一个缺点，就是 Last-Modified 
+标注的最后修改时间只能精确到秒级，如果某些文件在1秒钟以内，
+被修改多次的话，那么文件已将改变了但是 Last-Modified 却没有改变，
+这样会造成缓存命中的不准确。
+
+因为 Last-Modified 的这种可能发生的不准确性，http 中提供了
+另外一种方式，那就是 Etag 属性。服务器在返回资源的时候，
+在头信息中添加了 Etag 属性，这个属性是资源生成的唯一标识符，
+当资源发生改变的时候，这个值也会发生改变。在下一次资源请求时，
+浏览器会在请求头中添加一个 If-None-Match 属性，这个属性的值
+就是上次返回的资源的 Etag 的值。服务接收到请求后会根据这个值
+来和资源当前的 Etag 的值来进行比较，以此来判断资源是否发生改变，
+是否需要返回资源。通过这种方式，比 Last-Modified 的方式更加精确。
+
+当 Last-Modified 和 Etag 属性同时出现的时候，Etag 的优先级更高。
+使用协商缓存的时候，服务器需要考虑负载平衡的问题，因此多个服务器上
+资源的 Last-Modified 应该保持一致，因为每个服务器上 Etag 的值
+都不一样，因此在考虑负载平衡时，最好不要设置 Etag 属性。
+
+强缓存策略和协商缓存策略在缓存命中时都会直接使用本地的缓存副本，
+区别只在于协商缓存会向服务器发送一次请求。它们缓存不命中时，
+都会向服务器发送请求来获取资源。在实际的缓存机制中，强缓存策略
+和协商缓存策略是一起合作使用的。浏览器首先会根据请求的信息判断，
+强缓存是否命中，如果命中则直接使用资源。如果不命中则根据头信息
+向服务器发起请求，使用协商缓存，如果协商缓存命中的话，则服务器
+不返回资源，浏览器直接使用本地资源的副本，如果协商缓存不命中，
+则浏览器返回最新的资源给浏览器。
+```
+
+```
+浏览器缓存分为强缓存和协商缓存。当客户端请求某个资源时，
+获取缓存的流程如下：
+
+(1)先根据这个资源的一些 http header 判断它是否命中强缓存，
+如果命中，则直接从本地获取缓存资源，不会发请求到服务器；
+(2)当强缓存没有命中时，客户端会发送请求到服务器，服务器通过另一些
+request header验证这个资源是否命中协商缓存，称为http再验证，
+如果命中，服务器将请求返回，但不返回资源，而是告诉客户端直接
+从缓存中获取，客户端收到返回后就会从缓存中获取资源；
+(3)强缓存和协商缓存共同之处在于，如果命中缓存，服务器都不会返回资源；
+区别是，强缓存不对发送请求到服务器，但协商缓存会。
+(4)当协商缓存也没命中时，服务器就会将资源发送回客户端。
+(5)当 ctrl+f5 强制刷新网页时，直接从服务器加载，跳过强缓存和协商缓存；
+(6)当 f5刷新网页时，跳过强缓存，但是会检查协商缓存；
+
+强缓存：
+(1)Expires（该字段是 http1.0 时的规范，值为一个绝对时间的 GMT 
+格式的时间字符串，代表缓存资源的过期时间）
+(2)Cache-Control:max-age（该字段是 http1.1的规范，强缓存利用其 
+max-age 值来判断缓存资源的最大生命周期，它的值单位为秒）
+
+协商缓存：
+(1)Last-Modified（值为资源最后更新时间，随服务器response返回）
+(2)If-Modified-Since（通过比较两个时间来判断资源在两次请求期间
+是否有过修改，如果没有修改，则命中协商缓存）
+(3)ETag（表示资源内容的唯一标识，随服务器response返回）
+(4)If-None-Match（服务器通过比较请求头部的If-None-Match
+与当前资源的ETag是否一致来判断资源是否在两次请求之间有过修改，
+如果没有修改，则命中协商缓存）
+```
+
+```
+浏览器缓存机制有两种，一种为强缓存，一种为协商缓存
+
+(1)对于强缓存，浏览器在第一次请求的时候，会直接下载资源，
+然后缓存在本地，第二次请求的时候，直接使用缓存。
+(2)对于协商缓存，第一次请求缓存且保存缓存标识与时间，
+重复请求向服务器发送缓存标识和最后缓存时间，
+服务端进行校验，如果失效则使用缓存
+
+协商缓存相关设置：
+Exprires：服务端的响应头，第一次请求的时候，告诉客户端，
+该资源什么时候会过期。Exprires的缺陷是必须保证服务端时间和
+客户端时间严格同步。
+
+Cache-control：max-age：表示该资源多少时间后过期，
+解决了客户端和服务端时间必须同步的问题，
+
+If-None-Match/ETag：缓存标识，对比缓存时使用它来标识一个缓存，
+第一次请求的时候，服务端会返回该标识给客户端，客户端在第二次请求
+的时候会带上该标识与服务端进行对比并返回If-None-Match标识是否表示匹配。
+
+Last-modified/If-Modified-Since：第一次请求的时候服务端返回
+Last-modified表明请求的资源上次的修改时间，第二次请求的时候客户端
+带上请求头If-Modified-Since，表示资源上次的修改时间，
+服务端拿到这两个字段进行对比
+```
+
+  #### Ajax解决浏览器缓存问题
+```
+在 ajax 发送请求前加上 
+anyAjaxObj.setRequestHeader("If-Modified-Since","0")。
+
+在 ajax 发送请求前加上 
+anyAjaxObj.setRequestHeader("Cache-Control","no-cache")。
+
+在 URL 后面加上一个随机数： "fresh=" + Math.random();。
+
+在 URL 后面加上时间戳："nowtime=" + new Date().getTime();。
+
+如果是使用 jQuery，直接这样就可以了\$.ajaxSetup({cache:false})。
+这样页面的所有 ajax 都会执行这条语句就是不需要保存缓存记录。
+```
+
+  #### 常见兼容性问题
+```
+png24位的图片在iE6浏览器上出现背景，解决方案是做成PNG8
+
+浏览器默认的margin和padding不同。解决方案是加一个全局的*
+{margin:0;padding:0;}来统一,，但是全局效率很低，一般是如下这样解决：
+body,ul,li,ol,dl,dt,dd,form,input,h1,h2,h3,h4,h5,h6,p{
+margin:0;
+padding:0;
+}
+
+IE下,event对象有x,y属性,但是没有pageX,pageY属性
+
+Firefox下,event对象有pageX,pageY属性,但是没有x,y属性.
+```
+
+  #### 请求方式
+
+   #### get和post请求在缓存方面的区别
+```
+缓存一般只适用于那些不会更新服务端数据的请求。一般 get 请求都是
+查找请求，不会对服务器资源数据造成修改，而 post 请求一般都会对
+服务器数据造成修改，所以，一般会对 get 请求进行缓存，
+很少会对 post 请求进行缓存。
+```
+
+```
+get 请求类似于查找的过程，用户获取数据，可以不用每次都与
+数据库连接，所以可以使用缓存。
+
+post 不同，post 做的一般是修改和删除的工作，所以必须与
+数据库交互，所以不能使用缓存。因此 get 请求适合于请求缓存。
+```
+
+   #### get请求传参长度的误区
+```
+误区：我们经常说 get 请求参数的大小存在限制，
+而 post 请求的参数大小是无限制的。
+
+实际上 HTTP 协议从未规定 GET/POST 的请求长度限制是多少。
+对 get 请求参数的限制是来源与浏览器或web 服务器，
+浏览器或 web 服务器限制了 url 的长度。
+为了明确这个概念，我们必须再次强调下面几点:
+
+1.HTTP 协议未规定 GET 和 POST 的长度限制
+2.GET 的最大长度显示是因为浏览器和 web 服务器限制了 URI 的长度
+3.不同的浏览器和 WEB 服务器，限制的最大长度不一样
+4.要支持 IE，则最大长度为 2083byte，若只支持 Chrome，
+则最大长度 8182byte
+```
+
+  #### 检测浏览器版本版本有哪些方式
+```
+检测浏览器版本一共有两种方式：
+
+一种是检测 window.navigator.userAgent 的值，但这种方式很不可靠，
+因为 userAgent 可以被改写，并且早期的浏览器如 ie，
+会通过伪装自己的 userAgent 的值为 Mozilla 来躲过服务器的检测。
+
+第二种方式是功能检测，根据每个浏览器独有的特性来进行判断，
+如 ie 下独有的 ActiveXObject。
+```
+
+```
+根据 navigator.userAgent UA.toLowerCase().indexOf('chrome')
+根据 window 对象的成员 'ActiveXObject' in window
+```
+
+  #### 把script标签放在页面的最底部的body封闭之前和封闭之后有什么区别？浏览器会如何解析它们
+```
+按照HTML标准，在</body>结束后出现<script>或任何元素的
+开始标签，都是解析错误
+
+虽然不符合HTML标准，但浏览器会自动容错，使实际效果与写在
+</body>之前没有区别
+
+浏览器的容错机制会忽略<script>之前的</body>，视作<script>
+仍在 body 体内。省略</body>和</html>闭合标签符合HTML标准，
+服务器可以利用这一标准尽可能少输出内容
+```
+
+  #### script的位置是否会影响首屏显示时间
+```
+在解析 HTML 生成 DOM 过程中，js 文件的下载是并行的，
+不需要 DOM 处理到 script 节点。因此，script的位置
+不影响首屏显示的开始时间。
+
+浏览器解析 HTML 是自上而下的线性过程，
+script作为 HTML 的一部分同样遵循这个原则
+
+因此，script 会延迟 DomContentLoad，只显示其上部分首屏内容，
+从而影响首屏显示的完成时间
+```
+
+  #### 实现一个页面操作不会整页刷新的网站，并且能在浏览器前进、后退时正确响应。给出你的技术实现方案
+```
+通过使用 pushState + ajax 实现浏览器无刷新前进后退，当一次 ajax 
+调用成功后我们将一条 state 记录加入到 history对象中。一条 state 
+记录包含了 url、title 和 content 属性，在 popstate 事件中可以
+获取到这个 state 对象，我们可以使用 content 来传递数据。最后我们
+通过对 window.onpopstate 事件监听来响应浏览器的前进后退操作。
+
+使用 pushState 来实现有两个问题，一个是打开首页时没有记录，我们可以
+使用 replaceState 来将首页的记录替换，另一个问题是当一个页面刷新
+的时候，仍然会向服务器端请求数据，因此如果请求的 url 需要后端的配合
+将其重定向到一个页面。
+```
+
+  #### 如何检测浏览器所支持的最小字体大小
+```
+用 JS 设置 DOM 的字体为某一个值，然后再取出来，
+如果值设置成功，就说明支持。
+```
+
+  #### 开发中常用的几种Content-Type
+```
+（1）application/x-www-form-urlencoded
+浏览器的原生 form 表单，如果不设置 enctype 属性，那么最终就会以 application/x-www-form-urlencoded 方式提交数据。该种方式提交的
+数据放在 body 里面，数据按照 key1=val1&key2=val2 的方式进行编码，
+key 和 val 都进行了 URL转码。
+
+（2）multipart/form-data
+该种方式也是一个常见的 POST 提交方式，通常表单上传文件时使用该种方式。
+
+（3）application/json
+告诉服务器消息主体是序列化后的 JSON 字符串。
+
+（4）text/xml
+该种方式主要用来提交 XML 格式的数据。
+```
+
+  #### 如何判断当前脚本运行在浏览器还是node环境中？（阿里）
+```
+this === window ? 'browser' : 'node';
+
+通过判断 Global 对象是否为 window，如果不为 window，
+当前脚本没有运行在浏览器中。
+```
+
+  #### V8引擎的垃圾回收机制
+```
+v8 的垃圾回收机制基于分代回收机制，这个机制又基于世代假说，
+这个假说有两个特点，一是新生的对象容易早死，另一个是不死的对象
+会活得更久。基于这个假说，v8 引擎将内存分为了新生代和老生代。
+
+新创建的对象或者只经历过一次的垃圾回收的对象被称为新生代。
+经历过多次垃圾回收的对象被称为老生代。
+
+新生代被分为 From 和 To 两个空间，To 一般是闲置的。当 From 空间
+满了的时候会执行 Scavenge 算法进行垃圾回收。当我们执行垃圾回收算法
+的时候应用逻辑将会停止，等垃圾回收结束后再继续执行。这个算法分为三步：
+（1）首先检查 From 空间的存活对象，如果对象存活则判断对象
+是否满足晋升到老生代的条件，如果满足条件则晋升到老生代。
+如果不满足条件则移动 To 空间。
+
+（2）如果对象不存活，则释放对象的空间。
+
+（3）最后将 From 空间和 To 空间角色进行交换。
+
+新生代对象晋升到老生代有两个条件：
+（1）第一个是判断是对象否已经经过一次 Scavenge 回收。
+若经历过，则将对象从 From 空间复制到老生代中；若没有经历，
+则复制到 To 空间。
+
+（2）第二个是 To 空间的内存使用占比是否超过限制。当对象从 From 
+空间复制到 To 空间时，若 To 空间使用超过 25%，则对象直接晋升到
+老生代中。设置 25% 的原因主要是因为算法结束后，两个空间结束后会
+交换位置，如果 To 空间的内存太小，会影响后续的内存分配。
+
+老生代采用了标记清除法和标记压缩法。标记清除法首先会对内存中存活的
+对象进行标记，标记结束后清除掉那些没有标记的对象。由于标记清除后
+会造成很多的内存碎片，不便于后面的内存分配。所以了解决内存碎片
+的问题引入了标记压缩法。
+
+由于在进行垃圾回收的时候会暂停应用的逻辑，对于新生代方法由于内存小，
+每次停顿的时间不会太长，但对于老生代来说每次垃圾回收的时间长，
+停顿会造成很大的影响。 为了解决这个问题 V8 引入了增量标记的方法，
+将一次停顿进行的过程分为了多步，每次执行完一小步就让运行逻辑
+执行一会，就这样交替运行。
+```
+
+  #### 垃圾回收
+```
+找出那些不再继续使用的变 量，然后释放其占用的内存。为此，
+垃圾收集器会按照固定的时间间隔(或代码执行中预定的收集时间)， 
+周期性地执行这一操作。
+
+标记清除：
+先所有都加上标记，再把环境中引用到的变量去除标记。剩下的就是没用的了
+
+引用计数：
+跟踪记录每 个值被引用的次数。清除引用次数为0的变量会有循环引用问题 。
+循环引用如果大量存在就会导致内存泄露。
+```
+
+  #### Javascript垃圾回收方法
+```
+标记清除（mark and sweep）：
+这是JavaScript最常见的垃圾回收方式，当变量进入执行环境的时候，
+比如函数中声明一个变量，垃圾回收器将其标记为“进入环境”，
+当变量离开环境的时候（函数执行结束）将其标记为“离开环境”
+
+垃圾回收器会在运行的时候给存储在内存中的所有变量加上标记，
+然后去掉环境中的变量以及被环境中变量所引用的变量（闭包），
+在这些完成之后仍存在标记的就是要删除的变量了
+
+引用计数(reference counting)：
+在低版本IE中经常会出现内存泄露，很多时候就是因为其采用引用
+计数方式进行垃圾回收。引用计数的策略是跟踪记录每个值被使用的次数，
+当声明了一个 变量并将一个引用类型赋值给该变量的时候这个值的
+引用次数就加1，如果该变量的值变成了另外一个，则这个值得引用次数减1，
+当这个值的引用次数变为0的时 候，说明没有变量在使用，这个值没法
+被访问了，因此可以将其占用的空间回收，这样垃圾回收器会在运行的
+时候清理掉引用次数为0的值占用的空间
+```
+
+  #### URL和URI的区别
+```
+URI: Uniform Resource Identifier      指的是统一资源标识符
+URL: Uniform Resource Location        指的是统一资源定位符
+URN: Universal Resource Name          指的是统一资源名称
+
+URI 指的是统一资源标识符，用唯一的标识来确定一个资源，
+它是一种抽象的定义，也就是说，不管使用什么方法来定义，
+只要能唯一的标识一个资源，就可以称为 URI。
+
+URL 指的是统一资源定位符，URN 指的是统一资源名称。
+URL 和 URN 是 URI 的子集，URL 可以理解为使用地址来
+标识资源，URN 可以理解为使用名称来标识资源。
+```
+
+  #### 在输入框中如何判断输入的是一个正确的网址
+```
+function isUrl(url) {
+       try {
+           new URL(url);
+           return true;
+       }catch(err){
+     return false;
+}}
+```
+
+  #### 页面编码和被请求的资源编码如果不一致如何处理
+```
+后端响应头设置 charset
+前端页面<meta>设置 charset
+```
+
+  #### WEB应用从服务器主动推送Data到客户端有那些方式
+```
+AJAX 轮询
+html5 服务器推送事件 (new EventSource(SERVER_URL)).addEventListener("message", func);
+html5 Websocket
+(new WebSocket(SERVER_URL)).addEventListener("message", func);
+```
+
+
+### cookie
+
+  #### 如何删除一个cookie
+```
+将时间设为当前时间往前一点：
+	var date = new Date();
+	date.setDate(date.getDate() - 1);//真正的删除
+
+setDate()方法用于设置一个月的某一天
+
+expires的设置：
+document.cookie = 'user='+ encodeURIComponent('name')  + ';expires = ' + new Date(0)
+```
+
+  #### 服务器代理转发时，该如何处理cookie
+```
+
+```
+
+  #### 什么是Samesite Cookie属性
+```
+Samesite Cookie 表示同站 cookie，避免 cookie 被第三方所利用。
+
+将 Samesite 设为 strict ，这种称为严格模式，表示这个 cookie 
+在任何情况下都不可能作为第三方 cookie。
+
+将 Samesite 设为 Lax ，这种模式称为宽松模式，如果这个请求是个 
+GET 请求，并且这个请求改变了当前页面或者打开了新的页面，那么这个 
+cookie 可以作为第三方 cookie，其余情况下都不能作为第三方 cookie。
+
+使用这种方法的缺点是，因为它不支持子域，所以子域没有办法与
+主域共享登录信息，每次转入子域的网站，都回重新登录。
+还有一个问题就是它的兼容性不够好。
+```
+
+
+### 面向对象
+
+  #### 什么是面向对象编程及面向过程编程，它们的异同和优缺点
+```
+面向过程就是分析出解决问题所需要的步骤，然后用函数把这些步骤
+一步一步实现，使用的时候一个一个依次调用就可以了
+
+面向对象是把构成问题事务分解成各个对象，建立对象的目的不是为了
+完成一个步骤，而是为了描叙某个事物在整个解决问题的步骤中的行为
+
+面向对象是以功能来划分问题，而不是步骤
+```
+
+面向对象编程思想：
+```
+基本思想是使用对象，类，继承，封装等基本概念来进行程序设计
+优点
+易维护
+采用面向对象思想设计的结构，可读性高，由于继承的存在，即使改变需求，那么维护也只是在局部模块，所以维护起来是非常方便和较低成本的
+易扩展
+开发工作的重用性、继承性高，降低重复工作量。
+缩短了开发周期
+```
+
+
+### 同步和异步
+
+  #### 同步和异步的区别
+```
+同步指的是当一个进程在执行某个请求的时候，如果这个请求需要等待一段时间
+才能返回，那么这个进程会一直等待下去，直到消息返回为止再继续向下执行。
+
+异步指的是当一个进程在执行某个请求的时候，如果这个请求需要
+等待一段时间才能返回，这个时候进程会继续往下执行，
+不会阻塞等待消息的返回，当消息返回时系统再通知进程进行处理。
+```
+
+```
+同步，可以理解为在执行完一个函数或方法之后，一直等待系统返回值或消息，
+这时程序是处于阻塞的，只有接收到返回的值或消息后才往下执行其他的命令。  
+
+异步，执行完函数或方法后，不必阻塞性地等待返回值或消息，
+只需要向系统委托一个异步过程，那么当系统接收到返回值或消息时，
+系统会自动触发委托的异步过程，从而完成一个完整的流程。 
+```
+
+```
+同步：浏览器访问服务器请求，用户看得到页面刷新，重新发请求,
+等请求完，页面刷新，新内容出现，用户看到新内容,进行下一步操作
+
+异步：浏览器访问服务器请求，用户正常操作，浏览器后端进行请求。
+等请求完，页面不刷新，新内容也会出现，用户看到新内容
+```
+
+  #### 异步加载JS的方式有哪些
+```
+设置<script>属性 async="async" （一旦脚本可用，则会异步执行）
+动态创建 script DOM：document.createElement('script');
+XmlHttpRequest 脚本注入
+异步加载库 LABjs
+模块加载器 Sea.js
+```
+
+```
+defer：只支持IE如果您的脚本不会改变文档的内容，可将 defer 属性加入
+到<script>标签中，以便加快处理文档的速度。因为浏览器知道它将能够
+安全地读取文档的剩余部分而不用执行脚本，它将推迟对脚本的解释，
+直到文档已经显示给用户为止
+
+async：HTML5 属性，仅适用于外部脚本；并且如果在IE中，同时存在
+defer和async，那么defer的优先级比较高；脚本将在页面完成时执行
+```
+
+  #### 异步编程的实现方式
+```
+js 中的异步机制可以分为以下几种：
+
+第一种最常见的是使用回调函数的方式，使用回调函数的方式有一个缺点是，多个回调函数嵌套的时候会造成回调函数地狱，上下两层的回调函数间的代码耦合度太高，不利于代码的可维护。
+
+第二种是 Promise 的方式，使用 Promise 的方式可以将嵌套的回调函数作为链式调用。但是使用这种方法，有时会造成多个 then 的链式调用，可能会造成代码的语义不够明确。
+
+第三种是使用 generator 的方式，它可以在函数的执行过程中，将函数的执行权转移出去，在函数外部我们还可以将执行权转移回来。当我们遇到异步函数执行的时候，将函数执行权转移出去，当异步函数执行完毕的时候我们再将执行权给转移回来。因此我们在 generator 内部对于异步操作的方式，可以以同步的顺序来书写。使用这种方式我们需要考虑的问题是何时将函数的控制权转移回来，因此我们需要有一个自动执行 generator 的机制，比如说 co 模块等方式来实现 generator 的自动执行。
+
+第四种是使用 async 函数的形式，async 函数是 generator 和 promise 实现的一个自动执行的语法糖，它内部自带执行器，当函数内部执行到一个 await 语句的时候，如果语句返回一个 promise 对象，那么函数将会等待 promise 对象的状态变为 resolve 后再继续向下执行。因此我们可以将异步逻辑，转化为同步的顺序来书写，并且这个函数可以自动执行。
+```
+
+```
+回调函数
+优点：简单、容易理解
+缺点：不利于维护，代码耦合高
+
+事件监听（采用时间驱动模式，取决于某个事件是否发生）：
+优点：容易理解，可以绑定多个事件，每个事件可以指定多个回调函数
+缺点：事件驱动型，流程不够清晰
+
+发布/订阅（观察者模式）
+类似于事件监听，但是可以通过‘消息中心’，了解现在有多少发布者，多少订阅者
+
+Promise 对象
+优点：可以利用 then 方法，进行链式写法；可以书写错误时的回调函数；
+缺点：编写和理解，相对比较难
+
+Generator 函数
+优点：函数体内外的数据交换、错误处理机制
+缺点：流程管理不方便
+
+async 函数
+优点：内置执行器、更好的语义、更广的适用性、返回的是 Promise、结构清晰。
+缺点：错误处理机制
+```
+
+  #### 什么是单线程，和异步的关系
+```
+单线程 - 只有一个线程，只能做一件事
+
+原因 - 避免 DOM 渲染的冲突
+
+浏览器需要渲染 DOM
+	JS 可以修改 DOM 结构
+	JS 执行的时候，浏览器 DOM 渲染会暂停
+	两段 JS 也不能同时执行（都修改 DOM 就冲突了）
+	webworker 支持多线程，但是不能访问 DOM
+
+解决方案 - 异步
+```
+
+  #### 什么是Promise对象，什么是Promises/A+规范
+```
+Promise 对象是异步编程的一种解决方案，最早由社区提出。Promises/A+ 规范是 JavaScript Promise 的标准，规定了一个 Promise 所必须具有的特性。
+
+Promise 是一个构造函数，接收一个函数作为参数，返回一个 Promise 实例。一个 Promise 实例有三种状态，分别是 pending、resolved 和 rejected，分别代表了进行中、已成功和已失败。实例的状态只能由 pending 转变 resolved 或者 rejected 状态，并且状态一经改变，就凝固了，无法再被改变了。状态的改变是通过 resolve() 和 reject() 函数来实现的，我们
+可以在异步操作结束后调用这两个函数改变 Promise 实例的状态，它的原型上定义了一个 then 方法，使用这个 then 方法可以为两个状态的改变注册回调函数。这个回调函数属于微任务，会在本轮事件循环的末尾执行。
+```
+
+```
+依照 Promise/A+ 的定义，Promise 有四种状态：
+
+pending: 初始状态, 非 fulfilled 或 rejected.
+
+fulfilled: 成功的操作.
+
+rejected: 失败的操作.
+
+settled: Promise已被fulfilled或rejected，且不是pending
+
+另外， fulfilled与 rejected一起合称 settled
+
+Promise 对象用来进行延迟(deferred) 和异步(asynchronous) 计算
+
+Promise 的构造函数
+
+构造一个 Promise，最基本的用法如下：
+var promise = new Promise(function(resolve, reject) {
+
+        if (...) {  // succeed
+
+            resolve(result);
+
+        } else {   // fails
+
+            reject(Error(errMessage));
+
+        }
+    });
+Promise 实例拥有 then 方法（具有 then 方法的对象，通常被称为thenable）。它的使用方法如下：
+promise.then(onFulfilled, onRejected)
+接收两个函数作为参数，一个在 fulfilled 的时候被调用，一个在rejected的时候被调用，接收参数就是 future，onFulfilled 对应resolve, onRejected对应 reject
+```
+
+  #### 手写一个Promise
+```js
+const PENDING = "pending";
+const RESOLVED = "resolved";
+const REJECTED = "rejected";
+
+function MyPromise(fn) {
+  // 保存初始化状态
+  var self = this;
+
+  // 初始化状态
+  this.state = PENDING;
+
+  // 用于保存 resolve 或者 rejected 传入的值
+  this.value = null;
+
+  // 用于保存 resolve 的回调函数
+  this.resolvedCallbacks = [];
+
+  // 用于保存 reject 的回调函数
+  this.rejectedCallbacks = [];
+
+  // 状态转变为 resolved 方法
+  function resolve(value) {
+    // 判断传入元素是否为 Promise 值，如果是，则状态改变必须等待前一个状态改变后再进行改变
+    if (value instanceof MyPromise) {
+      return value.then(resolve, reject);
+    }
+
+    // 保证代码的执行顺序为本轮事件循环的末尾
+    setTimeout(() => {
+      // 只有状态为 pending 时才能转变，
+      if (self.state === PENDING) {
+        // 修改状态
+        self.state = RESOLVED;
+
+        // 设置传入的值
+        self.value = value;
+
+        // 执行回调函数
+        self.resolvedCallbacks.forEach(callback => {
+          callback(value);
+        });
+      }
+    }, 0);
+  }
+
+  // 状态转变为 rejected 方法
+  function reject(value) {
+    // 保证代码的执行顺序为本轮事件循环的末尾
+    setTimeout(() => {
+      // 只有状态为 pending 时才能转变
+      if (self.state === PENDING) {
+        // 修改状态
+        self.state = REJECTED;
+
+        // 设置传入的值
+        self.value = value;
+
+        // 执行回调函数
+        self.rejectedCallbacks.forEach(callback => {
+          callback(value);
+        });
+      }
+    }, 0);
+  }
+
+  // 将两个方法传入函数执行
+  try {
+    fn(resolve, reject);
+  } catch (e) {
+    // 遇到错误时，捕获错误，执行 reject 函数
+    reject(e);
+  }
+}
+
+MyPromise.prototype.then = function(onResolved, onRejected) {
+  // 首先判断两个参数是否为函数类型，因为这两个参数是可选参数
+  onResolved =
+    typeof onResolved === "function"
+      ? onResolved
+      : function(value) {
+          return value;
+        };
+
+  onRejected =
+    typeof onRejected === "function"
+      ? onRejected
+      : function(error) {
+          throw error;
+        };
+
+  // 如果是等待状态，则将函数加入对应列表中
+  if (this.state === PENDING) {
+    this.resolvedCallbacks.push(onResolved);
+    this.rejectedCallbacks.push(onRejected);
+  }
+
+  // 如果状态已经凝固，则直接执行对应状态的函数
+
+  if (this.state === RESOLVED) {
+    onResolved(this.value);
+  }
+
+  if (this.state === REJECTED) {
+    onRejected(this.value);
+  }
+};
+```
+
+  #### defer和async
+```
+defer并行加载js文件，会按照页面上script标签的顺序执行
+
+async并行加载js文件，下载完成立即执行，
+不会按照页面上script标签的顺序执行
+```
+
+### 模式
+
+  #### 用过哪些设计模式
+```
+工厂模式：
+工厂模式解决了重复实例化的问题，但还有一个问题,
+那就是识别问题，因为根本无法
+
+主要好处就是可以消除对象间的耦合，通过使用工程方法
+而不是new关键字
+
+构造函数模式：
+使用构造函数的方法，即解决了重复实例化的问题，又解决了
+对象识别的问题，该模式与工厂模式的不同之处在于
+
+直接将属性和方法赋值给 this对象;
+```
+
+  #### 单例模式模式
+```
+单例模式保证了全局只有一个实例来被访问。
+比如说常用的如弹框组件的实现和全局状态的实现。
+```
+
+  #### 策略模式
+```
+策略模式主要是用来将方法的实现和方法的调用分离开，外部通过
+不同的参数可以调用不同的策略。我主要在 MVP 模式解耦的时候
+用来将视图层的方法定义和方法调用分离。
+```
+
+  #### 代理模式
+```
+ 代理模式是为一个对象提供一个代用品或占位符，
+ 以便控制对它的访问。比如说常见的事件代理。
+```
+
+  #### 中介者模式
+```
+中介者模式指的是，多个对象通过一个中介者进行交流，
+而不是直接进行交流，这样能够将通信的各个对象解耦。
+```
+
+  #### 适配器模式
+```
+适配器用来解决两个接口不兼容的情况，不需要改变已有的接口，
+通过包装一层的方式实现两个接口的正常协作。假如我们需要一种
+新的接口返回方式，但是老的接口由于在太多地方已经使用了，
+不能随意更改，这个时候就可以使用适配器模式。比如我们需要一种
+自定义的时间返回格式，但是我们又不能对 js 时间格式化的接口
+进行修改，这个时候就可以使用适配器模式。
+```
+
+  #### 观察者模式和发布订阅模式有什么不同
+```
+发布订阅模式其实属于广义上的观察者模式
+
+在观察者模式中，观察者需要直接订阅目标事件。
+在目标发出内容改变的事件后，直接接收事件并作出响应。
+
+而在发布订阅模式中，发布者和订阅者之间多了一个调度中心。
+调度中心一方面从发布者接收事件，另一方面向订阅者发布事件，
+订阅者需要在调度中心中订阅事件。通过调度中心实现了发布者和
+订阅者关系的解耦。使用发布订阅者模式更利于我们代码的可维护性。
+```
+
+  #### 严格模式的限制
+```
+变量必须声明后再使用
+函数的参数不能有同名属性，否则报错
+不能使用with语句
+不能对只读属性赋值，否则报错
+不能使用前缀0表示八进制数，否则报错
+不能删除不可删除的属性，否则报错
+不能删除变量delete prop，会报错，只能删除属性delete global[prop]
+eval不会在它的外层作用域引入变量
+eval和arguments不能被重新赋值
+arguments不会自动反映函数参数的变化
+不能使用arguments.callee
+不能使用arguments.caller
+禁止this指向全局对象
+不能使用fn.caller和fn.arguments获取函数调用的堆栈
+增加了保留字（比如protected、static和interface）
+```
+
+  #### 手写一个观察者模式
+```js
+var events = (function() {
+  var topics = {};
+
+  return {
+    // 注册监听函数
+    subscribe: function(topic, handler) {
+      if (!topics.hasOwnProperty(topic)) {
+        topics[topic] = [];
+      }
+      topics[topic].push(handler);
+    },
+
+    // 发布事件，触发观察者回调事件
+    publish: function(topic, info) {
+      if (topics.hasOwnProperty(topic)) {
+        topics[topic].forEach(function(handler) {
+          handler(info);
+        });
+      }
+    },
+
+    // 移除主题的一个观察者的回调事件
+    remove: function(topic, handler) {
+      if (!topics.hasOwnProperty(topic)) return;
+
+      var handlerIndex = -1;
+      topics[topic].forEach(function(item, index) {
+        if (item === handler) {
+          handlerIndex = index;
+        }
+      });
+
+      if (handlerIndex >= 0) {
+        topics[topic].splice(handlerIndex, 1);
+      }
+    },
+
+    // 移除主题的所有观察者的回调事件
+    removeAll: function(topic) {
+      if (topics.hasOwnProperty(topic)) {
+        topics[topic] = [];
+      }
+    }
+  };
+})();
+```
+
+
+### 模块化
+
+  #### 模块化开发怎么做
+```
+我对模块的理解是，一个模块是实现一个特定功能的一组方法。
+在最开始的时候，js 只实现一些简单的功能，所以并没有模块的概念，
+但随着程序越来越复杂，代码的模块化开发变得越来越重要。
+
+由于函数具有独立作用域的特点，最原始的写法是使用函数来作为模块，
+几个函数作为一个模块，但是这种方式容易造成全局变量的污染，
+并且模块间没有联系。
+
+后面提出了对象写法，通过将函数作为一个对象的方法来实现，
+这样解决了直接使用函数作为模块的一些缺点，但是这种办法会暴露
+所有的所有的模块成员，外部代码可以修改内部属性的值。
+
+现在最常用的是立即执行函数的写法，通过利用闭包来实现模块
+私有作用域的建立，同时不会对全局作用域造成污染。
+```
+
+```
+立即执行函数,不暴露私有成员
+var module1 = (function(){
+　　　　var _count = 0;
+　　　　var m1 = function(){
+　　　　　　//...
+　　　　};
+　　　　var m2 = function(){
+　　　　　　//...
+　　　　};
+　　　　return {
+　　　　　　m1 : m1,
+　　　　　　m2 : m2
+　　　　};
+})();
+```
+
+  #### js的几种模块规范
+```
+js 中现在比较成熟的有四种模块加载方案。
+
+第一种是 CommonJS 方案，它通过 require 来引入模块，
+通过 module.exports 定义模块的输出接口。这种模块加载方案是
+服务器端的解决方案，它是以同步的方式来引入模块的，因为在服务端
+文件都存储在本地磁盘，所以读取非常快，所以以同步的方式加载
+没有问题。但如果是在浏览器端，由于模块的加载是使用网络请求，
+因此使用异步加载的方式更加合适。
+
+第二种是 AMD 方案，这种方案采用异步加载的方式来加载模块，
+模块的加载不影响后面语句的执行，所有依赖这个模块的语句都定
+义在一个回调函数里，等到加载完成后再执行回调函数。
+require.js 实现了 AMD 规范。
+
+第三种是 CMD 方案，这种方案和 AMD 方案都是为了解决异步模块
+加载的问题，sea.js 实现了 CMD 规范。它和 require.js的区别
+在于模块定义时对依赖的处理不同和对依赖模块的执行时机的处理不同。
+
+第四种方案是 ES6 提出的方案，使用 import 和 export 
+的形式来导入导出模块。这种方案和上面三种方案都不同。
+```
+
+  #### ES6模块与CommonJS模块、AMD、CMD的差异
+```
+(1)CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，
+模块内部的变化就影响不到这个值。ES6 模块的运行机制与 CommonJS 不一样。
+JS 引擎对脚本静态分析的时候，遇到模块加载命令 import，
+就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，
+到被加载的那个模块里面去取值。
+
+(2)CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。CommonJS 
+模块就是对象，即在输入时是先加载整个模块，生成一个对象，然后再从
+这个对象上面读取方法，这种加载称为“运行时加载”。而 ES6 模块不是
+对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。
+```
+
+AMD 和 CMD 规范之间的主要区别有两个方面。
+```
+（1）第一个方面是在模块定义时对依赖的处理不同。AMD 推崇
+依赖前置，在定义模块的时候就要声明其依赖的模块。
+而 CMD 推崇就近依赖，只有在用到某个模块的时候再去 require。
+
+（2）第二个方面是对依赖模块的执行时机处理不同。首先 AMD 和 CMD 
+对于模块的加载方式都是异步加载，不过它们的区别在于模块的执行时机，
+AMD 在依赖模块加载完成后就直接执行依赖模块，依赖模块的执行顺序和
+我们书写的顺序不一定一致。而 CMD在依赖模块加载完成后并不执行，
+只是下载而已，等到所有的依赖模块都加载好后，进入回调函数逻辑，
+遇到 require 语句的时候才执行对应的模块，
+这样模块的执行顺序就和我们书写的顺序保持一致了。
+
+// CMD
+define(function(require, exports, module) {
+  var a = require("./a");
+  a.doSomething();
+  // 此处略去 100 行
+  var b = require("./b"); // 依赖可以就近书写
+  b.doSomething();
+  // ...
+});
+
+// AMD 默认推荐
+define(["./a", "./b"], function(a, b) {
+  // 依赖必须一开始就写好
+  a.doSomething();
+  // 此处略去 100 行
+  b.doSomething();
+  // ...
+});
+```
+
+```
+CommonJS是服务器端模块的规范，Node.js采用了这个规范。
+CommonJS规范加载模块是同步的，也就是说，只有加载完成，
+才能执行后面的操作。AMD规范则是非同步加载模块，允许指定回调函数
+
+AMD推荐的风格通过返回一个对象做为模块对象，CommonJS的风格通过
+对module.exports或exports的属性赋值来达到暴露模块对象的目的
+
+es6模块 CommonJS、AMD、CMD：
+CommonJS 的规范中，每个 JavaScript 文件就是一个独立的
+模块上下文（module context），在这个上下文中默认创建的属性
+都是私有的。也就是说，在一个文件定义的变量（还包括函数和类），
+都是私有的，对其他文件是不可见的。
+
+CommonJS是同步加载模块,在浏览器中会出现堵塞情况，所以不适用
+
+AMD 异步，需要定义回调define方式
+
+es6 一个模块就是一个独立的文件，该文件内部的所有变量，
+外部无法获取。如果你希望外部能够读取模块内部的某个变量，
+就必须使用export关键字输出该变量 es6还可以导出类、
+方法，自动适用严格模式
+```
+
+  #### JS模块加载器的轮子怎么造，也就是如何实现一个模块加载器
+详细资料可以参考：
+[《JS 模块加载器加载原理是怎么样的？》](https://www.zhihu.com/question/21157540)
+
+  #### require模块引入的查找方式
+```
+当 Node 遇到 require(X) 时，按下面的顺序处理。
+
+（1）如果 X 是内置模块（比如 require('http')）
+　　a. 返回该模块。
+　　b. 不再继续执行。
+
+（2）如果 X 以 "./" 或者 "/" 或者 "../" 开头
+　　a. 根据 X 所在的父模块，确定 X 的绝对路径。
+　　b. 将 X 当成文件，依次查找下面文件，只要其中有一个存在，
+  就返回该文件，不再继续执行。
+    X
+    X.js
+    X.json
+    X.node
+
+　　c. 将 X 当成目录，依次查找下面文件，只要其中有一个存在，
+  就返回该文件，不再继续执行。
+    X/package.json（main字段）
+    X/index.js
+    X/index.json
+    X/index.node
+
+（3）如果 X 不带路径
+　　a. 根据 X 所在的父模块，确定 X 可能的安装目录。
+　　b. 依次在每个目录中，将 X 当成文件名或目录名加载。
+
+（4）抛出 "not found"
+```
+
+### DOM
+
+  #### 什么是DOM和BOM
+```
+DOM 指的是文档对象模型，它指的是把文档当做一个对象来对待，
+这个对象主要定义了处理网页内容的方法和接口。
+
+BOM 指的是浏览器对象模型，它指的是把浏览器当做一个对象来对待，
+这个对象主要定义了与浏览器进行交互的法和接口。BOM的核心是 window，
+而 window 对象具有双重角色，它既是通过 js 访问浏览器窗口的
+一个接口，又是一个 Global（全局）对象。这意味着在网页中定义的
+任何对象，变量和函数，都作为全局对象的一个属性或者方法存在。
+window 对象含有 location 对象、navigator 对象、screen 对象等子对象，
+并且 DOM 的最根本的对象 document 对象也是 BOM 的 window 对象的子对象。
+```
+
+  #### 介绍DOM的发展
+```
+DOM：文档对象模型（Document Object Model），
+定义了访问HTML和XML文档的标准，与编程语言及平台无关
+
+DOM0：提供了查询和操作Web文档的内容API。未形成标准，实现混乱。
+如：document.forms['login']
+
+DOM1：W3C提出标准化的DOM，简化了对文档中任意部分的访问和操作。
+如：JavaScript中的Document对象
+
+DOM2：原来DOM基础上扩充了鼠标事件等细分模块，增加了对CSS的支持。
+如：getComputedStyle(elem, pseudo)
+
+DOM3：增加了XPath模块和加载与保存（Load and Save）模块。
+如：XPathEvaluator
+```
+
+  #### DOM操作怎样添加、移除、移动、复制、创建和查找节点
+（1）创建新节点
+```js
+createDocumentFragment(node);
+createElement(node);
+createTextNode(text);
+```
+
+（2）添加、移除、替换、插入
+```js
+appendChild(node)
+removeChild(node)
+replaceChild(new,old)
+insertBefore(new,old)
+```
+
+（3）查找
+```js
+getElementById();
+getElementsByName();
+getElementsByTagName();
+getElementsByClassName();
+querySelector();
+querySelectorAll();
+```
+
+（4）属性操作
+```js
+getAttribute(key);
+setAttribute(key, value);
+hasAttribute(key);
+removeAttribute(key);
+```
+
+  #### 虚拟DOM(Virtual DOM),为什么虚拟DOM比原生DOM快
+```
+我对 Virtual DOM 的理解是，
+
+首先对我们将要插入到文档中的 DOM 树结构进行分析，使用 js 对象
+将其表示出来，比如一个元素对象，包含 TagName、props 和 
+Children 这些属性。然后我们将这个 js 对象树给保存下来，
+最后再将 DOM 片段插入到文档中。
+
+当页面的状态发生改变，我们需要对页面的 DOM 的结构进行调整的时候，
+我们首先根据变更的状态，重新构建起一棵对象树，然后将这棵
+新的对象树和旧的对象树进行比较，记录下两棵树的的差异。
+
+最后将记录的有差异的地方应用到真正的 DOM 树中去，这样视图就更新了。
+
+我认为 Virtual DOM 这种方法对于我们需要有大量的 DOM 操作的时候，
+能够很好的提高我们的操作效率，通过在操作前确定需要做的最小修改，
+尽可能的减少 DOM 操作带来的重流和重绘的影响。其实 Virtual DOM 
+并不一定比我们真实的操作 DOM 要快，这种方法的目的是为了
+提高我们开发时的可维护性，在任意的情况下，都能保证一个
+尽量小的性能消耗去进行操作。
+```
+
+  #### 如何比较两个DOM树的差异
+```
+两个树的完全 diff 算法的时间复杂度为 O(n^3) ，但是在前端中，
+我们很少会跨层级的移动元素，所以我们只需要比较同一层级的元素
+进行比较，这样就可以将算法的时间复杂度降低为 O(n)。
+
+算法首先会对新旧两棵树进行一个深度优先的遍历，这样每个节点
+都会有一个序号。在深度遍历的时候，每遍历到一个节点，我们就将
+这个节点和新的树中的节点进行比较，如果有差异，
+则将这个差异记录到一个对象中。
+
+在对列表元素进行对比的时候，由于 TagName 是重复的，所以我们
+不能使用这个来对比。我们需要给每一个子节点加上一个 key，
+列表对比的时候使用 key 来进行比较，
+这样我们才能够复用老的 DOM 树上的节点。
+```
+
+  #### 介绍DOM0，DOM2，DOM3事件处理方式区别
+```
+DOM0级事件处理方式：
+	btn.onclick = func;
+	btn.onclick = null;
+	
+DOM2级事件处理方式：
+	btn.addEventListener('click', func, false);
+	btn.removeEventListener('click', func, false);
+	btn.attachEvent("onclick", func);
+	btn.detachEvent("onclick", func);
+	
+DOM3级事件处理方式：
+	eventUtil.addListener(input, "textInput", func);
+	eventUtil 是自定义对象，textInput 是DOM3级事件
+```
 
 
 ### 优化
@@ -2192,56 +4903,1472 @@ iframe 嵌套的点击劫持攻击。通过不同的值，
 可以规定页面在特定的一些情况才能作为 iframe 来使用。
 ```
 
+### Ajax和axios
+
+  #### Ajax是什么? 原理？如何创建一个Ajax
+```
+我对 ajax 的理解是，它是一种异步通信的方法，通过直接由 
+js 脚本向服务器发起 http 通信，然后根据服务器返回的数据，
+更新网页的相应部分，而不用刷新整个页面的一种方法。
+
+创建一个 ajax 有这样几个步骤：
+首先是创建一个 XMLHttpRequest 对象。
+
+然后在这个对象上使用 open 方法创建一个 http 请求，
+open 方法所需要的参数是请求的方法、请求的地址、
+是否异步和用户的认证信息。
+
+在发起请求前，我们可以为这个对象添加一些信息和监听函数。
+比如说我们可以通过 setRequestHeader 方法来为请求添加头信息。
+我们还可以为这个对象添加一个状态监听函数。一个 XMLHttpRequest 
+对象一共有 5 个状态，当它的状态变化时会触发onreadystatechange 
+事件，我们可以通过设置监听函数，来处理请求成功后的结果。
+当对象的 readyState 变为 4 的时候，代表服务器返回的数据接收完成，
+这个时候我们可以通过判断请求的状态，如果状态是 2xx 或者 304 
+的话则代表返回正常。这个时候我们就可以通过 response 
+中的数据来对页面进行更新了。
+
+当对象的属性和监听函数设置完成后，最后我们调用 sent 
+方法来向服务器发起请求，可以传入参数作为发送的数据体。
+```
+
+一般实现：
+```js
+const SERVER_URL = "/server";
+
+let xhr = new XMLHttpRequest();
+
+// 创建 Http 请求
+xhr.open("GET", SERVER_URL, true);
+
+// 设置状态监听函数
+xhr.onreadystatechange = function() {
+  if (this.readyState !== 4) return;
+
+  // 当请求成功时
+  if (this.status === 200) {
+    handle(this.response);
+  } else {
+    console.error(this.statusText);
+  }
+};
+
+// 设置请求失败时的监听函数
+xhr.onerror = function() {
+  console.error(this.statusText);
+};
+
+// 设置请求头信息
+xhr.responseType = "json";
+xhr.setRequestHeader("Accept", "application/json");
+
+// 发送 Http 请求
+xhr.send(null);
+
+// promise 封装实现：
+
+function getJSON(url) {
+  // 创建一个 promise 对象
+  let promise = new Promise(function(resolve, reject) {
+    let xhr = new XMLHttpRequest();
+
+    // 新建一个 http 请求
+    xhr.open("GET", url, true);
+
+    // 设置状态的监听函数
+    xhr.onreadystatechange = function() {
+      if (this.readyState !== 4) return;
+
+      // 当请求成功或失败时，改变 promise 的状态
+      if (this.status === 200) {
+        resolve(this.response);
+      } else {
+        reject(new Error(this.statusText));
+      }
+    };
+
+    // 设置错误监听函数
+    xhr.onerror = function() {
+      reject(new Error(this.statusText));
+    };
+
+    // 设置响应的数据类型
+    xhr.responseType = "json";
+
+    // 设置请求头信息
+    xhr.setRequestHeader("Accept", "application/json");
+
+    // 发送 http 请求
+    xhr.send(null);
+  });
+
+  return promise;
+}
+```
+
+```
+Ajax的原理简单来说是在用户和服务器之间加了—个中间层(AJAX引擎)，
+通过XmlHttpRequest对象来向服务器发异步请求，从服务器获得数据，
+然后用javascript来操作DOM而更新页面。使用户操作与服务器响应异步化。
+这其中最关键的一步就是从服务器获得请求数据
+
+Ajax的过程只涉及JavaScript、XMLHttpRequest和DOM。
+XMLHttpRequest是ajax的核心机制
+/** 1. 创建连接 **/
+var xhr = null;
+xhr = new XMLHttpRequest()
+/** 2. 连接服务器 **/
+xhr.open('get', url, true)
+/** 3. 发送请求 **/
+xhr.send(null);
+/** 4. 接受请求 **/
+xhr.onreadystatechange = function(){
+	if(xhr.readyState == 4){
+		if(xhr.status == 200){
+			success(xhr.responseText);
+		} else { 
+			/** false **/
+			fail && fail(xhr.status);
+		}
+	}
+}
+
+ajax 有那些优缺点?
+优点：
+通过异步模式，提升了用户体验.
+
+优化了浏览器和服务器之间的传输，减少不必要的数据往返，减少了带宽占用.
+
+Ajax在客户端运行，承担了一部分本来由服务器承担的工作，减少了大用户量下的服务器负载。
+
+Ajax可以实现动态不刷新（局部刷新）
+
+缺点：
+安全问题 AJAX暴露了与服务器交互的细节。
+
+对搜索引擎的支持比较弱。
+
+不容易调试。
+```
+
+```
+2005 年 2 月，AJAX 这个词第一次正式提出，它是 
+Asynchronous JavaScript and XML 的缩写，指的是通过 
+JavaScript 的异步通信，从服务器获取 XML 文档从中提取数据，
+再更新当前网页的对应部分，而不用刷新整个网页。
+
+具体来说，AJAX 包括以下几个步骤。
+1.创建 XMLHttpRequest 对象，也就是创建一个异步调用对象
+2.创建一个新的 HTTP 请求，并指定该 HTTP 请求的方法、URL 及验证信息
+3.设置响应 HTTP 请求状态变化的函数
+4.发送 HTTP 请求
+5.获取异步调用返回的数据
+6.使用 JavaScript 和 DOM 实现局部刷新
+```
+
+  #### ajax、axios、fetch区别
+```
+jQuery ajax
+
+$.ajax({
+   type: 'POST',
+   url: url,
+   data: data,
+   dataType: dataType,
+   success: function () {},
+   error: function () {}
+});
+
+优缺点：
+本身是针对MVC的编程,不符合现在前端MVVM的浪潮
+基于原生的XHR开发，XHR本身的架构不清晰，已经有了fetch的替代方案
+JQuery整个项目太大，单纯使用ajax却要引入整个JQuery非常的不合理
+（采取个性化打包的方案又不能享受CDN服务）
+
+axios：
+axios({
+    method: 'post',
+    url: '/user/12345',
+    data: {
+        firstName: 'Fred',
+        lastName: 'Flintstone'
+    }
+})
+.then(function (response) {
+    console.log(response);
+})
+.catch(function (error) {
+    console.log(error);
+});
+
+优缺点：
+从浏览器中创建 XMLHttpRequest
+从 node.js 发出 http 请求
+支持 Promise API
+拦截请求和响应
+转换请求和响应数据
+取消请求
+自动转换JSON数据
+客户端支持防止CSRF/XSRF
+
+fetch：
+try {
+  let response = await fetch(url);
+  let data = response.json();
+  console.log(data);
+} catch(e) {
+  console.log("Oops, error", e);
+
+}
+
+优缺点：
+fetcht只对网络请求报错，对400，500都当做成功的请求，需要封装去处理
+
+fetch默认不会带cookie，需要添加配置项
+
+fetch不支持abort，不支持超时控制，使用setTimeout及Promise.reject
+的实现的超时控制并不能阻止请求过程继续在后台运行，造成了量的浪费
+
+fetch没有办法原生监测请求的进度，而XHR可以
+```
 
 
+### 概念
 
-- [Ajax和axios](#Ajax和axios)
-  - [Ajax是什么? 原理？如何创建一个Ajax--55. Ajax 是什么? 如何创建一个 Ajax？  9 Ajax原理](#Ajax是什么原理如何创建一个Ajax)
-  - [ajax、axios、fetch区别--105 ajax、axios、fetch区别](#ajaxaxiosfetch区别)
+  #### 写JavaScript的基本规范
+```
+在平常项目开发中，我们遵守一些这样的基本规范，比如说：
 
-- [概念](#概念)
-  - [写JavaScript的基本规范--9. 说几条写 JavaScript 的基本规范？  32 说几条写JavaScript的基本规范  109 说几条写JavaScript的基本规范](#写JavaScript的基本规范)
-  - [js的节流与防抖--85 防抖/节流  91. 介绍一下 js 的节流与防抖？](#js的节流与防抖)
-  - [js中的深浅拷贝实现--84 深浅拷贝  96. js 中的深浅拷贝实现？](#js中的深浅拷贝实现)
-  - [js中的命名规则--166. js 中的命名规则](#js中的命名规则)
-  - [对原生Javascript了解程度--58 对原生Javascript了解程度](#对原生Javascript了解程度)
-  - [渐进增强和优雅降级--42 渐进增强和优雅降级](#渐进增强和优雅降级)
-  - [JavaScript的组成--106 JavaScript的组成](#JavaScript的组成)
-  - [如何编写高性能的JavaScript--79. 如何编写高性能的 Javascript ？   110 如何编写高性能的JavaScript](#如何编写高性能的JavaScript)
-  - [js语句末尾分号是否可以省略--167. js 语句末尾分号是否可以省略？](#js语句末尾分号是否可以省略)
-  - [js延迟加载的方式有哪些--54. js 延迟加载的方式有哪些？  40 js延迟加载的方式有哪些](#js延迟加载的方式有哪些)
-  - [使用JS实现获取文件扩展名--90. 使用 JS 实现获取文件扩展名？](#使用JS实现获取文件扩展名)
-  - [对web标准、可用性、可访问性的理解--50 对web标准、可用性、可访问性的理解](#对web标准可用性可访问性的理解)
-  - [对于JSON的了解--52. 对于 JSON 的了解？  39 JSON 的了解](#对于JSON的了解)
-  - [XML和JSON的区别--14 XML和JSON的区别？](#XML和JSON的区别)
-  - [JavaScript对象生命周期的理解--97 JavaScript 对象生命周期的理解](#JavaScript对象生命周期的理解)
-  - [requireJS的核心原理是什么？（如何动态加载的？如何避免多次加载的？如何缓存的？）--67. requireJS 的核心原理是什么？（如何动态加载的？如何避免多次加载的？如何 缓存的？）](#requireJS的核心原理是什么如何动态加载的如何避免多次加载的如何缓存的)
-  - [什么是“前端路由”？什么时候适合使用“前端路由”？“前端路由”有哪些优点和缺点--86. 什么是“前端路由”？什么时候适合使用“前端路由”？“前端路由”有哪些优点和缺点？](#什么是前端路由什么时候适合使用前端路由前端路由有哪些优点和缺点)
-  - [Polyfill--89. 什么是 Polyfill ？](#Polyfill)
-  - [rest参数--128. 什么是 rest 参数？](#rest参数)
-  - [Proxy--133. 什么是 Proxy ？](#Proxy)
-  - [gulp--61 gulp是什么](#gulp)
-  - [web开发中会话跟踪的方法有哪些--29 web开发中会话跟踪的方法有哪些](#web开发中会话跟踪的方法有哪些)
-  - [进程间通信的方式--173. 进程间通信的方式？](#进程间通信的方式)
-  - [Reflect对象创建目的--134. Reflect 对象创建目的？](#Reflect对象创建目的)
+（1）一个函数作用域中所有的变量声明应该尽量提到函数首部，
+用一个 var 声明，不允许出现两个连续的 var 声明，声明时
+如果变量没有值，应该给该变量赋值对应类型的初始值，
+便于他人阅读代码时，能够一目了然的知道变量对应的类型值。
 
-- [ES6](#ES6) 46 谈谈你对ES6的理解
-  - [let var const--52 谈一谈let与var的区别  127. let 和 const 的注意点？  64 let var const](#let var const)
+（2）代码中出现地址、时间等字符串时需要使用常量代替。
 
-- [实现](#实现)
-  - [Js动画与CSS动画区别及相应实现--119. Js 动画与 CSS 动画区别及相应实现  59 Js动画与CSS动画区别及相应实现](#Js动画与CSS动画区别及相应实现)
-  - [js拖拽功能的实现,对页面某个节点的拖曳如何做？（使用原生JS）--125. js 拖拽功能的实现  75 （设计题）想实现一个对页面某个节点的拖曳？如何做？（使用原生JS）](#js拖拽功能的实现对页面某个节点的拖曳如何做使用原生JS)
-  - [使用js实现一个持续的动画效果--77 使用js实现一个持续的动画效果](#使用js实现一个持续的动画效果)
-  - [实现点击容器内的图标，图标边框变成border:1px solid red，点击空白处重置--92 实现效果，点击容器内的图标，图标边框变成border 1px solid red，点击空白处重置](#实现点击容器内的图标图标边框变成border1px-solid-red点击空白处重置)
-  - [canvas上面随机布着一些黑块，请实现方法，计算canvas上有多少个黑块--98 我现在有一个canvas，上面随机布着一些黑块，请实现方法，计算canvas上有多少个黑块](#canvas上面随机布着一些黑块请实现方法计算canvas上有多少个黑块)
-  - [怎么做JS代码Error统计--139. 怎么做 JS 代码 Error 统计？](#怎么做JS代码Error统计)
-  - [完成一个Dialog组件，说说你设计的思路？它应该有什么功能--103 现在要你完成一个Dialog组件，说说你设计的思路？它应该有什么功能？](#完成一个Dialog组件说说你设计的思路它应该有什么功能)
-  - [js中倒计时的纠偏实现--172. js 中倒计时的纠偏实现？](#js中倒计时的纠偏实现)
-  - [函数柯里化的实现--98. 函数柯里化的实现](#函数柯里化的实现)
-  - [EventEmitter实现--163. EventEmitter 实现](#EventEmitter实现)
-  - [如何查找一篇英文文章中出现频率最高的单词--174. 如何查找一篇英文文章中出现频率最高的单词？](#如何查找一篇英文文章中出现频率最高的单词)
-  *- [94 实现Storage，使得该对象为单例，并对localStorage进行封装设置值setItem(key,value)和getItem(key)](#)
+（3）在进行比较的时候吧，尽量使用'===', '!=='代替'==', '!='。
+
+（4）不要在内置对象的原型上添加方法，如 Array, Date。
+
+（5）switch 语句必须带有 default 分支。
+
+（6）for 循环必须使用大括号。
+
+（7）if 语句必须使用大括号。
+```
+
+```
+不要在同一行声明多个变量
+请使用===/!==来比较true/false或者数值
+使用对象字面量替代new Array这种形式
+不要使用全局函数
+Switch语句必须带有default分支
+If语句必须使用大括号
+for-in循环中的变量 应该使用var关键字明确限定作用域，从而避免作用域污
+```
+
+```
+代码缩进，建议使用“四个空格”缩进
+代码段使用花括号{}包裹
+语句结束使用分号;
+变量和函数在使用前进行声明
+以大写字母开头命名构造函数，全大写命名常量
+规范定义JSON对象，补全双引号
+用{}和[]声明对象和数组
+```
+
+  #### js的节流与防抖
+```
+函数防抖是指在事件被触发 n 秒后再执行回调，如果在这 n 秒
+内事件又被触发，则重新计时。这可以使用在一些点击请求的事件上，
+避免因为用户的多次点击向后端发送多次请求。
+
+函数节流是指规定一个单位时间，在这个单位时间内，只能有一次
+触发事件的回调函数执行，如果在同一个单位时间内某事件被触发多次，
+只有一次能生效。节流可以使用在 scroll 函数的事件监听上，
+通过事件节流来降低事件调用的频率。
+```
+
+```
+防抖：
+在滚动事件中需要做个复杂计算或者实现一个按钮的防二次点击操作。
+可以通过函数防抖动来实现
+
+// 使用 underscore 的源码来解释防抖动
+/**
+ * underscore 防抖函数，返回函数连续调用时，空闲时间必须大于或等于 wait，func 才会执行
+ *
+ * @param  {function} func        回调函数
+ * @param  {number}   wait        表示时间窗口的间隔
+ * @param  {boolean}  immediate   设置为ture时，是否立即调用函数
+ * @return {function}             返回客户调用函数
+ */
+_.debounce = function(func, wait, immediate) {
+    var timeout, args, context, timestamp, result;
+
+    var later = function() {
+      // 现在和上一次时间戳比较
+      var last = _.now() - timestamp;
+      // 如果当前间隔时间少于设定时间且大于0就重新设置定时器
+      if (last < wait && last >= 0) {
+        timeout = setTimeout(later, wait - last);
+      } else {
+        // 否则的话就是时间到了执行回调函数
+        timeout = null;
+        if (!immediate) {
+          result = func.apply(context, args);
+          if (!timeout) context = args = null;
+        }
+      }
+    };
+
+    return function() {
+      context = this;
+      args = arguments;
+      // 获得时间戳
+      timestamp = _.now();
+      // 如果定时器不存在且立即执行函数
+      var callNow = immediate && !timeout;
+      // 如果定时器不存在就创建一个
+      if (!timeout) timeout = setTimeout(later, wait);
+      if (callNow) {
+        // 如果需要立即执行函数的话 通过 apply 执行
+        result = func.apply(context, args);
+        context = args = null;
+      }
+
+      return result;
+    };
+  };
+整体函数实现
+
+对于按钮防点击来说的实现：
+开始一个定时器，只要我定时器还在，不管你怎么点击都不会执行
+回调函数。一旦定时器结束并设置为 null，就可以再次点击了
+
+对于延时执行函数来说的实现：每次调用防抖动函数都会判断本次调用
+和之前的时间间隔，如果小于需要的时间间隔，就会重新创建一个定时器，
+并且定时器的延时为设定时间减去之前的时间间隔。
+一旦时间到了，就会执行相应的回调函数
+
+节流：
+防抖动和节流本质是不一样的。防抖动是将多次执行变为最后一次执行，
+节流是将多次执行变成每隔一段时间执行
+/**
+ * underscore 节流函数，返回函数连续调用时，func 执行频率限定为 次 / wait
+ *
+ * @param  {function}   func      回调函数
+ * @param  {number}     wait      表示时间窗口的间隔
+ * @param  {object}     options   如果想忽略开始函数的的调用，传入{leading: false}。
+ *                                如果想忽略结尾函数的调用，传入{trailing: false}
+ *                                两者不能共存，否则函数不能执行
+ * @return {function}             返回客户调用函数   
+ */
+_.throttle = function(func, wait, options) {
+    var context, args, result;
+    var timeout = null;
+    // 之前的时间戳
+    var previous = 0;
+    // 如果 options 没传则设为空对象
+    if (!options) options = {};
+    // 定时器回调函数
+    var later = function() {
+      // 如果设置了 leading，就将 previous 设为 0
+      // 用于下面函数的第一个 if 判断
+      previous = options.leading === false ? 0 : _.now();
+      // 置空一是为了防止内存泄漏，二是为了下面的定时器判断
+      timeout = null;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    };
+    return function() {
+      // 获得当前时间戳
+      var now = _.now();
+      // 首次进入前者肯定为 true
+	  // 如果需要第一次不执行函数
+	  // 就将上次时间戳设为当前的
+      // 这样在接下来计算 remaining 的值时会大于0
+      if (!previous && options.leading === false) previous = now;
+      // 计算剩余时间
+      var remaining = wait - (now - previous);
+      context = this;
+      args = arguments;
+      // 如果当前调用已经大于上次调用时间 + wait
+      // 或者用户手动调了时间
+ 	  // 如果设置了 trailing，只会进入这个条件
+	  // 如果没有设置 leading，那么第一次会进入这个条件
+	  // 还有一点，你可能会觉得开启了定时器那么应该不会进入这个 if 条件了
+	  // 其实还是会进入的，因为定时器的延时
+	  // 并不是准确的时间，很可能你设置了2秒
+	  // 但是他需要2.2秒才触发，这时候就会进入这个条件
+      if (remaining <= 0 || remaining > wait) {
+        // 如果存在定时器就清理掉否则会调用二次回调
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        previous = now;
+        result = func.apply(context, args);
+        if (!timeout) context = args = null;
+      } else if (!timeout && options.trailing !== false) {
+        // 判断是否设置了定时器和 trailing
+	    // 没有的话就开启一个定时器
+        // 并且不能不能同时设置 leading 和 trailing
+        timeout = setTimeout(later, remaining);
+      }
+      return result;
+    };
+  };
+```
+
+```js
+// 函数防抖： 在事件被触发 n 秒后再执行回调，如果在这 n 秒内事件又被触发，则重新计时。
+
+// 函数节流： 规定一个单位时间，在这个单位时间内，只能有一次触发事件的回调函数执行，如果在同一个单位时间内某事件被触发多次，只有一次能生效。
+
+// 函数防抖的实现
+function debounce(fn, wait) {
+  var timer = null;
+
+  return function() {
+    var context = this,
+      args = arguments;
+
+    // 如果此时存在定时器的话，则取消之前的定时器重新记时
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+
+    // 设置定时器，使事件间隔指定事件后执行
+    timer = setTimeout(() => {
+      fn.apply(context, args);
+    }, wait);
+  };
+}
+
+// 函数节流的实现;
+function throttle(fn, delay) {
+  var preTime = Date.now();
+
+  return function() {
+    var context = this,
+      args = arguments,
+      nowTime = Date.now();
+
+    // 如果两次时间间隔超过了指定时间，则执行函数。
+    if (nowTime - preTime >= delay) {
+      preTime = Date.now();
+      return fn.apply(context, args);
+    }
+  };
+}
+```
+
+  #### js中的深浅拷贝实现
+```
+浅拷贝指的是将一个对象的属性值复制到另一个对象，如果有的属性
+的值为引用类型的话，那么会将这个引用的地址复制给对象，因此
+两个对象会有同一个引用类型的引用。浅拷贝可以使用  
+Object.assign 和展开运算符来实现。
+
+深拷贝相对浅拷贝而言，如果遇到属性值为引用类型的时候，它新建一个
+引用类型并将对应的值复制给它，因此对象获得的一个新的引用类型
+而不是一个原有类型的引用。深拷贝对于一些对象可以使用 JSON 的
+两个函数来实现，但是由于 JSON 的对象格式比 js 的对象格式更加严格，
+所以如果属性值里边出现函数或者 Symbol 类型的值时，会转换失败。
+```
+
+```js
+// 浅拷贝的实现;
+
+function shallowCopy(object) {
+  // 只拷贝对象
+  if (!object || typeof object !== "object") return;
+
+  // 根据 object 的类型判断是新建一个数组还是对象
+  let newObject = Array.isArray(object) ? [] : {};
+
+  // 遍历 object，并且判断是 object 的属性才拷贝
+  for (let key in object) {
+    if (object.hasOwnProperty(key)) {
+      newObject[key] = object[key];
+    }
+  }
+
+  return newObject;
+}
+
+// 深拷贝的实现;
+
+function deepCopy(object) {
+  if (!object || typeof object !== "object") return;
+
+  let newObject = Array.isArray(object) ? [] : {};
+
+  for (let key in object) {
+    if (object.hasOwnProperty(key)) {
+      newObject[key] =
+        typeof object[key] === "object" ? deepCopy(object[key]) : object[key];
+    }
+  }
+
+  return newObject;
+}
+```
+
+```
+浅拷贝：
+Object.assign
+或者展开运算符
+
+深拷贝：
+可以通过 JSON.parse(JSON.stringify(object)) 来解决
+let a = {
+    age: 1,
+    jobs: {
+        first: 'FE'
+    }
+}
+let b = JSON.parse(JSON.stringify(a))
+a.jobs.first = 'native'
+console.log(b.jobs.first) // FE
+
+该方法也是有局限性的：
+会忽略 undefined
+不能序列化函数
+不能解决循环引用的对象
+```
+
+  #### js中的命名规则
+```
+（1）第一个字符必须是字母、下划线（_）或美元符号（$）
+（2）余下的字符可以是下划线、美元符号或任何字母或数字字符
+
+一般我们推荐使用驼峰法来对变量名进行命名，因为这样
+可以与 ECMAScript 内置的函数和对象命名格式保持一致。
+```
+
+  #### 对原生Javascript了解程度
+```
+数据类型、运算、对象、Function、继承、闭包、作用域、原型链、
+事件、RegExp、JSON、Ajax、DOM、BOM、内存泄漏、跨域、异步装载、
+模板引擎、前端MVC、路由、模块化、Canvas、ECMAScript
+```
+
+  #### 渐进增强和优雅降级
+```
+渐进增强 ：针对低版本浏览器进行构建页面，保证最基本的功能，然后
+再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。
+
+优雅降级 ：一开始就构建完整的功能，然后再针对低版本浏览器进行兼容
+```
+
+  #### JavaScript的组成
+```
+JavaScript 由以下三部分组成：
+ECMAScript（核心）：JavaScript` 语言基础
+DOM（文档对象模型）：规定了访问HTML和XML的接口
+BOM（浏览器对象模型）：提供了浏览器窗口之间进行交互的对象和方法
+```
+
+  #### 如何编写高性能的JavaScript
+```
+1.使用位运算代替一些简单的四则运算。
+2.避免使用过深的嵌套循环。
+3.不要使用未定义的变量。
+4.当需要多次访问数组长度时，可以用变量保存起来，
+避免每次都会去进行属性查找。
+```
+
+```
+遵循严格模式："use strict";
+将js脚本放在页面底部，加快渲染页面
+将js脚本将脚本成组打包，减少请求
+使用非阻塞方式下载js脚本
+尽量使用局部变量来保存全局变量
+尽量减少使用闭包
+使用 window 对象属性方法时，省略 window
+尽量减少对象成员嵌套
+缓存 DOM 节点的访问
+通过避免使用 eval() 和 Function() 构造器
+给 setTimeout() 和 setInterval() 传递函数而不是字符串作为参数
+尽量使用直接量创建对象和数组
+最小化重绘(repaint)和回流(reflow)
+```
+
+  #### js语句末尾分号是否可以省略
+```
+在 ECMAScript 规范中，语句结尾的分号并不是必需的。
+但是我们一般最好不要省略分号，因为加上分号一方面有
+利于我们代码的可维护性，另一方面也可以避免我们在
+对代码进行压缩时出现错误。
+```
+
+  #### js延迟加载的方式有哪些
+```
+js 的加载、解析和执行会阻塞页面的渲染过程，因此我们希望 
+js 脚本能够尽可能的延迟加载，提高页面的渲染速度。
+
+我了解到的几种方式是：
+
+第一种方式是我们一般采用的是将 js 脚本放在文档的底部，
+来使 js 脚本尽可能的在最后来加载执行。
+
+第二种方式是给 js 脚本添加 defer 属性，这个属性会让脚本
+的加载与文档的解析同步解析，然后在文档解析完成后再执行
+这个脚本文件，这样的话就能使页面的渲染不被阻塞。
+多个设置了 defer 属性的脚本按规范来说最后是顺序执行的，
+但是在一些浏览器中可能不是这样。
+
+第三种方式是给 js 脚本添加 async 属性，这个属性会使
+脚本异步加载，不会阻塞页面的解析过程，但是当脚本加载完成后
+立即执行 js 脚本，这个时候如果文档没有解析完成的话同样
+会阻塞。多个 async 属性的脚本的执行顺序是不可预测的，
+一般不会按照代码的顺序依次执行。
+
+第四种方式是动态创建 DOM 标签的方式，我们可以对文档的加载事件
+进行监听，当文档加载完成后再动态的创建 script 标签来引入 js 脚本。
+```
+
+```
+js 延迟加载，也就是等页面加载完成之后再加载 JavaScript 文件。
+js 延迟加载有助于提高页面加载速度。
+```
+
+一般有以下几种方式：
+```
+defer 属性
+async 属性
+动态创建 DOM 方式
+使用 setTimeout 延迟方法
+让 JS 最后加载
+```
+
+```
+设置<script>属性 defer="defer" （脚本将在页面完成解析时执行）
+动态创建 script DOM：document.createElement('script');
+XmlHttpRequest 脚本注入
+延迟加载工具 LazyLoad
+```
+
+  #### 使用JS实现获取文件扩展名
+```js
+// String.lastIndexOf() 方法返回指定值（本例中的'.'）
+在调用该方法的字符串中最后出现的位置，如果没找到则返回 -1。
+
+// 对于 'filename' 和 '.hiddenfile' ，lastIndexOf 的返回值
+分别为 0和 -1 无符号右移操作符(>>>) 将 -1 转换为 4294967295 ，
+将 -2 转换为 4294967294 ，这个方法可以保证边缘情况时文件名不变。
+
+// String.prototype.slice() 从上面计算的索引处提取文件的扩展名。
+如果索引比文件名的长度大，结果为""。
+function getFileExtension(filename) {
+  return filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2);
+}
+```
+
+  #### 对web标准、可用性、可访问性的理解
+```
+可用性（Usability）：产品是否容易上手，用户能否完成任务，
+效率如何，以及这过程中用户的主观感受可好，是从用户的角度来
+看产品的质量。可用性好意味着产品质量高，是企业的核心竞争力
+
+可访问性（Accessibility）：Web内容对于残障用户的可阅读和可理解性
+
+可维护性（Maintainability）：一般包含两个层次，
+一是当系统出现问题时，快速定位并解决问题的成本，成本低则可维护性好。
+二是代码是否容易被人理解，是否容易修改和增强功能。
+```
+
+  #### 对于JSON的了解
+```
+JSON 是一种基于文本的轻量级的数据交换格式。
+它可以被任何的编程语言读取和作为数据格式来传递。
+
+在项目开发中，我们使用 JSON 作为前后端数据交换的方式。
+在前端我们通过将一个符合 JSON 格式的数据结构序列化为 
+JSON 字符串，然后将它传递到后端，后端通过 JSON 格式的
+字符串解析后生成对应的数据结构，以此来实现前后端数据的一个传递。
+
+因为 JSON 的语法是基于 js 的，因此很容易将 JSON 和 js 
+中的对象弄混，但是我们应该注意的是 JSON 和 js 中的对象
+不是一回事，JSON 中对象格式更加严格，比如说在 JSON 中
+属性值不能为函数，不能出现 NaN 这样的属性值等，
+因此大多数的 js 对象是不符合 JSON 对象的格式的。
+
+在 js 中提供了两个函数来实现 js 数据结构和 JSON 格式的
+转换处理，一个是 JSON.stringify 函数，通过传入一个符合 
+JSON 格式的数据结构，将其转换为一个 JSON 字符串。
+如果传入的数据结构不符合 JSON 格式，那么在序列化的时候会
+对这些值进行对应的特殊处理，使其符合规范。在前端向后端发送数据时，
+我们可以调用这个函数将数据对象转化为 JSON 格式的字符串。
+
+另一个函数 JSON.parse() 函数，这个函数用来将 JSON 格式的
+字符串转换为一个 js 数据结构，如果传入的字符串不是标准的
+JSON 格式的字符串的话，将会抛出错误。当我们从后端接收到 
+JSON 格式的字符串时，我们可以通过这个方法来将其解析为一个 
+js 数据结构，以此来进行数据的访问。
+```
+
+```
+JSON 是一种数据交换格式，基于文本，优于轻量，用于交换数据。
+
+JSON 可以表示数字、布尔值、字符串、null、数组（值的有序序列），
+以及由这些值（或数组、对象）所组成的对象（字符串与值的映射）。
+
+JSON 使用 JavaScript 语法，但是 JSON 格式仅仅是一个文本。文
+本可以被任何编程语言读取及作为数据格式传递。
+```
+
+```
+JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式
+
+它是基于JavaScript的一个子集。数据格式简单, 易于读写, 占用带宽小
+
+JSON字符串转换为JSON对象:
+
+var obj =eval('('+ str +')');
+var obj = str.parseJSON();
+var obj = JSON.parse(str);
+JSON对象转换为JSON字符串：
+var last=obj.toJSONString();
+var last=JSON.stringify(obj);
+```
+
+  #### XML和JSON的区别
+```
+数据体积方面
+JSON相对于XML来讲，数据的体积小，传递的速度更快些。
+
+数据交互方面
+JSON与JavaScript的交互更加方便，更容易解析处理，更好的数据交互
+
+数据描述方面
+JSON对数据的描述性比XML较差
+
+传输速度方面
+JSON的速度要远远快于XML
+```
+
+  #### JavaScript对象生命周期的理解
+```
+当创建一个对象时，JavaScript 会自动为该对象分配适当的内存
+垃圾回收器定期扫描对象，并计算引用了该对象的其他对象的数量
+如果被引用数量为 0，或惟一引用是循环的，那么该对象的内存即可回收
+```
+
+  #### requireJS的核心原理是什么？（如何动态加载的？如何避免多次加载的？如何缓存的？）
+```
+require.js 的核心原理是通过动态创建 script 脚本来异步引入模块，
+然后对每个脚本的 load 事件进行监听，如果每个脚本都加载完成了，
+再调用回调函数。
+```
+
+  #### 什么是“前端路由”？什么时候适合使用“前端路由”？“前端路由”有哪些优点和缺点
+```
+（1）什么是前端路由？
+前端路由就是把不同路由对应不同的内容或页面的任务交给前端来做，
+之前是通过服务端根据 url 的不同返回不同的页面实现的。
+
+（2）什么时候使用前端路由？
+在单页面应用，大部分页面结构不变，只改变部分内容的使用
+
+（3）前端路由有什么优点和缺点？
+优点：用户体验好，不需要每次都从服务器全部获取，快速展现给用户
+
+缺点：单页面无法记住之前滚动的位置，无法在前进，后退的时候记住滚动的位置
+
+前端路由一共有两种实现方式，一种是通过 hash 的方式，
+一种是通过使用 pushState 的方式。
+```
+
+  #### Polyfill
+```
+Polyfill 指的是用于实现浏览器并不支持的原生 API 的代码。
+
+比如说 querySelectorAll 是很多现代浏览器都支持的原生 Web API，
+但是有些古老的浏览器并不支持，那么假设有人写了一段代码来实现这个
+功能使这些浏览器也支持了这个功能，那么这就可以成为一个 Polyfill。
+
+一个 shim 是一个库，有自己的 API，而不是单纯实现原生不支持的 API。
+```
+
+  #### rest参数
+```
+rest 参数（形式为...变量名），用于获取函数的多余参数。
+```
+
+  #### Proxy
+```
+Proxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，
+所以属于一种“元编程”，即对编程语言进行编程。
+
+Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象
+的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界
+的访问进行过滤和改写。Proxy 这个词的原意是代理，
+用在这里表示由它来“代理”某些操作，可以译为“代理器”。
+```
+
+  #### gulp
+```
+gulp是前端开发过程中一种基于流的代码构建工具，是自动化项目的
+构建利器；它不仅能对网站资源进行优化，而且在开发过程中很多
+重复的任务能够使用正确的工具自动完成
+
+Gulp的核心概念：流
+
+流，简单来说就是建立在面向对象基础上的一种抽象的处理数据的工具。
+在流中，定义了一些处理数据的基本操作，如读取数据，写入数据等，
+程序员是对流进行所有操作的，而不用关心流的另一头数据的真正流向
+
+gulp正是通过流和代码优于配置的策略来尽量简化任务编写的工作
+
+Gulp的特点：
+易于使用：通过代码优于配置的策略，gulp 让简单的任务简单，复杂的任务可管理
+构建快速 利用 Node.js 流的威力，你可以快速构建项目并减少频繁的 IO 操作
+易于学习 通过最少的 API，掌握 gulp 毫不费力，构建工作尽在掌握：如同一系列流管道
+```
+
+  #### web开发中会话跟踪的方法有哪些
+```
+cookie
+session
+url重写
+隐藏input
+ip地址
+```
+
+  #### 进程间通信的方式
+```
+1.管道通信
+2.消息队列通信
+3.信号量通信
+4.信号通信
+5.共享内存通信
+6.套接字通信
+```
+
+  #### Reflect对象创建目的
+```
+1.将 Object 对象的一些明显属于语言内部的方法（比如 Object.defineProperty，放到 Reflect 对象上。
+2.修改某些 Object 方法的返回结果，让其变得更合理。
+3.让 Object 操作都变成函数行为。
+4.Reflect 对象的方法与 Proxy 对象的方法一一对应，
+只要是 Proxy 对象的方法，就能在 Reflect 对象上找到对应的方法。
+这就让 Proxy 对象可以方便地调用对应的 Reflect 方法，
+完成默认行为，作为修改行为的基础。也就是说，不管 Proxy 
+怎么修改默认行为，你总可以在 Reflect 上获取默认行为。
+```
+
+### ES6
+```
+新增模板字符串（为JavaScript提供了简单的字符串插值功能）
+箭头函数
+for-of（用来遍历数据—例如数组中的值。）
+arguments对象可被不定参数和默认参数完美代替。
+ES6将promise对象纳入规范，提供了原生的Promise对象。
+增加了let和const命令，用来声明变量。
+增加了块级作用域。
+let命令实际上就增加了块级作用域。
+还有就是引入module模块的概念
+```
+
+  #### let var const
+```
+let命令不存在变量提升，如果在let前使用，会导致报错
+如果块区中存在let和const命令，就会形成封闭作用域
+不允许重复声明，因此，不能在函数内部重新声明参数
+```
+
+```
+1.声明的变量只在声明时的代码块内有效
+2.不存在声明提升
+3.存在暂时性死区，如果在变量声明前使用，会报错
+4.不允许重复声明，重复声明会报错
+```
+
+```
+let：
+允许你声明一个作用域被限制在块级中的变量、语句或者表达式
+
+let绑定不受变量提升的约束，这意味着let声明不会被提升到当前
+
+该变量处于从块开始到初始化处理的“暂存死区”
+
+var：
+声明变量的作用域限制在其声明位置的上下文中，而非声明变量总是全局的
+
+由于变量声明（以及其他声明）总是在任意代码执行之前处理的，
+所以在代码中的任意位置声明变量总是等效于在代码开头声明
+
+const：
+声明创建一个值的只读引用 (即指针)
+
+基本数据当值发生改变时，那么其对应的指针也将发生改变，
+故造成 const申明基本数据类型时
+
+再将其值改变时，将会造成报错， 例如 const a = 3 ; a = 5时 将会报错
+
+但是如果是复合类型时，如果只改变复合类型的其中某个Value项时， 
+将还是正常使用
+```
+
+### 实现
+
+  #### Js动画与CSS动画区别及相应实现
+```
+CSS3 的动画的优点：
+在性能上会稍微好一些，浏览器会对 CSS3 的动画做一些优化
+代码相对简单
+
+缺点:
+在动画控制上不够灵活
+兼容性不好
+
+JavaScript 的动画正好弥补了这两个缺点，控制能力很强，
+可以单帧的控制、变换，同时写得好完全可以兼容 IE6，并且功能强大。
+对于一些复杂控制的动画，使用 javascript 会比较靠谱。
+而在实现一些小的交互动效的时候，就多考虑考虑 CSS 吧
+```
+
+  #### js拖拽功能的实现,对页面某个节点的拖曳如何做？（使用原生JS）
+```
+一个元素的拖拽过程，我们可以分为三个步骤，
+第一步是鼠标按下目标元素，
+
+第二步是鼠标保持按下的状态移动鼠标，第三步是鼠标抬起，拖拽过程结束。
+
+这三步分别对应了三个事件，mousedown 事件，mousemove 事件和 
+mouseup 事件。只有在鼠标按下的状态移动鼠标我们才会执行拖拽事件，
+因此我们需要在 mousedown 事件中设置一个状态来标识鼠标已经按下，
+然后在 mouseup 事件中再取消这个状态。在 mousedown 事件中我们
+首先应该判断，目标元素是否为拖拽元素，如果是拖拽元素，我们就
+设置状态并且保存这个时候鼠标的位置。然后在 mousemove 事件中，
+我们通过判断鼠标现在的位置和以前位置的相对移动，来确定拖拽元素
+在移动中的坐标。
+
+最后 mouseup 事件触发后，清除状态，结束拖拽事件。
+```
+
+```
+首先是三个事件，分别是 mousedown，mousemove，mouseup
+当鼠标点击按下的时候，需要一个 tag 标识此时已经按下，
+可以执行 mousemove 里面的具体方法。
+clientX，clientY 标识的是鼠标的坐标，分别标识横坐标和纵坐标，
+并且我们用 offsetX 和 offsetY 来表示元素的元素的初始坐标，
+移动的举例应该是：
+鼠标移动时候的坐标-鼠标按下去时候的坐标。
+也就是说定位信息为：
+鼠标移动时候的坐标-鼠标按下去时候的坐标+元素初始情况下的 offetLeft.
+```
+
+```
+给需要拖拽的节点绑定mousedown, mousemove, mouseup事件
+mousedown事件触发后，开始拖拽
+mousemove时，需要通过event.clientX和clientY获取拖拽位置，并实时更新位置
+mouseup时，拖拽结束
+需要注意浏览器边界的情况
+```
+
+  #### 使用js实现一个持续的动画效果
+```
+定时器思路：
+var e = document.getElementById('e')
+var flag = true;
+var left = 0;
+setInterval(() => {
+    left == 0 ? flag = true : left == 100 ? flag = false : ''
+    flag ? e.style.left = ` ${left++}px` : e.style.left = ` ${left--}px`
+}, 1000 / 60)
+
+requestAnimationFrame：
+//兼容性处理
+window.requestAnimFrame = (function(){
+    return window.requestAnimationFrame       ||
+           window.webkitRequestAnimationFrame ||
+           window.mozRequestAnimationFrame    ||
+           function(callback){
+                window.setTimeout(callback, 1000 / 60);
+           };
+})();
+
+var e = document.getElementById("e");
+var flag = true;
+var left = 0;
+
+function render() {
+    left == 0 ? flag = true : left == 100 ? flag = false : '';
+    flag ? e.style.left = ` ${left++}px` :
+        e.style.left = ` ${left--}px`;
+}
+
+(function animloop() {
+    render();
+    requestAnimFrame(animloop);
+})();
+
+使用css实现一个持续的动画效果：
+animation:mymove 5s infinite;
+
+@keyframes mymove {
+    from {top:0px;}
+    to {top:200px;}
+}
+animation-name 规定需要绑定到选择器的 keyframe名称。
+animation-duration 规定完成动画所花费的时间，以秒或毫秒计。
+animation-timing-function 规定动画的速度曲线。
+animation-delay 规定在动画开始之前的延迟。
+animation-iteration-count 规定动画应该播放的次数。
+animation-direction 规定是否应该轮流反向播放动画
+```
+
+  #### 实现点击容器内的图标，图标边框变成border:1px solid red，点击空白处重置
+```
+const box = document.getElementById('box');
+function isIcon(target) {
+  return target.className.includes('icon');
+}
+
+box.onClick = function(e) {
+  e.stopPropagation();
+  const target = e.target;
+  if (isIcon(target)) {
+    target.style.border = '1px solid red';
+  }
+}
+const doc = document;
+doc.onclick = function(e) {
+  const children = box.children;
+  for(let i; i < children.length; i++) {
+    if (isIcon(children[i])) {
+      children[i].style.border = 'none';
+    }
+  }
+}
+```
+
+  #### canvas上面随机布着一些黑块，请实现方法，计算canvas上有多少个黑块
+```
+想要知道有多少个图形，想到的就是先获取图片中的每一个像素点然后
+判获取像素点的背景颜色（RGBA）。想要获得图片中的每一个像素点，
+那就可以联想到使用h5的canvas。
+
+如下：
+canvas的getimagedata方法
+
+书写html标签。
+ <canvas id="canvas" height="200" width="350">对不你，你的浏览器不支持Canvas</canvas> 
+ 
+js获取canvas对象
+let ctxt = canvas.getContext('2d');
+
+js创建image对象
+let img = new Image;
+img.src = './image.png'; //图片路径
+img.onload = function(){}  //加载成功后的执行函数，之后的代码就写在其中
+
+创建存储图片像素点的二维数组
+let coordinates = [];
+for(let i=0; i<200; i++){
+       coordinates[i] = [];
+}
+
+获取像素点，也就是使用getimagedata方法。
+ctxt.drawImage(img, 0, 0);  //将图片画如canvas
+let data = ctxt.getImageData(0, 0, 350, 200).data;//读取整张图片的像素。
+
+将像素存入二维数组
+let x=0,y=0;  //二维数组的行和列， x：列  y：行
+for(let i =0,len = data.length; i<len;i+=4){
+        let red = data[i],//红色色深
+        green = data[i+1],//绿色色深
+        blue = data[i+2],//蓝色色深
+        alpha = data[i+3];//透明度
+        //把每个像素点，以二位数组的形式展开
+        if(`${red} ${green} ${blue}` === '210 227 199'){
+            coordinates[y][x] = 0;
+        }else{
+            coordinates[y][x] = 1;
+        }
+        x++;
+        if(x >= 350){
+            x = 0;
+            y++;
+        }
+}
+
+目前代码如下：
+(function(){
+        let ctxt = canvas.getContext('2d');
+        let img = new Image;
+        let coordinates = [];
+        let h = 200,
+            w = 350;
+        for(let i=0; i<200; i++){
+            coordinates[i] = [];
+        }
+        img.src = './image.png'; //图片路径
+        img.onload = function(){
+            ctxt.drawImage(img, 0, 0);
+            let data = ctxt.getImageData(0, 0, 350, 200).data;//读取整张图片的像素。
+            let x=0,y=0;
+            for(let i =0,len = data.length; i<len;i+=4){
+                    let red = data[i],//红色色深
+                    green = data[i+1],//绿色色深
+                    blue = data[i+2],//蓝色色深
+                    alpha = data[i+3];//透明度
+                    //把每个像素点，以二位数组的形式展开
+                    if(`${red} ${green} ${blue}` === '210 227 199'){
+                        coordinates[y][x] = 0;
+                    }else{
+                        coordinates[y][x] = 1;
+                    }
+                    x++;
+                    if(x >= 350){
+                        x = 0;
+                        y++;
+                    }
+                }
+                console.log(coordinates);
+        }
+    })();
+
+构成类似如下二维数组：
+
+0,0,0,0,0,0,0,0,0,0,0,0
+0,0,1,1,1,0,0,0,0,0,0,0
+0,1,1,1,1,0,0,0,0,0,0,0
+0,1,1,1,0,0,0,1,1,1,1,0
+0,0,0,0,0,0,1,1,1,0,0,0
+0,0,0,0,0,0,1,1,1,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0
+
+那么我们就只需要知道二维数组中这种连续为1的块有多少个就知道了
+图片中形状有多少个，并且块中有多少个1，那么这个块的面积就是1的个数。
+
+递归回溯算法
+//计算连续的面积和个数
+const linkSum = (i,j,num)=>{
+        //走过的路就置0
+      coordinates[i][j] = 0;
+      num++;
+      //向上
+      if((i+1 < h) && coordinates[i+1][j] == 1){
+        num = linkSum(i+1 , j , num);
+      }
+      //向下
+      if((j+1 < w) && coordinates[i][j+1] == 1){
+        num = linkSum(i , j+1 , num);
+      }
+      //向左
+      if((i-1 >= 0) && coordinates[i-1][j] == 1){
+        num = linkSum(i-1 , j , num);
+      }
+      //向右
+    if((j-1 >= 0) && coordinates[i][j-1] == 1){
+        num = linkSum(i , j-1 , num);
+    }
+
+    return num;
+}
+
+使用算法，统计并计算出结果。
+const getCountAndArea = () =>{
+    let sum = [];
+    let count = 0;
+    for(let i = 0; i < h; i++)  //遍历二维数组
+    {
+      for(let j = 0; j < w; j++)
+      {
+       //连续1的个数
+       if(coordinates[i][j] == 1)
+       {
+        let buf = 0;  //连续1的个数
+        buf = linkSum(i,j,buf);
+        count++;  //形状的总数
+        sum.push({
+            index: count,   //第几个形状
+            area: buf         //形状的面积
+        });
+       }
+      }
+    }
+    return {
+        count,
+        sum
+    };
+}
+
+最后的代码
+(function(){
+        let ctxt = canvas.getContext('2d');
+        let img = new Image;
+        let coordinates = [];
+        let h = 200,
+            w = 350;
+        for(let i=0; i<200; i++){
+            coordinates[i] = [];
+        }
+        img.src = './image.png'; //图片路径
+        img.onload = function(){
+            ctxt.drawImage(img, 0, 0);
+            let data = ctxt.getImageData(0, 0, 350, 200).data;//读取整张图片的像素。
+            let x=0,y=0;
+            for(let i =0,len = data.length; i<len;i+=4){
+                    let red = data[i],//红色色深
+                    green = data[i+1],//绿色色深
+                    blue = data[i+2],//蓝色色深
+                    alpha = data[i+3];//透明度
+                    //把每个像素点，以二位数组的形式展开
+                    if(`${red} ${green} ${blue}` === '210 227 199'){
+                        coordinates[y][x] = 0;
+                    }else{
+                        coordinates[y][x] = 1;
+                    }
+                    x++;
+                    if(x >= 350){
+                        x = 0;
+                        y++;
+                    }
+                }
+                // console.log(coordinates);
+                let rst = getCountAndArea();
+                // console.log(rst);
+                console.log('个数： ' + rst.count);
+                for(let i=0; i<rst.sum.length; i++){
+                    console.log(`第${i+1}个面积为: ${rst.sum[i].area} px`);
+                }
+        }
+    
+        const getCountAndArea = () =>{
+            let sum = [];
+            let count = 0;
+            for(let i = 0; i < h; i++)
+            {
+              for(let j = 0; j < w; j++)
+              {
+               //连续1的个数
+               if(coordinates[i][j] == 1)
+               {
+                let buf = 0;
+                buf = linkSum(i,j,buf);
+                count++;
+                sum.push({
+                    index: count,
+                    area: buf
+                });
+               }
+              }
+            }
+            return {
+                count,
+                sum
+            };
+        }
+
+        //计算连续的面积和个数
+        const linkSum = (i,j,num)=>{
+            //走过的路就置0
+          coordinates[i][j] = 0;
+          num++;
+          //向上
+          if((i+1 < h) && coordinates[i+1][j] == 1){
+            num = linkSum(i+1 , j , num);
+          }
+          //向下
+          if((j+1 < w) && coordinates[i][j+1] == 1){
+            num = linkSum(i , j+1 , num);
+          }
+          //向左
+          if((i-1 >= 0) && coordinates[i-1][j] == 1){
+            num = linkSum(i-1 , j , num);
+          }
+          //向右
+        if((j-1 >= 0) && coordinates[i][j-1] == 1){
+            num = linkSum(i , j-1 , num);
+        }
+
+        return num;
+        }
+    })();
+```
+
+  #### 怎么做JS代码Error统计
+```
+error 统计使用浏览器的 window.error 事件。
+```
+
+  #### 完成一个Dialog组件，说说你设计的思路？它应该有什么功能
+```
+该组件需要提供hook指定渲染位置，默认渲染在body下面。
+
+然后改组件可以指定外层样式，如宽度等
+
+组件外层还需要一层mask来遮住底层内容，
+点击mask可以执行传进来的onCancel函数关闭Dialog。
+
+另外组件是可控的，需要外层传入visible表示是否可见。
+
+然后Dialog可能需要自定义头head和底部footer，默认有头部和底部，
+底部有一个确认按钮和取消按钮，确认按钮会执行外部传进来的onOk事件，
+然后取消按钮会执行外部传进来的onCancel事件。
+
+当组件的visible为true时候，设置body的overflow为hidden，
+隐藏body的滚动条，反之显示滚动条。
+
+组件高度可能大于页面高度，组件内部需要滚动条。
+
+只有组件的visible有变化且为ture时候，才重渲染组件内的所有内容
+```
+
+  #### js中倒计时的纠偏实现
+```
+在前端实现中我们一般通过 setTimeout 和 setInterval 方法来
+实现一个倒计时效果。但是使用这些方法会存在时间偏差的问题，
+这是由于 js 的程序执行机制造成的，setTimeout 和 setInterval 
+的作用是隔一段时间将回调事件加入到事件队列中，因此事件并不是
+立即执行的，它会等到当前执行栈为空的时候再取出事件执行，
+因此事件等待执行的时间就是造成误差的原因。
+
+一般解决倒计时中的误差的有这样两种办法：
+（1）第一种是通过前端定时向服务器发送请求获取最新的时间差，
+以此来校准倒计时时间。
+
+（2）第二种方法是前端根据偏差时间来自动调整间隔时间的方式来
+实现的。这一种方式首先是以 setTimeout 递归的方式来实现倒计时，
+然后通过一个变量来记录已经倒计时的秒数。每一次函数调用的时候，
+首先将变量加一，然后根据这个变量和每次的间隔时间，我们就可以
+计算出此时无偏差时应该显示的时间。然后将当前的真实时间与这个
+时间相减，这样我们就可以得到时间的偏差大小，因此我们在设置
+下一个定时器的间隔大小的时候，我们就从间隔时间中减去这个
+偏差大小，以此来实现由于程序执行所造成的时间误差的纠正。
+```
+
+  #### 函数柯里化的实现
+```js
+// 函数柯里化指的是一种将使用多个参数的一个函数转换成
+一系列使用一个参数的函数的技术。
+
+function curry(fn, args) {
+  // 获取函数需要的参数长度
+  let length = fn.length;
+
+  args = args || [];
+
+  return function() {
+    let subArgs = args.slice(0);
+
+    // 拼接得到现有的所有参数
+    for (let i = 0; i < arguments.length; i++) {
+      subArgs.push(arguments[i]);
+    }
+
+    // 判断参数的长度是否已经满足函数所需参数的长度
+    if (subArgs.length >= length) {
+      // 如果满足，执行函数
+      return fn.apply(this, subArgs);
+    } else {
+      // 如果不满足，递归返回科里化的函数，等待参数的传入
+      return curry.call(this, fn, subArgs);
+    }
+  };
+}
+
+// es6 实现
+function curry(fn, ...args) {
+  return fn.length <= args.length ? fn(...args) : curry.bind(null, fn, ...args);
+}
+```
+
+  #### EventEmitter实现
+```js
+class EventEmitter {
+  constructor() {
+    this.events = {};
+  }
+
+  on(event, callback) {
+    let callbacks = this.events[event] || [];
+    callbacks.push(callback);
+    this.events[event] = callbacks;
+
+    return this;
+  }
+
+  off(event, callback) {
+    let callbacks = this.events[event];
+    this.events[event] = callbacks && callbacks.filter(fn => fn !== callback);
+
+    return this;
+  }
+
+  emit(event, ...args) {
+    let callbacks = this.events[event];
+    callbacks.forEach(fn => {
+      fn(...args);
+    });
+
+    return this;
+  }
+
+  once(event, callback) {
+    let wrapFun = function(...args) {
+      callback(...args);
+
+      this.off(event, wrapFun);
+    };
+    this.on(event, wrapFun);
+
+    return this;
+  }
+}
+```
+
+  #### 如何查找一篇英文文章中出现频率最高的单词
+```js
+function findMostWord(article) {
+  // 合法性判断
+  if (!article) return;
+
+  // 参数处理
+  article = article.trim().toLowerCase();
+
+  let wordList = article.match(/[a-z]+/g),
+    visited = [],
+    maxNum = 0,
+    maxWord = "";
+
+  article = " " + wordList.join("  ") + " ";
+
+  // 遍历判断单词出现次数
+  wordList.forEach(function(item) {
+    if (visited.indexOf(item) < 0) {
+
+      // 加入 visited 
+      visited.push(item);
+
+      let word = new RegExp(" " + item + " ", "g"),
+        num = article.match(word).length;
+
+      if (num > maxNum) {
+        maxNum = num;
+        maxWord = item;
+      }
+    }
+  });
+
+  return maxWord + "  " + maxNum;
+}
+```
+  - [94 实现Storage，使得该对象为单例，并对localStorage进行封装设置值setItem(key,value)和getItem(key)](#)
   - [获取页面所有的checkbox--67 希望获取到页面中所有的checkbox怎么做？  73 获取页面所有的checkbox](#获取页面所有的checkbox)
+
+
+
+
+
+
 
 - [宏任务和微任务](#宏任务和微任务)
   - [requestAnimationFrame--114. 什么是 requestAnimationFrame ？](#requestAnimationFrame)
