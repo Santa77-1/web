@@ -1,5 +1,5 @@
 ## 框架面试知识点总结
-整理了 VUE、webpack 面试的部分知识点
+整理了 VUE、React、jQuery、webpack、 Bootstrap面试的部分知识点
 
 ### 目录
 - [VUE](#VUE)
@@ -56,107 +56,79 @@
   - [](#)  5 setState
   - [](#)  6 setState原理分析
   - [](#)  4 调和阶段 setState内部干了什么
-  - [](#)  
-  - [](#)  
-  - [](#)  
-  - [](#)  
-  - [](#)  
-  - [](#)  
-  - [](#)  
-  - [](#)  
+  - [](#)  22 如何避免ajax数据请求重新获取
+  - [](#)  12 为什么 React 元素有一个 $$typeof 属性
+  - [](#)  10 合成事件原理
+  - [](#)  16 react hooks，它带来了那些便利
+  - [](#)  15 connect组件原理分析
+  - [](#)  11 JSX语法糖本质
+  - [](#)  20 受控组件和非受控组件
+  - [](#)  21 SSR原理
 
 
+- [jQuery](#jQuery)
+  - [](#)  2 jQuery 的实现原理
+  - [](#)  12 针对 jQuery 的优化方法
+  - [](#)  17 jQuery对象的特点
+  - [](#)  1 你觉得jQuery或zepto源码有哪些写的好的地方
+  - [](#)  11 jQuery 一个对象可以同时绑定多个事件，这是如何实现的
+  - [](#)  5 jQuery 的属性拷贝(extend)的实现原理是什么，如何实现深拷贝
+  - [](#)  6 jQuery 的队列是如何实现的
+  - [](#)  10 jQuery 中如何将数组转化为 JSON 字符串，然后再转化回来
+  - [](#)  9 jQuery 通过哪个方法和 Sizzle 选择器结合的
+  - [](#)  3 jQuery.fn 的 init 方法返回的 this 指的是什么对象
+  - [](#)  4 jQuery.extend 与 jQuery.fn.extend 的区别
+  - [](#)  7 jQuery 中的 bind(), live(), delegate(), on()的区别
+  - [](#)  8 是否知道自定义事件
+  - [](#)  14 jQuery UI 如何自定义组件
+  - [](#)  15 jQuery 与 jQuery UI、jQuery Mobile 区别
+  - [](#)  13 jQuery 的 slideUp 动画，当鼠标快速连续触发, 动画会滞后反复执行，该如何处理呢
+  - [](#)  16 jQuery 和 Zepto 的区别？ 各自的使用场景
 
 
-
-1 
-2 
-1. 
-2. 
-3. 
-4. 
-5 
-3 
-4 调和阶段 setState内部干了什么
-5 
-6 
-7 
-8 
-9 
-10 合成事件原理
-11 JSX语法糖本质
-12 为什么 React 元素有一个 $$typeof 属性
-13 
-14 
-15 connect组件原理分析
-16 react hooks，它带来了那些便利
-17 
-18 
-19 
-20 受控组件和非受控组件
-21 SSR原理
-22 如何避免ajax数据请求重新获取
-23 
-24 
-
-六、微信小程序
-1 微信小程序有几个文件
-2 微信小程序怎样跟事件传值
-3 小程序的 wxss 和 css 有哪些不一样的地方？
-4 小程序关联微信公众号如何确定用户的唯一性
-5 微信小程序与vue区别
-七、webpack相关
-1 打包体积 优化思路
-2 打包效率
-3 Loader
-4 说一下webpack的一些plugin，怎么使用webpack对项目进行优化
+- [微信小程序](#微信小程序)
+  - [](#)  5 微信小程序与vue区别
+  - [](#)  1 微信小程序有几个文件
+  - [](#)  2 微信小程序怎样跟事件传值
+  - [](#)  3 小程序的 wxss 和 css 有哪些不一样的地方？
+  - [](#)  4 小程序关联微信公众号如何确定用户的唯一性
 
 
-四、jQuery
-1 你觉得jQuery或zepto源码有哪些写的好的地方
-2 jQuery 的实现原理
-3 jQuery.fn 的 init 方法返回的 this 指的是什么对象
-4 jQuery.extend 与 jQuery.fn.extend 的区别
-5 jQuery 的属性拷贝(extend)的实现原理是什么，如何实现深拷贝
-6 jQuery 的队列是如何实现的
-7 jQuery 中的 bind(), live(), delegate(), on()的区别
-8 是否知道自定义事件
-9 jQuery 通过哪个方法和 Sizzle 选择器结合的
-10 jQuery 中如何将数组转化为 JSON 字符串，然后再转化回来
-11 jQuery 一个对象可以同时绑定多个事件，这是如何实现的
-12 针对 jQuery 的优化方法
-13 jQuery 的 slideUp 动画，当鼠标快速连续触发, 动画会滞后反复执行，该如何处理呢
-14 jQuery UI 如何自定义组件
-15 jQuery 与 jQuery UI、jQuery Mobile 区别
-16 jQuery 和 Zepto 的区别？ 各自的使用场景
-17 jQuery对象的特点
+- [webpack相关](#webpack相关)
+  - [](#)  1 打包体积 优化思路
+  - [](#)  2 打包效率
+  - [](#)  3 Loader
+  - [](#)  4 说一下webpack的一些plugin，怎么使用webpack对项目进行优化
 
-五、Bootstrap
-1 什么是Bootstrap？以及为什么要使用Bootstrap？
-2 使用Bootstrap时，要声明的文档类型是什么？以及为什么要这样声明？
-3 什么是Bootstrap网格系统
-4 Bootstrap 网格系统（Grid System）的工作原理
-5 对于各类尺寸的设备，Bootstrap设置的class前缀分别是什么
-6 Bootstrap 网格系统列与列之间的间隙宽度是多少
-7 如果需要在一个标题的旁边创建副标题，可以怎样操作
-8 用Bootstrap，如何设置文字的对齐方式？
-9 Bootstrap如何设置响应式表格？
-10 使用Bootstrap创建垂直表单的基本步骤？
-11 使用Bootstrap创建水平表单的基本步骤？
-12 使用Bootstrap如何创建表单控件的帮助文本？
-13 使用Bootstrap激活或禁用按钮要如何操作？
-14 Bootstrap有哪些关于的class？
-15 Bootstrap中有关元素浮动及清除浮动的class？
-16 除了屏幕阅读器外，其他设备上隐藏元素的class？
-17 Bootstrap如何制作下拉菜单？
-18 Bootstrap如何制作按钮组？以及水平按钮组和垂直按钮组的优先级？
-19 Bootstrap如何设置按钮的下拉菜单？
-20 Bootstrap中的输入框组如何制作？
-21 Bootstrap中的导航都有哪些？
-22 Bootstrap中设置分页的class？
-23 Bootstrap中显示标签的class？
-24 Bootstrap中如何制作徽章？
-25 Bootstrap中超大屏幕的作用是什么？
+
+- [Bootstrap](#Bootstrap)
+  - [](#)  1 什么是Bootstrap？以及为什么要使用Bootstrap？
+  - [](#)  2 使用Bootstrap时，要声明的文档类型是什么？以及为什么要这样声明？
+  - [](#)  3 什么是Bootstrap网格系统
+  - [](#)  4 Bootstrap 网格系统（Grid System）的工作原理
+  - [](#)  5 对于各类尺寸的设备，Bootstrap设置的class前缀分别是什么
+  - [](#)  6 Bootstrap 网格系统列与列之间的间隙宽度是多少
+  - [](#)  7 如果需要在一个标题的旁边创建副标题，可以怎样操作
+  - [](#)  8 用Bootstrap，如何设置文字的对齐方式？
+  - [](#)  9 Bootstrap如何设置响应式表格？
+  - [](#)  10 使用Bootstrap创建垂直表单的基本步骤？
+  - [](#)  11 使用Bootstrap创建水平表单的基本步骤？
+  - [](#)  12 使用Bootstrap如何创建表单控件的帮助文本？
+  - [](#)  13 使用Bootstrap激活或禁用按钮要如何操作？
+  - [](#)  14 Bootstrap有哪些关于的class？
+  - [](#)  15 Bootstrap中有关元素浮动及清除浮动的class？
+  - [](#)  16 除了屏幕阅读器外，其他设备上隐藏元素的class？
+  - [](#)  17 Bootstrap如何制作下拉菜单？
+  - [](#)  18 Bootstrap如何制作按钮组？以及水平按钮组和垂直按钮组的优先级？
+  - [](#)  19 Bootstrap如何设置按钮的下拉菜单？
+  - [](#)  20 Bootstrap中的输入框组如何制作？
+  - [](#)  21 Bootstrap中的导航都有哪些？
+  - [](#)  22 Bootstrap中设置分页的class？
+  - [](#)  23 Bootstrap中显示标签的class？
+  - [](#)  24 Bootstrap中如何制作徽章？
+  - [](#)  25 Bootstrap中超大屏幕的作用是什么？
+
+
 
 
 
