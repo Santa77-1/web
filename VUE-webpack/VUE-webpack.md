@@ -855,9 +855,9 @@ dep.notify()
 ```
 
   #### Object.defineProperty 介绍
-```
-> Object.defineProperty 函数一共有三个参数，第一个参数是需要定义属性的对象，第二个参数是需要定义的属性，第三个是该属性描述符。
->
+> Object.defineProperty 函数一共有三个参数，第一个参数是需要
+定义属性的对象，第二个参数是需要定义的属性，第三个是该属性描述符。
+
 > 一个属性的描述符有一下属性，分别是
 > value 属性的值，
 > writable 属性是否可写，
@@ -865,7 +865,6 @@ dep.notify()
 > configurable 属性是否可配置修改。
 > get属性 当访问该属性时，会调用此函数
 > set属性 当属性值被修改时，会调用此函数。
-```
 
   #### 使用 Object.defineProperty() 来进行数据劫持有什么缺点
 ```
