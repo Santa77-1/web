@@ -3,35 +3,35 @@
 
 ### 目录
 - [VUE](#VUE)
-  - [vue 的生命周期函数](#vue-的生命周期函数)  7 生命周期
+  - [vue的生命周期函数](#vue的生命周期函数)
   - [Vue中父子组件生命周期执行顺序](#vue中父子组件生命周期执行顺序)
-  - [vue 双向数据绑定原理](#vue-双向数据绑定原理)
-  - [vuex](#vuex) 9 vuex
-  - [MVVM 和 MVC的区别](#mvvm-和-mvc的区别)
-  - [vue 的优点](#vue-的优点)
-  - [vue 的响应式原理](#vue-的响应式原理)  1 Vue 响应式原理
-  - [发布订阅模式和观察者模式](#发布订阅模式和观察者模式) 2 发布订阅模式和观察者模式
-  - [Object.defineProperty 介绍](#objectdefineproperty-介绍)
-  - [使用 Object.defineProperty() 来进行数据劫持有什么缺点](#使用-objectdefineproperty-来进行数据劫持有什么缺点)
-  - [v-if 和 v-show 的区别](#v-if-和-v-show-的区别)
-  - [为什么 vue 组件中的 data 必须是函数](#为什么-vue-组件中的-data-必须是函数)
-  - [vue 的 activated 和 deactivated 钩子函数](#vue-的-activated-和-deactivated-钩子函数)
-  - [nextTick 用法](#nexttick-用法)  6 nextTick
+  - [vue双向数据绑定原理](#vue双向数据绑定原理)
+  - [vuex](#vuex)
+  - [MVVM和MVC的区别](#mvvm和mvc的区别)
+  - [vue的优点](#vue的优点)
+  - [vue的响应式原理](#vue的响应式原理)
+  - [发布订阅模式和观察者模式](#发布订阅模式和观察者模式) 发布订阅模式和观察者模式
+  - [Object.defineProperty介绍](#objectdefineproperty介绍)
+  - [使用Object.defineProperty()来进行数据劫持有什么缺点](#使用objectdefineproperty来进行数据劫持有什么缺点)
+  - [v-if和v-show的区别](#v-if和v-show的区别)
+  - [为什么vue组件中的data必须是函数](#为什么vue组件中的data必须是函数)
+  - [vue的activated和deactivated钩子函数](#vue的activated和deactivated钩子函数)
+  - [nextTick用法](#nexttick用法)  6 nextTick
   - [vue中key属性的作用](#vue中key属性的作用)
   - [Vue中key属性用index为什么不行](#vue中key属性用index为什么不行)
   - [Vue的路由模式](#vue的路由模式)  8 vue-router
-  - [vue中\$router和\$route的区别](#vue中router和route的区别)
+  - [vue中$router和$route的区别](#vue中router和route的区别)
   - [](#) 10 vue3带来的新特性/亮点
   - [](#) 4 VDOM：三个 part
   - [](#) 3 为什么使用 Virtual DOM
   - [](#) 11 Compositon api
   - [Vue diff算法详解](#vue-diff算法详解)
   - [移动端适配的方法](#移动端适配的方法)
-  - [rem 原理](#rem-原理)
-  - [rem 和 em 的区别](#rem-和-em-的区别)
-  - [移动端 300ms 延迟的原因以及解决方案](#移动端-300ms-延迟的原因以及解决方案)
+  - [rem原理](#rem-原理)
+  - [rem和em的区别](#rem和em的区别)
+  - [移动端300ms延迟的原因以及解决方案](#移动端300ms延迟的原因以及解决方案)
   - [](#)  5 vue 和 react技术选型
-  - [Vue 和 React 数据驱动的区别](#vue-和-react-数据驱动的区别)
+  - [Vue和React数据驱动的区别](#vue和react数据驱动的区别)
 
 
 - [React](#React)
