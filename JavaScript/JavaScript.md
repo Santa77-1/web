@@ -2353,9 +2353,6 @@ Function.prototype.myBind = function(context) {
   // 不支持以下调用阶段传入的参数：
   func.bind(that)(arg1, arg2);
 ```
-  - [new操作符具体干了什么呢？如何实现--50. new 操作符具体干了什么呢？如何实现？    8 new操作符具体干了什么呢?](#new操作符具体干了什么呢如何实现)
-  - [Javascript的作用域链--37. Javascript 的作用域链？ 2 说说你对作用域链的理解  117 Javascript作用链域](#Javascript的作用域链)
-  - [JavaScript中的作用域与变量声明提升--78. JavaScript 中的作用域与变量声明提升？ 113 解释JavaScript中的作用域与变量声明提升  86 谈谈变量提升？](#JavaScript中的作用域与变量声明提升)
 
   #### new操作符具体干了什么呢？如何实现
 ```js
@@ -2397,6 +2394,14 @@ function objectFactory() {
 // 使用方法
 // objectFactory(构造函数, 初始化参数);
 ```
+  - [Javascript的作用域链--37. Javascript 的作用域链？ 2 说说你对作用域链的理解  117 Javascript作用链域](#Javascript的作用域链)
+  - [JavaScript中的作用域与变量声明提升--78. JavaScript 中的作用域与变量声明提升？ 113 解释JavaScript中的作用域与变量声明提升  86 谈谈变量提升？](#JavaScript中的作用域与变量声明提升)
+
+
+
+
+
+
 
 
 ### 事件
