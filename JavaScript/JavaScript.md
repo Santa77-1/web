@@ -21,68 +21,68 @@
   - [封装javascript的类型判断函数](#封装javascript的类型判断函数)
 
 - [js类型转换](#js类型转换)
-  - [其他值到字符串的转换规则--17. 其他值到字符串的转换规则？](#其他值到字符串的转换规则)
-  - [其他值到数字值的转换规则--18. 其他值到数字值的转换规则？](#其他值到数字值的转换规则)
-  - [其他值到布尔类型的值的转换规则--19. 其他值到布尔类型的值的转换规则？](#其他值到布尔类型的值的转换规则)
-  - [如何将字符串转化为数字，例如'12.3b'--29. 如何将字符串转化为数字，例如 '12.3b'?](#如何将字符串转化为数字例如123b)
-  - [什么情况下会发生布尔值的隐式强制类型转换--25. 什么情况下会发生布尔值的隐式强制类型转换？](#什么情况下会发生布尔值的隐式强制类型转换)
-  - [Symbol值的强制类型转换--27. Symbol值的强制类型转换？](#Symbol值的强制类型转换)
-  - [将浮点数点左边的数每三位添加一个逗号,12000000.11转化为『12,000,000.11』--30. 如何将浮点数点左边的数每三位添加一个逗号，如 12000000.11 转化为『12,000,000.11』?](#将浮点数点左边的数每三位添加一个逗号1200000011转化为1200000011)
-  - [解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字,区别--23. 解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字，它们之间的区别是什么？](#解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字区别)
+  - [其他值到字符串的转换规则](#其他值到字符串的转换规则)
+  - [其他值到数字值的转换规则](#其他值到数字值的转换规则)
+  - [其他值到布尔类型的值的转换规则](#其他值到布尔类型的值的转换规则)
+  - [如何将字符串转化为数字，例如'12.3b'](#如何将字符串转化为数字例如123b)
+  - [什么情况下会发生布尔值的隐式强制类型转换](#什么情况下会发生布尔值的隐式强制类型转换)
+  - [Symbol值的强制类型转换](#Symbol值的强制类型转换)
+  - [将浮点数点左边的数每三位添加一个逗号,12000000.11转化为『12,000,000.11』](#将浮点数点左边的数每三位添加一个逗号1200000011转化为1200000011)
+  - [解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字,区别](#解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字区别)
 
 - [js属性](#js属性)
-  - [内部属性[[Class]]是什么--4. 内部属性 [[Class]] 是什么？](#内部属性Class是什么)
-  - [属性的遍历--141 属性的遍历](#属性的遍历)
+  - [内部属性[[Class]]是什么](#内部属性Class是什么)
+  - [属性的遍历](#属性的遍历)
 
 - [js操作符](#js操作符)
-  - [||和&&操作符的返回值--26. || 和 && 操作符的返回值？](#和操作符的返回值)
-  - [==操作符的强制类型转换规则--28. == 操作符的强制类型转换规则？  ](#操作符的强制类型转换规则)
-  - [操作符什么时候用于字符串的拼接--24. 操作符什么时候用于字符串的拼接？](#操作符什么时候用于字符串的拼接)
-  - [~操作符的作用--22. ~ 操作符的作用？](#操作符的作用)
+  - [||和&&操作符的返回值](#和操作符的返回值)
+  - [==操作符的强制类型转换规则](#操作符的强制类型转换规则)
+  - [操作符什么时候用于字符串的拼接](#操作符什么时候用于字符串的拼接)
+  - [~操作符的作用](#操作符的作用)
 
 - [类和对象](#类和对象)
-  - [JavaScript如何实现一个类，怎么实例化这个类--115 JavaScript如何实现一个类，怎么实例化这个类](#JavaScript如何实现一个类怎么实例化这个类)
-  - [ECMAScript6怎么写class，为什么会出现class这种东西--69. ECMAScript6 怎么写 class，为什么会出现 class 这种东西?  47 ECMAScript6 怎么写class么](#ECMAScript6怎么写class为什么会出现class这种东西)
-  - [javascript创建对象的几种方式--21 javascript有哪些方法定义对象  34. javascript 创建对象的几种方式？  34 javascript创建对象的几种方式](#javascript创建对象的几种方式)
-  - [如何判断一个对象是否属于某个类--48. 如何判断一个对象是否属于某个类？](#如何判断一个对象是否属于某个类)
-  - [如何判断一个对象是否为空对象--159. 如何判断一个对象是否为空对象？](#如何判断一个对象是否为空对象)
-  - [怎么判断两个对象相等--79 怎么判断两个对象相等？](#怎么判断两个对象相等)
-  - [js有哪些内置对象--5. 介绍 js 有哪些内置对象？  31 介绍js有哪些内置对象 108 介绍JS有哪些内置对象](#js有哪些内置对象)
-  - [什么是假值对象--21. 什么是假值对象？](什么是假值对象)
-  - [Object.is()与原来的比较操作符“===”、“==”的区别--92. Object.is() 与原来的比较操作符 “===”、“==” 的区别？](#Objectis与原来的比较操作符的区别)
-  - [Object.assign()--168. Object.assign()](#Objectassign)
-  - [使用Object.defineProperty()来进行数据劫持有什么缺点--110. Object.defineProperty 介绍？  111. 使用 Object.defineProperty() 来进行数据劫持有什么缺点？](#使用ObjectdefineProperty来进行数据劫持有什么缺点)
+  - [JavaScript如何实现一个类，怎么实例化这个类](#JavaScript如何实现一个类怎么实例化这个类)
+  - [ECMAScript6怎么写class，为什么会出现class这种东西](#ECMAScript6怎么写class为什么会出现class这种东西)
+  - [javascript创建对象的几种方式](#javascript创建对象的几种方式)
+  - [如何判断一个对象是否属于某个类](#如何判断一个对象是否属于某个类)
+  - [如何判断一个对象是否为空对象](#如何判断一个对象是否为空对象)
+  - [怎么判断两个对象相等](#怎么判断两个对象相等)
+  - [js有哪些内置对象](#js有哪些内置对象)
+  - [什么是假值对象](什么是假值对象)
+  - [Object.is()与原来的比较操作符“===”、“==”的区别](#Objectis与原来的比较操作符的区别)
+  - [Object.assign()](#Objectassign)
+  - [使用Object.defineProperty()来进行数据劫持有什么缺点](#使用ObjectdefineProperty来进行数据劫持有什么缺点)
 
 - [数组和对象](#数组和对象)
-  - [如何实现数组的随机排序--33. 如何实现数组的随机排序？](#如何实现数组的随机排序)
-  - [快速的让一个数组乱序--65 快速的让一个数组乱序](#快速的让一个数组乱序)
-  - [数组去重方法总结--74 数组去重方法总结](#数组去重方法总结)
-  - [判断是否是数组--137 判断是否是数组](#判断是否是数组)
-  - [如何通过JS判断一个数组--51 如何通过JS判断一个数组](#如何通过JS判断一个数组)
-  - [数组的fill方法--76. 数组的 fill 方法？](#数组的fill方法)
-  - [数组和对象有哪些原生方法--75. 数组和对象有哪些原生方法，列举一下？](#数组和对象有哪些原生方法)
-  - [JS数组和对象的遍历方式，以及几种方式的比较--60 JS 数组和对象的遍历方式，以及几种方式的比较](#JS数组和对象的遍历方式以及几种方式的比较)
-  - [JavaScript类数组对象的定义--74. JavaScript 类数组对象的定义？ ](#JavaScript类数组对象的定义)
-  - [Array构造函数只有一个参数值时的表现--16. Array 构造函数只有一个参数值时的表现？](#Array构造函数只有一个参数值时的表现)
-  - [Array.splice()与Array.splice()的区别--132 Array.splice() 与 Array.splice() 的区别？](#Arraysplice与Arraysplice的区别)
+  - [如何实现数组的随机排序](#如何实现数组的随机排序)
+  - [快速的让一个数组乱序](#快速的让一个数组乱序)
+  - [数组去重方法总结](#数组去重方法总结)
+  - [判断是否是数组](#判断是否是数组)
+  - [如何通过JS判断一个数组](#如何通过JS判断一个数组)
+  - [数组的fill方法](#数组的fill方法)
+  - [数组和对象有哪些原生方法](#数组和对象有哪些原生方法)
+  - [JS数组和对象的遍历方式，以及几种方式的比较](#JS数组和对象的遍历方式以及几种方式的比较)
+  - [JavaScript类数组对象的定义](#JavaScript类数组对象的定义)
+  - [Array构造函数只有一个参数值时的表现](#Array构造函数只有一个参数值时的表现)
+  - [Array.splice()与Array.splice()的区别](#Arraysplice与Arraysplice的区别)
   - [[].forEach.call(\$\$("<em>"),function(a){a.style.outline="1px solid #" (~~(Math.random()</em>(1&lt;&lt;24))).toString(16)}) 能解释一下这段代码的意思吗](#foreachcallfunctionaastyleoutline1px-solid-mathrandom124tostring16-能解释一下这段代码的意思吗)
   - [["1","2","3"].map(parseInt)答案是多少](#123mapparseint答案是多少)
-  - [map与forEach的区别--53 map与forEach的区别](#map与forEach的区别)
-  - [Map和WeakMap结构--132. Map 和 WeakMap 结构？](#Map和WeakMap结构)
-  - [Set和WeakSet结构--131. Set 和 WeakSet 结构？](#Set和WeakSet结构)
+  - [map与forEach的区别](#map与forEach的区别)
+  - [Map和WeakMap结构](#Map和WeakMap结构)
+  - [Set和WeakSet结构](#Set和WeakSet结构)
   - [{}和[]的valueOf和toString的结果是什么](#--和--的valueof和tostring的结果是什么)
 
 - [函数](#函数)
-  - [JavaScript中，调用函数有哪几种方式--129 JavaScript 中，调用函数有哪几种方式](#JavaScript中调用函数有哪几种方式)
-  - [函数式编程--117. 谈一谈你理解的函数式编程？  54 谈一谈你理解的函数式编程](#函数式编程)
-  - [箭头函数与普通函数的区别--55 谈一谈箭头函数与普通函数的区别？](#箭头函数与普通函数的区别)
-  - [封装一个函数，参数是定时器的时间，.then执行回调函数--78 封装一个函数，参数是定时器的时间，.then执行回调函数](#封装一个函数参数是定时器的时间then执行回调函数)
-  - [函数节流，应用场景和原理--121 什么是函数节流？介绍一下应用场景和原理？](#函数节流应用场景和原理)
-  - [isNaN和Number.isNaN函数的区别--15. isNaN 和 Number.isNaN 函数的区别？](#isNaN和NumberisNaN函数的区别)
-  - [Javascript全局函数和全局变量--76 Javascript全局函数和全局变量](#Javascript全局函数和全局变量)
-  - [什么是闭包，为什么要用它--46. 什么是闭包，为什么要用它？  1 闭包](#什么是闭包，为什么要用它)
-  - [使用闭包实现每隔一秒打印--160. 使用闭包实现每隔一秒打印 1,2,3,4](#使用闭包实现每隔一秒打印)
-  - [eval是做什么的--39. eval 是做什么的？  35 eval是做什么的](#eval是做什么的)
+  - [JavaScript中，调用函数有哪几种方式](#JavaScript中调用函数有哪几种方式)
+  - [函数式编程](#函数式编程)
+  - [箭头函数与普通函数的区别](#箭头函数与普通函数的区别)
+  - [封装一个函数，参数是定时器的时间，.then执行回调函数](#封装一个函数参数是定时器的时间then执行回调函数)
+  - [函数节流，应用场景和原理](#函数节流应用场景和原理)
+  - [isNaN和Number.isNaN函数的区别](#isNaN和NumberisNaN函数的区别)
+  - [Javascript全局函数和全局变量](#Javascript全局函数和全局变量)
+  - [什么是闭包，为什么要用它](#什么是闭包，为什么要用它)
+  - [使用闭包实现每隔一秒打印](#使用闭包实现每隔一秒打印)
+  - [eval是做什么的](#eval是做什么的)
 
 - [js原型和原型链](#js原型和原型链)
   - [js获取原型的方法](#js获取原型的方法)
@@ -97,96 +97,96 @@
   - [寄生组合继承](#寄生组合继承)
   - [es6使用extends关键字扩展一个类并继承它的行为](#es6使用extends关键字扩展一个类并继承它的行为)
 
-- [this对象](#this对象)  38. 谈谈 This 对象的理解。   6 谈谈This对象的理解 101 描述一下this
-  - [this指向--56 谈一谈函数中this的指向  136 this指向](#this指向)
-  - [.call()和.apply()的区别--73. .call() 和 .apply() 的区别？ ](#call和apply的区别)
-  - [手写call、apply及bind函数--97. 手写 call、apply 及 bind 函数](#手写callapply及bind函数)
-  - [简单实现Function.bind函数--130 简单实现 Function.bind 函数](#简单实现Functionbind函数)
-  - [new操作符具体干了什么呢？如何实现--50. new 操作符具体干了什么呢？如何实现？    8 new操作符具体干了什么呢?](#new操作符具体干了什么呢如何实现)
-  - [Javascript的作用域链--37. Javascript 的作用域链？ 2 说说你对作用域链的理解  117 Javascript作用链域](#Javascript的作用域链)
-  - [JavaScript中的作用域与变量声明提升--78. JavaScript 中的作用域与变量声明提升？ 113 解释JavaScript中的作用域与变量声明提升  86 谈谈变量提升？](#JavaScript中的作用域与变量声明提升)
+- [this对象](#this对象)
+  - [this指向](#this指向)
+  - [.call()和.apply()的区别](#call和apply的区别)
+  - [手写call、apply及bind函数](#手写callapply及bind函数)
+  - [简单实现Function.bind函数](#简单实现Functionbind函数)
+  - [new操作符具体干了什么呢？如何实现](#new操作符具体干了什么呢如何实现)
+  - [Javascript的作用域链](#Javascript的作用域链)
+  - [JavaScript中的作用域与变量声明提升](#JavaScript中的作用域与变量声明提升)
 
 - [事件](#事件)
-  - [事件是什么？IE与火狐的事件机制有什么区别？如何阻止冒泡--42. 事件是什么？IE 与火狐的事件机制有什么区别？ 如何阻止冒泡？](#事件是什么IE与火狐的事件机制有什么区别如何阻止冒泡)
-  - [事件的各个阶段--63 事件的各个阶段](#事件的各个阶段)
-  - [事件“捕获”和“冒泡”执行顺序和事件的执行次数--120 介绍事件“捕获”和“冒泡”执行顺序和事件的执行次数](#事件“捕获”和“冒泡”执行顺序和事件的执行次数)
+  - [事件是什么？IE与火狐的事件机制有什么区别？如何阻止冒泡](#事件是什么IE与火狐的事件机制有什么区别如何阻止冒泡)
+  - [事件的各个阶段](#事件的各个阶段)
+  - [事件“捕获”和“冒泡”执行顺序和事件的执行次数](#事件“捕获”和“冒泡”执行顺序和事件的执行次数)
   - [在一个DOM上同时绑定两个点击事件：一个用捕获，一个用冒泡。事件会执行几次，先执行冒泡还是捕获](#在一个DOM上同时绑定两个点击事件一个用捕获一个用冒泡事件会执行几次先执行冒泡还是捕获)
   - [如何派发事件(dispatchEvent)？（如何进行事件广播？）](#如何派发事件dispatchEvent如何进行事件广播)
-  - [事件代理--4 请解释什么是事件代理](#事件代理)
-  - [三种事件模型是什么--43. 三种事件模型是什么？7 事件模型](#三种事件模型是什么)
-  - [事件委托--44. 事件委托是什么？](#事件委托)
-  - [js的事件循环是什么--95. js 的事件循环是什么？](#js的事件循环是什么)
-  - [事件流--96 说说事件流](#事件流)
-  - [写一个通用的事件侦听器函数--41. 写一个通用的事件侦听器函数。](#写一个通用的事件侦听器函数)
-  - [移动端的点击事件的有延迟，时间是多久，为什么会有？怎么解决这个延时--85. 移动端的点击事件的有延迟，时间是多久，为什么会有？ 怎么解决这个延时？](#移动端的点击事件的有延迟时间是多久为什么会有怎么解决这个延时)
+  - [事件代理](#事件代理)
+  - [三种事件模型是什么](#三种事件模型是什么)
+  - [事件委托](#事件委托)
+  - [js的事件循环是什么](#js的事件循环是什么)
+  - [事件流](#事件流)
+  - [写一个通用的事件侦听器函数](#写一个通用的事件侦听器函数)
+  - [移动端的点击事件的有延迟，时间是多久，为什么会有？怎么解决这个延时](#移动端的点击事件的有延迟时间是多久为什么会有怎么解决这个延时)
 
 - [浏览器](#浏览器)
-  - [从输入URL到看到页面发生的全过程--100 说说从输入URL到看到页面发生的全过程，越详细越好](#从输入URL到看到页面发生的全过程)
-  - [浏览器的渲染过程，DOM树和渲染树的区别--111 描述浏览器的渲染过程，DOM树和渲染树的区别](#浏览器的渲染过程DOM树和渲染树的区别)
-  - [浏览器的缓存机制--56. 谈一谈浏览器的缓存机制？  81 浏览器缓存  102 说一下浏览器的缓存机制](#浏览器的缓存机制)
-  - [Ajax解决浏览器缓存问题--57. Ajax 解决浏览器缓存问题？](#Ajax解决浏览器缓存问题)
-  - [常见兼容性问题--22 常见兼容性问题？](#常见兼容性问题)
+  - [从输入URL到看到页面发生的全过程](#从输入URL到看到页面发生的全过程)
+  - [浏览器的渲染过程，DOM树和渲染树的区别](#浏览器的渲染过程DOM树和渲染树的区别)
+  - [浏览器的缓存机制](#浏览器的缓存机制)
+  - [Ajax解决浏览器缓存问题](#Ajax解决浏览器缓存问题)
+  - [常见兼容性问题](#常见兼容性问题)
   - [请求方式](#请求方式)
-    - [get和post请求在缓存方面的区别--122. get 和 post 请求在缓存方面的区别](#get和post请求在缓存方面的区别)
-    - [get请求传参长度的误区--120. get 请求传参长度的误区](#get请求传参长度的误区)
-  - [检测浏览器版本版本有哪些方式--88. 检测浏览器版本版本有哪些方式？  107 检测浏览器版本版本有哪些方式？](#检测浏览器版本版本有哪些方式)
+    - [get和post请求在缓存方面的区别](#get和post请求在缓存方面的区别)
+    - [get请求传参长度的误区](#get请求传参长度的误区)
+  - [检测浏览器版本版本有哪些方式](#检测浏览器版本版本有哪些方式)
   - [把script标签放在页面的最底部的body封闭之前和封闭之后有什么区别？浏览器会如何解析它们](#把script标签放在页面的最底部的body封闭之前和封闭之后有什么区别浏览器会如何解析它们)
-  - [script的位置是否会影响首屏显示时间--112 script 的位置是否会影响首屏显示时间](#script的位置是否会影响首屏显示时间)
+  - [script的位置是否会影响首屏显示时间](#script的位置是否会影响首屏显示时间)
   - [实现一个页面操作不会整页刷新的网站，并且能在浏览器前进、后退时正确响应。给出你的技术实现方案](#实现一个页面操作不会整页刷新的网站并且能在浏览器前进后退时正确响应给出你的技术实现方案)
-  - [如何检测浏览器所支持的最小字体大小--138. 如何检测浏览器所支持的最小字体大小？](#如何检测浏览器所支持的最小字体大小)
-  - [开发中常用的几种Content-Type--157. 开发中常用的几种 Content-Type ？](#开发中常用的几种ContentType)
-  - [如何判断当前脚本运行在浏览器还是node环境中？（阿里）--83. 如何判断当前脚本运行在浏览器还是 node 环境中？（阿里）](#如何判断当前脚本运行在浏览器还是node环境中阿里)
-  - [V8引擎的垃圾回收机制--80. 简单介绍一下 V8 引擎的垃圾回收机制](#V8引擎的垃圾回收机制)
+  - [如何检测浏览器所支持的最小字体大小](#如何检测浏览器所支持的最小字体大小)
+  - [开发中常用的几种Content-Type](#开发中常用的几种ContentType)
+  - [如何判断当前脚本运行在浏览器还是node环境中？（阿里）](#如何判断当前脚本运行在浏览器还是node环境中阿里)
+  - [V8引擎的垃圾回收机制](#V8引擎的垃圾回收机制)
   - [垃圾回收](#垃圾回收)
-  - [Javascript垃圾回收方法--124 Javascript垃圾回收方法  139 垃圾回收](#Javascript垃圾回收方法)
-  - [URL和URI的区别--121. URL 和 URI 的区别？](#URL和URI的区别)
-  - [在输入框中如何判断输入的是一个正确的网址--143 在输入框中如何判断输入的是一个正确的网址](#在输入框中如何判断输入的是一个正确的网址)
-  - [页面编码和被请求的资源编码如果不一致如何处理--127 页面编码和被请求的资源编码如果不一致如何处理](#页面编码和被请求的资源编码如果不一致如何处理)
-  - [加载--138 加载](#加载)
-  - [WEB应用从服务器主动推送Data到客户端有那些方式--134 WEB应用从服务器主动推送Data到客户端有那些方式](#WEB应用从服务器主动推送Data到客户端有那些方式)
+  - [Javascript垃圾回收方法](#Javascript垃圾回收方法)
+  - [URL和URI的区别](#URL和URI的区别)
+  - [在输入框中如何判断输入的是一个正确的网址](#在输入框中如何判断输入的是一个正确的网址)
+  - [页面编码和被请求的资源编码如果不一致如何处理](#页面编码和被请求的资源编码如果不一致如何处理)
+  - [加载](#加载)
+  - [WEB应用从服务器主动推送Data到客户端有那些方式](#WEB应用从服务器主动推送Data到客户端有那些方式)
 
-- [cookie](#cookie)  62. 简单谈一下 cookie ？
-  - [如何删除一个cookie--126 如何删除一个cookie](#如何删除一个cookie)
-  - [服务器代理转发时，该如何处理cookie--61. 服务器代理转发时，该如何处理 cookie？](#服务器代理转发时该如何处理cookie)
-  - [什么是Samesite Cookie属性--105. 什么是 Samesite Cookie 属性？](#什么是Samesite-Cookie属性)
+- [cookie](#cookie)
+  - [如何删除一个cookie](#如何删除一个cookie)
+  - [服务器代理转发时，该如何处理cookie](#服务器代理转发时该如何处理cookie)
+  - [什么是Samesite Cookie属性](#什么是Samesite-Cookie属性)
 
 - [面向对象](#面向对象)
-  - [什么是面向对象编程及面向过程编程，它们的异同和优缺点--48 什么是面向对象编程及面向过程编程，它们的异同和优缺点 49 面向对象编程思想](#什么是面向对象编程及面向过程编程它们的异同和优缺点)
+  - [什么是面向对象编程及面向过程编程，它们的异同和优缺点](#什么是面向对象编程及面向过程编程它们的异同和优缺点)
 
 - [同步和异步](#同步和异步)
-  - [同步和异步的区别--58. 同步和异步的区别？   41 同步和异步的区别](#同步和异步的区别)
-  - [异步加载JS的方式有哪些--12 异步加载JS的方式有哪些？](#异步加载JS的方式有哪些)
-  - [异步编程的实现方式--118. 异步编程的实现方式？ 57 异步编程的实现方式  ](#异步编程的实现方式)
-  - [什么是单线程，和异步的关系--87 什么是单线程，和异步的关系](#什么是单线程和异步的关系)
+  - [同步和异步的区别](#同步和异步的区别)
+  - [异步加载JS的方式有哪些](#异步加载JS的方式有哪些)
+  - [异步编程的实现方式](#异步编程的实现方式)
+  - [什么是单线程，和异步的关系](#什么是单线程和异步的关系)
   - [什么是Promise对象，什么是Promises/A+规范](#什么是Promise对象什么是PromisesA规范)
-  - [手写一个Promise--137. 手写一个 Promise](#手写一个Promise)
-  - [defer和async--43 defer和async](#defer和async)
+  - [手写一个Promise](#手写一个Promise)
+  - [defer和async](#defer和async)
 
 - [模式](#模式)
-  - [用过哪些设计模式--18 用过哪些设计模式？](#用过哪些设计模式)
-  - [单例模式模式--140. 单例模式模式是什么？](#单例模式模式)
-  - [策略模式--141. 策略模式是什么？](#策略模式)
-  - [代理模式--142. 代理模式是什么？](#代理模式)
-  - [中介者模式--143. 中介者模式是什么？](#中介者模式)
-  - [适配器模式--144. 适配器模式是什么？](#适配器模式)
-  - [观察者模式和发布订阅模式有什么不同--145. 观察者模式和发布订阅模式有什么不同？](#观察者模式和发布订阅模式有什么不同)
-  - [严格模式的限制--44 说说严格模式的限制](#严格模式的限制)
-  - [手写一个观察者模式--162. 手写一个观察者模式？](#手写一个观察者模式)
+  - [用过哪些设计模式](#用过哪些设计模式)
+  - [单例模式模式](#单例模式模式)
+  - [策略模式](#策略模式)
+  - [代理模式](#代理模式)
+  - [中介者模式](#中介者模式)
+  - [适配器模式](#适配器模式)
+  - [观察者模式和发布订阅模式有什么不同](#观察者模式和发布订阅模式有什么不同)
+  - [严格模式的限制](#严格模式的限制)
+  - [手写一个观察者模式](#手写一个观察者模式)
 
 - [模块化](#模块化)
-  - [模块化开发怎么做--63. 模块化开发怎么做？  11 模块化开发怎么做？](#模块化开发怎么做)
-  - [js的几种模块规范--64. js 的几种模块规范？](#js的几种模块规范)
-  - [ES6模块与CommonJS模块、AMD、CMD的差异--66. ES6 模块与 CommonJS 模块、AMD、CMD 的差异。 65. AMD 和 CMD 规范的区别？   27 谈谈你对AMD、CMD的理解  16 说说你对AMD和Commonjs的理解](#ES6模块与CommonJS模块AMDCMD的差异)
-  - [JS模块加载器的轮子怎么造，也就是如何实现一个模块加载器--68. JS 模块加载器的轮子怎么造，也就是如何实现一个模块加载器？](#JS模块加载器的轮子怎么造也就是如何实现一个模块加载器)
-  - [require模块引入的查找方式--135. require 模块引入的查找方式？](#require模块引入的查找方式)
+  - [模块化开发怎么做](#模块化开发怎么做)
+  - [js的几种模块规范](#js的几种模块规范)
+  - [ES6模块与CommonJS模块、AMD、CMD的差异](#ES6模块与CommonJS模块AMDCMD的差异)
+  - [JS模块加载器的轮子怎么造，也就是如何实现一个模块加载器](#JS模块加载器的轮子怎么造也就是如何实现一个模块加载器)
+  - [require模块引入的查找方式](#require模块引入的查找方式)
 
 - [DOM](#DOM)
-  - [什么是DOM和BOM--40. 什么是 DOM 和 BOM？](#什么是DOM和BOM)
-  - [介绍DOM的发展--118 介绍 DOM 的发展](#介绍DOM的发展)
-  - [DOM操作怎样添加、移除、移动、复制、创建和查找节点--71. DOM 操作——怎样添加、移除、移动、复制、创建和查找节点？   怎样添加、移除、移动、复制、创建和查找节点](#DOM操作怎样添加移除移动复制创建和查找节点)
-  - [虚拟DOM(Virtual DOM),为什么虚拟DOM比原生DOM快--112. 什么是 虚拟DOM Virtual DOM？为什么 Virtual DOM 比原生 DOM 快？](#虚拟DOMVirtual-DOM为什么虚拟DOM比原生DOM快)
-  - [如何比较两个DOM树的差异--113. 如何比较两个 DOM 树的差异？](#如何比较两个DOM树的差异)
-  - [介绍DOM0，DOM2，DOM3事件处理方式区别--119 介绍DOM0，DOM2，DOM3事件处理方式区别](#介绍DOM0DOM2DOM3事件处理方式区别)
+  - [什么是DOM和BOM](#什么是DOM和BOM)
+  - [介绍DOM的发展](#介绍DOM的发展)
+  - [DOM操作怎样添加、移除、移动、复制、创建和查找节点](#DOM操作怎样添加移除移动复制创建和查找节点)
+  - [虚拟DOM(Virtual DOM),为什么虚拟DOM比原生DOM快](#虚拟DOMVirtual-DOM为什么虚拟DOM比原生DOM快)
+  - [如何比较两个DOM树的差异](#如何比较两个DOM树的差异)
+  - [介绍DOM0，DOM2，DOM3事件处理方式区别](#介绍DOM0DOM2DOM3事件处理方式区别)
 
 - [优化](#优化)
   - [项目做过哪些性能优化](#项目做过哪些性能优化)
@@ -219,95 +219,95 @@
   - [哪些操作会造成内存泄漏](#哪些操作会造成内存泄漏)
 
 - [Ajax和axios](#Ajax和axios)
-  - [Ajax是什么? 原理？如何创建一个Ajax--55. Ajax 是什么? 如何创建一个 Ajax？  9 Ajax原理](#Ajax是什么原理如何创建一个Ajax)
-  - [ajax、axios、fetch区别--105 ajax、axios、fetch区别](#ajaxaxiosfetch区别)
+  - [Ajax是什么? 原理？如何创建一个Ajax](#Ajax是什么原理如何创建一个Ajax)
+  - [ajax、axios、fetch区别](#ajaxaxiosfetch区别)
 
 - [概念](#概念)
-  - [写JavaScript的基本规范--9. 说几条写 JavaScript 的基本规范？  32 说几条写JavaScript的基本规范  109 说几条写JavaScript的基本规范](#写JavaScript的基本规范)
-  - [js的节流与防抖--85 防抖/节流  91. 介绍一下 js 的节流与防抖？](#js的节流与防抖)
-  - [js中的深浅拷贝实现--84 深浅拷贝  96. js 中的深浅拷贝实现？](#js中的深浅拷贝实现)
-  - [js中的命名规则--166. js 中的命名规则](#js中的命名规则)
-  - [对原生Javascript了解程度--58 对原生Javascript了解程度](#对原生Javascript了解程度)
-  - [渐进增强和优雅降级--42 渐进增强和优雅降级](#渐进增强和优雅降级)
-  - [JavaScript的组成--106 JavaScript的组成](#JavaScript的组成)
-  - [如何编写高性能的JavaScript--79. 如何编写高性能的 Javascript ？   110 如何编写高性能的JavaScript](#如何编写高性能的JavaScript)
-  - [js语句末尾分号是否可以省略--167. js 语句末尾分号是否可以省略？](#js语句末尾分号是否可以省略)
-  - [js延迟加载的方式有哪些--54. js 延迟加载的方式有哪些？  40 js延迟加载的方式有哪些](#js延迟加载的方式有哪些)
-  - [使用JS实现获取文件扩展名--90. 使用 JS 实现获取文件扩展名？](#使用JS实现获取文件扩展名)
-  - [对web标准、可用性、可访问性的理解--50 对web标准、可用性、可访问性的理解](#对web标准可用性可访问性的理解)
-  - [对于JSON的了解--52. 对于 JSON 的了解？  39 JSON 的了解](#对于JSON的了解)
-  - [XML和JSON的区别--14 XML和JSON的区别？](#XML和JSON的区别)
-  - [JavaScript对象生命周期的理解--97 JavaScript 对象生命周期的理解](#JavaScript对象生命周期的理解)
-  - [requireJS的核心原理是什么？（如何动态加载的？如何避免多次加载的？如何缓存的？）--67. requireJS 的核心原理是什么？（如何动态加载的？如何避免多次加载的？如何 缓存的？）](#requireJS的核心原理是什么如何动态加载的如何避免多次加载的如何缓存的)
-  - [什么是“前端路由”？什么时候适合使用“前端路由”？“前端路由”有哪些优点和缺点--86. 什么是“前端路由”？什么时候适合使用“前端路由”？“前端路由”有哪些优点和缺点？](#什么是前端路由什么时候适合使用前端路由前端路由有哪些优点和缺点)
-  - [Polyfill--89. 什么是 Polyfill ？](#Polyfill)
-  - [rest参数--128. 什么是 rest 参数？](#rest参数)
-  - [Proxy--133. 什么是 Proxy ？](#Proxy)
-  - [gulp--61 gulp是什么](#gulp)
-  - [web开发中会话跟踪的方法有哪些--29 web开发中会话跟踪的方法有哪些](#web开发中会话跟踪的方法有哪些)
-  - [进程间通信的方式--173. 进程间通信的方式？](#进程间通信的方式)
-  - [Reflect对象创建目的--134. Reflect 对象创建目的？](#Reflect对象创建目的)
+  - [写JavaScript的基本规范](#写JavaScript的基本规范)
+  - [js的节流与防抖](#js的节流与防抖)
+  - [js中的深浅拷贝实现](#js中的深浅拷贝实现)
+  - [js中的命名规则](#js中的命名规则)
+  - [对原生Javascript了解程度](#对原生Javascript了解程度)
+  - [渐进增强和优雅降级](#渐进增强和优雅降级)
+  - [JavaScript的组成](#JavaScript的组成)
+  - [如何编写高性能的JavaScript](#如何编写高性能的JavaScript)
+  - [js语句末尾分号是否可以省略](#js语句末尾分号是否可以省略)
+  - [js延迟加载的方式有哪些](#js延迟加载的方式有哪些)
+  - [使用JS实现获取文件扩展名](#使用JS实现获取文件扩展名)
+  - [对web标准、可用性、可访问性的理解](#对web标准可用性可访问性的理解)
+  - [对于JSON的了解](#对于JSON的了解)
+  - [XML和JSON的区别](#XML和JSON的区别)
+  - [JavaScript对象生命周期的理解](#JavaScript对象生命周期的理解)
+  - [requireJS的核心原理是什么？（如何动态加载的？如何避免多次加载的？如何缓存的？）](#requireJS的核心原理是什么如何动态加载的如何避免多次加载的如何缓存的)
+  - [什么是“前端路由”？什么时候适合使用“前端路由”？“前端路由”有哪些优点和缺点](#什么是前端路由什么时候适合使用前端路由前端路由有哪些优点和缺点)
+  - [Polyfill](#Polyfill)
+  - [rest参数](#rest参数)
+  - [Proxy](#Proxy)
+  - [gulp](#gulp)
+  - [web开发中会话跟踪的方法有哪些](#web开发中会话跟踪的方法有哪些)
+  - [进程间通信的方式](#进程间通信的方式)
+  - [Reflect对象创建目的](#Reflect对象创建目的)
 
-- [ES6](#ES6) 46 谈谈你对ES6的理解
-  - [let var const--52 谈一谈let与var的区别  127. let 和 const 的注意点？  64 let var const](#let var const)
+- [ES6](#ES6)
+  - [let var const](#let var const)
 
 - [实现](#实现)
-  - [Js动画与CSS动画区别及相应实现--119. Js 动画与 CSS 动画区别及相应实现  59 Js动画与CSS动画区别及相应实现](#Js动画与CSS动画区别及相应实现)
-  - [js拖拽功能的实现,对页面某个节点的拖曳如何做？（使用原生JS）--125. js 拖拽功能的实现  75 （设计题）想实现一个对页面某个节点的拖曳？如何做？（使用原生JS）](#js拖拽功能的实现对页面某个节点的拖曳如何做使用原生JS)
-  - [使用js实现一个持续的动画效果--77 使用js实现一个持续的动画效果](#使用js实现一个持续的动画效果)
-  - [实现点击容器内的图标，图标边框变成border:1px solid red，点击空白处重置--92 实现效果，点击容器内的图标，图标边框变成border 1px solid red，点击空白处重置](#实现点击容器内的图标图标边框变成border1px-solid-red点击空白处重置)
-  - [canvas上面随机布着一些黑块，请实现方法，计算canvas上有多少个黑块--98 我现在有一个canvas，上面随机布着一些黑块，请实现方法，计算canvas上有多少个黑块](#canvas上面随机布着一些黑块请实现方法计算canvas上有多少个黑块)
-  - [怎么做JS代码Error统计--139. 怎么做 JS 代码 Error 统计？](#怎么做JS代码Error统计)
-  - [完成一个Dialog组件，说说你设计的思路？它应该有什么功能--103 现在要你完成一个Dialog组件，说说你设计的思路？它应该有什么功能？](#完成一个Dialog组件说说你设计的思路它应该有什么功能)
-  - [js中倒计时的纠偏实现--172. js 中倒计时的纠偏实现？](#js中倒计时的纠偏实现)
-  - [函数柯里化的实现--98. 函数柯里化的实现](#函数柯里化的实现)
-  - [EventEmitter实现--163. EventEmitter 实现](#EventEmitter实现)
-  - [如何查找一篇英文文章中出现频率最高的单词--174. 如何查找一篇英文文章中出现频率最高的单词？](#如何查找一篇英文文章中出现频率最高的单词)
+  - [Js动画与CSS动画区别及相应实现](#Js动画与CSS动画区别及相应实现)
+  - [js拖拽功能的实现,对页面某个节点的拖曳如何做？（使用原生JS）](#js拖拽功能的实现对页面某个节点的拖曳如何做使用原生JS)
+  - [使用js实现一个持续的动画效果](#使用js实现一个持续的动画效果)
+  - [实现点击容器内的图标，图标边框变成border:1px solid red，点击空白处重置](#实现点击容器内的图标图标边框变成border1px-solid-red点击空白处重置)
+  - [canvas上面随机布着一些黑块，请实现方法，计算canvas上有多少个黑块](#canvas上面随机布着一些黑块请实现方法计算canvas上有多少个黑块)
+  - [怎么做JS代码Error统计](#怎么做JS代码Error统计)
+  - [完成一个Dialog组件，说说你设计的思路？它应该有什么功能](#完成一个Dialog组件说说你设计的思路它应该有什么功能)
+  - [js中倒计时的纠偏实现](#js中倒计时的纠偏实现)
+  - [函数柯里化的实现](#函数柯里化的实现)
+  - [EventEmitter实现](#EventEmitter实现)
+  - [如何查找一篇英文文章中出现频率最高的单词](#如何查找一篇英文文章中出现频率最高的单词)
   - [实现Storage，使得该对象为单例，并对localStorage进行封装设置值setItem(key,value)和getItem(key)](#实现Storage使得该对象为单例并对localStorage进行封装设置值setItemkeyvalue和getItemkey)
-  - [获取页面所有的checkbox--67 希望获取到页面中所有的checkbox怎么做？  73 获取页面所有的checkbox](#获取页面所有的checkbox)
+  - [获取页面所有的checkbox](#获取页面所有的checkbox)
 
 - [宏任务和微任务](#宏任务和微任务)
-  - [requestAnimationFrame--114. 什么是 requestAnimationFrame ？](#requestAnimationFrame)
-  - [为什么使用setTimeout实现setInterval？怎么模拟--126. 为什么使用 setTimeout 实现 setInterval？怎么模拟？](#为什么使用setTimeout实现setInterval怎么模拟)
+  - [requestAnimationFrame](#requestAnimationFrame)
+  - [为什么使用setTimeout实现setInterval？怎么模拟](#为什么使用setTimeout实现setInterval怎么模拟)
+  - [event loop](#event-loop)
 
 - [对比](#对比)
-  - [addEventListener()和attachEvent()的区别--72 addEventListener()和attachEvent()的区别](#addEventListener和attachEvent的区别)
-  - [attribute和property的区别是什么--45 attribute和property的区别是什么](#attribute和property的区别是什么)
-  - [caller和callee的区别--104 caller和callee的区别](#caller和callee的区别)
-  - [documen.write和innerHTML的区别--70. documen.write 和 innerHTML 的区别？](#documenwrite和innerHTML的区别)
-  - [escape,encodeURI,encodeURIComponent区别--93. escape,encodeURI,encodeURIComponent 有什么区别？](#escape,encodeURI,encodeURIComponent区别)
-  - [innerHTML与outerHTML的区别--72. innerHTML 与 outerHTML 的区别？](#innerHTML与outerHTML的区别)
-  - [Javascript中callee和caller的作用--70 Javascript中callee和caller的作用？](#Javascript中callee和caller的作用)
-  - [js代码中的"use strict";是什么意思?使用它区别是什么--47. javascript 代码中的 "use strict"; 是什么意思 ? 使用它区别是什么？ 38 javascript 代码中的"use strict";是什么意思](#js代码中的use-strict是什么意思使用它区别是什么)
-  - [mouseover和mouseenter区别--124. mouseover 和 mouseenter 的区别？](#mouseover和mouseenter区别)
-  *- [116. offsetWidth/offsetHeight,clientWidth/clientHeight 与 scrollWidth/scrollHeight 的区别？  20 offsetWidth/offsetHeight,clientWidth/clientHeight与scrollWidth/scrollHeight的区别](#)
-  - [toPrecision和toFixed和Math.round的区别--101. toPrecision 和 toFixed 和 Math.round 的区别？](#toPrecision和toFixed和Mathround的区别)
-  - [Unicode和UTF-8之间的关系--94. Unicode 和 UTF-8 之间的关系？](#Unicode和UTF-8之间的关系)
-  - [window.onload和$(document).ready--71 window.onload和$(document).ready](#windowonload和documentready)
-  - [区分什么是“客户区坐标”、“页面坐标”、“屏幕坐标”--122 区分什么是“客户区坐标”、“页面坐标”、“屏幕坐标”](#区分什么是客户区坐标页面坐标屏幕坐标)
+  - [addEventListener()和attachEvent()的区别](#addEventListener和attachEvent的区别)
+  - [attribute和property的区别是什么](#attribute和property的区别是什么)
+  - [caller和callee的区别](#caller和callee的区别)
+  - [Javascript中callee和caller的作用](#Javascript中callee和caller的作用)
+  - [documen.write和innerHTML的区别](#documenwrite和innerHTML的区别)
+  - [escape,encodeURI,encodeURIComponent区别](#escape,encodeURI,encodeURIComponent区别)
+  - [innerHTML与outerHTML的区别](#innerHTML与outerHTML的区别)
+  - [js代码中的"use strict";是什么意思?使用它区别是什么](#js代码中的use-strict是什么意思使用它区别是什么)
+  - [mouseover和mouseenter区别](#mouseover和mouseenter区别)
+  - [offsetWidth/offsetHeight,clientWidth/clientHeight与scrollWidth/scrollHeight的区别](#offsetWidth/offsetHeight,clientWidth/clientHeight与scrollWidth/scrollHeight的区别)
+  - [toPrecision和toFixed和Math.round的区别](#toPrecision和toFixed和Mathround的区别)
+  - [Unicode和UTF-8之间的关系](#Unicode和UTF-8之间的关系)
+  - [window.onload和$(document).ready](#windowonload和documentready)
+  - [区分什么是“客户区坐标”、“页面坐标”、“屏幕坐标”](#区分什么是客户区坐标页面坐标屏幕坐标)
 
 - [算法](#算法)
-  - [常用正则表达式--31. 常用正则表达式  69 正则表达式](#常用正则表达式)
-  - [生成随机数的各种方法--32. 生成随机数的各种方法？](#生成随机数的各种方法)
-  - [为什么0.1+0.2!=0.3？如何解决这个问题--99. 为什么 0.1+0.2 != 0.3？如何解决这个问题？](#为什么010203如何解决这个问题)
-  - [原码、反码和补码的介绍--100. 原码、反码和补码的介绍](#原码反码和补码的介绍)
-  - [什么是尾调用，使用尾调用有什么好处--129. 什么是尾调用，使用尾调用有什么好处？](#什么是尾调用使用尾调用有什么好处)
-  - [js中不同进制数字的表示方式--12. 在 js 中不同进制数字的表示方式](#js中不同进制数字的表示方式)
-  - [Math.ceil和Math.floor--169. Math.ceil 和 Math.floor](#Math.ceil和Math.floor)
-  - [[,,,]的长度--77. [,,,] 的长度？](#[,,,]的长度)
-  - [js for循环注意点--170. js for 循环注意点](#js-for循环注意点)
+  - [常用正则表达式](#常用正则表达式)
+  - [生成随机数的各种方法](#生成随机数的各种方法)
+  - [为什么0.1+0.2!=0.3？如何解决这个问题](#为什么010203如何解决这个问题)
+  - [原码、反码和补码的介绍](#原码反码和补码的介绍)
+  - [什么是尾调用，使用尾调用有什么好处](#什么是尾调用使用尾调用有什么好处)
+  - [js中不同进制数字的表示方式](#js中不同进制数字的表示方式)
+  - [Math.ceil和Math.floor](#Math.ceil和Math.floor)
+  - [[,,,]的长度](#[,,,]的长度)
+  - [js for循环注意点](#js-for循环注意点)
 
 - [其他](#其他)
-  - [hybrid--89 前端面试之hybrid](#hybrid)
-  - [组件化--90 前端面试之组件化](#组件化)
-  *- [87. 如何测试前端代码么？ 知道 BDD, TDD, Unit Test 么？ 知道怎么测试你的前端工程么(mocha, sinon, jasmin, qUnit..)？](#)
-  - [为什么通常在发送数据埋点请求的时候使用的是1x1像素的透明gif图片--142 为什么通常在发送数据埋点请求的时候使用的是 1x1 像素的透明 gif 图片](#为什么通常在发送数据埋点请求的时候使用的是1x1像素的透明gif图片)
+  - [hybrid](#hybrid)
+  - [组件化](#组件化)
+  - [如何测试前端代码？知道BDD,TDD,Unit Test吗？知道怎么测试你的前端工程吗(mocha,sinon,jasmin,qUnit..)](#如何测试前端代码知道BDDTDDUnitTest吗知道怎么测试你的前端工程吗mochasinonjasminqUnit)
+  - [为什么通常在发送数据埋点请求的时候使用的是1x1像素的透明gif图片](#为什么通常在发送数据埋点请求的时候使用的是1x1像素的透明gif图片)
   - [如何确定页面的可用性时间，什么是Performance API--165. 如何确定页面的可用性时间，什么是 Performance API？](#如何确定页面的可用性时间什么是Performance-API)
-  - [event loop--95 说说event loop  ](#event-loop)
-  - [Electron--83 尽可能多的说出你对 Electron 的理解](#Electron)
-  - [有四个操作会忽略enumerable为false的属性--140 有四个操作会忽略enumerable为false的属性	](#有四个操作会忽略enumerable为false的属性)
-  - [164. 一道常被人轻视的前端 JS 面试题](#)
-  - [123 解释一下这段代码的意思](#)
+  - [Electron](#Electron)
+  - [有四个操作会忽略enumerable为false的属性](#有四个操作会忽略enumerable为false的属性)
+  - [一道常被人轻视的前端JS面试题](#一道常被人轻视的前端JS面试题)
+  - [解释一下这段代码的意思](#解释一下这段代码的意思)
   
 
 
@@ -6401,113 +6401,1209 @@ for( var i = 0; i < input.length; i++ ) {
 //resultArr即中获取到了页面中的所有checkbox
 ```
 
-  - [requestAnimationFrame--114. 什么是 requestAnimationFrame ？](#requestAnimationFrame)
-  - [为什么使用setTimeout实现setInterval？怎么模拟--126. 为什么使用 setTimeout 实现 setInterval？怎么模拟？](#为什么使用setTimeout实现setInterval怎么模拟)
+
+
 ### 宏任务和微任务
 
-  
+  #### requestAnimationFrame
+```
+随着前端的发展，css已经能够实现非常多的动画特效，但是仍然
+存在css无法完成的动画任务（比如页面滚动），通常的解决方案
+都是使用js中的setInterval来设置定时器来实现动画特效，
+比如下面的一个基本的动画循环。
+(function() {
+  function updateAnimations() {
+    doAnimation1();
+    doAnimation2();
+  }
+  setInterval(updateAnimations, 100);
+})();
+该代码实现的功能是每隔100毫秒执行函数操作来达到动画效果，
+然而，使用计时器不可靠
+
+由于JavaScript是单线程的，所以定时器的实现是在当前任务队列
+完成后再执行定时器的回调的，假如当前队列任务执行时间大于
+定时器设置的延迟时间，那么定时器就不是那么可靠了，如下所示：
+let startTime = new Date().getTime();
+setTimeout(()=>{
+  let endTime = new Date().getTime();
+  console.log(endTime - startTime);
+},50)
+
+for(let i=0;i<20000;i++) {
+  console.log(1);
+}
+设置了50毫秒后执行，实际执行延迟时间远大于这个数值，
+这就会导致动画效果并不会达到想要的效果。
+
+动画是由浏览器按照一定的频率一帧一帧的绘制的，由css实现的
+动画的优势就是浏览器知道动画的开始及每一帧的循环间隔，
+能够在恰当的时间刷新UI，给用户一种流畅的体验，而setInterval
+或setTimeout实现的JavaScript动画就没有这么可靠了，因为浏览器
+压根就无法保证每一帧渲染的时间间隔，一般情况下，每秒平均刷新次数
+能够达到60帧，就能够给人流畅的体验，即每过 1000/60 毫秒渲染
+新一帧即可，但从上面的例子知，这一点单靠定时器是无法保证的。
+
+为此，requestAnimationFrame应运而生，其作用就是让浏览器流畅
+的执行动画效果。可以将其理解为专门用来实现动画效果的api，
+通过这个api,可以告诉浏览器某个JavaScript代码要执行动画，
+浏览器收到通知后，则会运行这些代码的时候进行优化，
+实现流畅的效果，而不再需要开发人员烦心刷新频率的问题了。
+
+使用方法如下：
+function animationWidth() {
+  var div = document.getElementById('box');
+  div.style.width = parseInt(div.style.width) + 1 + 'px';
+
+  if(parseInt(div.style.width) < 200) {
+    requestAnimationFrame(animationWidth)
+  }
+}
+requestAnimationFrame(animationWidth);
+
+requestAnimationFrame接受一个动画执行函数作为参数，这个函数
+的作用是仅执行一帧动画的渲染，并根据条件判断是否结束，如果
+动画没有结束，则继续调用requestAnimationFrame并将自身
+作为参数传入。从示例来看，得到了效果平滑流畅的动画，
+这样就巧妙地避开了每一帧动画渲染的时间间隔问题。
+
+在高级浏览器中，开发人员不用去操心每一帧动画渲染的时间间隔
+问题，而针对低版本浏览器，则需要使用setTimeout来模拟
+requestAnimationFrame,且针对不同浏览器对requestAnimationFrame
+的实现，这个api的名字也略有差异，针对低版本浏览器的模拟
+requestAnimationFrame的写法如下(来自张鑫旭大神的博客)：
+(function() {
+    var lastTime = 0;
+    var vendors = ['webkit', 'moz'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||    // Webkit中此取消方法的名字变了
+                                      window[vendors[x] + 'CancelRequestAnimationFrame'];
+    }
+
+    if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
+            var id = window.setTimeout(function() {
+                callback(currTime + timeToCall);
+            }, timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+    }
+    if (!window.cancelAnimationFrame) {
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+    }
+}());
+具体含义不做解释，如果遇到低版本浏览器的动画需求，你只需要把
+这段代码丢进去定义一个低配版requestAnimationFrame方法即可
+```
+
+  #### 为什么使用setTimeout实现setInterval？怎么模拟
+```
+setInterval 的作用是每隔一段指定时间执行一个函数，但是这个执行
+不是真的到了时间立即执行，它真正的作用是每隔一段时间将事件加入
+事件队列中去，只有当当前的执行栈为空的时候，才能去从事件队列中
+取出事件执行。所以可能会出现这样的情况，就是当前执行栈执行的
+时间很长，导致事件队列里边积累多个定时器加入的事件，当执行栈结束
+的时候，这些事件会依次执行，因此就不能到间隔一段时间执行的效果。
+
+针对 setInterval 的这个缺点，我们可以使用 setTimeout 递归
+调用来模拟 setInterval，这样我们就确保了只有一个事件结束了，
+我们才会触发下一个定时器事件，这样解决了 setInterval 的问题。
+```
+
+```js
+// 思路是使用递归函数，不断地去执行 setTimeout 从而达到 setInterval 的效果
+
+function mySetInterval(fn, timeout) {
+  // 控制器，控制定时器是否继续执行
+  var timer = {
+    flag: true
+  };
+
+  // 设置递归函数，模拟定时器执行。
+  function interval() {
+    if (timer.flag) {
+      fn();
+      setTimeout(interval, timeout);
+    }
+  }
+
+  // 启动定时器
+  setTimeout(interval, timeout);
+
+  // 返回控制器
+  return timer;
+}
+```
+
+  #### event loop
+```
+首先，js是单线程的，主要的任务是处理用户的交互，而用户的交互
+无非就是响应DOM的增删改，使用事件队列的形式，一次事件循环
+只处理一个事件响应，使得脚本执行相对连续，所以有了事件队列，
+用来储存待执行的事件，那么事件队列的事件从哪里被push进来的呢。
+那就是另外一个线程叫事件触发线程做的事情了，他的作用主要是
+在定时触发器线程、异步HTTP请求线程满足特定条件下的回调函数
+push到事件队列中，等待js引擎空闲的时候去执行，当然js引擎
+执行过程中有优先级之分，首先js引擎在一次事件循环中，会先
+执行js线程的主任务，然后会去查找是否有微任务microtask
+（promise），如果有那就优先执行微任务，如果没有，在去
+查找宏任务macrotask（setTimeout、setInterval）进行执行
+
+众所周知 JS 是门非阻塞单线程语言，因为在最初 JS 就是为了
+和浏览器交互而诞生的。如果 JS 是门多线程的语言话，我们在
+多个线程中处理 DOM 就可能会发生问题（一个线程中新加节点，
+另一个线程中删除节点）
+
+JS 在执行的过程中会产生执行环境，这些执行环境会被顺序的
+加入到执行栈中。如果遇到异步的代码，会被挂起并加入到 Task
+（有多种 task） 队列中。一旦执行栈为空，Event Loop 就会从
+Task 队列中拿出需要执行的代码并放入执行栈中执行，
+所以本质上来说 JS 中的异步还是同步行为
+
+console.log('script start');
+setTimeout(function() {
+  console.log('setTimeout');
+}, 0);
+console.log('script end');
+
+不同的任务源会被分配到不同的 Task 队列中，任务源可以分为 
+微任务（microtask） 和 宏任务（macrotask）。
+在 ES6 规范中，microtask 称为 jobs，macrotask 称为 task
+
+console.log('script start');
+setTimeout(function() {
+  console.log('setTimeout');
+}, 0);
+new Promise((resolve) => {
+    console.log('Promise')
+    resolve()
+}).then(function() {
+  console.log('promise1');
+}).then(function() {
+  console.log('promise2');
+});
+console.log('script end');
+// script start => Promise => script end => promise1 => promise2 => setTimeout
+以上代码虽然 setTimeout 写在 Promise 之前，
+但是因为 Promise 属于微任务而 setTimeout 属于宏任务
+
+微任务
+process.nextTick
+promise
+Object.observe
+MutationObserver
+
+宏任务
+script
+setTimeout
+setInterval
+setImmediate
+I/O
+UI rendering
+
+宏任务中包括了 script ，浏览器会先执行一个宏任务，
+接下来有异步代码的话就先执行微任务
+
+所以正确的一次 Event loop 顺序是这样的:
+执行同步代码，这属于宏任务
+执行栈为空，查询是否有微任务需要执行
+执行所有微任务
+必要的话渲染 UI
+然后开始下一轮 Event loop，执行宏任务中的异步代码
+
+通过上述的 Event loop 顺序可知，如果宏任务中的异步代码有
+大量的计算并且需要操作 DOM 的话，为了更快的响应界面响应，
+我们可以把操作 DOM 放入微任务中
+```
+
+
+### 对比
+
+  #### addEventListener()和attachEvent()的区别
+```
+addEventListener()是符合W3C规范的标准方法; 
+attachEvent()是IE低版本的非标准方法
+
+addEventListener()支持事件冒泡和事件捕获; 
+而attachEvent()只支持事件冒泡
+
+addEventListener()的第一个参数中,事件类型不需要添加on; attachEvent()需要添加'on'
+
+如果为同一个元素绑定多个事件, addEventListener()会按照事件绑定
+的顺序依次执行, attachEvent()会按照事件绑定的顺序倒序执行
+```
+
+  #### attribute和property的区别是什么
+```
+attribute是dom元素在文档中作为html标签拥有的属性；
+
+property就是dom元素在js中作为对象拥有的属性。
+
+对于html的标准属性来说，attribute和property是同步的，
+是会自动更新的
+
+但是对于自定义的属性来说，他们是不同步的
+```
+
+  #### caller和callee的区别
+```
+caller：
+caller返回一个函数的引用，这个函数调用了当前的函数。
+
+使用这个属性要注意：
+这个属性只有当函数在执行时才有用
+如果在javascript程序中，函数是由顶层调用的，则返回null
+
+functionName.caller: functionName是当前正在执行的函数。
+
+function a() {
+  console.log(a.caller)
+}
+
+callee：
+callee放回正在执行的函数本身的引用，它是arguments的一个属性
+
+使用callee时要注意:：
+这个属性只有在函数执行时才有效
+
+它有一个length属性，可以用来获得形参的个数，因此可以用来
+比较形参和实参个数是否一致，即比较arguments.length是否
+等于arguments.callee.length
+
+它可以用来递归匿名函数。
+
+function a() {
+  console.log(arguments.callee)
+}
+```
+
+  #### Javascript中callee和caller的作用
+```
+caller是返回一个对函数的引用，该函数调用了当前函数；
+callee是返回正在被执行的function函数，
+也就是所指定的function对象的正文
+
+那么问题来了？如果一对兔子每月生一对兔子；一对新生兔，
+从第二个月起就开始生兔子；假定每对兔子都是一雌一雄，
+试问一对兔子，第n个月能繁殖成多少对兔子？（使用callee完成）
+
+var result=[];
+  function fn(n){  //典型的斐波那契数列
+     if(n==1){
+          return 1;
+     }else if(n==2){
+             return 1;
+     }else{
+          if(result[n]){
+                  return result[n];
+         }else{
+                 //argument.callee()表示fn()
+                 result[n]=arguments.callee(n-1)+arguments.callee(n-2);
+                 return result[n];
+         }
+    }
+ }
+```
+
+  #### documen.write和innerHTML的区别
+```
+document.write 的内容会代替整个文档内容，会重写整个页面。
+
+innerHTML 的内容只是替代指定元素的内容，
+只会重写页面中的部分内容。
+```
+
+  #### escape,encodeURI,encodeURIComponent区别
+```
+encodeURI 是对整个 URI 进行转义，将 URI 中的非法字符转换为
+合法字符，所以对于一些在 URI 中有特殊意义的字符不会进行转义。
+
+encodeURIComponent 是对 URI 的组成部分进行转义，
+所以一些特殊字符也会得到转义。
+
+escape 和 encodeURI 的作用相同，不过它们对于 unicode 
+编码为 0xff 之外字符的时候会有区别，escape 是直接在字符的
+unicode 编码前加上 %u，而 encodeURI 首先会将字符转换为
+UTF-8 的格式，再在每个字节前加上 %。
+```
+
+```
+escape 和 encodeURI 都属于 Percent-encoding，基本功能
+都是把 URI 非法字符转化成合法字符，转化后形式类似「%*」。
+它们的根本区别在于，escape 在处理 0xff 之外字符的时候，
+是直接使用字符的 unicode 在前面加上一个「%u」，而 encode URI 
+则是先进行 UTF-8，再在 UTF-8 的每个字节码前加上一个「%」；
+在处理 0xff 以内字符时，编码方式是一样的（都是「%XX」，
+XX 为字符的 16 进制 unicode，同时也是字符的 UTF-8），
+只是范围（即哪些字符编码哪些字符不编码）不一样。
+```
+
+  #### innerHTML与outerHTML的区别
+```
+对于这样一个 HTML 元素：<div>content<br/></div>。
+
+innerHTML：内部 HTML，content<br/>；
+outerHTML：外部 HTML，<div>content<br/></div>；
+innerText：内部文本，content ；
+outerText：内部文本，content ；
+```
+
+  #### js代码中的"use strict";是什么意思?使用它区别是什么
+```
+use strict 指的是严格运行模式，在这种模式对 js 的使用添加了
+一些限制。比如说禁止 this 指向全局对象，还有禁止使用 with 
+语句等。设立严格模式的目的，主要是为了消除代码使用中的一些
+不安全的使用方式，也是为了消除 js 语法本身的一些不合理的地方，
+以此来减少一些运行时的怪异的行为。同时使用严格运行模式
+也能够提高编译的效率，从而提高代码的运行速度。
+我认为严格模式代表了 js 一种更合理、更安全、更严谨的发展方向。
+```
+
+```
+use strict 是一种 ECMAscript5 添加的（严格）运行模式，
+这种模式使得 Javascript 在更严格的条件下运行。
+
+设立"严格模式"的目的，主要有以下几个：
+消除 Javascript 语法的一些不合理、不严谨之处，减少一些怪异行为;
+消除代码运行的一些不安全之处，保证代码运行的安全；
+提高编译器效率，增加运行速度；
+为未来新版本的 Javascript 做好铺垫。
+
+区别：
+1.禁止使用 with 语句。
+2.禁止 this 关键字指向全局对象。
+3.对象不能有重名的属性。
+```
+
+  #### mouseover和mouseenter区别
+```
+当鼠标移动到元素上时就会触发 mouseenter 事件，类似 
+mouseover，它们两者之间的差别是 mouseenter 不会冒泡。
+
+由于 mouseenter 不支持事件冒泡，导致在一个元素的子元素上
+进入或离开的时候会触发其 mouseover 和 mouseout 事件，
+但是却不会触发 mouseenter 和 mouseleave 事件。
+```
+
+  #### offsetWidth/offsetHeight,clientWidth/clientHeight与scrollWidth/scrollHeight的区别
+```
+clientWidth/clientHeight 返回的是元素的内部宽度，它的值
+只包含 content + padding，如果有滚动条，不包含滚动条。
+clientTop 返回的是上边框的宽度。
+clientLeft 返回的左边框的宽度。
+
+offsetWidth/offsetHeight 返回的是元素的布局宽度，
+它的值包含 content + padding + border 包含了滚动条。
+offsetTop 返回的是当前元素相对于其 offsetParent 
+元素的顶部的距离。
+offsetLeft 返回的是当前元素相对于其 offsetParent 
+元素的左部的距离。
+
+scrollWidth/scrollHeight 返回值包含 
+content + padding + 溢出内容的尺寸。
+scrollTop 属性返回的是一个元素的内容垂直滚动的像素数。
+scrollLeft 属性返回的是元素滚动条到元素左边的距离。
+```
+
+```
+offsetWidth/offsetHeight返回值包含content + padding + 
+border，效果与e.getBoundingClientRect()相同
+clientWidth/clientHeight返回值只包含content + padding，
+如果有滚动条，也不包含滚动条
+scrollWidth/scrollHeight返回值包含content + padding + 
+溢出内容的尺寸
+```
+
+  #### toPrecision和toFixed和Math.round的区别
+```
+toPrecision 用于处理精度，精度是从左至右第一个
+不为 0 的数开始数起。
+
+toFixed 是对小数点后指定位数取整，从小数点开始数起。
+
+Math.round 是将一个数字四舍五入到一个整数。
+```
+
+  #### Unicode和UTF-8之间的关系
+```
+Unicode 是一种字符集合，现在可容纳 100 多万个字符。每个字符
+对应一个不同的 Unicode 编码，它只规定了符号的二进制代码，
+却没有规定这个二进制代码在计算机中如何编码传输。
+
+UTF-8 是一种对 Unicode 的编码方式，它是一种变长的编码方式，
+可以用 1~4 个字节来表示一个字符。
+```
+
+  #### window.onload和$(document).ready
+```
+原生JS的window.onload与Jquery的
+$(document).ready(function(){})有什么不同？
+如何用原生JS实现Jq的ready方法？
+
+window.onload()方法是必须等到页面内包括图片的
+所有元素加载完毕后才能执行。
+$(document).ready()是DOM结构绘制完毕后就执行，
+不必等到加载完毕
+function ready(fn){
+      if(document.addEventListener) {        //标准浏览器
+          document.addEventListener('DOMContentLoaded', function() {
+              //注销事件, 避免反复触发
+              document.removeEventListener('DOMContentLoaded',arguments.callee, false);
+              fn();            //执行函数
+          }, false);
+      }else if(document.attachEvent) {        //IE
+          document.attachEvent('onreadystatechange', function() {
+             if(document.readyState == 'complete') {
+                 document.detachEvent('onreadystatechange', arguments.callee);
+                 fn();        //函数执行
+             }
+         });
+     }
+ };
+```
+
+  #### 区分什么是“客户区坐标”、“页面坐标”、“屏幕坐标”
+```
+客户区坐标：鼠标指针在可视区中的
+水平坐标(clientX)和垂直坐标(clientY)
+
+页面坐标：鼠标指针在页面布局中的
+水平坐标(pageX)和垂直坐标(pageY)
+
+屏幕坐标：设备物理屏幕的
+水平坐标(screenX)和垂直坐标(screenY)
+```
+
+如何获得一个DOM元素的绝对位置？
+```
+elem.offsetLeft：返回元素相对于其定位父级左侧的距离
+elem.offsetTop：返回元素相对于其定位父级顶部的距离
+elem.getBoundingClientRect()：返回一个DOMRect对象，
+包含一组描述边框的只读属性，单位像素
+```
+
+
+### 算法
+
+  #### 常用正则表达式
+```js
+// （1）匹配 16 进制颜色值
+var regex = /#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})/g;
+
+// （2）匹配日期，如 yyyy-mm-dd 格式
+var regex = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
+
+// （3）匹配 qq 号
+var regex = /^[1-9][0-9]{4,10}$/g;
+
+// （4）手机号码正则
+var regex = /^1[34578]\d{9}$/g;
+
+// （5）用户名正则
+var regex = /^[a-zA-Z\$][a-zA-Z0-9_\$]{4,16}$/;
+```
+
+```
+正则表达式构造函数var reg=new RegExp(“xxx”)与正则表达
+字面量var reg=//有什么不同？匹配邮箱的正则表达式？
+
+当使用RegExp()构造函数的时候，不仅需要转义引号
+（即\”表示”），并且还需要双反斜杠（即\\表示一个\）。
+使用正则表达字面量的效率更高
+
+邮箱的正则匹配：
+var regMail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+```
+
+  #### 生成随机数的各种方法
+```
+一、随机浮点数的生成
+1，生成 [ 0, 1 ) 范围内的随机数（大于等于0，小于1）
+（1）使用 random() 方法可以返回一个介于 0 ~ 1 
+之间的伪随机数（包括 0，不包括 1）。
+Math.random()
+
+（2）下面是一个测试样例
+var random = Math.random();
+console.log(random);
+
+2，生成 [ n, m ) 范围内的随机数（大于等于n，小于m）
+（1）这种最简单，因为和 random 的特点保持一致。
+只需使用如下公式即可：
+Math.random()*(m-n)+n
+
+（2）比如下面生成 [10,15) 范围内的随机浮点数。
+var random1 = Math.random()*(15-10)+10;
+var random2 = Math.random()*(15-10)+10;
+var random3 = Math.random()*(15-10)+10;
+console.log(random1);
+console.log(random2);
+console.log(random3);
+
+3，生成 [n,m]、(n,m)、(n,m] 范围内的随机数
+因为 random 的特点，要取得这几个区间内的浮点数
+稍微麻烦些，需要借助一些判断才能满足要求。
+
+//取得[n,m]范围随机数
+function fullClose(n,m) {
+   var result = Math.random()*(m+1-n)+n;
+   while(result>m) {
+       result = Math.random()*(m+1-n)+n;
+   }
+   return result;
+}
+ 
+//取得(n,m)范围随机数
+function fullOpen(n,m) {
+   var result = Math.random()*(m-n)+n;
+   while(result == n) {
+       result = Math.random()*(m-n)+n;
+   }
+   return result;
+}
+ 
+//取得(n,m]范围随机数
+function leftOpen(n,m) {
+   var result = Math.random()*(m-n+1)+n-1;
+   while(result<n) {
+       result = Math.random()*(m-n+1)+n-1;
+   }
+   return result;
+}
+
+二、随机整数的生成
+要生成随机整数，我们还需要借助如下两个方法：
+    Math.round(num)：将 num 四舍五入取整
+    Math.floor(num)：将 num 向下取整，即返回 num 的整数部分。
+    当然我们也可以使用 parseInt() 方法代替。
+
+1，随机生成 0、1 这两个整数
+（1）下面这个方法可以随机获取 0 或 1，
+它们获取到的几率是比较均衡的。
+Math.round(Math.random())
+
+（2）下面是一个测试样例
+var random1 = Math.round(Math.random());
+var random2 = Math.round(Math.random());
+var random3 = Math.round(Math.random());
+console.log(random1);
+console.log(random2);
+console.log(random3);
+
+2，生成 [ 0, n ) 范围内的随机整数（大于等于0，小于n）
+（1）下面方法生成一个 0 到 n-1 的随机整数
+（这 n 个数获取几率都是均衡的）
+Math.floor(Math.random()*n)
+
+（2）比如下面生成几个 0 到 4 的随机整数（包括 0 和 4）。
+var random1 = Math.floor(Math.random()*5);
+var random2 = Math.floor(Math.random()*5);
+var random3 = Math.floor(Math.random()*5);
+console.log(random1);
+console.log(random2);
+console.log(random3);
+
+3，生成 [ 1, n ] 范围内的随机整数（大于等于1，小于等于n）
+（1）下面方法生成一个 1 到 n 的随机整数
+（这 n 个数获取几率都是均衡的）
+Math.floor(Math.random()*n)+1
+
+（2）比如下面生成几个 1 到 5 的随机整数（包括 1 和 5）。
+var random1 = Math.floor(Math.random()*5)+1;
+var random2 = Math.floor(Math.random()*5)+1;
+var random3 = Math.floor(Math.random()*5)+1;
+console.log(random1);
+console.log(random2);
+console.log(random3);
+
+4，生成 [ min, max ] 范围内的随机整数
+（大于等于min，小于等于max）
+（1）下面方法生成一个最小值为 min，最大值为 max 的随机整数。
+Math.floor(Math.random()*(max-min+1))+min
+
+（2）比如下面生成几个 5 到 10 的随机整数
+var random1 = Math.floor(Math.random()*(10-5+1))+5;
+var random2 = Math.floor(Math.random()*(10-5+1))+5;
+var random3 = Math.floor(Math.random()*(10-5+1))+5;
+console.log(random1);
+console.log(random2);
+console.log(random3);
+
+三、随机字符串的生成
+1，生成指定位数的纯数字字符串
+//生成n位数字字符串
+function randomNum(n){
+  var res = "";
+  for(var i=0;i<n;i++){
+    res += Math.floor(Math.random()*10);
+  }
+  return res;
+}
+ 
+//测试
+console.log(randomNum(3))
+console.log(randomNum(5))
+console.log(randomNum(7))
+原文:JS - 生成随机数的方法汇总（不同范围、类型的随机数）
+
+2，生成指定位数的数字字母混合的字符串
+//生成n位数字字母混合字符串
+function generateMixed(n) {
+  var chars = ['0','1','2','3','4','5','6','7','8','9',
+              'A','B','C','D','E','F','G','H','I','J','K','L','M',
+              'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+  var res = "";
+  for(var i = 0; i < n ; i++) {
+     var id = Math.floor(Math.random()*36);
+     res += chars[id];
+  }
+  return res;
+}
+ 
+//测试
+console.log(generateMixed(3))
+console.log(generateMixed(5))
+console.log(generateMixed(7))
+```
+
+  #### 为什么0.1+0.2!=0.3？如何解决这个问题
+```
+当计算机计算 0.1+0.2 的时候，实际上计算的是这两个数字在
+计算机里所存储的二进制，0.1 和 0.2 在转换为二进制表示的时候
+会出现位数无限循环的情况。js 中是以 64 位双精度格式来存储
+数字的，只有 53 位的有效数字，超过这个长度的位数会被截取掉
+这样就造成了精度丢失的问题。这是第一个会造成精度丢失的地方。
+在对两个以 64 位双精度格式的数据进行计算的时候，首先会进行
+对阶的处理，对阶指的是将阶码对齐，也就是将小数点的位置对齐后，
+再进行计算，一般是小阶向大阶对齐，因此小阶的数在对齐的过程中，
+有效数字会向右移动，移动后超过有效位数的位会被截取掉，这是
+第二个可能会出现精度丢失的地方。当两个数据阶码对齐后，进行
+相加运算后，得到的结果可能会超过 53 位有效数字，因此超过的
+位数也会被截取掉，这是可能发生精度丢失的第三个地方。
+
+对于这样的情况，我们可以将其转换为整数后再进行运算，
+运算后再转换为对应的小数，以这种方式来解决这个问题。
+
+我们还可以将两个数相加的结果和右边相减，如果相减的结果小于
+一个极小数，那么我们就可以认定结果是相等的，这个极小数可以
+使用 es6 的 Number.EPSILON
+```
+
+  #### 原码、反码和补码的介绍
+```
+原码是计算机中对数字的二进制的定点表示方法，最高位表示符号位，
+其余位表示数值位。优点是易于分辨，缺点是不能够直接参与运算。
+
+正数的反码和其原码一样；负数的反码，符号位为1，
+数值部分按原码取反。
+如 [+7]原 = 00000111，[+7]反 = 00000111； [-7]原 = 10000111，[-7]反 = 11111000。
+
+正数的补码和其原码一样；负数的补码为其反码加1。
+
+例如 [+7]原 = 00000111，[+7]反 = 00000111，[+7]补 = 00000111；
+[-7]原 = 10000111，[-7]反 = 11111000，[-7]补 = 11111001
+
+之所以在计算机中使用补码来表示负数的原因是，这样可以将
+加法运算扩展到所有的数值计算上，因此在数字电路中我们只需要
+考虑加法器的设计就行了，而不用再为减法设置新的数字电路。
+```
+
+  #### 什么是尾调用，使用尾调用有什么好处
+
+```
+尾调用指的是函数的最后一步调用另一个函数。我们代码执行是
+基于执行栈的，所以当我们在一个函数里调用另一个函数时，我们
+会保留当前的执行上下文，然后再新建另外一个执行上下文加入栈中。
+使用尾调用的话，因为已经是函数的最后一步，所以这个时候我们可以
+不必再保留当前的执行上下文，从而节省了内存，这就是尾调用优化。
+但是 ES6 的尾调用优化只在严格模式下开启，正常模式是无效的。
+```
+
+  #### js中不同进制数字的表示方式
+```
+以 0X、0x 开头的表示为十六进制。
+
+以 0、0O、0o 开头的表示为八进制。
+
+以 0B、0b 开头的表示为二进制格式。
+```
+
+  #### Math.ceil和Math.floor
+```
+Math.ceil() === 向上取整，函数返回一个大于或
+等于给定数字的最小整数。
+
+Math.floor() === 向下取整，函数返回一个小于或
+等于给定数字的最大整数。
+```
+
+  #### [,,,]的长度
+```
+尾后逗号 （有时叫做“终止逗号”）在向 JavaScript 代码添加元素、
+参数、属性时十分有用。如果你想要添加新的属性，并且上一行
+已经使用了尾后逗号，你可以仅仅添加新的一行，而不需要修改
+上一行。这使得版本控制更加清晰，以及代码维护麻烦更少。
+
+JavaScript 一开始就支持数组字面值中的尾后逗号，随后向
+对象字面值（ECMAScript 5）中添加了尾后逗号。最近
+（ECMAScript 2017），又将其添加到函数参数中。
+但是 JSON 不支持尾后逗号。
+
+如果使用了多于一个尾后逗号，会产生间隙。 
+带有间隙的数组叫做稀疏数组（密致数组没有间隙）。
+稀疏数组的长度为逗号的数量。
+```
+
+  #### js for循环注意点
+```js
+for (var i = 0, j = 0; i < 5, j < 9; i++, j++) {
+  console.log(i, j);
+}
+
+// 当判断语句含有多个语句时，以最后一个判断语句的值为准，
+因此上面的代码会执行 10 次。
+// 当判断语句为空时，循环会一直进行。
+```
+
+
+### 其他
+
+  #### hybrid
+```
+一、hybrid 是什么，为何会用 hybrid
+1.1 hybrid 文字解释
+hybrid 即“混合”，即前端和客户端的混合开发
+需前端开发人员和客户端开发人员配合完成
+某些环节也可能涉及到 server 端
+
+1.2 hybrid 存在价值
+可以快速迭代更新【关键】（无需 app 审核，思考为何？）
+体验流畅（和 NA 的体验基本类似）
+减少开发和沟通成本，双端公用一套代码
+
+1.3 webview
+是 app 中的一个组件（ app 可以有 webview ，也可以没有）
+于加载 h5 页面，即一个小型的浏览器内核
+
+1.4 file 协议
+其实在一开始接触 html开发，就已经使用了 file 协议
+只不过你当时没有“协议”“标准”等这些概念
+
+1.5 http(s) 协议
+
+1.6 两者区别
+file 协议：本地文件，快
+http(s) 协议：网络加载，慢
+1.7 具体实现
+不是所有场景都适合使用 hybrid
+使用 NA ：体验要求极致，变化不频繁（无头条的首页）
+使用 hybrid ：体验要求高，变化频繁（如头条的新闻详情页）
+使用 h5 ：体验无要求，不常用（如举报、反馈等页面）
+实现
+前端做好静态页面（html js css），将文件交给客户端
+客户端拿到前端静态页面，以文件形式存储在 app 中
+客户端在一个 webview 中
+使用 file 协议加载静态页面
+
+二、hybrid 更新上线流程
+2.1 具体流程图
+要替换每个客户端的静态文件
+只能客户端来做（客户端是我们开发的）
+客户端去 server 下载最新的静态文件
+我们维护 server 的静态文件
+
+2.2 完整流程
+分版本，有版本号，如 201803211015
+将静态文件压缩成 zip包，上传到服务端
+客户端每次启动，都去服务端检查版本号
+如果服务端版本号大于客户端版本号，就去下载最新的 zip 包
+下载完之后解压包，然后将现有文件覆盖
+
+要点总结
+要点1：服务端的版本和zip包维护
+要点2：更新zip 包之前，先对比版本号
+要点3：zip 下载解压和覆盖
+
+三、hybrid 和 h5 的区别
+3.1 优点
+体验更好，跟 NA体验基本一致
+可快速迭代，无需 app 审核【关键】
+3.2 缺点
+开发成本高。联调、测试、查 bug 都比较麻烦
+运维成本高。参考此前讲过的更新上线的流程
+3.3 适用的场景
+hybrid ： 产品的稳定功能，体验要求高，迭代频繁
+h5 ： 单词的运营活动（如 xx 红包）或不常用功能
+
+四、前端和客户端通讯
+4.1 JS 和客户端通讯的基本形式
+JS 访问客户端能力，传递参数和回调函数
+客户端通过回调函数返回内容
+
+4.2 schema 协议简介和使用
+之前介绍了 http(s) 和 file 协议
+schema 协议 —— 前端和客户端通讯的约定
+
+4.3 schema 使用的封装
+
+4.4 内置上线
+将以上封装的代码打包，叫做 invoke.js，内置到客户端
+客户端每次启动 webview，都默认执行 invoke.js
+本地加载，免去网络加载的时间，更快
+本地加载，没有网络请求，黑客看不到 schema 协议，更安全
+```
+
+  #### 组件化
+```
+一、说一下对组件化的理解
+1.1 组件的封装
+视图
+数据
+变化逻辑
+
+1.2 组件的复用
+props 传递
+复用
+
+二、JSX 本质是什么
+2.1 JSX 语法
+html 形式
+引入 JS 变量和表达式
+循环
+style 和 className
+事件
+JSX 语法根本无法被浏览器所解析
+那么它如何在浏览器运行？
+
+2.2 JSX 解析
+JSX 其实是语法糖
+开发环境会将 JSX 编译成 JS 代码
+JSX 的写法大大降低了学习成本和编码工作量
+同时，JSX 也会增加 debug成本
+
+2.3 JSX 独立的标准
+JSX 是 React 引入的，但不是 React 独有的
+React已经将它作为一个独立标准开放，其他项目也可用
+React.createElement 是可以自定义修改的
+说明：本身功能已经完备；和其他标准监控和扩展性没问题
+
+三、JSX 和 vdom 的关系
+3.1 为何需要 vdom
+vdom 是 React初次推广开来的，结合 JSX
+JSX 就是模板，最终要渲染成 html
+初次渲染 + 修改 state 后的 re-render
+正好符合 vdom 的应用场景
+
+3.2 React.createElement 和 h
+
+3.3 何时 patch
+初次渲染 - ReactDOM.render(<App/>, container)
+会触发 patch(container, vnode)
+re-render - setState
+会触发 patch(vnode, newVnode)
+
+3.4 自定义组件的解析
+‘div’ - 直接渲染 <div> 即可，vdom 可以做到
+Input 和 List ，是自定义组件（class），vdom 默认不认识
+因此 Input 和 List 定义的时候必须声明 render 函数
+根据 props 初始化实例，然后执行实例的 render 函数
+render 函数返回的还是 vnode对象
+
+四、说一下 React setState 的过程
+4.1 setState 的异步
+
+setState 为何需要异步？
+可能会一次执行多次 setState
+你无法规定、限制用户如何使用 setState
+没必要每次 setState 都重新渲染，考虑性能
+即便是每次重新渲染，用户也看不到中间的效果
+只看到最后的结果即可
+
+4.2 vue 修改属性也是异步
+效果、原因和 setState 一样
+
+4.3 setState 的过程
+每个组件实例，都有renderComponent 方法
+执行 renderComponent 会重新执行实例的 render
+render 函数返回 newVnode ，然后拿到 preVnode
+执行 patch(preVnode, newVnode)
+
+五、React vs vue
+5.1 两者的本质区别
+vue - 本质是 MVVM 框架，由 MVC 发展而来
+React - 本质是前端组件化框架，由后端组件化发展而来
+但这并不妨碍他们两者都能实现相同的功能
+
+5.2 看模板和组件化的区别
+vue- 使用模板（最初由 angular 提出）
+React- 使用 JSX
+模板语法上，我更加倾向于 JSX
+模板分离上，我更加倾向于 vue
+
+模板的区别
+模板应该和 JS 逻辑分离
+
+组件化区别
+React 本身就是组件化，没有组件化就不是 React
+vue 也支持组件化，不过是在 MVVM 上的扩展
+对于组件化，我更加倾向于 React ，做的彻底而清晰
+
+5.3 两者共同点
+都支持组件化
+都是数据驱动试图
+```
+
+  #### 87. 如何测试前端代码么？ 知道 BDD, TDD, Unit Test 么？ 知道怎么测试你的前端工程么(mocha, sinon, jasmin, qUnit..)？
+```
+1.前端单元测试是什么
+首先我们要明确测试是什么：
+为检测特定的目标是否符合标准而采用专用的工具
+或者方法进行验证，并最终得出特定的结果。
+
+对于前端开发过程来说，这里的特定目标就是指我们写的代码，
+而工具就是我们需要用到的测试框架(库)、测试用例等。
+检测处的结果就是展示测试是否通过或者给出测试报告，
+这样才能方便问题的排查和后期的修正。
+
+基于测试“是什么”的说法，为便于刚从事前端开发的同行的
+进阶理解，那我们就列出单元测试它“不是什么”：
+需要访问数据库的测试不是单元测试
+需要访问网络的测试不是单元测试
+需要访问文件系统的测试不是单元测试
+
+对于单元测试“不是什么”的引用解释，至此点到为止。
+鉴于篇幅限制，对于引用内容，我想前端开发的同行们
+看到后会初步有一个属于自己的理解。
+
+2.单元测试的意义以及为什么需要单元测试
+2.1   单元测试的意义
+对于现在的前端工程，一个标准完整的项目，测试是非常有必要的。
+很多时候我们只是完成了项目而忽略了项目测试的部分，
+测试的意义主要在于下面几点：
+（1）TDD（测试驱动开发） 被证明是有效的软件编写原则，
+它能覆盖更多的功能接口。
+（2）快速反馈你的功能输出，验证你的想法。
+（3）保证代码重构的安全性，没有一成不变的代码，
+测试用例能给你多变的代码结构一个定心丸。
+（4）易于测试的代码，说明是一个好的设计。做单元测试之前，
+肯定要实例化一个东西，假如这个东西有很多依赖的话，
+这个测试构7. 造过程将会非常耗时，会影响你的测试效率，
+怎么办呢？要依赖分离，一个类尽量保证功能单一，
+比如视图与功能分离，这样的话，你的代码也便于维护和理解。
+
+2.2   为什么需要单元测试
+（1）首先是一个前端单元测试的根本性原由：JavaScript 是
+动态语言，缺少类型检查，编译期间无法定位到错误; JavaScript 
+宿主的兼容性问题。比如 DOM 操作在不同浏览器上的表现。
+（2）正确性：测试可以验证代码的正确性，在上线前做到心里有底。
+（3）自动化：当然手工也可以测试，通过console可以打印出内部信息，
+但是这是一次性的事情，下次测试还需要从头来过，效率不能得到保证。
+通过编写测试用例，可以做到一次编写，多次运行。
+（4）解释性：测试用例用于测试接口、模块的重要性，那么在
+测试用例中就会涉及如何使用这些API。其他开发人员如果要使用
+这些API，那阅读测试用例是一种很好地途径，有时比文档说明更清晰。
+（5）驱动开发，指导设计：代码被测试的前提是代码本身的可测试性，
+那么要保证代码的可测试性，就需要在开发中注意API的设计，
+TDD将测试前移就是起到这么一个作用。
+（6）保证重构：互联网行业产品迭代速度很快，迭代后必然存在
+代码重构的过程，那怎么才能保证重构后代码的质量呢？
+有测试用例做后盾，就可以大胆的进行重构。
+
+3.如何写单元测试用例
+3.1 原则
+测试代码时，只考虑测试，不考虑内部实现
+数据尽量模拟现实，越靠近现实越好
+充分考虑数据的边界条件
+对重点、复杂、核心代码，重点测试
+利用AOP(beforeEach、afterEach),减少测试代码数量，避免无用功能
+测试、功能开发相结合，有利于设计和代码重构
+
+3.2 两个常用的单元测试方法论
+在单元测试中，常用的方法论有两个：
+TDD（测试驱动开发）&BDD（行为驱动开发）
+
+对于之前没听说过前端测试这两个模式的同行可以在此了解一下，
+篇幅限制此处不再敖述。
+
+3.3 相信你看完之后也有一个自己对TDD和BDD的个人观点，
+在此我先谈谈我对TDD和BDD的 理解：
+
+TDD（Test-driven development）：
+其基本思路是通过测试来推动整个开发的进行。
+(1)单元测试的首要目的不是为了能够编写出大覆盖率的全部通过
+的测试代码，而是需要从使用者(调用者)的角度出发，
+尝试函数逻辑的各种可能性，进而辅助性增强代码质量
+(2)测试是手段而不是目的。测试的主要目的不是证明代码正确，
+而是帮助发现错误，包括低级的错误
+(3)测试要快。快速运行、快速编写
+(4)测试代码保持简洁
+(5)不会忽略失败的测试。一旦团队开始接受1个测试的构建失败，
+那么他们渐渐地适应2、3、4或者更多的失败。
+在这种情况下，测试集就不再起作用
+
+需要注意的是：
+(1)一定不能误解了TDD的核心目的！
+(2)测试不是为了覆盖率和正确率
+(3)而是作为实例，告诉开发人员要编写什么代码
+(4)红灯（代码还不完善，测试挂）-> 绿灯（编写代码，测试通过）-> 重构（优化代码并保证测试通过）
+
+TDD的过程是：
+(1)需求分析，思考实现。考虑如何“使用”产品代码，是一个实例方法还是
+一个类方法，是从构造函数传参还是从方法调用传参，方法的命名，返回值
+等。这时其实就是在做设计，而且设计以代码来体现。此时测试为红
+(2)实现代码让测试为”绿灯“
+(3)重构，然后重复测试
+(4)最终符合所有要求即：
+	每个概念都被清晰的表达
+	代码中无自我重复
+	没有多余的东西
+	通过测试
+
+BDD(Behavior-driven development)：
+行为驱动开发（BDD），重点是通过与利益相关者（简单说就是
+客户）的讨论，取得对预期的软件行为的认识，其重点在于沟通
+
+BDD过程是：
+(1)从业务的角度定义具体的，以及可衡量的目标
+(2)找到一种可以达到设定目标的、对业务最重要的那些功能的方法
+(3)然后像故事一样描述出一个个具体可执行的行为。其描述方法
+基于一些通用词汇，这些词汇具有准确无误的表达能力和一致的含义。
+例如，expect, should, assert
+(4)寻找合适语言及方法，对行为进行实现
+(5)测试人员检验产品运行结果是否符合预期行为。最大程度的
+交付出符合用户期望的产品，避免表达不一致带来的问题
+
+4. Mocha/Karma+Travis.CI的前端测试工作流
+```
+
+  #### 为什么通常在发送数据埋点请求的时候使用的是1x1像素的透明gif图片
+```
+能够完成整个 HTTP 请求+响应（尽管不需要响应内容）
+
+触发 GET 请求之后不需要获取和处理数据、服务器也不需要发送数据
+
+跨域友好
+
+执行过程无阻塞
+
+相比 XMLHttpRequest 对象发送 GET 请求，性能上更好
+
+GIF的最低合法体积最小（最小的BMP文件需要74个字节，
+PNG需要67个字节，而合法的GIF，只需要43个字节）
+```
+
+  #### 如何确定页面的可用性时间，什么是Performance API
+```
+Performance API 用于精确度量、控制、增强浏览器的性能表现。
+这个 API 为测量网站性能，提供以前没有办法做到的精度。
+
+使用 getTime 来计算脚本耗时的缺点，首先，getTime方法
+（以及 Date 对象的其他方法）都只能精确到毫秒级别（一秒的
+千分之一），想要得到更小的时间差别就无能为力了。其次，
+这种写法只能获取代码运行过程中的时间进度，无法知道一些
+后台事件的时间进度，比如浏览器用了多少时间从服务器加载网页。
+
+为了解决这两个不足之处，ECMAScript 5引入“高精度时间戳”
+这个 API，部署在 performance 对象上。它的精度可以
+达到1毫秒的千分之一（1秒的百万分之一）。
+
+navigationStart：当前浏览器窗口的前一个网页关闭，
+发生 unload 事件时的 Unix 毫秒时间戳。如果没有前一个网页，
+则等于 fetchStart 属性。
+
+loadEventEnd：返回当前网页 load 事件的回调函数运行
+结束时的 Unix 毫秒时间戳。如果该事件还没有发生，返回 0。
+```
+
+根据上面这些属性，可以计算出网页加载各个阶段的耗时。
+比如，网页加载整个过程的耗时的计算方法如下：
+
+```js
+var t = performance.timing;
+var pageLoadTime = t.loadEventEnd - t.navigationStart;
+```
+
+  #### Electron
+```
+最最重要的一点，electron 实际上是一个套了 Chrome 
+的 nodeJS程序
+
+所以应该是从两个方面说开来
+Chrome （无各种兼容性问题）；
+NodeJS（NodeJS 能做的它也能做）
+```
+
+  #### 有四个操作会忽略enumerable为false的属性
+```
+for...in循环：只遍历对象自身的和继承的可枚举的属性。
+Object.keys()：返回对象自身的所有可枚举的属性的键名。
+JSON.stringify()：只串行化对象自身的可枚举的属性。
+Object.assign()： 忽略enumerable为false的属性，
+只拷贝对象自身的可枚举的属性。
+```
+
+  #### 一道常被人轻视的前端JS面试题
+```js
+function Foo() {
+  getName = function() {
+    alert(1);
+  };
+  return this;
+}
+Foo.getName = function() {
+  alert(2);
+};
+Foo.prototype.getName = function() {
+  alert(3);
+};
+var getName = function() {
+  alert(4);
+};
+function getName() {
+  alert(5);
+}
+
+//请写出以下输出结果：
+Foo.getName(); // 2
+getName(); // 4
+Foo().getName(); // 1
+getName(); // 1
+new Foo.getName(); // 2
+new Foo().getName(); // 3
+new new Foo().getName(); // 3
+```
+
+  #### 解释一下这段代码的意思
+```
+  [].forEach.call($$("*"), function(el){
+      el.style.outline = "1px solid #" + (~~(Math.random()*(1<<24))).toString(16);
+  })
+解释：获取页面所有的元素，遍历这些元素，
+为它们添加1像素随机颜色的轮廓(outline)
+(1)$$(sel) // $$函数被许多现代浏览器命令行支持，
+等价于 document.querySelectorAll(sel)
+(2)[].forEach.call(NodeLists) // 使用 call 函数
+将数组遍历函数 forEach 应到节点元素列表
+(3)el.style.outline = "1px solid #333" // 
+样式 outline 位于盒模型之外，不影响元素布局位置
+(4)(1<<24) // parseInt("ffffff", 16) == 16777215 == 2^24 - 1 // 1<<24 == 2^24 == 16777216
+(5)Math.random()*(1<<24) // 表示一个位于 0 到 
+16777216 之间的随机浮点数
+(6)~~Math.random()*(1<<24) // ~~ 作用相当于 parseInt 取整
+(7)(~~(Math.random()*(1<<24))).toString(16) 
+// 转换为一个十六进制
+```
 
 
 
-- [对比](#对比)
-  - [addEventListener()和attachEvent()的区别--72 addEventListener()和attachEvent()的区别](#addEventListener和attachEvent的区别)
-  - [attribute和property的区别是什么--45 attribute和property的区别是什么](#attribute和property的区别是什么)
-  - [caller和callee的区别--104 caller和callee的区别](#caller和callee的区别)
-  - [documen.write和innerHTML的区别--70. documen.write 和 innerHTML 的区别？](#documenwrite和innerHTML的区别)
-  - [escape,encodeURI,encodeURIComponent区别--93. escape,encodeURI,encodeURIComponent 有什么区别？](#escape,encodeURI,encodeURIComponent区别)
-  - [innerHTML与outerHTML的区别--72. innerHTML 与 outerHTML 的区别？](#innerHTML与outerHTML的区别)
-  - [Javascript中callee和caller的作用--70 Javascript中callee和caller的作用？](#Javascript中callee和caller的作用)
-  - [js代码中的"use strict";是什么意思?使用它区别是什么--47. javascript 代码中的 "use strict"; 是什么意思 ? 使用它区别是什么？ 38 javascript 代码中的"use strict";是什么意思](#js代码中的use-strict是什么意思使用它区别是什么)
-  - [mouseover和mouseenter区别--124. mouseover 和 mouseenter 的区别？](#mouseover和mouseenter区别)
-  *- [116. offsetWidth/offsetHeight,clientWidth/clientHeight 与 scrollWidth/scrollHeight 的区别？  20 offsetWidth/offsetHeight,clientWidth/clientHeight与scrollWidth/scrollHeight的区别](#)
-  - [toPrecision和toFixed和Math.round的区别--101. toPrecision 和 toFixed 和 Math.round 的区别？](#toPrecision和toFixed和Mathround的区别)
-  - [Unicode和UTF-8之间的关系--94. Unicode 和 UTF-8 之间的关系？](#Unicode和UTF-8之间的关系)
-  - [window.onload和$(document).ready--71 window.onload和$(document).ready](#windowonload和documentready)
-  - [区分什么是“客户区坐标”、“页面坐标”、“屏幕坐标”--122 区分什么是“客户区坐标”、“页面坐标”、“屏幕坐标”](#区分什么是客户区坐标页面坐标屏幕坐标)
-
-- [算法](#算法)
-  - [常用正则表达式--31. 常用正则表达式  69 正则表达式](#常用正则表达式)
-  - [生成随机数的各种方法--32. 生成随机数的各种方法？](#生成随机数的各种方法)
-  - [为什么0.1+0.2!=0.3？如何解决这个问题--99. 为什么 0.1+0.2 != 0.3？如何解决这个问题？](#为什么010203如何解决这个问题)
-  - [原码、反码和补码的介绍--100. 原码、反码和补码的介绍](#原码反码和补码的介绍)
-  - [什么是尾调用，使用尾调用有什么好处--129. 什么是尾调用，使用尾调用有什么好处？](#什么是尾调用使用尾调用有什么好处)
-  - [js中不同进制数字的表示方式--12. 在 js 中不同进制数字的表示方式](#js中不同进制数字的表示方式)
-  - [Math.ceil和Math.floor--169. Math.ceil 和 Math.floor](#Math.ceil和Math.floor)
-  - [[,,,]的长度--77. [,,,] 的长度？](#[,,,]的长度)
-  - [js for循环注意点--170. js for 循环注意点](#js-for循环注意点)
-
-- [其他](#其他)
-  - [hybrid--89 前端面试之hybrid](#hybrid)
-  - [组件化--90 前端面试之组件化](#组件化)
-  *- [87. 如何测试前端代码么？ 知道 BDD, TDD, Unit Test 么？ 知道怎么测试你的前端工程么(mocha, sinon, jasmin, qUnit..)？](#)
-  - [为什么通常在发送数据埋点请求的时候使用的是1x1像素的透明gif图片--142 为什么通常在发送数据埋点请求的时候使用的是 1x1 像素的透明 gif 图片](#为什么通常在发送数据埋点请求的时候使用的是1x1像素的透明gif图片)
-  - [如何确定页面的可用性时间，什么是Performance API--165. 如何确定页面的可用性时间，什么是 Performance API？](#如何确定页面的可用性时间什么是Performance-API)
-  - [event loop--95 说说event loop  ](#event-loop)
-  - [Electron--83 尽可能多的说出你对 Electron 的理解](#Electron)
-  - [有四个操作会忽略enumerable为false的属性--140 有四个操作会忽略enumerable为false的属性	](#有四个操作会忽略enumerable为false的属性)
-  - [164. 一道常被人轻视的前端 JS 面试题](#)
-  - [123 解释一下这段代码的意思](#)
 
 
-
-
-	概念
-	
-	webpack
-	115. 谈谈你对 webpack 的看法   15 谈谈你对webpack的看法
-
-	node
-	26 Node的应用场景
-
-	jQuery
-	24 你觉得jQuery源码有哪些写的好的地方
-	88 是否用过 jQuery 的 Deferred
-
-	算法
-
-	安全
-
-	优化
-
-	DOM
-
-	模块化
-
-	模式
-
-	同步和异步
-
-	面向对象
-
-	Cookie 
-
-	浏览器
-
-·	事件
-
-·	This
-
-·	js继承
-
-·	js原型和原型链  
-
-·	函数
-
-·	数组
-
-·	操作符
-
-·	js数据类型  
-
-o	js类型判断
-
-o	js类型转换
-	
-·	类和对象
-
-·	属性
-
-·	字符串
 
 
 
