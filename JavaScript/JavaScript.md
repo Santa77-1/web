@@ -214,7 +214,7 @@
   - [哪些操作会造成内存泄漏](#哪些操作会造成内存泄漏)
 
 - [Ajax和axios](#Ajax和axios)
-  - [Ajax是什么? 原理？如何创建一个Ajax](#Ajax是什么原理如何创建一个Ajax)
+  - [Ajax是什么?原理?如何创建一个Ajax](#Ajax是什么原理如何创建一个Ajax)
   - [ajax、axios、fetch区别](#ajaxaxiosfetch区别)
 
 - [概念](#概念)
@@ -244,7 +244,7 @@
   - [Reflect对象创建目的](#Reflect对象创建目的)
 
 - [ES6](#ES6)
-  - [let var const](#let var const)
+  - [let var const](#let-var-const)
 
 - [实现](#实现)
   - [Js动画与CSS动画区别及相应实现](#Js动画与CSS动画区别及相应实现)
@@ -272,11 +272,11 @@
   - [caller和callee的区别](#caller和callee的区别)
   - [Javascript中callee和caller的作用](#Javascript中callee和caller的作用)
   - [documen.write和innerHTML的区别](#documenwrite和innerHTML的区别)
-  - [escape,encodeURI,encodeURIComponent区别](#escape,encodeURI,encodeURIComponent区别)
+  - [escape,encodeURI,encodeURIComponent区别](#escapeencodeURIencodeURIComponent区别)
   - [innerHTML与outerHTML的区别](#innerHTML与outerHTML的区别)
   - [js代码中的"use strict";是什么意思?使用它区别是什么](#js代码中的use-strict是什么意思使用它区别是什么)
   - [mouseover和mouseenter区别](#mouseover和mouseenter区别)
-  - [offsetWidth/offsetHeight,clientWidth/clientHeight与scrollWidth/scrollHeight的区别](#offsetWidth/offsetHeight,clientWidth/clientHeight与scrollWidth/scrollHeight的区别)
+  - [offsetWidth/offsetHeight,clientWidth/clientHeight与scrollWidth/scrollHeight的区别](#offsetWidthoffsetHeightclientWidthclientHeight与scrollWidthscrollHeight的区别)
   - [toPrecision和toFixed和Math.round的区别](#toPrecision和toFixed和Mathround的区别)
   - [Unicode和UTF-8之间的关系](#Unicode和UTF-8之间的关系)
   - [window.onload和$(document).ready](#windowonload和documentready)
@@ -289,20 +289,20 @@
   - [原码、反码和补码的介绍](#原码反码和补码的介绍)
   - [什么是尾调用，使用尾调用有什么好处](#什么是尾调用使用尾调用有什么好处)
   - [js中不同进制数字的表示方式](#js中不同进制数字的表示方式)
-  - [Math.ceil和Math.floor](#Math.ceil和Math.floor)
-  - [[,,,]的长度](#[,,,]的长度)
+  - [Math.ceil和Math.floor](#Mathceil和Mathfloor)
+  - [[,,,]的长度](#的长度)
   - [js for循环注意点](#js-for循环注意点)
 
 - [其他](#其他)
   - [hybrid](#hybrid)
   - [组件化](#组件化)
-  - [如何测试前端代码？知道BDD,TDD,Unit Test吗？知道怎么测试你的前端工程吗(mocha,sinon,jasmin,qUnit..)](#如何测试前端代码知道BDDTDDUnitTest吗知道怎么测试你的前端工程吗mochasinonjasminqUnit)
+  - [如何测试前端代码？知道BDD,TDD,Unit Test吗？知道怎么测试你的前端工程吗(mocha,sinon,jasmin,qUnit..)](#如何测试前端代码知道BDDTDDUnit-Test吗知道怎么测试你的前端工程吗mochasinonjasminqUnit)
   - [为什么通常在发送数据埋点请求的时候使用的是1x1像素的透明gif图片](#为什么通常在发送数据埋点请求的时候使用的是1x1像素的透明gif图片)
   - [如何确定页面的可用性时间，什么是Performance API--165. 如何确定页面的可用性时间，什么是 Performance API？](#如何确定页面的可用性时间什么是Performance-API)
   - [Electron](#Electron)
   - [有四个操作会忽略enumerable为false的属性](#有四个操作会忽略enumerable为false的属性)
   - [一道常被人轻视的前端JS面试题](#一道常被人轻视的前端JS面试题)
-  - [解释一下这段代码的意思](#解释一下这段代码的意思)
+
   
 
 
@@ -1658,6 +1658,26 @@ count = 0 插入元素，count > 0 删除元素
 之间的随机数，因为得到的是一个浮点数，但我们只需要整数部分，
 使用取反操作符 ~ 连续两次取反获得整数部分，
 然后再用 toString(16) 的方式，转换为一个十六进制的字符串。
+```
+
+```
+  [].forEach.call($$("*"), function(el){
+      el.style.outline = "1px solid #" + (~~(Math.random()*(1<<24))).toString(16);
+  })
+解释：获取页面所有的元素，遍历这些元素，
+为它们添加1像素随机颜色的轮廓(outline)
+(1)$$(sel) // $$函数被许多现代浏览器命令行支持，
+等价于 document.querySelectorAll(sel)
+(2)[].forEach.call(NodeLists) // 使用 call 函数
+将数组遍历函数 forEach 应到节点元素列表
+(3)el.style.outline = "1px solid #333" // 
+样式 outline 位于盒模型之外，不影响元素布局位置
+(4)(1<<24) // parseInt("ffffff", 16) == 16777215 == 2^24 - 1 // 1<<24 == 2^24 == 16777216
+(5)Math.random()*(1<<24) // 表示一个位于 0 到 
+16777216 之间的随机浮点数
+(6)~~Math.random()*(1<<24) // ~~ 作用相当于 parseInt 取整
+(7)(~~(Math.random()*(1<<24))).toString(16) 
+// 转换为一个十六进制
 ```
 
   #### ["1","2","3"].map(parseInt)答案是多少
@@ -3692,8 +3712,64 @@ es6 一个模块就是一个独立的文件，该文件内部的所有变量，
 ```
 
   #### JS模块加载器的轮子怎么造，也就是如何实现一个模块加载器
-详细资料可以参考：
-[《JS 模块加载器加载原理是怎么样的？》](https://www.zhihu.com/question/21157540)
+```
+原理一： id即路径 原则。
+通常我们的入口是这样的： require( [ 'a', 'b' ], callback ) 。
+这里的 'a'、'b' 都是 ModuleId。通过 id 和路径的对应原则，
+加载器才能知道需要加载的 js 的路径。在这个例子里，
+就是 baseUrl + 'a.js' 和 baseUrl + 'b.js'。
+
+但 id 和 path 的对应关系并不是永远那么简单，比如在 AMD 规范里
+就可以通过配置 Paths 来给特定的 id 指配 path。
+
+原理二：createElement('script') & appendChild
+知道路径之后，就需要去请求。一般是通过 
+createElement('script') & appendChild 去请求。
+有时候有的加载器也会通过 AJAX 去请求脚本内容。
+
+一般来说，需要给 <script> 设置一个属性用来标识模块 id, 作用后面会提到。
+
+原理三：document.currentScript
+a.js 里可能是 define( id, factory ) 或者是 define( factory )，
+后者被称为匿名模块。那么当 define(factory) 被执行的时候，
+我们怎么知道当前被定义的是哪个模块呢，具体地说，这个匿名模块的
+实际模块 id 是什么？ 答案是通过 document.currentScript 获取
+当前执行的<script>，然后通过上面给 script 设置的属性来得到模块 id。
+
+需要注意的是，低级浏览器是不支持 currentScript 的，这里需要进行
+浏览器兼容。在高级浏览器里面，还可以通过 script.onload 来处理这个事情。
+
+原理四：依赖分析
+在继续讲之前，需要先简单介绍下模块的生命周期。模块在被 Define 之后
+并不是马上可以用了，在你执行它的 factory 方法来生产出最终的 export 
+之前，你需要保证它的依赖是可用的。那么首先就要先把依赖分析出来。
+
+简单来说，就是通过 toString 这个方法得到 factory 的内容，然后
+用正则去匹配其中的 require( 'moduleId' )。当然也可以不用正则。
+
+这就是为什么 require( var ); 这种带变量的语句是不被推荐的，因为它会影响
+依赖分析。如果一定要用变量，可以用 require( [ var ] ) 这种异步加载的方式。
+
+原理五：递归加载
+在分析出模块的依赖之后，我们需要递归去加载依赖模块。用伪代码来表达大概是这样的：
+Module.prototype.load = function () {
+    var deps = this.getDeps();
+    for (var i = 0; i < deps.length; i++) {
+        var m = deps[i];
+        if (m.state < STATUS.LOADED) {
+            m.load();
+        }
+    }
+    this.state = STATUS.LOADED;
+}
+上面的代码只是表达一个意思，实际上 load 方法很可能是异步的，
+所以递归的返回要特殊处理下。
+
+实现一个可用的加载器并没有那么简单，比如你要处理循环依赖，
+还有各种各样的牵一发动全身的细节。但要说原理，大概就是这么几条。
+个人觉得，比起照着规范实现一个加载器，更加吸引人的是 
+AMD 或者CommonJS 这些规范的完善和背后的设计思路。
+```
 
   #### require模块引入的查找方式
 ```
@@ -4905,7 +4981,7 @@ iframe 嵌套的点击劫持攻击。通过不同的值，
 
 ### Ajax和axios
 
-  #### Ajax是什么? 原理？如何创建一个Ajax
+  #### Ajax是什么?原理?如何创建一个Ajax
 ```
 我对 ajax 的理解是，它是一种异步通信的方法，通过直接由 
 js 脚本向服务器发起 http 通信，然后根据服务器返回的数据，
@@ -7578,29 +7654,6 @@ new Foo.getName(); // 2
 new Foo().getName(); // 3
 new new Foo().getName(); // 3
 ```
-
-  #### 解释一下这段代码的意思
-```
-  [].forEach.call($$("*"), function(el){
-      el.style.outline = "1px solid #" + (~~(Math.random()*(1<<24))).toString(16);
-  })
-解释：获取页面所有的元素，遍历这些元素，
-为它们添加1像素随机颜色的轮廓(outline)
-(1)$$(sel) // $$函数被许多现代浏览器命令行支持，
-等价于 document.querySelectorAll(sel)
-(2)[].forEach.call(NodeLists) // 使用 call 函数
-将数组遍历函数 forEach 应到节点元素列表
-(3)el.style.outline = "1px solid #333" // 
-样式 outline 位于盒模型之外，不影响元素布局位置
-(4)(1<<24) // parseInt("ffffff", 16) == 16777215 == 2^24 - 1 // 1<<24 == 2^24 == 16777216
-(5)Math.random()*(1<<24) // 表示一个位于 0 到 
-16777216 之间的随机浮点数
-(6)~~Math.random()*(1<<24) // ~~ 作用相当于 parseInt 取整
-(7)(~~(Math.random()*(1<<24))).toString(16) 
-// 转换为一个十六进制
-```
-
-
 
 
 
