@@ -160,6 +160,7 @@
   - [什么是单线程，和异步的关系](#什么是单线程和异步的关系)
   - [什么是Promise对象，什么是Promises/A+规范](#什么是Promise对象什么是PromisesA规范)
   - [手写一个Promise](#手写一个Promise)
+  - [js中的callback和promise区别](#js中的callback和promise区别)
   - [defer和async](#defer和async)
 
 - [模式](#模式)
@@ -3634,6 +3635,85 @@ MyPromise.prototype.then = function(onResolved, onRejected) {
 };
 ```
 
+  #### js中的callback和promise区别
+js中的callback与promise的区别实际就是宽度和深度的区别
+```
+两者之间的主要区别在于，使用回调方法时，我们通常只是将
+回调传递给一个函数，该函数将在完成时被调用以获取某些结果。
+但是，在Promise中，您将回调附加在返回的Promise对象上。
+```
+- 1.callback
+```
+回调函数本身是我们约定俗成的一种叫法，我们定义它，
+但是并不会自己去执行它，它最终被其他人执行了。
+
+优点：比较容易理解；
+缺点：1.高耦合，维护困难，回调地狱;2.每个任务只能指定
+一个回调函数;3.如果几个异步操作之间并没有顺序之分，
+同样也要等待上一个操作执行结束再进行下一个操作。
+```
+
+- 2.Promise
+```
+ES6给我们提供了一个原生的构造函数Promise，Promise代表了
+一个异步操作，可以将异步对象和回调函数脱离开来，通过.then方法
+在这个异步操作上绑定回调函数，Promise可以让我们通过链式调用
+的方法去解决回调嵌套的问题，而且由于promise.all这样的方法存在，
+可以让同时执行多个操作变得简单。
+
+promise对象存在三种状态：
+1)Fulfilled:成功状态
+2)Rejected：失败状态
+3)Pending：既不是成功也不是失败状态，可以理解为进行中状态
+
+Promise的缺点：
+1.当处于未完成状态时，无法确定目前处于哪一阶段。
+2.如果不设置回调函数，Promise内部的错误不会反映到外部。
+3.无法取消Promise，一旦新建它就会立即执行，无法中途取消。
+```
+
+```
+说起回调（callback），那可以说是JS最基础的异步调用方式
+
+Promise：是一个返回对象,异步编程的一种解决方案（es6）
+可取代callback,解决多层嵌套,分离异步获取数据与业务逻辑,
+
+可以链式调用，每次返回的是一个Promise对象
+```
+ 
+promise状态：
+```
+pending(进行中)--> resolve(成功) reject(失败)  ，状态一旦设定，不可改变
+
+      pending-->resolve 进行中-->成功
+
+      pending-->reject 进行中-->失败
+```
+
+```
+Promise.all // 所有的完成
+
+Promise.all([p1,p2,p3])
+
+Promise.race
+
+Promise.all([a, b ,c]).then(res=> {
+// 全部分会成功时调用
+
+// 只要有一个失败，就返回失败的reject，其余取消
+
+// res是一个数组，按照顺序分别储存a, b, c的返回结果 })
+
+Promise.race([a, b ,c]).then(res=> {
+// 某一个成功即可调用
+
+// 常用于异步操作与定时器配合，制作网络超时
+
+// res是首个返回的结果
+
+})
+```
+
   #### defer和async
 ```
 defer并行加载js文件，会按照页面上script标签的顺序执行
@@ -3641,6 +3721,7 @@ defer并行加载js文件，会按照页面上script标签的顺序执行
 async并行加载js文件，下载完成立即执行，
 不会按照页面上script标签的顺序执行
 ```
+
 
 ### 模式
 
