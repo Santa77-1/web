@@ -14,6 +14,7 @@
   - [Object.defineProperty介绍](#objectdefineproperty介绍)
   - [使用Object.defineProperty()来进行数据劫持有什么缺点](#使用objectdefineproperty来进行数据劫持有什么缺点)
   - [v-if和v-show的区别](#v-if和v-show的区别)
+  - [vue中created和mounted区别](#vue中created和mounted区别)
   - [为什么vue组件中的data必须是函数](#为什么vue组件中的data必须是函数)
   - [vue的activated和deactivated钩子函数](#vue的activated和deactivated钩子函数)
   - [nextTick用法](#nexttick用法)
@@ -886,6 +887,508 @@ v-show:是切换了元素的样式 display:none，display: block
 
 因而 v-if 有较高的切换性能消耗，v-show 有较高的初始渲染消耗
 ```
+
+  #### vue中created和mounted区别
+- created:在模板渲染成html前调用，即通常初始化某些属性值，然后再渲染成视图。
+- mounted:在模板渲染成html后调用，通常是初始化页面完成后，再对html的dom节点进行一些需要的操作。
+
+```
+其实两者比较好理解，通常created使用的次数多，而mounted通常是
+在一些插件的使用或者组件的使用中进行操作，比如插件chart.js的使用: 
+var ctx = document.getElementById(ID); 通常会有这一步，
+而如果你写入组件中，你会发现在created中无法对chart进行一些初始化配置，
+一定要等这个html渲染完后才可以进行，那么mounted就是不二之选。
+```
+
+  #### vue中data和computed区别
+data 和 computed都是响应式的，先看看官方的说法：
+```
+Data:
+Vue 实例的数据对象。Vue 将会递归将 data 的属性转换为 
+getter/setter，从而让 data 的属性能够响应数据变化。
+
+深入理解响应式原理：
+当你把一个普通的 JavaScript 对象传给 Vue 实例的 data 选项，
+Vue 将遍历此对象所有的属性，并使用 Object.defineProperty 
+把这些属性全部转为 getter/setter。
+
+每个组件实例都有相应的 watcher 实例对象，它会在组件渲染
+的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，
+会通知 watcher 重新计算，从而致使它关联的组件得以更新。
+```
+
+2.两者的区别：
+```
+data中的属性并不会随赋值变量的改动而改动，(赋值变量类似：
+num1: aaa.bbb这种，而这种是直接赋值：num1: "aaa")
+```
+
+```
+当需要这种随赋值变量的改动而改动的时候，还是用计算属性
+computed合适如果实在要在data里面声明属性，可以先赋一个值，
+然后在methods里面定义方法操作该属性，效果等同，也会有响应式
+```
+
+computed:
+- 1、基本使用：
+```
+在computed中定义一个函数(看起来是一个函数，其实是一个属性)，
+命名按照属性规范命名(一般为名词)。
+```
+
+  - 1.1 应用场景：
+```
+当数据A的逻辑很复杂时，把A这个数据写在计算属性中。
+```
+
+  - 1.2 代码位置：
+```
+通过选项computed：{计算属性a:值}
+```
+
+  - 1.3 值：
+```
+带有返回值return的函数。
+```
+
+```
+计算属性a和data中的数据用法一样。计算属性在computed中进行定义，
+无需再在data中定义，在template中直接可进行使用，
+使用方式与data中定义的数据一样。
+
+{{msg}}
+{{str}}
+
+var vm = new Vue({
+el: '#app',
+
+data: {
+msg: 'abc'
+},
+
+computed: {
+str: function () {
+return this.msg
+}
+},
+
+methods: {
+}
+
+})
+```
+
+- 2、复杂操作-结合data中数据：
+```
+当计算属性b依赖了data中的数据a时，当a变化时，b会自动变化。
+这也是在开发中通常用到的情况。比如在购物的时候，下某一订单时，
+每选择一件商品(对应data中的数据a)，
+合计费用(对应计算属性b)就会跟着变化。
+```
+
+```
+总价格：{{totalPrice}}
+var vm = new Vue({
+el: '#app',
+
+data: {
+books: [
+{ id: 1000, name: 'Linux编程之美', price: 50 },
+{ id: 1001, name: 'Java疯狂讲义', price: 60 },
+{ id: 1002, name: '深入理解计算机原理', price: 80 },
+{ id: 1003, name: '操作系统', price: 30 },
+{ id: 1004, name: '数据结构导论', price: 60 },
+]
+},
+
+computed: {
+totalPrice() {
+let result = 0;
+
+for (let i = 0; i < this.books.length; i++) {
+result += this.books[i].price;
+}
+
+return result
+}
+},
+
+methods: {
+}
+})
+```
+
+- 3、计算属性写法演变：
+  - 3.1 计算属性的setter和getter：
+```
+computed：{
+//computed里面是大括号，本身就是对象。
+}
+```
+
+完整的计算属性写法：属性+方法
+```
+computed: {
+//定义属性
+
+totalPrice: {
+//totalPrice 属性对应的是对象，不是字符串。对象就会有方法。
+
+//该属性对应的set方法 和get方法
+
+//计算属性一般是没有set方法的，是只读属性。
+
+//【此处set测试失败 没有出现预期效果】
+
+set: function (newValue) {
+console.log('get方法调用啦', newValue);
+},
+
+get: function () {
+console.log('计算属性完整写法：计算啦');
+
+let result = 0;
+
+for (let i = 0; i < this.books.length; i++) {
+result += this.books[i].price;
+}
+
+return result
+}
+}
+},
+```
+
+计算属性一般只有get方法，是只读属性。所以一般写法为：
+```
+computed: {
+totalPrice: function () {
+//后面对应的即为get方法。totalPrice就是一个属性，调用时采用属性调用的方式，区别于方法调用()
+
+console.log('计算属性一般写法：计算啦');
+
+let result = 0;
+
+for (let i = 0; i < this.books.length; i++) {
+result += this.books[i].price;
+
+}
+
+return result
+
+}
+
+},
+```
+
+语法糖—简化写法：
+```
+computed: {
+totalPrice() {
+console.log('计算属性语法糖写法：计算啦');
+
+let result = 0;
+
+for (let i = 0; i < this.books.length; i++) {
+result += this.books[i].price;
+
+}
+
+return result
+
+}
+
+},
+```
+
+- 4、项目中实例：
+```
+以上即为计算属性computed的使用方式。最近在项目开发中，
+有个需求为:【考试配题模块】配置某一题型(例如选择题/简答题等
+某类试题)个数或者每一小题分数时，会实时计算出当前选择的
+某类试题拥有的个数和当前题目个数所对应的小题分数的总分之和。
+```
+```
+template中代码：
+
+课程名称：{{ courseName }}
+总题数：{{ allQuestion }}个
+当前总分：{{ allValue }}分
+computed中代码：
+
+allQuestion: function() {
+var num = 0;
+
+this.selectedObj.forEach((item) => {
+num += item.questionNum; //questionNum为拿到的selectedObj对象中的需要使用的属性
+
+});
+
+return num;
+
+},
+
+//计算总分
+
+allValue: function() {
+var source = 0;
+
+this.selectedObj.forEach((item) => {
+source += item.questionValue * item.questionNum; //questionValue 为拿到的selectedObj对象中的需要使用的属性
+
+});
+
+return source;
+
+},
+
+},
+
+computed中依赖的data中数据部分：
+
+// 子组件给父组件传过来的对象
+
+selectedObj: [],
+```
+
+  #### vue中watch和computed区别
+```
+watch主要是监听数据变化，可以监听数据来源的三个部分：props,data,computed内的数据，然后它还提供两个参数
+（new,old）,顺序一定是新值、旧值。
+
+computed主要是处理逻辑运算，computed来存储需要处理的数据值，
+它有存储的机制，只有改变时才执行。
+```
+
+  #### vue中methods,watch和computer区别
+methods,watch和computed都是以函数为基础的，但各自却都不同。
+
+- 一、作用机制上
+  - 1.watch和computed都是以Vue的依赖追踪机制为基础的，它们都试图处理这样一件事情：当某一个数据（称它为依赖数据）发生变化的时候，所有依赖这个数据的“相关”数据“自动”发生变化，也就是自动调用相关的函数去实现数据的变动。
+  - 2.对methods:methods里面是用来定义函数的，很显然，它需要手动调用才能执行。而不像watch和computed那样，“自动执行”预先定义的函数。
+```
+
+- 二、从性质上
+  - 1.methods里面定义的是函数，你显然需要像"fuc()"这样去调用它（假设函数为fuc）。
+  - 2.computed是计算属性，事实上和和data对象里的数据属性是同一类的（使用上）。
+  - 3.watch:类似于监听机制+事件机制。
+```
+例如：
+watch: {
+   firstName: function(val) {this.fullName = val +this.lastName }
+}
+
+firstName的改变是这个特殊“事件”被触发的条件，
+而firstName对应的函数就相当于监听到事件发生后执行的方法
+```
+
+- 三、watch和computed的对比
+```
+首先它们都是以Vue的依赖追踪机制为基础的，它们的共同点是：
+都是希望在依赖数据发生改变的时候，被依赖的数据根据预先定义
+好的函数，发生“自动”的变化。我们当然可以自己写代码完成这一切，
+但却很可能造成写法混乱，代码冗余的情况。
+```
+ 
+但watch和computed也有明显不同的地方：
+```
+watch和computed各自处理的数据关系场景不同
+
+1.watch擅长处理的场景：一个数据影响多个数据
+
+2.computed擅长处理的场景：一个数据受多个数据影响
+
+相比于watch/computed，methods不处理数据逻辑关系，只提供可调用的函数
+```
+
+```
+在vue中处理复杂的逻辑的时候，我们经常使用计算属性computer，
+但是很多时候，我们会把计算属性、方法和侦听器搞混淆，
+在 w3cplus.com的一篇文章中是这样总结这三者的。
+```
+- methods：正如他的名字一样，它们是挂载在对象上的函数，通常是Vue实例本身或Vue组件。
+- computed：属性最初看起来像一个方法，但事实却又不是方法。在Vue中，我们使用data来跟踪对特定属性的更改，得到一定的反应。计算属性允许我们定义一个与数据使用相同方式的属性，但也可以有一些基于其依赖关系的自定义逻辑。你可以考虑计算属性的另一个视图到你的数据。
+- watchers：这些可以让你了解反应系统（Reactivity System）。我们提供了一些钩子来观察Vue存储的任何属性。如果我们想在每次发生变化时添加一些功能，或者响应某个特定的变化，我们可以观察一个属性并应用一些逻辑。这意味着观察者的名字必须与我们所观察到的相符。
+如果仅仅只是看这段话，可能还是不能很清除的明白三者的区别，我们可以通过相关的实例来对三者进行区分。
+
+computed
+计算属性是根据依赖关系进行缓存的计算，并且只在需要的时候进行更新。
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="demo">
+        <p>原数据{{message}}</p>
+        <p>反转后的数据{{reversedMessage}}</p>
+        <button @click="add()">补充货物1</button>
+        <div>总价为：{{price}}</div>
+    </div>
+    <script>
+        var demo = new Vue({
+              el: ‘#demo‘,
+              data: {
+                message :‘abcdefg‘,
+                package: {
+                    count: 5,
+                    price: 5
+                },
+              },
+              computed:{
+                  reversedMessage:function(){
+                      return this.message.split(‘‘).reverse().join(‘‘)
+                  },
+                price: function(){
+                     return this.package.count*this.package.price　　
+                 }
+            },
+             methods: {   
+                add: function(){
+                    this.package.count++
+                }
+            }    
+        })
+    </script>    
+</body>
+</html>
+```
+
+```
+上面的例子中展示了计算属性的两种用法：一个计算属性里面可以完成
+各种复杂的逻辑，最终返回一个结果；计算属性可以依赖多个vue实例的
+数据，只要其中一个任何一个数据发生变化，计算属性就会重新执行，视图
+也会更新。除此之外，计算属性还可以依赖其他计算属性和其他实例的数据。
+```
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app1">{{text}}</div>
+    <div id="app2">{{ reverseText}}</div>
+    <script>
+        var app1 = new Vue({
+           el: ‘#app1‘,
+             data: {
+                  text: ‘computed‘
+            }
+        });
+
+        var app2 = new Vue({
+            el: ‘#app2‘,
+            computed: {
+                reverseText: function(){
+                    return app1.text.split(‘‘).reverse().join(‘‘);  
+                }
+            }
+        });
+    </script>    
+</body>
+</html>
+```
+
+methods
+```
+在使用vue的时候，可能会用到很多的方法，它们可以将功能连接到
+事件的指令，甚至只是创建一个小的逻辑就像其他函数一样被重用。
+接下来我们用方法实现上面的字符串反转。
+```
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="demo">
+        <p>原数据{{message}}</p>
+        <p>反转后的数据{{ reversedMessage() }}</p>
+    </div>
+    <script>
+        var demo = new Vue({
+              el: ‘#demo‘,
+              data: {
+                message :‘abcdefg‘,
+                num:5
+              },
+              methods:{
+                reversedMessage(){
+                    return this.message.split(‘‘).reverse().join(‘‘)
+                },
+            }
+        })
+    </script>    
+</body>
+</html>
+```
+
+``
+虽然使用计算属性和methods方法来实现反转，两种方法得到的结果
+是相同的，但本质是不一样的，计算属性是基于它们的依赖进行缓存的。
+计算属性只有在它的相关依赖发生改变的时候才会重新求值，这就意味
+着只要message还没有发生改变，多次访问reversedMessage计算属性
+立即返回的是之前计算的结果，而不会再次执行计算函数，
+而对于methods方法，只要发生重新渲染，methods调用总会执行该函数。
+
+如果某个计算属性a需要的遍历一个极大的数组和做大量的计算，
+可以减小性能开销，如果不希望有缓存，则用methods。
+```
+
+watch
+```
+watch属性是一个对象，键是需要观察的表达式，值是对应回调函数，
+回调函数得到的参数为新值和旧值。值也可以是方法名，或者包含选项
+的对象。侦察器对于任何更新的东西都有用——无论是表单输入、异步更新
+还是动画。vue实例在实例化时调用$watch()，遍历watch对象的每一个属性。
+```
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="demo">
+        <button @click=‘a++‘>a加1</button>
+        <p>{{message}}</p>
+    </div>
+    <script>
+        var demo = new Vue({
+              el: ‘#demo‘,
+              data: {
+                message :‘‘,
+                a:1
+              },
+              
+              watch:{
+              a:function(val,oldval){
+                this.message = ‘a的旧值为‘ + oldval + ‘,新值为‘ + val;
+              }
+            }
+        })
+    </script>    
+</body>
+</html>
+```
+
+
+
+
 
   #### 为什么vue组件中的data必须是函数
 ```
