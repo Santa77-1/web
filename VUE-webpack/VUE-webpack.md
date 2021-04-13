@@ -16,15 +16,15 @@
   - [v-if和v-show的区别](#v-if和v-show的区别)
   - [为什么vue组件中的data必须是函数](#为什么vue组件中的data必须是函数)
   - [vue的activated和deactivated钩子函数](#vue的activated和deactivated钩子函数)
-  - [nextTick用法](#nexttick用法)  6 nextTick
+  - [nextTick用法](#nexttick用法)
   - [vue中key属性的作用](#vue中key属性的作用)
   - [Vue中key属性用index为什么不行](#vue中key属性用index为什么不行)
-  - [Vue的路由模式](#vue的路由模式)  8 vue-router
+  - [Vue的路由模式](#vue的路由模式)
   - [vue中$router和$route的区别](#vue中router和route的区别)
-  - [](#) 10 vue3带来的新特性/亮点
-  - [](#) 4 VDOM：三个 part
-  - [](#) 3 为什么使用 Virtual DOM
-  - [](#) 11 Compositon api
+  - [vue3带来的新特性/亮点](#vue3带来的新特性亮点)
+  - [VDOM：三个part](#VDOM三个part)
+  - [为什么使用虚拟DOM(Virtual DOM)](#为什么使用虚拟DOMVirtual-DOM)
+  - [Compositon api](#Compositon-api)
   - [Vue diff算法详解](#vue-diff算法详解)
   - [移动端适配的方法](#移动端适配的方法)
   - [rem原理](#rem-原理)
@@ -854,7 +854,7 @@ dep.notify()
 
 ```
 
-  #### Object.defineProperty 介绍
+  #### Object.defineProperty介绍
 ```
 Object.defineProperty 函数一共有三个参数，第一个参数是需要
 定义属性的对象，第二个参数是需要定义的属性，第三个是该属性描述符。
@@ -868,12 +868,481 @@ get属性 当访问该属性时，会调用此函数
 set属性 当属性值被修改时，会调用此函数。
 ```
 
-  #### 使用 Object.defineProperty() 来进行数据劫持有什么缺点
+  #### 使用Object.defineProperty()来进行数据劫持有什么缺点
 ```
-有一些对属性的操作，使用这种方法无法拦截，比如说通过下标方式修改数组数据或者给对象新增属性，vue 内部通过重写函数解决了这个问题。
+有一些对属性的操作，使用这种方法无法拦截，比如说通过下标方式修改
+数组数据或者给对象新增属性，vue 内部通过重写函数解决了这个问题。
 
-在 Vue3.0 中已经不使用这种方式了，而是通过使用 Proxy 对对象进行代理，从而实现数据劫持。使用 Proxy 的好处是它可以完美的监听到任何方式的数据改变，唯一的缺点是兼容性的问题，因为这是 ES6 的语法。
+在 Vue3.0 中已经不使用这种方式了，而是通过使用 Proxy 对对象进行
+代理，从而实现数据劫持。使用 Proxy 的好处是它可以完美的监听到
+任何方式的数据改变，唯一的缺点是兼容性的问题，因为这是 ES6 的语法。
 ```
+
+  #### v-if和v-show的区别
+```
+v-if：每次都会重新删除或创建元素来控制 DOM 结点的存在与否
+
+v-show:是切换了元素的样式 display:none，display: block
+
+因而 v-if 有较高的切换性能消耗，v-show 有较高的初始渲染消耗
+```
+
+  #### 为什么vue组件中的data必须是函数
+```
+<!-- 一个组件被复用多次的话，也就会创建多个实例。本质上，这些实例
+用的都是同一个构造函数，如果data是对象的话，对象属性引用类型，
+会影响到所有的实例，为了保证组件不同的实例之间的data互不冲突，
+data必须是一个函数。 -->
+
+当一个组件被定义，data 必须声明为返回一个初始数据对象的函数，
+因为组件可能被用来创建多个实例。如果 data 仍然是一个纯粹的对象，
+则所有的实例将共享引用同一个数据对象！通过提供 data 函数，
+每次创建一个新实例后，我们能够调用 data 函数，
+从而返回初始数据的一个全新副本数据对象。
+
+简而言之，就是 data 中数据可能会被复用，
+要保证不同组件调用的时候数据是相同的。
+```
+
+  #### vue的activated和deactivated钩子函数
+```html
+<keep-alive>
+  <component :is="view"></component>
+</keep-alive>
+```
+
+```
+`keep-alive`包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。
+
+当组件在 `<keep-alive>` 内被切换，它的 `activated` 
+和 `deactivated` 这两个生命周期钩子函数将会被对应执行。
+
+`activated`在`keep-alive`组件激活时调用，
+该钩子函数在服务器端渲染期间不被调用。
+`deactivated`在`keep-alive`组件停用时调用，
+该钩子函数在服务端渲染期间不被调用。
+```
+
+  #### nextTick用法
+官网解释：
+```
+将回调延迟到下次 DOM 更新循环之后执行。
+在修改数据之后立即使用它，然后等待 DOM 更新。
+```
+
+```html
+<div class="app">
+  <div ref="msgDiv">{{msg}}</div>
+  <div v-if="msg1">Message got outside $nextTick: {{msg1}}</div>
+  <div v-if="msg2">Message got inside $nextTick: {{msg2}}</div>
+  <div v-if="msg3">Message got outside $nextTick: {{msg3}}</div>
+  <button @click="changeMsg">
+    Change the Message
+  </button>
+</div>
+```
+
+```vue
+new Vue({
+  el: '.app',
+  data: {
+    msg: 'Hello Vue.',
+    msg1: '',
+    msg2: '',
+    msg3: ''
+  },
+  methods: {
+    changeMsg() {
+      this.msg = "Hello world."
+      this.msg1 = this.$refs.msgDiv.innerHTML
+      this.$nextTick(() => {
+        this.msg2 = this.$refs.msgDiv.innerHTML
+      })
+      this.msg3 = this.$refs.msgDiv.innerHTML
+    }
+  }
+})
+```
+
+```
+nextTick 可以让我们在下次 DOM 更新循环结束之后
+执行延迟回调，用于获得更新后的 DOM
+
+nextTick主要使用了宏任务和微任务。根据执行环境分别尝试采用
+
+Promise
+MutationObserver
+setImmediate
+如果以上都不行则采用setTimeout
+定义了一个异步方法，多次调用nextTick会将方法
+存入队列中，通过这个异步方法清空当前队列
+```
+
+  #### vue中key属性的作用
+```
+一句话 key 的作用主要是为了高效的更新虚拟 DOM
+
+key 的特殊 attribute 主要用在 Vue 的虚拟 DOM 算法，在新旧 nodes 
+对比时辨识 VNodes。如果不使用 key，Vue 会使用一种最大限度减少
+动态元素并且尽可能的尝试就地修改/复用相同类型元素的算法。而使用 key 时，
+它会基于 key 的变化重新排列元素顺序，并且会移除 key 不存在的元素。
+
+有相同父元素的子元素必须有独特的 key。重复的 key 会造成渲染错误。
+```
+
+  #### Vue中key属性用index为什么不行
+这是由于diff算法的机制所决定的，话不多说，直接上反例：
+当我们选中某一个（比如第3个），再添加或删除内容的时候就能发现bug了
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <span>ID:</span><input type="text" v-model="id">
+        <span>Name:</span><input type="text" v-model="name">
+        <button @click="handleClick">添加</button>
+
+        <div v-for="(item, index) in list" :key="index">
+            <input type="checkbox" />
+            <span @click="handleDelete(index)">{{item.id}} --- {{item.name}}</span>
+        </div>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                id: '',
+                name: '',
+                list: [
+                    {id: 1, name: '张三'},
+                    {id: 2, name: '李四'},
+                    {id: 3, name: '王五'},
+                    {id: 4, name: '赵六'},
+                ]
+            },
+            methods: {
+                handleClick() {
+                    this.list.unshift({
+                        id: this.id,
+                        name: this.name
+                    })
+                },
+                handleDelete(index) {
+                    this.list.splice(index, 1)
+                }
+            },
+        })
+    </script>
+</body>
+</html>
+```
+
+  #### Vue的路由模式
+> hash模式 与 history模式
+> 
+- hash（即地址栏 URL 中的 # 符号)。
+
+```txt
+比如这个 URL：www.123.com/#/test，hash 的值为 #/test。
+
+特点： hash 虽然出现在 URL 中，但不会被包括在 HTTP，因为我们hash每次页面切换其实切换的是#之后的内容，而#后内容的改变并不会触发地址的改变，
+所以不存在向后台发出请求，对后端完全没有影响，因此改变 hash 不会重新加载页面。
+
+每次hash发生变化时都会调用 onhashchange事件
+
+优点：可以随意刷新
+```
+
+- history（利用了浏览器的历史记录栈）
+
+```txt
+特点：利用了 HTML5 History Interface 中新增的 
+pushState() 和 replaceState() 方法。（需要特定浏览器支持）
+
+在当前已有的 back、forward、go的基础之上，它们提供了对
+历史记录进行修改的功能。只是当它们执行修改时，虽然改变了
+当前的URL，但浏览器不会立即向后端发送请求。
+
+history：可以通过前进 后退控制页面的跳转，刷新是真是的改变url。
+
+缺点：不能刷新，需要后端进行配置。由于history模式下是可以
+自由修改请求url，当刷新时如果不对对应地址进行匹配就会返回404。
+但是在hash模式下是可以刷新的，前端路由修改的是#中的信息，
+请求时地址是不会变的
+```
+
+  #### vue中$router和$route的区别
+- this.\$route：当前激活的路由的信息对象。每个对象都是局部的，
+  可以获取当前路由的 path, name, params, query 等属性。
+
+- this.\$router：全局的 router 实例。通过 vue 根实例中注入 
+  router 实例，然后再注入到每个子组件，从而让整个应用都有路由功能。
+  其中包含了很多属性和对象（比如 history 对象），
+  任何页面也都可以调用其 push(), replace(), go() 等方法。
+
+  #### vue3带来的新特性/亮点
+1. 压缩包体积更小
+```
+当前最小化并被压缩的 Vue 运行时大小约为 20kB（2.6.10 版为 22.8kB）。
+Vue 3.0捆绑包的大小大约会减少一半，即只有10kB！
+```
+
+2. Object.defineProperty -> Proxy
+- Object.defineProperty是一个相对比较昂贵的操作，因为它
+  直接操作对象的属性，颗粒度比较小。将它替换为es6的Proxy，
+  在目标对象之上架了一层拦截，代理的是对象而不是对象的属性。
+  这样可以将原本对对象属性的操作变为对整个对象的操作，颗粒度变大。
+- javascript引擎在解析的时候希望对象的结构越稳定越好，
+  如果对象一直在变，可优化性降低，proxy不需要对原始对象做太多操作。
+
+3. Virtual DOM 重构
+```
+vdom的本质是一个抽象层，用javascript描述界面渲染成什么样子。
+react用jsx，没办法检测出可以优化的动态代码，所以做时间分片，
+vue中足够快的话可以不用时间分片
+```
+
+- 传统vdom的性能瓶颈：
+  - 虽然 Vue 能够保证触发更新的组件最小化，但在单个组件
+    内部依然需要遍历该组件的整个 vdom 树。
+  - 传统 vdom 的性能跟模版大小正相关，跟动态节点的数量无关。
+    在一些组件整个模版内只有少量动态节点的情况下，
+    这些遍历都是性能的浪费。
+  - JSX 和手写的 render function 是完全动态的，
+    过度的灵活性导致运行时可以用于优化的信息不足
+
+- 那为什么不直接抛弃vdom呢？
+  - 高级场景下手写 render function 获得更强的表达力
+  - 生成的代码更简洁
+  - 兼容2.x
+```
+vue的特点是底层为Virtual DOM，上层包含有大量静态信息的模版。
+为了兼容手写 render function，最大化利用模版静态信息，
+vue3.0采用了动静结合的解决方案，将vdom的操作颗粒度变小，
+每次触发更新不再以组件为单位进行遍历，主要更改如下
+```
+
+- 将模版基于动态节点指令切割为嵌套的区块
+- 每个区块内部的节点结构是固定的
+- 每个区块只需要以一个 Array 追踪自身包含的动态节点
+```
+vue3.0将 vdom 更新性能由与模版整体大小相关提升为
+与动态内容的数量相关
+```
+
+Vue 3.0 动静结合的 Dom diff：
+- Vue3.0 提出动静结合的 DOM diff 思想，动静结合的 DOM diff
+  其实是在预编译阶段进行了优化。之所以能够做到预编译优化，
+  是因为 Vue core 可以静态分析 template，在解析模版时，
+  整个 parse 的过程是利用正则表达式顺序解析模板，当解析到
+  开始标签、闭合标签和文本的时候都会分别执行对应的回调函数，
+  来达到构造 AST 树的目的。
+- 借助预编译过程，Vue 可以做到的预编译优化就很强大了。比如在
+  预编译时标记出模版中可能变化的组件节点，再次进行渲染前 diff 时
+  就可以跳过“永远不会变化的节点”，而只需要对比“可能会变化的动态节点”。
+  这也就是动静结合的 DOM diff 将 diff 成本与模版大小正相关
+  优化到与动态节点正相关的理论依据。
+  
+4. Performance
+```
+vue3在性能方面比vue2快了2倍。
+```
+- 重写了虚拟DOM的实现
+- 运行时编译
+- update性能提高
+- SSR速度提高
+
+5. Tree-shaking support
+```
+vue3中的核心api都支持了tree-shaking，这些api都是通过包引入的方式
+而不是直接在实例化时就注入，只会对使用到的功能或特性进行打包
+（按需打包），这意味着更多的功能和更小的体积。
+```
+
+6. Composition API
+```
+vue2中，我们一般会采用mixin来复用逻辑代码，用倒是挺好用的，不过
+也存在一些问题：例如代码来源不清晰、方法属性等冲突。基于此在vue3
+中引入了Composition API（组合API），使用纯函数分隔复用代码。
+和React中的hooks的概念很相似
+```
+- 更好的逻辑复用和代码组织
+- 更好的类型推导
+<template>
+    <div>X: {{ x }}</div>
+    <div>Y: {{ y }}</div>
+</template>
+
+<script>
+import { defineComponent, onMounted, onUnmounted, ref } from "vue";
+
+const useMouseMove = () => {
+    const x = ref(0);
+    const y = ref(0);
+
+    function move(e) {
+        x.value = e.clientX;
+        y.value = e.clientY;
+    }
+
+    onMounted(() => {
+        window.addEventListener("mousemove", move);
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener("mousemove", move);
+    });
+
+    return { x, y };
+};
+
+export default defineComponent({
+    setup() {
+        const { x, y } = useMouseMove();
+
+        return { x, y };
+    }
+});
+</script>
+
+7. 新增的三个组件Fragment、Teleport、Suspense
+Fragment
+```
+在书写vue2时，由于组件必须只有一个根节点，很多时候会添加一些
+没有意义的节点用于包裹。Fragment组件就是用于解决这个问题的
+（这和React中的Fragment组件是一样的）。
+```
+
+这意味着现在可以这样写组件了。
+```
+/* App.vue */
+<template>
+  <header>...</header>
+  <main v-bind="$attrs">...</main>
+  <footer>...</footer>
+</template>
+
+<script>
+export default {};
+</script>
+```
+
+或者这样
+```
+// app.js
+import { defineComponent, h, Fragment } from 'vue';
+
+export default defineComponent({
+    render() {
+        return h(Fragment, {}, [
+            h('header', {}, ['...']),
+            h('main', {}, ['...']),
+            h('footer', {}, ['...']),
+        ]);
+    }
+});
+```
+
+Teleport
+```
+Teleport其实就是React中的Portal。Portal 提供了一种将
+子节点渲染到存在于父组件以外的 DOM 节点的优秀的方案。
+```
+
+一个 portal 的典型用例是当父组件有 overflow: hidden 或 
+z-index 样式时，但你需要子组件能够在视觉上“跳出”其容器。
+例如，对话框、悬浮卡以及提示框。
+/* App.vue */
+<template>
+    <div>123</div>
+    <Teleport to="#container">
+        Teleport
+    </Teleport>
+</template>
+
+<script>
+import { defineComponent } from "vue";
+
+export default defineComponent({
+    setup() {}
+});
+</script>
+
+/* index.html */
+<div id="app"></div>
+<div id="container"></div>
+
+
+Suspense
+同样的，这和React中的Supense是一样的。
+```
+Suspense 让你的组件在渲染之前进行“等待”，
+并在等待时显示 fallback 的内容
+```
+// App.vue
+<template>
+    <Suspense>
+        <template #default>
+            <AsyncComponent />
+        </template>
+        <template #fallback>
+            Loading...
+        </template>
+    </Suspense>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import AsyncComponent from './AsyncComponent.vue';
+
+export default defineComponent({
+    name: "App",
+    
+    components: {
+        AsyncComponent
+    }
+});
+</script>
+
+// AsyncComponent.vue
+<template>
+    <div>Async Component</div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+const sleep = () => {
+    return new Promise(resolve => setTimeout(resolve, 1000));
+};
+
+export default defineComponent({
+    async setup() {
+        await sleep();
+    }
+});
+</script>
+
+8. Better TypeScript support
+```
+在vue2中使用过TypesScript的童鞋应该有过体会，写起来实在是有点难受。
+vue3则是使用ts进行了重写，开发者使用vue3时拥有更好的类型支持和更好的编写体验。
+```
+  
+  
+  
+  
+  #### VDOM：三个part
+  #### 为什么使用虚拟DOM(Virtual DOM)
+  #### Compositon api
 
 
 
