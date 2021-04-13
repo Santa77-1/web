@@ -17,6 +17,7 @@
     - [css三栏布局的实现](#css三栏布局的实现)
     - [列出你所知道可以改变页面布局的属性](#列出你所知道可以改变页面布局的属性)
     - [CSS多列等高如何实现？请写出多种等高布局](#CSS多列等高如何实现请写出多种等高布局)
+    - [怎么设置子元素均匀分布](#怎么设置子元素均匀分布)
 
   - [移动端](#移动端)
     - [移动端的布局用过媒体查询吗](#移动端的布局用过媒体查询吗)
@@ -785,6 +786,215 @@ position、display、float、width、height、margin、padding、top、left、ri
 模仿表格布局等高列效果：兼容性不好，在ie6-7无法正常运行
 css3 flexbox 布局： .container{display: flex; align-items: stretch;
 ```
+
+   #### 怎么设置子元素均匀分布
+- display：flex     flex：1
+父元素设置 display：flex
+子元素设置 flex：1
+
+- display：flex      justify-content: space-between;
+```
+<div class="evenly-distributed-children">
+  <p>Item1</p>
+  <p>Item2</p>
+  <p>Item3</p>
+</div>
+ 
+<style>
+.evenly-distributed-children {
+  display: flex;
+  justify-content: space-between;
+}
+<style>
+```
+
+说明	
+```
+display: flex 启用弹性箱。
+justify-content: space-between 水平均匀分布子元素。
+第一个项目位于左边缘，而最后一个项目位于右边缘。
+或者，使用justify-content: space-around 给子元素们分配空间，而不是在他们之间。
+
+浏览器支持98.1 %，需要前缀才能获得完全支持。
+```
+
+- margin-left
+```
+.toolbar > div,
+.toolbar > div:first-child,
+.toolbar > div:last-child {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.toolbar > div:first-child {
+    margin-left: 0;
+}
+.toolbar > div:last-child {
+    margin-right: 0px;
+}
+```
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <title>flex 布局</title>
+  <style> 
+    *{
+      padding:0;
+      margin:0;
+    }
+    body,html{
+      height: 100vh;
+      min-width: 800px;
+    } 
+    .container{
+      display:flex;
+      flex-wrap:wrap;
+      display: -webkit-flex; /* Safari */
+    }
+    .container>.item{
+      border: 1px solid black;
+      flex:1; 
+      height:100px;
+      background: #abcdef;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">  
+    <div class="item"></div>
+    <main class="item"></main>
+    <div class="item"></div>
+  </div>
+</body>
+</html>
+```
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <title>flex 布局</title>
+  <style> 
+    *{
+      padding:0;
+      margin:0;
+      box-sizing: border-box;
+    }
+    body,html{
+      width: 100%;
+      height: 100vh;
+      min-width: 800px;
+      display:flex;
+      display: -webkit-flex; /* Safari */
+      justify-content: center;
+      align-items: center;
+    } 
+    .container{
+      width: 300px;
+      height: 300px;
+      display:flex;
+      display: -webkit-flex; /* Safari */
+      flex-wrap: wrap;
+    }
+    .container>.item{
+      flex:0 0 33.3%; 
+      height:100px;
+      background: #abcdef;
+      border: 1px solid red;
+    }
+    main{
+      flex:0 0 33.3%; 
+      height:100px;
+      background-color: #ccc;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">  
+    <div class="item">left</div>
+    <main>main</main>
+    <div class="item">right</div>
+    <div class="item">left</div>
+    <main>main</main>
+    <div class="item">right</div>
+    <div class="item">left</div>
+    <main>main</main>
+    <div class="item">right</div>
+  </div>
+</body>
+</html>
+```
+flex:0 0 33.3% 相当于flex-basis:33.3%，使每一个元素
+的宽度占外层容器的33.3%，因此每行最多能够排开三个元素。
+
+flex-wrap:wrap 表示每行填满时会自动换行。
+
+例子三：
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <title>flex 布局</title>
+  <style> 
+    *{
+      padding:0;
+      margin:0;
+      box-sizing: border-box;
+    }
+    body,html{
+      width: 100%;
+      height: 100vh;
+      min-width: 800px;
+      display:flex;
+      display: -webkit-flex; /* Safari */
+      justify-content: center;
+      align-items: center;
+    } 
+    .container{
+      width: 300px;
+      height: 300px;
+      margin: 50px;
+      display:flex;
+      display: -webkit-flex; /* Safari */
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .container>.item{
+      flex:0 0 30%; 
+      height:90px;
+      background: #abcdef;
+      border: 1px solid red;
+    }
+    main{
+      flex:0 0 30%; 
+      height:90px;
+      background-color: #ccc;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">  
+    <div class="item">left</div>
+    <main>main</main>
+    <div class="item">right</div>
+    <div class="item">left</div>
+    <main>main</main>
+    <div class="item">right</div>
+    <div class="item">left</div>
+    <main>main</main>
+    <div class="item">right</div>
+  </div>
+</body>
+</html>
+```
+
 
   ### 移动端
 
