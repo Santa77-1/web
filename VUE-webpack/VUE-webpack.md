@@ -1176,6 +1176,8 @@ vue2中，我们一般会采用mixin来复用逻辑代码，用倒是挺好用�
 ```
 - 更好的逻辑复用和代码组织
 - 更好的类型推导
+
+```
 <template>
     <div>X: {{ x }}</div>
     <div>Y: {{ y }}</div>
@@ -1212,6 +1214,7 @@ export default defineComponent({
     }
 });
 </script>
+```
 
 7. 新增的三个组件Fragment、Teleport、Suspense
 Fragment
@@ -1260,6 +1263,7 @@ Teleport其实就是React中的Portal。Portal 提供了一种将
 一个 portal 的典型用例是当父组件有 overflow: hidden 或 
 z-index 样式时，但你需要子组件能够在视觉上“跳出”其容器。
 例如，对话框、悬浮卡以及提示框。
+```
 /* App.vue */
 <template>
     <div>123</div>
@@ -1279,13 +1283,15 @@ export default defineComponent({
 /* index.html */
 <div id="app"></div>
 <div id="container"></div>
-
+```
 
 Suspense
 同样的，这和React中的Supense是一样的。
 ```
 Suspense 让你的组件在渲染之前进行“等待”，
 并在等待时显示 fallback 的内容
+```
+
 ```
 // App.vue
 <template>
@@ -1330,6 +1336,7 @@ export default defineComponent({
     }
 });
 </script>
+```
 
 8. Better TypeScript support
 ```
@@ -1337,49 +1344,688 @@ export default defineComponent({
 vue3则是使用ts进行了重写，开发者使用vue3时拥有更好的类型支持和更好的编写体验。
 ```
   
-  
-  
-  
   #### VDOM：三个part
+- 虚拟节点类，将真实 DOM节点用 js 对象的形式进行展示，
+并提供 render 方法，将虚拟节点渲染成真实 DOM
+- 节点 diff 比较：对虚拟节点进行 js 层面的计算，
+并将不同的操作都记录到 patch 对象
+- re-render：解析 patch 对象，进行 re-render
+
+补充1：VDOM 的必要性？
+- 创建真实DOM的代价高：真实的 DOM 节点 node 实现的属性很多，而 vnode 
+仅仅实现一些必要的属性，相比起来，创建一个 vnode 的成本比较低。
+- 触发多次浏览器重绘及回流：使用 vnode ，相当于加了一个缓冲，
+让一次数据变动所带来的所有 node 变化，先在 vnode 中进行修改，
+然后 diff 之后对所有产生差异的节点集中一次对 DOM tree 进行修改，
+以减少浏览器的重绘及回流。
+
+补充2：vue 为什么采用 vdom？
+```
+引入 Virtual DOM 在性能方面的考量仅仅是一方面。
+```
+
+- 性能受场景的影响是非常大的，不同的场景可能造成不同实现方案之间成倍的性能差距，所以依赖细粒度绑定及 Virtual DOM 哪个的性能更好还真不是一个容易下定论的问题。
+- Vue 之所以引入了 Virtual DOM，更重要的原因是为了解耦 HTML依赖，这带来两个非常重要的好处是：
+```
+不再依赖 HTML 解析器进行模版解析，可以进行更多的 AOT 工作提高
+运行时效率：通过模版 AOT 编译，Vue 的运行时体积可以进一步压缩，
+运行时效率可以进一步提升；
+可以渲染到 DOM 以外的平台，实现 SSR、同构渲染这些高级特性，
+Weex等框架应用的就是这一特性。
+
+综上，Virtual DOM 在性能上的收益并不是最主要的，
+更重要的是它使得 Vue 具备了现代框架应有的高级特性。
+ ``` 
+  
   #### 为什么使用虚拟DOM(Virtual DOM)
+- 手动操作 DOM 比较麻烦，还需要考虑浏览器兼容性问题，虽然有 
+jQuery 等库简化 DOM 操作，但是随着项目的复杂 DOM 操作复杂提升
+- 为了简化 DOM 的复杂操作于是出现了各种 MVVM 框架，MVVM 框架解决了视图和状态的同步问题
+- 为了简化视图的操作我们可以使用模板引擎，但是模板引擎没有解决跟踪状态变化的问题，于是Virtual DOM 出现了
+- Virtual DOM 的好处是当状态改变时不需要立即更新 DOM，只需要创建一个虚拟树来描述DOM，Virtual DOM 内部将弄清楚如何有效(diff)的更新 DOM
+- 虚拟 DOM 可以维护程序的状态，跟踪上一次的状态
+- 通过比较前后两次状态的差异更新真实 DOM
+
+虚拟 DOM 的作用
+- 维护视图和状态的关系
+- 复杂视图情况下提升渲染性能
+- 除了渲染 DOM 以外，还可以实现 SSR(Nuxt.js/Next.js)、原生应用(Weex/React Native)、小程序(mpvue/uni-app)等
+img
+
   #### Compositon api
+Composition API也叫组合式API，是Vue3.x的新特性。
+```
+通过创建 Vue 组件，我们可以将接口的可重复部分及其功能提取到
+可重用的代码段中。仅此一项就可以使我们的应用程序在可维护性和
+灵活性方面走得更远。然而，我们的经验已经证明，光靠这一点可能
+是不够的，尤其是当你的应用程序变得非常大的时候——想想几百个组件。
+在处理如此大的应用程序时，共享和重用代码变得尤为重要
+```
+
+通俗的讲：
+```
+没有Composition API之前vue相关业务的代码需要配置到option的
+特定的区域，中小型项目是没有问题的，但是在大型项目中会导致后期的
+维护性比较复杂，同时代码可复用性不高。Vue3.x中的
+composition-api就是为了解决这个问题而生的
+```
+
+compositon api提供了以下几个函数：
+- setup
+- ref
+- reactive
+- watchEffect
+- watch
+- computed
+- toRefs
+- 生命周期的hooks
+
+  #### Vue diff算法详解
+- updateChildren
+- 
+> 这个函数是用来比较两个结点的子节点
+
+```js
+updateChildren(parentElm, oldCh, newCh) {
+    let oldStartIdx = 0,
+        newStartIdx = 0
+    let oldEndIdx = oldCh.length - 1
+    let oldStartVnode = oldCh[0]
+    let oldEndVnode = oldCh[oldEndIdx]
+    let newEndIdx = newCh.length - 1
+    let newStartVnode = newCh[0]
+    let newEndVnode = newCh[newEndIdx]
+    let oldKeyToIdx
+    let idxInOld
+    let elmToMove
+    let before
+    while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) { // 只有 oldS>oldE 或者 newS>newE 才会终止循环
+        if (oldStartVnode == null) { // 对于vnode.key的比较，会把oldVnode = null
+            oldStartVnode = oldCh[++oldStartIdx]
+        } else if (oldEndVnode == null) {
+            oldEndVnode = oldCh[--oldEndIdx]
+        } else if (newStartVnode == null) {
+            newStartVnode = newCh[++newStartIdx]
+        } else if (newEndVnode == null) { // 到这里是找到第一个不为null的oldStartVnode oldEndVnode newStartVnode newEndVnode
+            newEndVnode = newCh[--newEndIdx]
+        } else if (sameVnode(oldStartVnode, newStartVnode)) { // oldS指针和newS指针对应的结点相同时，将oldS和newS指针同时向后移一位
+            patchVnode(oldStartVnode, newStartVnode)
+            oldStartVnode = oldCh[++oldStartIdx]
+            newStartVnode = newCh[++newStartIdx]
+        } else if (sameVnode(oldEndVnode, newEndVnode)) { // oldE指针和newE指针对应的结点相同时，将oldE和newE指针同时向前移一位
+            patchVnode(oldEndVnode, newEndVnode)
+            oldEndVnode = oldCh[--oldEndIdx]
+            newEndVnode = newCh[--newEndIdx]
+        } else if (sameVnode(oldStartVnode, newEndVnode)) { // oldS指针和newE指针对应的结点相同时，将oldS指针对应结点移动到oldE指针之后，同时将oldS指针向后移动一位，newE指针向前移动一位
+            patchVnode(oldStartVnode, newEndVnode)
+            api.insertBefore(parentElm, oldStartVnode.el, api.nextSibling(oldEndVnode.el))
+            oldStartVnode = oldCh[++oldStartIdx]
+            newEndVnode = newCh[--newEndIdx]
+        } else if (sameVnode(oldEndVnode, newStartVnode)) { // oldE指针和newS指针对应的结点相同时，将oldE指针对应的结点移动到oldS指针之前，同时将oldE指针向前移动一位，newS指针想后移动一位
+            patchVnode(oldEndVnode, newStartVnode)
+            api.insertBefore(parentElm, oldEndVnode.el, oldStartVnode.el)
+            oldEndVnode = oldCh[--oldEndIdx]
+            newStartVnode = newCh[++newStartIdx]
+        } else { // 使用key时的比较
+            if (oldKeyToIdx === undefined) {
+                oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx) // 有key生成index表
+            }
+            idxInOld = oldKeyToIdx[newStartVnode.key]
+            if (!idxInOld) {
+                api.insertBefore(parentElm, createEle(newStartVnode).el, oldStartVnode.el)
+                newStartVnode = newCh[++newStartIdx]
+            } else {
+                elmToMove = oldCh[idxInOld]
+                if (elmToMove.sel !== newStartVnode.sel) {
+                    api.insertBefore(parentElm, createEle(newStartVnode).el, oldStartVnode.el)
+                } else {
+                    patchVnode(elmToMove, newStartVnode)
+                    oldCh[idxInOld] = null
+                    api.insertBefore(parentElm, elmToMove.el, oldStartVnode.el)
+                }
+                newStartVnode = newCh[++newStartIdx]
+            }
+        }
+    }
+    if (oldStartIdx > oldEndIdx) { // oldVnode遍历结束了，那就将newVnode里newS指针和newE指针之间的结点添加到oldVnode里
+        before = newCh[newEndIdx + 1] == null ? null : newCh[newEndIdx + 1].el
+        addVnodes(parentElm, before, newCh, newStartIdx, newEndIdx)
+    } else if (newStartIdx > newEndIdx) { // newVnode遍历结束了，那就将oldVnonde里oldS指针和oldE指针之间的结点删除
+        removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx)
+    }
+}
+```
+
+  #### 移动端适配的方法
+```
+起因:手机设备屏幕尺寸不一，做移动端的Web页面，需要考虑安卓/IOS的
+各种尺寸设备上的兼容，针对移动端设备的页面，设计与前端实现怎样做
+能更好地适配不同屏幕宽度的移动设备；
+```
+
+- 1. flex 弹性布局
+- 2. viewport 适配
+
+    ```html
+    <meta name="viewport" content="width=750,initial-scale=0.5">
+    ```
+
+    initial-scale = 屏幕的宽度 / 设计稿的宽度
+
+- 3. rem 弹性布局
+- 4. rem + viewport 缩放
+
+```
+这也是淘宝使用的方案，根据屏幕宽度设定 rem 值，需要适配的元素都
+使用 rem 为单位，不需要适配的元素还是使用 px 为单位。（1em = 16px）
+```
+
+  #### rem原理
+```
+rem 布局的本质是等比缩放
+
+rem 是（根）字体大小相对单位，也就是说跟当前元素的 
+font-size 没有关系，而是跟整个 body 的 font-size 有关系。
+```
+
+  #### rem和em的区别
+> 一句话概括：em相对于父元素，rem相对于根元素。
+
+- em
+  ```css
+  子元素字体大小的 em 是相对于父元素字体大小
+  元素的width/height/padding/margin用em的话是
+  相对于该元素的font-size
+  ```
+
+- rem
+  ```js
+  rem 是全部的长度都相对于根元素，根元素是谁？<html>元素。
+  通常做法是给html元素设置一个字体大小，
+  然后其他元素的长度单位就为rem。
+  ```
+
+  #### 移动端300ms延迟的原因以及解决方案
+```
+移动端点击有 300ms 的延迟是因为移动端会有双击缩放的这个操作，
+因此浏览器在 click 之后要等待 300ms，看用户有没有下一次点击，
+来判断这次操作是不是双击。
+```
+
+有三种办法来解决这个问题：
+- 1. 通过 meta 标签禁用网页的缩放。
+
+    ```html
+    <meta name="viewport" content="user-scalable=no">
+    ```
+
+- 2. 更改默认的视口宽度
+    ```html
+    <meta name="viewport" content="width=device-width">
+    ```
+
+- 3. 调用一些 js 库，比如 FastClick
+```
+   FastClick 是 FT Labs 专门为解决移动端浏览器 300 毫秒
+   点击延迟问题所开发的一个轻量级的库。FastClick 的实现原理是
+   在检测到 touchend 事件的时候，会通过 DOM 自定义事件
+   立即出发模拟一个 click 事件，
+   并把浏览器在 300ms 之后的click 事件阻止掉。
+```
+
+  #### vue和react技术选型
+相同点：
+- 数据驱动页面，提供响应式的试图组件
+- 都有virtual DOM,组件化的开发，通过props参数进行父子之间组件传递数据，都实现了webComponents规范
+- 数据流动单向，都支持服务器的渲染SSR
+- 都有支持native的方法，react有React native， vue有wexx
+
+不同点：
+- 数据绑定：Vue实现了双向的数据绑定，react数据流动是单向的
+- 数据渲染：大规模的数据渲染，react更快
+- 使用场景：React配合Redux架构适合大规模多人协作复杂项目，Vue适合小快的项目
+
+```
+vue是采用webpack +vue-loader单文件组件格式，html, js, css同一个文件
+```
+
+  #### Vue和React数据驱动的区别
+```
+在数据绑定上来说，vue的特色是双向数据绑定，
+而在react中是单向数据绑定。
+
+vue中实现数据绑定靠的是
+数据劫持（Object.defineProperty()）+发布-订阅模式
+```
+
+vue中实现双向绑定
+```html
+<input v-model="msg" />
+```
+
+react中实现双向绑定
+```html
+<input value={this.state.msg} onChange={() => this.handleInputChange()} />
+```
 
 
+### React
+
+  #### React生命周期
+react旧版生命周期包含三个过程：
+- 1、挂载过程
+constructor()
+componentWillMount()
+componentDidMount()
+
+- 2、更新过程
+componentWillReceiveProps(nextProps)
+shouldComponentUpdate(nextProps,nextState)
+componentWillUpdate (nextProps,nextState)
+render()
+componentDidUpdate(prevProps,prevState)
+
+- 3、卸载过程
+componentWillUnmount()
+
+其具体作用分别为：
+- 1、constructor()
+完成了React数据的初始化。
+
+- 2、componentWillMount()
+组件已经完成初始化数据，但是还未渲染DOM时执行的逻辑，主要用于服务端渲染。
+
+- 3、componentDidMount()
+组件第一次渲染完成时执行的逻辑，此时DOM节点已经生成了。
+
+- 4、componentWillReceiveProps(nextProps)
+接收父组件新的props时，重新渲染组件执行的逻辑。
+
+- 5、shouldComponentUpdate(nextProps, nextState)
+在setState以后，state发生变化，组件会进入重新渲染的流程时执行的逻辑。在这个生命周期中return false可以阻止组件的更新，主要用于性能优化。
+
+- 6、componentWillUpdate(nextProps, nextState)
+shouldComponentUpdate返回true以后，组件进入重新渲染的流程时执行的逻辑。
+
+- 7、render()
+页面渲染执行的逻辑，render函数把jsx编译为函数并生成虚拟dom，然后通过其diff算法比较更新前后的新旧DOM树，并渲染更改后的节点。
+
+- 8、componentDidUpdate(prevProps, prevState)
+重新渲染后执行的逻辑。
+
+- 9、componentWillUnmount()
+组件的卸载前执行的逻辑，比如进行“清除组件中所有的setTimeout、setInterval等计时器”或“移除所有组件中的监听器removeEventListener”等操作。
+
+react新版生命周期：
+```
+react16.4后使用了新的生命周期，使用getDerivedStateFromProps
+代替了旧的componentWillReceiveProps及componentWillMount。
+使用getSnapshotBeforeUpdate代替了旧的componentWillUpdate。
+```
+
+使用getDerivedStateFromProps(nextProps, prevState)的原因：
+```
+旧的React中componentWillReceiveProps方法是用来判断前后两个 props 
+是否相同，如果不同，则将新的 props 更新到相应的 state 上去。
+在这个过程中我们实际上是可以访问到当前props的，这样我们可能会对
+this.props做一些奇奇怪怪的操作，很可能会破坏 state 数据的
+单一数据源，导致组件状态变得不可预测。
+
+而在 getDerivedStateFromProps 中禁止了组件去访问 this.props，
+强制让开发者去比较 nextProps 与 prevState 中的值，以确保当
+开发者用到 getDerivedStateFromProps 这个生命周期函数时，
+就是在根据当前的 props 来更新组件的 state，而不是去访问
+this.props并做其他一些让组件自身状态变得更加不可预测的事情。
+```
+
+使用getSnapshotBeforeUpdate(prevProps, prevState)的原因：
+```
+在 React 开启异步渲染模式后，在执行函数时读到的 DOM 元素状态
+并不总是渲染时相同，这就导致在 componentDidUpdate 中使用 
+componentWillUpdate 中读取到的 DOM 元素状态是不安全的，
+因为这时的值很有可能已经失效了。
+
+而getSnapshotBeforeUpdate 会在最终的 render 之前被调用，
+也就是说在 getSnapshotBeforeUpdate 中读取到的 DOM 元素
+状态是可以保证与componentDidUpdate 中一致的。
+```
+
+  #### 组件之间通信
+- 父子组件通信
+- 自定义事件
+- redux和context
+
+context如何运用
+- 父组件向其下所有子孙组件传递信息
+- 如一些简单的信息：主题、语言
+- 复杂的公共信息用redux
+
+  #### 组件的渲染顺序
+假如有A,B,C,D组件，层级结构为：
+```
+   顶层       A
+   子组件     B
+   子组件   C   D
+```
+
+我们知道组件的生命周期为：
+挂载阶段：
+- constructor()
+- componentWillMount()
+- render()
+- componentDidMount()
+
+更新阶段为：
+- componentWillReceiveProps()
+- shouldComponentUpdate()
+- componentWillUpdate()
+- render()
+- componentDidUpdate
+
+那么在挂载阶段，A,B,C,D的生命周期渲染顺序是如何的呢？
+```
+以render()函数为分界线。从顶层组件开始，一直往下，
+直至最底层子组件。然后再往上
+```
+
+组件update阶段同理
+前面是react16以前的组建渲染方式。这就存在一个问题
+```
+如果这是一个很大，层级很深的组件，react渲染它需要几十甚至几百毫秒，在这期间，react会一直占用浏览器主线程，任何其他的操作（包括用户的点击，鼠标移动等操作）都无法执行
+```
+
+Fiber架构就是为了解决这个问题
+```
+fiber架构 组建的渲染顺序
+
+加入fiber的react将组件更新分为两个时期
+```
+
+这两个时期以render为分界
+- render前的生命周期为phase1,
+- render后的生命周期为phase2
+```
+phase1的生命周期是可以被打断的，每隔一段时间它会跳出当前渲染进程，
+去确定是否有其他更重要的任务。此过程，React在 workingProgressTree 
+（并不是真实的virtualDomTree）上复用 current 上的 Fiber 数据结构
+来一步地（通过requestIdleCallback）来构建新的 tree，
+标记处需要更新的节点，放入队列中
+
+phase2的生命周期是不可被打断的，React 将其所有的变更一次性
+更新到DOM上
+```
+
+这里最重要的是phase1这是时期所做的事。
+因此我们需要具体了解phase1的机制
+- 如果不被打断，那么phase1执行完会直接进入render函数，构建真实的virtualDomTree
+- 如果组件再phase1过程中被打断，即当前组件只渲染到一半（也许是在willMount,也许是willUpdate~反正是在render之前的生命周期），那么react会怎么干呢？ react会放弃当前组件所有干到一半的事情，去做更高优先级更重要的任务（当然，也可能是用户鼠标移动，或者其他react监听之外的任务），当所有高优先级任务执行完之后，react通过callback回到之前渲染到一半的组件，从头开始渲染。（看起来放弃已经渲染完的生命周期，会有点不合理，反而会增加渲染时长，但是react确实是这么干的）
+
+所有phase1的生命周期函数都可能被执行多次，因为可能会被打断重来
+```
+这样的话，就和react16版本之前有很大区别了，因为可能会被执行多次，
+那么我们最好就得保证phase1的生命周期每一次执行的结果都是一样的，
+否则就会有问题，因此，最好都是纯函数
+```
+- 如果高优先级的任务一直存在，那么低优先级的任务则永远无法进行，组件永远无法继续渲染。这个问题facebook目前好像还没解决
+- 所以，facebook在react16增加fiber结构，其实并不是为了减少组件的渲染时间，事实上也并不会减少，最重要的是现在可以使得一些更高优先级的任务，如用户的操作能够优先执行，提高用户的体验，至少用户不会感觉到卡顿
+
+  #### React组件和渲染更新过程
+渲染和更新过程
+- jsx如何渲染为页面
+- setState之后如何更新页面
+- 面试考察全流程
+
+JSX本质和vdom
+- JSX即createElement函数
+- 执行生成vnode
+- patch(elem,vnode)和patch(vnode,newNode)
+
+组件渲染过程
+- props state
+- render()生成vnode
+- patch(elem, vnode)
+
+组件更新过程
+- setState-->dirtyComponents(可能有子组件)
+- render生成newVnode
+- patch(vnode, newVnode)
+
+  #### React都做过哪些优化
+- React渲染页面的两个阶段
+  - 调度阶段（reconciliation）：在这个阶段 React 会更新数据生成新的 Virtual DOM，然后通过Diff算法，快速找出需要更新的元素，放到更新队列中去，得到新的更新队列。
+  - 渲染阶段（commit）：这个阶段 React 会遍历更新队列，将其所有的变更一次性更新到DOM上
+
+- React 15 架构
+  - React15架构可以分为两层
+    - Reconciler（协调器）—— 负责找出变化的组件；
+    - Renderer（渲染器）—— 负责将变化的组件渲染到页面上；
+
+```
+  在React15及以前，Reconciler采用递归的方式创建虚拟DOM，
+递归过程是不能中断的。如果组件树的层级很深，递归会占用线程
+很多时间，递归更新时间超过了16ms，用户交互就会卡顿。
+
+  为了解决这个问题，React16将递归的无法中断的更新重构为异步的
+可中断更新，由于曾经用于递归的虚拟DOM数据结构已经无法满足需要。
+于是，全新的Fiber架构应运而生。
+```
+
+- React 16 架构
+  - 为了解决同步更新长时间占用线程导致页面卡顿的问题，也为了探索运行时优化的更多可能，React开始重构并一直持续至今。重构的目标是实现Concurrent Mode（并发模式）。
+  - 从v15到v16，React团队花了两年时间将源码架构中的Stack Reconciler重构为Fiber Reconciler
+  - React16架构可以分为三层：
+    - Scheduler（调度器）—— 调度任务的优先级，高优任务优先进入Reconciler；
+    - Reconciler（协调器）—— 负责找出变化的组件：更新工作从递归变成了可以中断的循环过程。Reconciler内部采用了Fiber的架构；
+    - Renderer（渲染器）—— 负责将变化的组件渲染到页面上。
+
+- React 17 优化
+  - 使用Lane来管理任务的优先级。Lane用二进制位表示任务的优先级，方便优先级的计算（位运算），不同优先级占用不同位置的“赛道”，而且存在批的概念，优先级越低，“赛道”越多。高优先级打断低优先级，新建的任务需要赋予什么优先级等问题都是Lane所要解决的问题。
+  - Concurrent Mode的目的是实现一套可中断/恢复的更新机制。其由两部分组成：
+    - 一套协程架构：Fiber Reconciler
+    - 基于协程架构的启发式更新算法：控制协程架构工作方式的算法
+
+  #### React有哪些优化性能的手段
+类组件中的优化手段
+- 使用纯组件 PureComponent 作为基类。
+- 使用 React.memo 高阶函数包装组件。
+- 使用 shouldComponentUpdate 生命周期函数来自定义渲染逻辑。
+
+方法组件中的优化手段
+- 使用 useMemo。
+- 使用 useCallBack。
+
+其他方式
+- 在列表需要频繁变动时，使用唯一 id 作为 key，而不是数组下标。
+- 必要时通过改变 CSS 样式隐藏显示组件，而不是通过条件判断显示隐藏组件。
+- 使用 Suspense 和 lazy 进行懒加载，例如：
+```
+import React, { lazy, Suspense } from "react";
+
+export default class CallingLazyComponents extends React.Component {
+  render() {
+    var ComponentToLazyLoad = null;
+
+    if (this.props.name == "Mayank") {
+      ComponentToLazyLoad = lazy(() => import("./mayankComponent"));
+    } else if (this.props.name == "Anshul") {
+      ComponentToLazyLoad = lazy(() => import("./anshulComponent"));
+    }
+
+    return (
+      <div>
+        <h1>This is the Base User: {this.state.name}</h1>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ComponentToLazyLoad />
+        </Suspense>
+      </div>
+    )
+  }
+}
+```
+
+  #### diff算法是怎么运作
+```
+每一种节点类型有自己的属性，也就是prop，每次进行diff的时候，
+react会先比较该节点类型，假如节点类型不一样，那么react会直接
+删除该节点，然后直接创建新的节点插入到其中，假如节点类型一样，
+那么会比较prop是否有更新，假如有prop不一样，那么react会判定
+该节点有更新，那么重渲染该节点，然后在对其子节点进行比较，
+一层一层往下，直到没有子节点
+```
+
+- 把树形结构按照层级分解，只比较同级元素。
+- 给列表结构的每个单元添加唯一的key属性，方便比较。
+- React 只会匹配相同 class 的 component（这里面的class指的是组件的名字）
+- 合并操作，调用 component 的 setState 方法的时候, React 将其标记为 - dirty.到每一个事件循环结束, React 检查所有标记 dirty的 component重新绘制.
+- 选择性子树渲染。开发人员可以重写shouldComponentUpdate提高diff的性能
+
+优化
+```
+为了降低算法复杂度，React的diff会预设三个限制：
+```
+- 只对同级元素进行Diff。如果一个DOM节点在前后两次更新中跨越了层级，那么React不会尝试复用他。
+- 两个不同类型的元素会产生出不同的树。如果元素由div变为p，React会销毁div及其子孙节点，并新建p及其子孙节点。
+- 开发者可以通过 key prop来暗示哪些子元素在不同的渲染下能保持稳定。考虑如下例子：
+
+Diff的思路
+该如何设计算法呢？如果让我设计一个Diff算法，我首先想到的方案是：
+```
+判断当前节点的更新属于哪种情况
+如果是新增，执行新增逻辑
+如果是删除，执行删除逻辑
+如果是更新，执行更新逻辑
+```
+- 按这个方案，其实有个隐含的前提——不同操作的优先级是相同的
+- 但是React团队发现，在日常开发中，相较于新增和删除，更新组件发生的频率更高。所以Diff会优先判断当前节点是否属于更新。
+
+基于以上原因，Diff算法的整体逻辑会经历两轮遍历：
+- 第一轮遍历：处理更新的节点。
+- 第二轮遍历：处理剩下的不属于更新的节点。
 
 
+diff算法的作用
+```
+计算出Virtual DOM中真正变化的部分，并只针对该部分进行原生DOM操作，
+而非重新渲染整个页面。
+```
+
+传统diff算法
+```
+通过循环递归对节点进行依次对比，算法复杂度达到 O(n^3) ，n是树
+的节点数，这个有多可怕呢？——如果要展示1000个节点，得执行上亿次比较。
+即便是CPU快能执行30亿条命令，也很难在一秒内计算出差异。
+```
+
+React的diff算法
+```
+什么是调和？
+将Virtual DOM树转换成actual DOM树的最少操作的过程 称为 调和 。
+
+什么是React diff算法？
+diff算法是调和的具体实现。
+```
+
+diff策略
+```
+React用 三大策略 将O(n^3)复杂度 转化为 O(n)复杂度
+```
+
+策略一（tree diff）：
+- Web UI中DOM节点跨层级的移动操作特别少，可以忽略不计。
+
+策略二（component diff）：
+- 拥有相同类的两个组件 生成相似的树形结构，
+- 拥有不同类的两个组件 生成不同的树形结构。
+
+策略三（element diff）：
+对于同一层级的一组子节点，通过唯一id区分。
+tree diff
+- React通过updateDepth对Virtual DOM树进行层级控制。
+- 对树分层比较，两棵树 只对同一层次节点 进行比较。如果该节点不存在时，则该节点及其子节点会被完全删除，不会再进一步比较。
+- 只需遍历一次，就能完成整棵DOM树的比较。
+
+那么问题来了，如果DOM节点出现了跨层级操作,diff会咋办呢？
+```
+答：diff只简单考虑同层级的节点位置变换，如果是跨层级的话，
+只有创建节点和删除节点的操作。
+
+以A为根节点的整棵树会被重新创建，而不是移动，因此官方建议
+不要进行DOM节点跨层级操作，可以通过CSS隐藏、显示节点，
+而不是真正地移除、添加DOM节点
+```
+
+component diff
+```
+React对不同的组件间的比较，有三种策略
+```
+
+- 同一类型的两个组件，按原策略（层级比较）继续比较Virtual DOM树即可。
+- 同一类型的两个组件，组件A变化为组件B时，可能Virtual DOM没有任何变化，如果知道这点（变换的过程中，Virtual DOM没有改变），可节省大量计算时间，所以 用户 可以通过 shouldComponentUpdate() 来判断是否需要 判断计算。
+- 不同类型的组件，将一个（将被改变的）组件判断为dirty component（脏组件），从而替换 整个组件的所有节点。
+
+```
+注意：如果组件D和组件G的结构相似，但是 React判断是 不同类型的组件，则不会比较其结构，而是删除 组件D及其子节点，创建组件G及其子节点。
+```
+
+element diff
+```
+当节点处于同一层级时，diff提供三种节点操作：删除、插入、移动。
+```
+- 插入：组件 C 不在集合（A,B）中，需要插入
+- 删除：
+  - 组件 D 在集合（A,B,D）中，但 D的节点已经更改，不能复用和更新，所以需要删除 旧的 D ，再创建新的。
+  - 组件 D 之前在 集合（A,B,D）中，但集合变成新的集合（A,B）了，D 就需要被删除。
+- 移动：组件D已经在集合（A,B,C,D）里了，且集合更新时，D没有发生更新，只是位置改变，如新集合（A,D,B,C），D在第二个，无须像传统diff，让旧集合的第二个B和新集合的第二个D 比较，并且删除第二个位置的B，再在第二个位置插入D，而是 （对同一层级的同组子节点） 添加唯一key进行区分，移动即可。
+
+总结
+- tree diff：只对比同一层的 dom 节点，忽略 dom 节点的跨层级移动
+```
+react 只会对相同颜色方框内的 DOM 节点进行比较，即同一个父节点下
+的所有子节点。当发现节点不存在时，则该节点及其子节点会被完全删除掉，
+不会用于进一步的比较。
+
+这样只需要对树进行一次遍历，便能完成整个 DOM 树的比较。
+
+这就意味着，如果 dom 节点发生了跨层级移动，react 会删除旧的节点，
+生成新的节点，而不会复用。
+```
+
+- component diff：如果不是同一类型的组件，会删除旧的组件，创建新的组件
+
+- element diff：对于同一层级的一组子节点，需要通过唯一 id 进行来区分
+```
+  如果没有 id 来进行区分，一旦有插入动作，
+会导致插入位置之后的列表全部重新渲染
+
+  这也是为什么渲染列表时为什么要使用唯一的 key。
+```
+
+diff的不足与待优化的地方
+```
+尽量减少类似将最后一个节点移动到列表首部的操作，
+当节点数量过大或更新操作过于频繁时，会影响React的渲染性能
+```
+
+  #### React router
+react-router如何配置懒加载
+```
+import { BrowserRouter as Router, Route, Switch } from ' react- router-dom' ;
+import React, { Suspense, lazy } from 'react' ;
+const Home = lazy(() => import(' ./ routes/Home'));
+const About = lazy(() => import('./ routes/About'));
+constApp=()=>(
+<Router>
+<Suspense fallback= {<div>Loading... </div>}>
+<Switch>
+<Route exact path="/" component= {Home}/>
+Route path=" / about" component= {About}/>
+</ Switch>
+</ Suspense>
+</Route r>
+);
+```
 
 
-
-- [React](#React)
-  - [React生命周期](#React生命周期)  1 React生命周期
-  - [](#)  23 组件之间通信
-  - [](#)  4. 组件的渲染顺序
-  - [](#)  8 React组件和渲染更新过程
-  - [](#)  1. React 都做过哪些优化
-  - [](#)  13 React有哪些优化性能的手段
-  - [](#)  9 diff算法是怎么运作
-  - [](#)  24 React router
-  - [](#)  18 redux 中间件
-  - [](#)  14 Redux实现原理解析
-  - [](#)  17 聊聊 Redux 和 Vuex 的设计思想
-  - [](#)  19 redux数据管理
-  - [](#)  3. React Fiber是什么
-  - [](#)  2 React Fiber架构
-  - [](#)  5 React Fiber架构总结
-  - [](#)  7 React事务机制
-  - [](#)  2. 浏览器一帧都会干些什么以及requestIdleCallback的启示
-  - [](#)  3 createElement过程
-  - [](#)  5 setState
-  - [](#)  6 setState原理分析
-  - [](#)  4 调和阶段 setState内部干了什么
-  - [](#)  22 如何避免ajax数据请求重新获取
-  - [](#)  12 为什么 React 元素有一个 $$typeof 属性
-  - [](#)  10 合成事件原理
-  - [](#)  16 react hooks，它带来了那些便利
-  - [](#)  15 connect组件原理分析
-  - [](#)  11 JSX语法糖本质
-  - [](#)  20 受控组件和非受控组件
-  - [](#)  21 SSR原理
 
 
 - [jQuery](#jQuery)
