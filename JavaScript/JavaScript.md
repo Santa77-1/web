@@ -6973,6 +6973,125 @@ const定义的基本数据类型不可更改，定义的
 改变引用数据类型中的字段是没有问题的。
 ```
 
+  #### 箭头函数
+```
+箭头函数的几种基本写法如下：
+let func = (num)=>num ; //表示传入num，返回num，省略了return关键字
+let func1 = num=>num;   //如果只传递一个参数，可以省略括号
+let func2 = ()=>{    //比较标准的写法
+    console.log(111)
+}
+箭头函数中的this是常考的点，下面我们用es5
+的this和箭头函数中的this做一个比较，代码如下：
+var obj1 = {
+    name : "Edward",
+    print : function(){
+        console.log(this.name); //Edward
+    }
+}
+obj1.print()
+
+var obj2 = {
+    name : "Eric",
+    print : ()=>{
+        console.log(this.name); //undefined
+    }
+}
+obj2.print()
+
+上述代码中，es5函数中的this指向调用这个函数的
+对象obj1，所以可以打印出name值。箭头函数中的
+this指向的并不是调用这个函数的对象obj2，
+所以打印不出name值。
+var obj2 = {
+    name : "Eric",
+    print : ()=>{
+        console.log(this.name); //undefined
+    }
+}
+obj2.print.call(obj2);
+上述代码中我们试着用call方法改变print函数的
+this指向，发现依然是没有效果的。
+那么箭头函数中的this指向谁呢？我们接着看：
+var obj2 = {
+    name : "Eric",
+    print : ()=>{
+        console.log(this) ;//Window
+    }
+}
+obj2.print.call(obj2);
+经过打印后得知箭头函数中的this指向了window对象，
+下面我们接着看：
+function handle(){
+    return ()=>{
+        console.log(this.name) //edward
+    }
+}
+var obj = {
+    name : 'edward',
+    handle : handle
+}
+obj.handle()()
+上述代码中运行街头函数后得知this指向了obj对象。
+综合上边代码，可以发现，
+箭头函数的this指向了他所在函数的父级作用域。
+var a = ()=>{
+    console.log(arguments); //不是[1,2,....]
+}
+a(1,2)
+上述代码运行时，并不能获取正确的arguments，即箭头函数不能使用
+
+arguments对象
+var Humen = (name)=>{  //报错
+    this.name = name
+}
+var humen = new Humen('edward');
+console.log(humen)
+上述代码中使用箭头函数作为构造函数发现报错了，
+即箭头函数不能作为构造函数，
+因为es6中有class关键字可以做这个事儿。
+```
+
+  #### 模板字符串
+```
+这个比较简单，直接上代码。
+var a = '100';
+var str = `我今天考了${a}分`;
+console.log(str)
+```
+
+  #### promise的用法和几种状态
+```
+var a = Math.random()
+new Promise((resolve,reject)=>{
+    if(a > 0.5){
+        resolve(a)
+    }else{
+        reject(a)
+    }
+}).then((val)=>{
+    console.log(val)
+}).catch((val)=>{
+    console.log(val)
+}).finally(()=>{
+    console.log("不管什么状态都会执行")
+})
+上述代码中，promise一共三种状态，在还没有生成a的
+确定值的时候，promise处于pending状态。当生成了a的值，
+如果a大于0.5，运行resolve即fulfilled状态，
+如果a小雨0.5运行reject()即reject状态。
+其中resolve对应then，reject对象catch。
+finally无论是resolve或者reject都会执行。   
+```
+
+
+  - [for in和for of的区别](#箭头函数)
+  - [arguments对象](#arguments对象)
+  - [async/await](#asyncawait)
+  - [解构赋值](#解构赋值)
+
+
+
 ### 实现
 
   #### Js动画与CSS动画区别及相应实现
