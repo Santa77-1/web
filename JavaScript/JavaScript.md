@@ -4445,6 +4445,47 @@ async并行加载js文件，下载完成立即执行，
 不会按照页面上script标签的顺序执行
 ```
 
+```
+此处的async和defer是对于页面中的script标签来说的。
+如果一个页面正常的引入script脚本的话，如果脚本出现问题，
+会直接影响DOM的渲染，导致页面白屏。解决这个问题
+只需要给script标签添加defer或者async属性即可。
+
+普通引入脚本的执行流程就是
+1.DOM渲染
+2.脚本加载
+3.脚本执行
+4.根据脚本渲染DOM
+5.DOMContentLoaded
+6.加载图片等外部资源
+7.onload
+```
+
+- defer
+```
+如果script标签使用了defer属性，则script脚本会异步加载，
+不影响DOM渲染，如果引入多个script且都使用defer属性，
+则会根据引入的顺序加载。defer脚本文件会在DOM渲染完成后执行。
+
+引入defer脚本的执行流程：
+1.DOM渲染  defer脚本全部加载完毕
+2.全部defer脚本执行
+3.DOMContentLoaded
+4.加载图片等外部资源
+5.onload
+
+对于defer脚本来说，他的使用场景就是一个脚本
+如果需要依赖页面中的dom元素，则使用这种脚本。
+```
+
+- async
+```
+async脚本会在脚本加载完后立即执行，
+不会管其他脚本加没加载完。
+对于async脚本来说，他的使用场景就是一个脚本
+如果不需要依赖页面中的dom元素，则使用这种脚本。
+```
+
 
 ### 模式
 
@@ -6953,10 +6994,6 @@ Object强制规定key只能是字符串。
 而Map结构的key可以是任意对象。
 即：object是 <string,object>集合map是<object,object>集合
 ```
-
-
-
-
 
   #### let var const
 ```
