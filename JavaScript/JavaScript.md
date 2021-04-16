@@ -253,6 +253,13 @@
 - [ES6](#ES6)
   - [es6新特性](#es6新特性)
   - [let var const](#let-var-const)
+  - [箭头函数](#箭头函数)
+  - [模板字符串](#模板字符串)
+  - [promise的用法和几种状态](#promise的用法和几种状态)
+  - [for in和for of的区别](#箭头函数)
+  - [arguments对象](#arguments对象)
+  - [async/await](#asyncawait)
+  - [解构赋值](#解构赋值)
 
 - [实现](#实现)
   - [Js动画与CSS动画区别及相应实现](#Js动画与CSS动画区别及相应实现)
