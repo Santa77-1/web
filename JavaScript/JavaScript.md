@@ -100,6 +100,7 @@
 
 - [this对象](#this对象)
   - [this指向](#this指向)
+  - [call、apply、bind](#callapplybind)
   - [.call()和.apply()的区别](#call和apply的区别)
   - [手写call、apply及bind函数](#手写callapply及bind函数)
   - [简单实现Function.bind函数](#简单实现Functionbind函数)
@@ -3049,6 +3050,59 @@ new绑定：如果函数或者方法调用之前带有关键字new，
 
 如果构造函数显式地使用return语句返回一个对象，
 那么调用表达式的值就是这个对象
+```
+
+  #### call、apply、bind
+- call基本使用
+```
+var person = {
+    name : "edward"
+}
+var obj = {
+    print : function(age){
+        console.log(this.name , age)
+    }
+}
+obj.print.call(person , 30);//edward 30
+
+每一个函数都有call属性用来改变一个函数的this指向，
+上述代码中调用print函数的call属性，将print函数的
+this从obj变为person。同时call函数可以接收参数，
+每个参数用逗号隔开，call中传递的参数，
+能够在print函数中接收到。
+```
+
+- apply基本使用
+```
+var person = {
+    name : "edward"
+}
+var obj = {
+    print : function(age){
+        console.log(this.name , age)
+    }
+}
+obj.print.apply(person , [30]);//edward 30
+
+apply函数跟call原理一样，区别在于apply函数
+接收的参数用数组表示，数组中每一个参数用逗号隔开。
+```
+
+- bind基本使用
+```
+一个函数也可以调用bind属性来改变这个函数的this指向。代码如下：
+var person = {
+    name : "edward"
+}
+var obj = {
+    print : function(age){
+        console.log(this.name , age)
+    }
+}
+obj.print.bind(person , 30)();//edward 30
+
+bind函数接收参数的方式跟call一样，bind函数运行之后会
+返回一个函数，所以上述代码中需要在bind运行之后再写一对括号。
 ```
 
   #### .call()和.apply()的区别
