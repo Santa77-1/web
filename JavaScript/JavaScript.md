@@ -281,6 +281,7 @@
   - [requestAnimationFrame](#requestAnimationFrame)
   - [为什么使用setTimeout实现setInterval？怎么模拟](#为什么使用setTimeout实现setInterval怎么模拟)
   - [event loop](#event-loop)
+  - [浏览器宏微任务](#浏览器宏微任务)
 
 - [对比](#对比)
   - [addEventListener()和attachEvent()的区别](#addEventListener和attachEvent的区别)
@@ -8079,6 +8080,79 @@ UI rendering
 大量的计算并且需要操作 DOM 的话，为了更快的响应界面响应，
 我们可以把操作 DOM 放入微任务中
 ```
+
+  #### 浏览器宏微任务
+```
+   宏任务                     微任务
+input/output               MutationObserver
+setTimeout                 Promise.then catch finally  
+setInterval
+requestAnimationFrame
+```
+上述就是在浏览器中主要的宏任务和微任务。
+```
+当一个js文件执行时，会先执行同步代码，此时所有的
+异步代码进入到事件表里边，在事件表中分为宏任务
+和微任务。当同步代码执行完毕，会先执行事件表
+里边的微任务，等微任务全部执行完毕，执行下一个
+宏任务，每一个宏任务执行完毕都会先判断一下
+有没有微任务，如果有执行全部微任务，
+如果没有，执行下一个宏任务。
+```
+下面我们就对浏览器中的宏微任务来看具体的例子。
+图中，既有微任务，又有宏任务，下面我们来看一下它的执行顺序：
+当点击div执行change函数后
+1.先执行console.log()同步代码
+2.promise主体运行(注：promise主体是同步代码),then加入微任务队列
+3.setTimeout加入宏任务队列
+4.requestAnimationFrame加入宏任务队列
+5.给div设置data-index属性。触发MutationObserver，加入微任务队列
+6.执行微任务队列中then,MutationObserver
+7.执行宏任务requestAnimationFrame
+8.UI render
+9.执行setTimeout
+
+//12543
+虽然setTimeout要先requestAnimation加入宏任务队列，但是js规定requestAnimationFrame要在UI render之前运行。因为给div设置data-index属性之后，会触发页面的重新渲染(UI render)，所以requestAdnimaction就插队了。
+再来看一个例子：
+console.log('1');
+setTimeout(function() {  //set1
+    console.log('2');
+    new Promise(function(resolve) {  //pro2
+        console.log('4');
+        resolve();
+    }).then(function() {  //th2
+        console.log('5')
+    })
+})
+new Promise(function(resolve) {  //pro1
+    console.log('7');
+    resolve();
+}).then(function() {  //th1
+    console.log('8')
+})
+setTimeout(function() {  ///set2
+    console.log('9');
+    new Promise(function(resolve) {  //pro3
+        console.log('11');
+        resolve();
+    }).then(function() {  //th3
+        console.log('12')
+    })
+})
+上述代码的执行顺序为：
+1.console.log(1) 同步代码执行打印1
+2.setTimeout(set1)入宏任务队列
+3.promise主体(pro1)执行,打印7，then(th1)加入微任务队列
+4.setTimeout(set2)加入宏任务队列
+5.执行当前微任务队列中的then(th1)，打印8
+6.执行set1，打印2，其中的promise主体也执行打印4，产生微任务then(th2)加入微任务
+7.执行微任务then(th2),打印5
+8.执行宏任务set2，打印9，promise主体也运行打印11，then(th3)加入微任务
+9.微任务then(th3)执行打印12
+
+1 7 8 2 4 5 9 11 12
+
 
 
 ### 对比
