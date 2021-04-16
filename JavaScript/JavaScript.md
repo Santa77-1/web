@@ -57,6 +57,7 @@
   - [如何实现数组的随机排序](#如何实现数组的随机排序)
   - [快速的让一个数组乱序](#快速的让一个数组乱序)
   - [数组去重方法总结](#数组去重方法总结)
+  - [数组扁平化](#数组扁平化)
   - [判断是否是数组](#判断是否是数组)
   - [数组的fill方法](#数组的fill方法)
   - [数组和对象有哪些原生方法](#数组和对象有哪些原生方法)
@@ -250,6 +251,7 @@
   - [Reflect对象创建目的](#Reflect对象创建目的)
 
 - [ES6](#ES6)
+  - [es6新特性](#es6新特性)
   - [let var const](#let-var-const)
 
 - [实现](#实现)
@@ -1270,6 +1272,429 @@ Proxy 对对象进行代理，从而实现数据劫持。使用 Proxy 的好处�
 
 
 ### 数组和对象
+ 
+  #### 数组常用方法
+- Array.isArray()
+```
+此方法用于判断传入值是否为一个数组，代码如下：
+
+var arr = [1,2];
+var obj = {name : 'eric'};
+var num = 100;
+console.log(    
+	Array.isArray(arr),   //true    
+	Array.isArray(obj),   //false     
+	Array.isArray(num)    //false
+)
+```
+
+- Array.of()
+```
+此方法返回一个传入参数组成的数组，代码如下：
+
+var arr = Array.of(1,2,3);
+console.log(arr);//[ 1, 2, 3 ]
+```
+
+- Array.from()
+```
+此方法将一个数组对象转化为一个数组，不改变原数组，代码如下：
+
+var arr = [1,2,3,4,5,1,2];
+var set = new Set(arr);  //Set(5) { 1, 2, 3, 4, 5 }
+var arr2 = Array.from(set);
+console.log(arr2); //[ 1, 2, 3, 4, 5 ]
+```
+
+- pop()
+```
+此方法删除数组最后一个元素，改变原数组，返回被删除的元素，代码如下：
+
+var arr = [1,2,3];
+console.log(    
+	arr.pop() //3
+)
+console.log(arr) //[1,2]
+```
+
+- shift()
+```
+此方法删除数组第一个元素，改变原数组，返回被删除的元素，代码如下：
+
+var arr = [1,2,3];
+console.log(    
+	arr.shift() //1
+)
+console.log(arr) //[2,3]
+```
+
+- push()
+```
+此方法向数组末尾添加一个元素，改变原数组，
+返回添加后数组的length，代码如下：
+
+var arr = ['a', 'b'];
+console.log(    
+	arr.push('c') //3
+)
+console.log(arr) //[ 'a', 'b', 'c' ]
+```
+
+- unshift()
+```
+此方法向数组开头添加一个元素，改变原数组，
+返回添加后数组的length，代码如下：
+
+var arr = ['a', 'b'];
+console.log(    
+	arr.unshift('c') //3
+)
+console.log(arr) //[ 'c', 'a', 'b' ]
+```
+
+- reverse()
+```
+此方法会反转一个数组，改变原数组，返回反转后的数组，代码如下：
+
+var arr = ['a', 'b' , 'c'];
+console.log(    
+	arr.reverse() //[ 'c', 'b', 'a' ]
+)
+console.log(arr) //[ 'c', 'b', 'a' ]
+```
+
+- splice()
+```
+此方法接收三个参数，参数作用如下：
+
+1.第一个参数(必填)：选中数组中某一个位置，可以为负数，
+  负数从数组最后一项算起
+3.第二个参数(选填)：规定要删除的长度，可以为0
+4.第三个参数(选填)：规定插入的元素
+5.第四(n)个参数(选填)：规定插入的元素
+
+下面是具体操作，代码如下：
+var arr = [1,2,3];
+console.log(    
+	arr.splice(0,2)//[ 1, 2 ]
+)
+console.log(arr);//[3]
+上述代码中第一个参数选中数组第0项的位置，第二个参数设定截取长度为2，
+调用此方法返回被截取的数组，同时改变原数组。
+
+var arr = [1,2,3];
+console.log(    
+	arr.splice(0,2,10,11)//[ 1, 2 ]
+)
+console.log(arr);//[ 10, 11, 3 ]
+上述代码中第一个参数选中数组第0项位置，第二个参数设定截取长度为2，
+第三个参数以及第三个参数以后代表要添加的元素，调用此方法，
+返回被截取的数组，同时改变原数组，原数组再被截取之后在选中
+的第0项的位置又新添加了第三个参数和第三个参数后边的参数。
+```
+
+- slice()
+```
+此方法用来复制数组中某一部分的元素，不改变原数组，
+此方法参数作用如下：
+
+第一个参数：复制的位置
+第二个参数：复制的长度
+
+代码如下：
+var arr = [1,2,3,4];
+console.log(    
+	arr.slice(0,3) //[ 1, 2, 3 ]
+)
+console.log(arr); //[ 1, 2, 3, 4 ]
+上述代码中复制起始位置为数组第0项，复制长度为3，
+即复制123这三个元素。同时不改变原数组。
+```
+
+- sort()
+```
+此方法将数组进行排序，改变原数组。接收一个非必填参数，
+此参数代表排序的规则，代码如下：
+
+var arr = [8, 9, 2, 1, 6, 4, 0];
+console.log(    
+	arr.sort() //[0,1,2,4,6,8,9]
+)
+console.log(    
+	arr.sort(function (a, b) {        
+		return b - a // [9,8,6,4,2,1,0]    
+	})
+)
+上述代码中如果没有给sort函数传递参数，则默认为升序排序，
+如果传递参数即传递上述所示的函数，此函数中return b-a，
+即代表降序排序，相应的如果return a-b则为升序排序。
+```
+
+- copyWithin()
+```
+此方法会将数组中某一个位置的数组进行复制并且在
+某一个位置进行粘贴，比较难理解，先上代码：
+var arr = [1,2,3,4,5];
+console.log(    
+	arr.copyWithin(2,0,3)//[ 1, 2, 1, 2, 3 ]
+)
+console.log(arr)//[ 1, 2, 1, 2, 3 ]
+
+在此方法中接收了三个参数，先介绍一下三个参数的用途：
+第一个参数：代表要粘贴的起始位置
+第二个参数：复制的起始位置
+第三个参数：复制的截至位置(不包含截至位置的值)即左闭右开区间
+
+知道了参数的作用，我们来说明一下上述代码的意思。规定一个数组arr，
+然后调用copyWithin方法，传入第一个参数粘贴位置为2，传入第二参数
+复制起始位置0，传入第三个参数复制截至位置3，于是复制的值为1，2，
+将这两个值粘贴到原数组的第二项，此时第二项位置又值，则覆盖这些值，
+即3，4被覆盖。调用此方法后返回改变后的数组，同时原数组也会被改变。
+```
+
+- fill()
+```
+//样例1
+var arr = [1,2,3];
+console.log(    
+	arr.fill(4) //[ 4, 4, 4 ]
+)
+console.log(arr) //[ 4, 4, 4 ]
+
+//样例2
+var arr2 = [1,2,3,4];
+console.log(    
+	arr2.fill(0,1,2) //[ 1, 0, 3, 4 ]
+)
+console.log(arr2) //[ 1, 0, 3, 4 ]
+
+先来了解一下fill函数的参数：
+第一个参数(必选)：用来覆盖的值
+第二个参数(可选)：覆盖的起始位置  左闭右开
+第三个参数(可选)：覆盖的结束位置  左闭右开
+
+上述代码中，样例1：原数组有值，通过fill方法传入一个用来覆盖的值，
+这个值会将数组中所有元素用自己覆盖。样例2：原数组有值，
+fill方法传入第一个参数0代表用来覆盖的值，传入第二个值代表覆盖的
+起始位置为1，传入第三个值代表覆盖的结束位置2，这个区间左闭右开，
+于是得到上述中的结果。
+```
+
+- join()
+```
+此方法会根据所传递参数连接数组中每一个元素，
+返回连接好的字符串，代码如下：
+
+var arr = [1,2,3,4];
+console.log(    
+	//不传入参数    
+	arr.join() //1,2,3,4
+)
+console.log(    
+	//传入一个&符号用于连接    
+	arr.join('&') //1&2&3&4
+)
+console.log(    
+	arr //[ 1, 2, 3, 4 ]
+)
+上述代码中，如果不传递参数给join，则默认用逗号连接，
+如果传递参数为任意值，则以这个任意值连接，不改变原数组。
+```
+
+- concat()
+```
+此方法可以将数组和某一个值进行连接，也可以连接一个或者
+多个数组，不改变原数组，代码如下：
+
+var arr = [1,2,3,4];
+console.log(    
+	arr.concat(5)//[ 1, 2, 3, 4, 5 ]
+)
+console.log(   
+	arr.concat([6,7])//[ 1, 2, 3, 4, 6, 7 ]
+)
+console.log(    
+	arr.concat([8,9],[10])//[1, 2,  3, 4,8, 9, 10]
+)
+console.log(arr)//[ 1, 2, 3, 4 ]
+```
+
+- toString()
+
+此方法可以将一个一维或者多维数组转化为字符串，
+不改变原数组，代码如下：
+
+var arr = [1,2,3,4]; 
+var arr1 = [1,2,[    
+	3,4],    
+	[5,6],    
+	7
+]
+console.log(    
+	arr.toString() //1,2,3,4
+)
+console.log(    
+	arr1.toString() //1,2,3,4,5,6,7
+)
+
+- indexOf()
+```
+此方法用来查找数组中某一项的下标值，从左往右查找，
+不改变原数组，代码如下：
+var arr = [1,2,3,4]; 
+console.log(    
+	arr.indexOf(2) //1
+)
+```
+
+- lastIndexOf()
+```
+此方法也是用来查找数组中某一项的下标值，从右往左查找，
+不改变原数组，代码如下：
+
+var arr = [1,2,3,4,2,8];
+console.log(   
+	arr.lastIndexOf(2) //4
+)
+```
+
+- includes()
+```
+此方法用来查找数组中某一项是否存在，返回true或者false，代码如下：
+
+var arr = [1,2,3,4]; 
+console.log(    
+	arr.includes(2) //true
+)
+```
+
+- forEach()
+```
+此方法用来遍历数组，接受的参数如下：
+第一个参数(必选)：便利的每一项的值
+第二个参数(可选)：遍历的每一项的下标值
+第三个参数(可选)：被遍历的数组
+第四个参数(可选)：执行回调函数时的this代码如下：
+
+var arr = [1,2,3,4]; 
+arr.forEach((item,index)=>{    
+	console.log(item)}
+)//1//2//3//4
+```
+
+- some()
+```
+此方法用来查找数组中是否含有满足条件的值，即要遍历数组，
+如果有符合条件的值，则返回true，否则为false，代码如下：
+
+var arr = [1,2,3,4]; 
+console.log(    
+	arr.some((item,index)=>{        
+		return item > 3    
+	})
+)//true
+```
+
+- every()
+```
+此方法用来检测数组中的元素是否全部满足条件，代码如下 ：
+
+var arr = [1,2,3,4]; 
+console.log(    
+	arr.every((item)=>{        
+		return item > 2    
+	})
+)//false
+上述代码中遍历所有数组元素，判断数组元素是否都大于2，
+如果是返回true，如果不是返回false
+```
+
+- filter()
+```
+此方法用来筛选数组中的元素，符合筛选条件的元素会被返回，
+组成新的数组，不改变原数组，代码如下：
+
+var arr = [1,2,3,4]; 
+console.log(     
+	arr.filter((item)=>{        
+		return item>2   //[ 3, 4 ]    
+	})
+)
+console.log(arr) //[ 1, 2, 3, 4 ]
+```
+
+- map()
+```
+此方法可以用来处理数组中每一个元素，并且返回新数组，
+不改变原数组，代码如下：
+
+var arr = [1,2,3,4]; 
+console.log(     
+	arr.map((item)=>{        
+		return item*2   [ 2, 4, 6, 8 ]    
+	})
+)
+console.log(arr) //[ 1, 2, 3, 4 ]
+```
+
+- reduce()
+```
+此方法可以称为数组的累加器，具体接收参数如下：
+
+第一个参数：per，如果规定了第五个参数，则per为第五个参数的值，
+如果没有规定第五个参数，则为数组中第一项
+
+第二个参数：item，如果per为数组第一项，则item为数组第二项，
+如果per为规定的第五个参数值，则item为数组第一项
+
+第三个参数：item的索引值
+第四个参数：原数组
+第五个参数：初始值
+
+此方法比较难理解，我们用代码慢慢来解释：
+var arr = [1,2,3,4];//没有初始值的情况 
+arr.reduce((pre,item,index,arr)=>{    
+	console.log(pre) //1 2 3    
+	console.log(item) //2 3 4     
+	console.log(index) //1 2 3    
+	return item
+})
+在没有传递初始值的情况下，pre第一次为数组的第0项值1，
+item则为数组第1项值2，index为item的下标值1.然后return item，
+这个return的值会作为pre下一次循环的值，即第二轮循环pre值为2，
+item值为数组第2项值3，index为item下标值2，此时继续返回item。
+第三轮循环pre值为3，item值为数组第三项值4，index值为item下标值3。
+循环结束。
+
+var arr = [1,2,3,4];
+//传递初始值 
+arr.reduce((pre,item,index,arr)=>{    
+	console.log(pre) // [] 1 2 3    
+	console.log(item) // 1 2 3 4    
+	console.log(index) // 0 1 2 3    
+	return item
+},[])
+在传递了初始值的情况下，pre即为初始值[]，
+其他部分逻辑跟之前的逻辑一样，大家可以自行梳理。
+```
+
+- flat()
+```
+此方法会深度遍历并且展开数组，接收可选参数，
+可选参数的值为区间1到无穷。常用于展开多维数组，如下边代码：
+
+var arr = [1, [2, 3], [[4, 5], 6], [7, 8]]
+console.log(    
+	arr.flat() //[ 1, 2, 3, [ 4, 5 ], 6, 7, 8 ]
+)
+console.log(   
+	arr.flat(Infinity) //[1, 2, 3, 4, 5, 6, 7, 8]
+)
+上述代码中如果不给flat传递参数，默认参数值为1，
+即展开一层的数组，如上述代码，展开一层之后，数组返回值如上。
+如果要展开多维数组，但是你也不知道是几维(就是懒得数了)，
+就直接传递Infinity，不管有几维都统统展开。
+```
 
   #### 如何实现数组的随机排序
 ```js
@@ -1528,6 +1953,263 @@ console.log(unique(arr));
 (12)方法十二、[...new Set(arr)]
 [...new Set(arr)]
 //代码就是这么少----（其实，严格来说并不算是一种，相对于第一种方法来说只是简化了代码）
+```
+
+  #### 数组扁平化
+数组扁平化即将多维数组转化为一维数组，如下例所示：
+```
+//多维数组var arr = [
+	[1, 2],    
+	[3, 4],    
+	[        
+		[5,6],        
+		[7,8]    
+	],    
+	9
+]
+//转化为一维数组结果[1,2,3,4,5,6,7,8,9]
+```
+
+- reduce实现
+```
+var arr = [    
+	[1, 2],    
+	[3, 4],    
+	[        
+		[5,6],        
+		[7,8]    
+	],   
+	9
+]
+function flatten(arr) {     
+	return arr.reduce((result, item)=> {        
+		return result.concat(Array.isArray(item) ? flatten(item) : item);    
+	}, []);
+}
+console.log(    
+	flatten(arr)
+)
+
+上述代码中实现了一个扁平化方法，方法内部返回使用reduce方法处理后的
+扁平化数组。原理如下：使用reduce方法遍历数组，result初始值为[ ]，
+使用Array.isArray方法判断当前item是否为数组，如果不是数组则将item
+跟result连接，如果item是数组，则将item传入flatten方法中进行递归。
+本题涉及reduce方法和concat方法以及递归的概念，解题之前请了解这些内容。
+```
+
+- toString&split
+```
+将一个多维数组通过toString转化为字符串(可以自行打印预览，
+结果惊呆你)，之后调用split方法将字符串分割为数组，
+最后将分割好的数组转化格式即可，代码如下：
+
+var arr = [    
+	[1, 2],    
+	[3, 4],    
+	[        
+		[5,6],        
+		[7,8]    
+	],    
+	9
+]
+这个就行’多维也行
+function flatten(arr) {    
+	console.log(arr.toString())    
+	return arr.toString().split(',').map(function(item) {        
+		return Number(item);    
+	})
+} 
+console.log(    
+	flatten(arr)
+)
+```
+
+- join & split
+```
+此方法和上述方法原理类似，通过join将数组转化为字符串，
+再用split转化为数组即可，代码如下：
+
+var arr = [    
+	[1, 2],    
+	[3, 4],    
+	[        
+		[5,6],        
+		[7,8]    
+	],    
+	9
+]
+function flatten(arr) {    
+	return arr.join(',').split(',').map(function(item) {        
+		return parseInt(item);    
+	})
+}
+console.log(    
+	flatten(arr)
+)
+```
+
+- 递归
+```
+这种方法是reduce的更好理解版本，原理和reduce实现的原理一样，代码如下：
+var arr = [    
+	[1, 2],    
+	[3, 4],    
+	[        
+		[5,6],        
+		[7,8]    
+	],    
+	9
+]
+function flatten(arr) {    
+	var res = [];    
+	arr.map(item => {        
+		if(Array.isArray(item)) {            
+			res = res.concat(flatten(item));        
+		} else {            
+			res.push(item);        
+		}    
+	});    
+	return res;
+}
+console.log(    
+	flatten(arr)
+)
+```
+
+```
+首先让我们思考一个这样的题目；假如有一个数组 var arr = [1, [2, 3, [4]]] ，
+我们怎么能把arr变成[1, 2, 3, 4]呢？即让多维数组降维，
+转换为只有一层的数组；如果用过lodash的话，
+我们知道 flatten 和 flattenDeep 方法都可以实现.
+
+flatten用法：
+
+概念：可以理解为将嵌套数组的维数减少，flattened（平坦）. 
+如果 isDeep 值为 true 时，嵌套数组将递归为一维数组, 
+否则只减少嵌套数组一个级别的维数.
+
+代码如下：
+参数： array (Array): 需要flattened（减少维数）的嵌套数组
+[isDeep] (boolean): 是否深递归
+
+返回值： (Array): 返回处理后的数组
+
+// using `isDeep`
+_.flatten([1, [2, 3, [4]]], true);
+// => [1, 2, 3, 4]
+
+flattenDeep用法：
+概念：递归地平坦一个嵌套的数组.相当于_.flatten(array, true)
+**参数：**array (Array): 需要
+
+返回值：(Array): 返回处理后的数组.
+
+flattenDeep: 递归地平坦一个嵌套的数组.相当于_.flatten(array, true).
+_.flattenDeep([1, [2, 3, [4]]]);
+// => [1, 2, 3, 4]
+
+那么如果我们自己写该如何实现呢？下面列举几种实现方式：
+
+1. 循环数组+递归
+实现思路：循环数组，如果数据中还有数组的话，
+递归调用flatten扁平函数（利用for循环扁平），
+用concat连接，最终返回result;
+
+ function flatten(arr){
+     var result = [];
+     for(var i = 0, len = arr.length; i < len; i++){
+         if(Array.isArray(arr[i])){
+             result = result.concat(flatten(arr[i]));
+         }else{
+             result.push(arr[i]);
+         }
+     }
+     return result;
+ }
+
+flatten(arr)   // [1,2,3,4]
+
+2. 利用apply
+可以使用apply的原因如下：
+
+var arr = [1, [2, 3, [4]]];
+[].concat.apply([],arr);
+// [1,2,3,[4]]
+
+实现思路：利用arr.some判断当数组中还有数组的话，
+递归调用flatten扁平函数(利用apply扁平), 用concat连接，最终返回arr;
+
+ function flatten(arr){
+    while(arr.some(item => Array.isArray(item))){
+          arr =  [].concat.apply([],arr);
+    }
+    return arr;
+}
+
+flatten(arr)   // [1,2,3,4]
+
+3. reduce方法
+reduce() 方法对累加器和数组中的每个元素（从左到右）
+应用一个函数，将其减少为单个值。
+能使用reduce原因如下：
+
+var flattened = arr.reduce(function(prev, cur){
+    return prev.concat(cur)
+},[])
+
+console.log(flattened);
+//  [1,2,3,[4]]
+
+实现思路：使用reduce, 当数组中还有数组的话，递归调用
+flatten扁平函数(利用reduce扁平), 用concat连接，
+最终返回arr.reduce的返回值;
+
+function flatten(arr){
+    return arr.reduce(function(prev, cur){
+        return prev.concat(Array.isArray(cur) ? flatten(cur) : cur)
+    },[])
+}
+
+flatten(arr)   // [1,2,3,4]
+
+4. es6 展开运算符
+可以使用es6 展开运算符的原因如下：
+
+var arr = [1, [2, 3, [4]]];
+
+console.log(...arr);
+// 1,[2,3,[4]]
+
+实现思路：利用arr.some判断当数组中还有数组的话，
+递归调用flatten扁平函数(利用es6展开运算符扁平),
+用concat连接，最终返回arr;
+
+function flatten(arr){
+  while(arr.some(item => Array.isArray(item))){
+      arr = [].concat(...arr);
+  }
+  return arr;
+}
+
+flatten(arr)   // [1,2,3,4]
+
+5. toString方法（数组元素为数字）
+如果数组的元素是数字，那么我们可以考虑toString()方法，
+其他情况不适用。原因如下：
+
+[1, [2, 3, [4]]].toString()
+// "1,2,3,4"
+
+实现思路：数组适用toString()方法后变成以逗号分割的字符串，
+然后map遍历数组把每一项再变回整数并返回map后的结果。
+
+function flatten(arr){
+    return arr.toString().split(',').map(function(item){
+         return parseInt(item);
+     })
+}    
+
+flatten(arr)   // [1,2,3,4]
 ```
 
   #### 判断是否是数组
@@ -4099,6 +4781,32 @@ window 对象含有 location 对象、navigator 对象、screen 对象等子对�
 并且 DOM 的最根本的对象 document 对象也是 BOM 的 window 对象的子对象。
 ```
 
+- BOM
+```
+BOM即Browers Object Model(浏览器对象模型)，整个BOM的核心
+即window对象。使用window对象可以操作浏览器的一些行为。
+下面是常用的BOM属性、方法、事件：
+history属性
+location属性
+document属性
+prompt方法
+alert方法
+setTimeout方法
+setInterval方法
+onload事件
+onclick事件
+onkeydown事件
+```
+
+- DOM
+```
+DOM即Document Object Model(文档对象模型)，每一个html文件
+都具有一个DOM对象，在这个DOM对象中包含了html文件中所有标签，
+所有标签的属性等。下面列举一些常用的方法和属性。
+getElementById方法
+getattribute方法
+```
+
   #### 介绍DOM的发展
 ```
 DOM：文档对象模型（Document Object Model），
@@ -6130,6 +6838,47 @@ ES6将promise对象纳入规范，提供了原生的Promise对象。
 let命令实际上就增加了块级作用域。
 还有就是引入module模块的概念
 ```
+ 
+  #### es6新特性
+- 1.箭头函数
+- 2.新增模板字符串，为 JavaScript 提供了简单的字符串插值功能
+- 3.新增了 let 和 const 命令，用来声明变量
+```
+let 所声明的变量，只在let 命令所在的代码块内有效。const 声明的变量是常量，不能被修改
+```
+- 4.增加了块级作用域，let 命令实际上就增加了块级作用域
+- 5.es6 将 Promise 对象纳入规范，提供了原生的 Promise 对象
+- 6.提供了 set 和 map 的数据结构
+- 7.for-of 用来遍历数据，例如数组中的值
+- 8.arguments 对象可被不定参数和默认参数完美代替
+- 9.还有就是引入 module 模块的概念
+
+```
+5.所谓Promise，简单说就是一个容器，里面保存着某个未来
+6.才会结束的事件（通常是一个异步操作）的结果。
+从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。
+Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
+我们可以通过Promise的构造函数来创建Promise对象，
+并在内部封装一个异步执行的结果。
+
+如果我们想要等待异步执行完成，做一些事情，
+我们可以通过promise的then方法来实现
+
+如果想要处理promise异步执行失败的事件，还可以跟上catch
+```
+
+```
+6. Set，本质与数组类似。不同在于Set中只能保存不同元素，
+如果元素相同会被忽略。
+map，本质是与Object类似的结构。不同在于，
+Object强制规定key只能是字符串。
+而Map结构的key可以是任意对象。
+即：object是 <string,object>集合map是<object,object>集合
+```
+
+
+
+
 
   #### let var const
 ```
@@ -6169,6 +6918,34 @@ const：
 
 但是如果是复合类型时，如果只改变复合类型的其中某个Value项时， 
 将还是正常使用
+```
+
+```
+对于var、let、const他们三个的比较和总结，我们用几段代码来说明一下：
+const a1 = 100;
+a1 = 200;  //报错Assignment to constant variable
+上述代码说明了const定义的是一个常量，而且更改之后会报错。
+
+var a1 = 100;
+let a2 = 100;
+const a3 = 100;
+console.log(window.a1);  
+100console.log(window.a2);  //undefined
+console.log(window.a3);  //undefined
+上述代码说明了var定义的变量会挂载到window上，而let和const定义的则不会。
+
+console.log(a1);  //undefinedvar a1 = 100;
+console.log(a2);  //报错const a2 = 100;
+console.log(a3);  //报错let a3 = 100;
+上述代码说明了var定义的变量会提升，let和const定义的则不会。
+let和const必须严格遵守先定义在访问的原则。
+
+if (true) {    
+	var a1 = 100;    
+	let a2 = 100;    
+	const a3 = 100;
+}
+console.log(a1) //100console.log(a2) //报错console.log(a3) //报错let和const定义的值，其作用域会被限制在定义的作用域中，不能被别的作用于访问，但是var可以。JavaScriptconst a = '123';a = '456'; //报错const obj = {    name : 1}obj.name = 2; //正确const定义的基本数据类型不可更改，定义的引用数据类型可以更改。因为基本数据类型保存在栈中，即定义的常量值即为后边赋的值。引用数据类型保存在堆中，但是他的地址保存在栈中，用const定义的引用数据类型中保存的值实际上为此引用数据类型在栈中的地址，所以只要地址不改变，改变引用数据类型中的字段是没有问题的。
 ```
 
 ### 实现
