@@ -110,7 +110,7 @@
 - [事件](#事件)
   - [事件是什么？IE与火狐的事件机制有什么区别？如何阻止冒泡](#事件是什么IE与火狐的事件机制有什么区别如何阻止冒泡)
   - [事件的各个阶段](#事件的各个阶段)
-  - [事件“捕获”和“冒泡”执行顺序和事件的执行次数](#事件“捕获”和“冒泡”执行顺序和事件的执行次数)
+  - [事件“捕获”和“冒泡”执行顺序和事件的执行次数](#事件捕获和冒泡执行顺序和事件的执行次数)
   - [在一个DOM上同时绑定两个点击事件：一个用捕获，一个用冒泡。事件会执行几次，先执行冒泡还是捕获](#在一个DOM上同时绑定两个点击事件一个用捕获一个用冒泡事件会执行几次先执行冒泡还是捕获)
   - [如何派发事件(dispatchEvent)？（如何进行事件广播？）](#如何派发事件dispatchEvent如何进行事件广播)
   - [事件代理](#事件代理)
@@ -3375,6 +3375,154 @@ document ---> target目标 ----> document
 
 true表示该元素在事件的“捕获阶段”（由外往内传递时）响应事件
 false表示该元素在事件的“冒泡阶段”（由内向外传递时）响应事件
+```
+
+- 事件冒泡
+如下代码：
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+	<meta charset="UTF-8">    
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+	<title>Document</title>    
+	<style>        
+		#div1 {            
+			height: 300px;            
+			width: 300px;            
+			background-color: red;        
+		}        
+		#div2 {            
+			height: 200px;            
+			width: 200px;            
+			background-color: black;        
+		}    
+	</style>
+</head>
+<body>    
+	<div id="div1">        
+		<div id="div2"></div>    
+	</div>    
+	<script>        
+		var div1 = document.getElementById('div1');        
+		var div2 = document.getElementById('div2');        
+		div1.addEventListener('click', function () {            
+			console.log('div1')        
+		}, false);        
+		div2.addEventListener('click', function () {           
+			console.log('div2')        
+		}, false);    
+	</script>
+</body>
+</html>
+
+将上述代码在浏览器打开，当点击div2(黑色)元素，会执行其
+回调函数打印文字div2，同时也会触发元素div1的回调函数，
+打印文字div1。即在冒泡状态下子元素的点击状态会传递给父元素，
+一直传递到document对象，这就是事件冒泡。因此上述的点击状态
+传递过程为：
+div2->div1->body->html->document   由内而外传播
+在addEventListener中，第一个参数时事件，第二个
+参数时回调函数，第三个参数是决定回调函数执行的环境，
+默认为false(在事件冒泡时执行回调函数)。
+```
+
+- 事件捕捉
+```
+事件捕捉与事件冒泡正好相反，只需要将上述事件冒泡代码
+两个监听器中第三个参数改为true即可，true代表回调函数
+在事件捕捉时执行。改为true之后，点击状态的传递变为如下：
+div1->div2    由外而内传播
+```
+
+- 事件代理(事件委托)
+```
+事件代理其实就是利用事件冒泡的原理，
+进行一些复杂操作的简化。如下代码：
+<ul> 
+	<li>1</li>        
+	<li>2</li>        
+	<li>3</li>        
+	<li>4</li>    
+</ul>
+如果要对ul列表中所有li挂载事件，你可以手动写多个监听器
+去监听每一个li。当你在点击某一个li的时候，他的点击状态
+也会根据事件冒泡原理传递到ul中，我们可以根据这个原理，
+将所有li的事件都委托给ul，即将所有li的监听器只需要挂载
+在ul一个元素上即可，这样也能实现相同的效果。如下代码：
+<body>    
+	<ul>        
+		<li>1</li>        
+		<li>2</li>        
+		<li>3</li>        
+		<li>4</li>    
+	</ul>    
+	<script>        
+		var ul = document.getElementsByTagName('ul')[0];        
+		ul.addEventListener('click' , function(){            
+			console.log('点击了')        
+		})    
+	</script>
+</body>
+```
+
+- 阻止事件冒泡和默认事件
+```
+先看没有阻止事件冒泡和默认事件的代码：
+<body>    
+	<ul id="ul1">        
+		<li id="li1">1</li>    
+	</ul>    
+	<a href="http://www.baidu.com" id="a">百度</a>    
+	<script>        
+		var ul = document.getElementById('ul1')        
+		var li = document.getElementById('li1');        
+		var a = document.getElementById('a');        
+		a.addEventListener('click' , function(){            
+			console.log('a被点击了')        
+		})        
+		ul.addEventListener('click' , function(){            
+			console.log('ul被点击了')        
+		})        
+		li.addEventListener('click' ,function(){            
+			console.log('li被点击了');        
+		})    
+	</script>
+</body>
+此代码大家可以运行一下查看效果，完全点击li会触发
+li和ul的回调函数，点击a标签会发生跳转。下面我们来看
+一下设置阻止事件冒泡和阻止默认事件的代码：
+<body>    
+	<ul id="ul1">        
+		<li id="li1">1</li>    
+	</ul>    
+	<a href="http://www.baidu.com" id="a">百度</a>    
+	<script>        
+		var ul = document.getElementById('ul1')        
+		var li = document.getElementById('li1');        
+		var a = document.getElementById('a');        
+		a.addEventListener('click' , function(e){            
+			e.preventDefault()            
+			console.log('a被点击了')        
+		})        
+		ul.addEventListener('click' , function(){            
+			console.log('ul被点击了')        
+		})        
+		li.addEventListener('click' ,function(e){            
+			console.log('li被点击了');            
+			e.stopPropagation()        
+		})    
+	</script>
+</body>
+其中我们在a标签的回调函数中接收事件回调函数并且
+获取事件参数e，调用e的preventDefault方法可以将
+a标签的调转行为取消。其中我们在li标签的回调函数中
+接收事件回调函数并且获取事件参数e，调用e的
+stopPropagation函数可以将li的点击冒泡状态取消。
+综上，做以下总结：
+preventDefault()  取消默认事件  比如a标签、submit按钮
+stopPropagation()  取消事件冒泡
 ```
 
   #### 事件“捕获”和“冒泡”执行顺序和事件的执行次数
@@ -8100,20 +8248,44 @@ requestAnimationFrame
 如果没有，执行下一个宏任务。
 ```
 下面我们就对浏览器中的宏微任务来看具体的例子。
-图中，既有微任务，又有宏任务，下面我们来看一下它的执行顺序：
+```
+function change( ) {
+console.log( '1')
+Promise.resolve( ).then(( )=> console. log('2'))
+setTimeout(( )=> console.log( '3'))
+requestAnimationFrame(( )=> console.log( '4'))
+div . setAttribute( ' data- index'，
+100' )
+}
+new Mutat ionObserver(( )=> {
+console.log( '5')
+}). observe(div, {
+attributes: true
+})
+div . addEventL istener( 'click', change )
+```
+代码中既有微任务，又有宏任务，下面我们来看一下它的执行顺序：
+```
 当点击div执行change函数后
 1.先执行console.log()同步代码
 2.promise主体运行(注：promise主体是同步代码),then加入微任务队列
 3.setTimeout加入宏任务队列
 4.requestAnimationFrame加入宏任务队列
-5.给div设置data-index属性。触发MutationObserver，加入微任务队列
+5.给div设置data-index属性。触发MutationObserver,加入微任务队列
 6.执行微任务队列中then,MutationObserver
 7.执行宏任务requestAnimationFrame
 8.UI render
 9.执行setTimeout
 
 //12543
-虽然setTimeout要先requestAnimation加入宏任务队列，但是js规定requestAnimationFrame要在UI render之前运行。因为给div设置data-index属性之后，会触发页面的重新渲染(UI render)，所以requestAdnimaction就插队了。
+```
+
+```
+虽然setTimeout要先requestAnimation加入宏任务队列，
+但是js规定requestAnimationFrame要在UI render之前运行。
+因为给div设置data-index属性之后，会触发页面的
+重新渲染(UI render)，所以requestAdnimaction就插队了。
+
 再来看一个例子：
 console.log('1');
 setTimeout(function() {  //set1
@@ -8140,19 +8312,22 @@ setTimeout(function() {  ///set2
         console.log('12')
     })
 })
+```
 上述代码的执行顺序为：
+```
 1.console.log(1) 同步代码执行打印1
 2.setTimeout(set1)入宏任务队列
 3.promise主体(pro1)执行,打印7，then(th1)加入微任务队列
 4.setTimeout(set2)加入宏任务队列
 5.执行当前微任务队列中的then(th1)，打印8
-6.执行set1，打印2，其中的promise主体也执行打印4，产生微任务then(th2)加入微任务
-7.执行微任务then(th2),打印5
-8.执行宏任务set2，打印9，promise主体也运行打印11，then(th3)加入微任务
-9.微任务then(th3)执行打印12
+6.执行set1，打印2，其中的promise主体也执行打印4，
+  产生微任务then(th2)加入微任务
+8.执行微任务then(th2),打印5
+9.执行宏任务set2，打印9，promise主体也运行打印11,then(th3)加入微任务
+10.微任务then(th3)执行打印12
 
 1 7 8 2 4 5 9 11 12
-
+```
 
 
 ### 对比
