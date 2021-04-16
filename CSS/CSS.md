@@ -93,6 +93,7 @@
   - [display、float、position的关系](#displayfloatposition的关系)
   - [display:inline-block什么时候不会显示间隙(携程)](#displayinline-block什么时候不会显示间隙携程)
   - [display:inline-block什么时候会显示间隙](#displayinline-block什么时候会显示间隙)
+  - [block元素和inline元素的区别](#block元素和inline元素的区别)
   - [font-weight的特殊性](#font-weight的特殊性)
   - [font-style属性中italic和oblique的区别](#font-style属性中italic和oblique的区别)
   - [font-style属性oblique是什么意思](#font-style属性oblique是什么意思)
@@ -137,6 +138,7 @@
   - [为什么height:100%会无效](#为什么height100会无效)
   - [行内元素floatleft后是否变为块级元素](#行内元素floatleft后是否变为块级元素)
   - [px和em区别](#px和em区别)
+  - [px/rpx/em/rem/vw/vh的区别](#pxrpxemremvwvh的区别)
   - [rgba()和opacity的透明效果有什么不同](#rgba和opacity的透明效果有什么不同)
 
 - [伪类](#伪类)
@@ -2246,6 +2248,33 @@ word-spacing
 ·把 li 标签写到同一行可以消除垂直间隙，但代码可读性差
 ```
 
+  ### block元素和inline元素的区别
+- inline：不能直接设置宽高属性，不独占一行，不能使用margin左右居中
+- block：能直接设置宽高属性，独占一行，能使用margin实现左右居中
+
+- block和inline这两个概念是简略的说法，完整确切的说应该是 block-level elements (块级元素) 和 inline elements (内联元素)。block元素通常被显示为独立的一块，会单独换一行；inline元素则前后不会产生换行，一系列inline元素都在一行内显示，直到该行排满。
+- 大体来说HTML元素各有其自身的布局级别（block元素还是inline元素）：
+常见的块级元素有 DIV, FORM, TABLE, P, PRE, H1~H6, DL, OL, UL 等。
+常见的内联元素有 SPAN, A, STRONG, EM, LABEL, INPUT, SELECT, TEXTAREA, IMG, BR 等。
+- block元素可以包含block元素和inline元素；但inline元素只能包含inline元素。要注意的是这个是个大概的说法，每个特定的元素能包含的元素也是特定的，所以具体到个别元素上，这条规律是不适用的。比如 P 元素，只能包含inline元素，而不能包含block元素。
+- 一般来说，可以通过display:inline和display:block的设置，改变元素的布局级别。
+
+block，inline和inlinke-block细节对比
+- display:block
+  - block元素会独占一行，多个block元素会各自新起一行。默认情况下，block元素宽度自动填满其父元素宽度。
+  - block元素可以设置width,height属性。块级元素即使设置了宽度,仍然是独占一行。
+  - block元素可以设置margin和padding属性。
+- display:inline
+  - inline元素不会独占一行，多个相邻的行内元素会排列在同一行里，直到一行排列不下，才会新换一行，其宽度随元素的内容而变化。
+  - inline元素设置width,height属性无效。
+  - inline元素的margin和padding属性，水平方向的padding-left, padding-right, margin-left, margin-right都产生边距效果；但竖直方向的padding-top, padding-bottom, margin-top, margin-bottom不会产生边距效果。
+- display:inline-block
+  - 简单来说就是将对象呈现为inline对象，但是对象的内容作为block对象呈现。之后的内联对象会被排列在同一行内。比如我们可以给一个link（a元素）inline-block属性值，使其既具有block的宽度高度特性又具有inline的同行特性。
+
+补充说明
+- 一般我们会用display:block，display:inline或者display:inline-block来调整元素的布局级别，其实display的参数远远不止这三种，仅仅是比较常用而已。
+- IE（低版本IE）本来是不支持inline-block的，所以在IE中对内联元素使用display:inline-block，理论上IE是不识别的，但使用display:inline-block在IE下会触发layout，从而使内联元素拥有了display:inline-block属性的表象。
+
   ### font-weight的特殊性
 ```
 如果使用数值作为font-weight属性值，必须是100～900的整百数。
@@ -2843,6 +2872,55 @@ px 相对于显示器屏幕分辨率，无法用浏览器字体放大功能
 em 值并不是固定的，会继承父级的字体大小： em = 像素值 / 父级font-size
 
 ```
+
+  ### px/rpx/em/rem/vw/vh的区别
+- px：绝对单位，按照页面像素显示元素
+- rpx：相对单位，微信小程序根据屏幕尺寸的自适应大小。不同手机对应比例不一样。如某手机屏幕宽400px，则750rpx=400px，如屏幕宽500px，则750rpx=500px
+- em：相对单位，按照父元素的字体大小算，如果设置了自己的字体大小就按照自己的来算，1em=(设置的父元素字体大小或者本元素字体大小)pxrem：即root em，根据html节点的字体大小计算 1rem=(html标签字体大小)pxvw：可视宽度 100
+- vw = 100%页面宽度
+- vh：可视高度 100vh = 100%页面高度
+
+- 1、px
+  - 1）px就是pixel的缩写，意为像素。
+  - 2）px就是设备或者图片最小的一个点，比如常常听到的电脑像素是1024x768的，表示的是水平方向是1024个像素点，垂直方向是768个像素点。
+  - 3）px是我们网页设计常用的单位，也是基本单位。
+  - 4）通过px可以设置固定的布局或者元素大小。
+  - 5）缺点：没有弹性。
+
+- 2、rpx
+  - 1）rpx 是微信小程序解决自适应屏幕尺寸的尺寸单位。
+  - 2）rpx（responsive pixel）: 可以根据屏幕宽度进行自适应。
+  - 3）微信小程序规定屏幕的宽度为750rpx。
+  - 4）解释：例如宽度，相当于把屏幕宽度分为750份，1份就是1rpx。高度类似~
+
+- 3、em
+  - 1）参考物是父元素的font-size，具有继承的特点。
+  - 2）如果自身定义了font-size按自身来计算（浏览器默认字体是16px），整个页面内1em不是一个固定的值。
+  - 3）特点是1. em的值并不是固定的； 2. em会继承父级元素的字体大小。
+  - 4）1em=1倍父元素font-size的值，2em=2倍父元素font-size的值，以此类推……
+
+- 4、rem
+  - 1）rem是相对于根元素html，这样就意味着，我们只需要在根元素确定一个参考值，可以设计HTML为大小为10px，到时设置1.2rem就是12px.以此类推。
+  - 2）优点是，只需要设置根目录的大小就可以把整个页面的成比例的调好。
+
+- 5、%
+一般来说就是相对于父元素的：
+  - 1）对于普通定位元素就是我们理解的父元素
+  - 2）对于position: absolute;的元素是相对于已定位的父元素
+  - 3）对于position: fixed;的元素是相对于ViewPort（可视窗口），
+
+- 6、vw
+  - 1）css3新单位，view width的简写，是指可视窗口的宽度。假如宽度是1200px的话。那100vw就是1200px,10vm就是120px，以此类推……
+  - 2）举个例子：浏览器宽度1200px, 1 vw = 1200px/100 = 12 px。
+
+- 7、vh
+和vw相似
+  - 1）css3新单位，view height的简写，是指可视窗口的高度。假如高度是1200px的话。那100vh就是1200px，10vh就是120px，以此类推……
+  - 2）举个例子：浏览器高度900px, 1 vh = 900px/100 = 9 px。
+
+- 8、vm
+  - 1）css3新单位，相对于视口的宽度或高度中较小的那个。其中最小的那个被均分为100单位的vm 举个例子：浏览器高度2）2）900px，宽度1200px，取最小的浏览器高度，1 vm = 900px/100 = 9 px。
+  - 2）兼容性太差 ,不建议使用
 
   ### rgba()和opacity的透明效果有什么不同
 ```
