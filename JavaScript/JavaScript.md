@@ -2567,6 +2567,40 @@ unescape() 对由escape() 编码的字符串进行解码
 解决方法是，在退出函数之前，将不使用的局部变量全部删除
 ```
 
+```
+闭包是指有权访问另一个函数作用域中的变量的函数
+function a() {
+    var name = "edward"
+    return function b() {
+        console.log(name) ; //edward
+    }
+}
+a()()
+上述代码中b函数可以访问a函数内部变量name，则称b为闭包函数。
+下面是闭包常见的定时器的问题：
+for (var i = 0; i < 5; i++) {
+    setTimeout(() => {
+        console.log(i);  //5 5 5 5 5
+    }, 1000)
+}
+上述代码执行1s后，打印五个5，原因是因为再这1s中内，
+for循环已经执行完毕，i变成了5，所以五次打印的结果都是5。
+那么如何将打印结果变为 0 1 2 3 4这样输出呢？在闭包中，
+闭包函数能够保存父作用域的值，那么结合这个题，
+只需要用一个函数将setTimeOut包裹起来，
+这个函数作为闭包函数即可，如下代码：
+for (var i = 0; i < 5; i++) {
+    (function(j) {
+        setTimeout(function() {
+            console.log(j);
+        },1000)
+    })(i)
+}
+其中，每一个遍历，都会有一个闭包函数将此时的i
+保存下来，传递给延时器，
+这样每一个延时器到时间后打印的就是0 1 2 3 4。
+```
+
   #### 使用闭包实现每隔一秒打印1,2,3,4
 ```js
 // 使用闭包实现
@@ -6510,6 +6544,43 @@ console.log(b.jobs.first) // FE
 会忽略 undefined
 不能序列化函数
 不能解决循环引用的对象
+```
+
+递归实现深拷贝
+```
+function deepClone(obj) {
+    let objClone = Array.isArray(obj) ? [] : {};
+    if (obj && typeof obj === "object") {
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                if (obj[key] && typeof obj[key] === "object") {
+                    objClone[key] = deepClone(obj[key]);
+                } else {
+                    objClone[key] = obj[key];
+                }
+            }
+        }
+    }
+    return objClone;
+}
+let a = [1, 2, 3, 4];
+let b = deepClone(a);
+a[0] = 2;
+console.log(b); //[ 1, 2, 3, 4 ]
+```
+
+JSON实现深拷贝
+```
+function deepClone(obj){
+    let _obj = JSON.stringify(obj);
+    let objClone = JSON.parse(_obj);
+    return objClone
+}    
+let a=[0,1,[2,3],4];
+let b=deepClone(a);
+a[0]=1;
+a[2][0]=1;
+console.log(b);
 ```
 
   #### js中的命名规则
