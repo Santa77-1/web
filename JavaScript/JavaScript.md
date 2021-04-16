@@ -7084,12 +7084,62 @@ new Promise((resolve,reject)=>{
 finally无论是resolve或者reject都会执行。   
 ```
 
+  #### for in和for of的区别
+```
+for in用来遍历普通对象，for of用于遍历可迭代对象。
+下边我们用代码来实现一下：
+var obj = {
+    name : 'edward',
+    age : 100
+}
+var arr = ['a','b']
+for(var i in obj){
+    console.log(i)  ; //name age
+    console.log(obj[i]) //edward 100
+}
+for(var i of arr){
+    console.log(i)  ; //a , b
+}
+```
 
-  - [for in和for of的区别](#箭头函数)
+  #### async/await
+```
+function demo1(){
+    return new Promise((resolve,reject)=>{
+        resolve(100)
+    })
+}
+
+async function handle(){
+    var a = await demo1()
+    console.log(a)
+}
+handle()
+上述代码简单介绍了async定义函数和await的用法。
+其中await后边跟的demo1函数如果返回一个promise对象，
+则a的值为promise中resolve传入的值。如果demo1没有
+返回一个promise对象，则a的值为undefined。
+当执行async函数，遇到await时，不管后边的demo1中
+是否存在异步，都先要执行完demo1，再往下执行async
+定义的函数中的其他语句。
+
+原理：async顾名思义是异步的意思，即用async申明的
+函数为异步函数，await是等待的意思，就是等异步完成，
+并且await只能在async中调用。async能简化Promise操作，
+await得到Promise对象之后就等待Promise接下来的
+resolve或者reject。当你要对执行的函数进行排序时，
+只需要将函数的位置依次写道await后边即可。
+ ```
+
+
   - [arguments对象](#arguments对象)
-  - [async/await](#asyncawait)
-  - [解构赋值](#解构赋值)
+  
 
+  #### 解构赋值
+```
+var [a,b] = [1,2];
+console.log(a , b); //1 2
+```
 
 
 ### 实现
