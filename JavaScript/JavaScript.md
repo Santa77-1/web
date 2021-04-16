@@ -4724,6 +4724,140 @@ async脚本会在脚本加载完后立即执行，
 订阅者关系的解耦。使用发布订阅者模式更利于我们代码的可维护性。
 ```
 
+- 观察者模式（Observer Pattern）
+```
+观察者模式定义了对象间的一种一对多的依赖关系，当一个
+对象的状态发生改变时，所有依赖于它的对象都将得到通知，
+并自动更新。
+比如旧时一个村子的人都预定了第二天张三家的牛奶，
+当到第二天张三提着牛奶桶在街上大声喊牛奶到了牛奶到了，
+然后预定了牛奶的人家就会陆续出来打牛奶。
+```
+
+- 发布订阅模式（Pub-Sub Pattern）
+```
+发布订阅模式是观察者模式的一个分支，但是现在慢慢独立
+出来。这一模式中发布者的消息发送者不会将消息直接发送给
+订阅者，这意味着发布者和订阅者不知道彼此的存在。
+在发布者和订阅者之间存在第三个组件，称为消息代理或
+调度中心或中间件，它维持着发布者和订阅者之间的联系，
+过滤所有发布者传入的消息并相应地分发它们给订阅者。
+拿上边牛奶说事，现在村子的人都会使用微信了，同样都通过
+微信群定于了张三家牛奶。等第二天张三家牛奶挤出来了，
+张三就在朋友圈发布消息，说乡亲们牛奶好了，请自提。
+相信们通过微信群看到消息就会陆续来自提牛奶。
+发布订阅模式中的过程比之前观察者模式中的过程中间多了一个微信。
+```
+
+- 观察者模式和发布订阅模式有什么区别？
+```
+我们先来看下这两个模式的实现结构：
+观察者模式：观察者（Observer）直接订阅（Subscribe）
+主题（Subject），而当主题被激活的时候，
+会触发（Fire Event）观察者里的事件。
+
+发布订阅模式：订阅者（Subscriber）把自己想订阅的
+事件注册（Subscribe）到调度中心（Topic），当发布者
+（Publisher）发布该事件（Publish topic）到调度中心，
+也就是该事件触发时，由调度中心统一调度（Fire Event）
+订阅者注册到调度中心的处理代码。
+```
+
+- 观察者模式实现
+```
+为了更好的解释这种设计模式，我们另设置一个情景。
+假定每一个人都具有发布新书和订阅新书的功能，同时能知道
+谁订阅了自己的新书。现在我们规定系统生成了三个人，
+每一个人都具有之前假定的功能。现在其中一个人比较有名，
+所以另外两个人都订阅了他的新书，一旦新书发表，
+他们就能获得新书。结合这个场景，我们看如下代码：
+//list订阅列表
+//publish发布新书->订阅列表中对象买到新书
+//subscribe订阅新书的渠道
+function Humen (){
+    this.list = []
+    this.publish = function(){
+        this.list.forEach((item)=>{
+            item()
+        })
+    }
+    this.subscribe = function(target , fn){
+        target.list.push(fn)
+    }
+}
+var edward = new Humen();  //注册edward用户
+var eric = new Humen()     //注册eric用户
+var lucy = new Humen()    //注册lucy用户
+edward.subscribe(lucy , function(){//edward订阅lucy新书
+    console.log('Edward买到新书')
+})
+eric.subscribe(lucy , function(){//eric订阅lucy新书
+    console.log('Eric买到新书')
+})
+lucy.publish(); //lucy发布新书
+在上述代码中，系统生成了三个人分别为edward、eric、lucy。
+其中lucy比较有名，edward和eric都调用自己的subscribe
+函数订阅了lucy，并且规定了买到书之后的回调函数，
+subscribe两个参数分别为订阅目标和回调函数，分别执行
+edward，eric的subscribe函数后，相当于是在lucy的list属性
+中加入了前两者买到书之后的回调函数。然后lucy发布新书，
+就会执行lucy的publish函数，此函数遍历lucy的list中
+已经添加好的函数，依次执行。到此，我们就实现了一个简单的观察者模式。
+```
+
+- 发布订阅模式实现
+```
+发布者模式之前提到它比观察者模式多了一个调度中心，
+我们将这个调度中心比作当当网，也就是说上一个例子
+中lucy发布的新书会通过当当网发布，订阅此书的其他人
+也必须从当当网订阅。下面是代码实现：
+var dangdang = {
+    list : [],
+    subscribe : function(name,fn){
+        name.push(fn)
+    },
+    publish : function(name){
+       name.forEach((item)=>{
+           item()
+       }) 
+    }
+}
+function Humen (){
+    this.subscribe = function(name , fn){
+        dangdang.subscribe(name,fn)
+    }
+    this.publish = function(name){
+        dangdang.publish(name)
+    }
+}
+var edward = new Humen();  //注册edward用户
+var eric = new Humen()     //注册eric用户
+var lucy = new Humen()    //注册lucy用户
+edward.subscribe(dangdang['list'] , function(){//edward订阅当当网新书
+    console.log('Edward从当当网买到新书')
+})
+eric.subscribe(dangdang['list'] , function(){//eric订阅当当网新书
+    console.log('Eric当当网买到新书')
+})
+lucy.publish(dangdang['list']); //lucy在当当网发布新书
+上述代码中，我们依旧保留了用户的发布和订阅功能，
+但是都将这些功能最终交给当当网的发布和订阅功能取去实现。
+上述代码中写一个dangdang对象，在对象中list为当前
+订阅人的回调函数，subscribe为订阅函数，publish为
+发布函数。注册三个用户，其中edward和eric订阅了
+当当网新书，并把订阅回调函数保存在了当当网list中。
+下面lucy发布新书，通过当当网的发布函数。当当网发布
+函数一调用，立刻执行所有list中的回调函数。
+以上就是发布订阅者模式
+```
+
+- 总结
+```
+观察者模式和发布订阅模式最大的区别就是发布订阅模式有个事件调度中心。
+观察者模式由具体目标调度，每个被订阅的目标里面都需要有对观察者的处理，这种处理方式比较直接粗暴，但是会造成代码的冗余。
+而发布订阅模式中统一由调度中心进行处理，订阅者和发布者互不干扰，消除了发布者和订阅者之间的依赖。
+```
+
   #### 严格模式的限制
 ```
 变量必须声明后再使用
