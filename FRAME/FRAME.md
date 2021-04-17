@@ -2,7 +2,7 @@
 整理了 VUE、React、jQuery、webpack、 Bootstrap面试的部分知识点
 
 ### 目录
-- [为什么用前端框架](#)
+- [为什么用前端框架](#为什么用前端框架)
 
 - [VUE](#VUE)
   - [vue的生命周期函数](#vue的生命周期函数)
@@ -12,7 +12,7 @@
   - [MVVM和MVC的区别](#mvvm和mvc的区别)
   - [vue的优点](#vue的优点)
   - [vue的响应式原理](#vue的响应式原理)
-  - [发布订阅模式和观察者模式](#发布订阅模式和观察者模式) 发布订阅模式和观察者模式
+  - [发布订阅模式和观察者模式](#发布订阅模式和观察者模式)
   - [Object.defineProperty介绍](#objectdefineproperty介绍)
   - [使用Object.defineProperty()来进行数据劫持有什么缺点](#使用objectdefineproperty来进行数据劫持有什么缺点)
   - [v-if和v-show的区别](#v-if和v-show的区别)
