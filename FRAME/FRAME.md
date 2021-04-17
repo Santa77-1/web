@@ -17,6 +17,9 @@
   - [使用Object.defineProperty()来进行数据劫持有什么缺点](#使用objectdefineproperty来进行数据劫持有什么缺点)
   - [v-if和v-show的区别](#v-if和v-show的区别)
   - [vue中created和mounted区别](#vue中created和mounted区别)
+  - [vue中data和computed区别](#vue中data和computed区别)
+  - [vue中watch和computed区别](#vue中watch和computed区别)
+  - [vue中methods,watch和computer区别](#vue中methodswatch和computer区别）
   - [为什么vue组件中的data必须是函数](#为什么vue组件中的data必须是函数)
   - [vue的activated和deactivated钩子函数](#vue的activated和deactivated钩子函数)
   - [nextTick用法](#nexttick用法)
@@ -33,19 +36,19 @@
   - [rem原理](#rem-原理)
   - [rem和em的区别](#rem和em的区别)
   - [移动端300ms延迟的原因以及解决方案](#移动端300ms延迟的原因以及解决方案)
-  - [](#)  5 vue 和 react技术选型
+  - [vue和react技术选型](#vue和react技术选型)
   - [Vue和React数据驱动的区别](#vue和react数据驱动的区别)
 
 
 - [React](#React)
-  - [React生命周期](#React生命周期)  1 React生命周期
-  - [](#)  23 组件之间通信
-  - [](#)  4. 组件的渲染顺序
-  - [](#)  8 React组件和渲染更新过程
-  - [](#)  1. React 都做过哪些优化
-  - [](#)  13 React有哪些优化性能的手段
-  - [](#)  9 diff算法是怎么运作
-  - [](#)  24 React router
+  - [React生命周期](#React生命周期)
+  - [组件之间通信](#组件之间通信)
+  - [组件的渲染顺序](#组件的渲染顺序)
+  - [React组件和渲染更新过程](#React组件和渲染更新过程)
+  - [React都做过哪些优化](#React都做过哪些优化)
+  - [React有哪些优化性能的手段](#React有哪些优化性能的手段)
+  - [diff算法是怎么运作](#diff算法是怎么运作)
+  - [React router](#React router)
   - [](#)  18 redux 中间件
   - [](#)  14 Redux实现原理解析
   - [](#)  17 聊聊 Redux 和 Vuex 的设计思想
@@ -67,6 +70,7 @@
   - [](#)  11 JSX语法糖本质
   - [](#)  20 受控组件和非受控组件
   - [](#)  21 SSR原理
+
 
 
 - [jQuery](#jQuery)
@@ -1411,10 +1415,6 @@ watch属性是一个对象，键是需要观察的表达式，值是对应回调
 </body>
 </html>
 ```
-
-
-
-
 
   #### 为什么vue组件中的data必须是函数
 ```
