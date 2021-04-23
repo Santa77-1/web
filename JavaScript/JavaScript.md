@@ -300,17 +300,6 @@
   - [进程间通信的方式](#进程间通信的方式)
   - [Reflect对象创建目的](#Reflect对象创建目的)
 
-- [ES6](#ES6)
-  - [es6新特性](#es6新特性)
-  - [let var const](#let-var-const)
-  - [箭头函数](#箭头函数)
-  - [模板字符串](#模板字符串)
-  - [promise的用法和几种状态](#promise的用法和几种状态)
-  - [for in和for of的区别](#箭头函数)
-  - [arguments对象](#arguments对象)
-  - [async/await](#asyncawait)
-  - [解构赋值](#解构赋值)
-
 - [实现](#实现)
   - [Js动画与CSS动画区别及相应实现](#Js动画与CSS动画区别及相应实现)
   - [js拖拽功能的实现,对页面某个节点的拖曳如何做？（使用原生JS）](#js拖拽功能的实现对页面某个节点的拖曳如何做使用原生JS)
@@ -378,6 +367,39 @@
   - [代码的复用](#代码的复用)
   - [JavaScript实现对上传图片的压缩](#JavaScript实现对上传图片的压缩)
 
+
+- [ES6](#ES6)
+  - [es6新特性](#es6新特性)
+  - [let var const](#let-var-const)
+  - [箭头函数](#箭头函数)
+  - [模板字符串](#模板字符串)
+  - [promise的用法和几种状态](#promise的用法和几种状态)
+  - [for in和for of的区别](#箭头函数)
+  - [arguments对象](#arguments对象)
+  - [async/await](#asyncawait)
+  - [解构赋值](#解构赋值)
+  - [ES5、ES6和ES2015有什么区别](#ES5ES6和ES2015有什么区别)
+  - [babel是什么，有什么作用](#babel是什么有什么作用)
+  - [let有什么用，有了var为什么还要用let](#let有什么用有了var为什么还要用let)
+  - [举一些ES6对String字符串类型做的常用升级优化](#举一些ES6对String字符串类型做的常用升级优化)
+  - [举一些ES6对Array数组类型做的常用升级优化](#举一些ES6对Array数组类型做的常用升级优化)
+  - [举一些ES6对Number数字类型做的常用升级优化](举一些ES6对Number数字类型做的常用升级优化)
+  - [举一些ES6对Object类型做的常用升级优化](#举一些ES6对Object类型做的常用升级优化)
+  - [举一些ES6对Function函数类型做的常用升级优化](#举一些ES6对Function函数类型做的常用升级优化)
+  - [Symbol是什么，有什么作用](#Symbol是什么有什么作用)
+  - [Set是什么，有什么作用](#Set是什么有什么作用)
+  - [Map是什么，有什么作用](#Map是什么有什么作用)
+  - [介绍下Set、Map、WeakSet和WeakMap的区别](#介绍下SetMapWeakSet和WeakMap的区别)
+  - [Proxy是什么，有什么作用](#Proxy是什么有什么作用)
+  - [Reflect是什么，有什么作用](#Reflect是什么有什么作用)
+  - [Promise是什么，有什么作用](#Promise是什么有什么作用)
+  - [Iterator是什么，有什么作用](#Iterator是什么有什么作用)
+  - [for...in和for...of有什么区别](#forin和forof有什么区别)
+  - [Generator函数是什么，有什么作用](#Generator函数是什么有什么作用)
+  - [async函数是什么，有什么作用](#async函数是什么有什么作用)
+  - [Class、extends是什么，有什么作用](#Classextends是什么有什么作用)
+  - [module、export、import是什么，有什么作用](#moduleexportimport是什么有什么作用)
+  - [日常前端代码开发中，有哪些值得用ES6去改进的编程优化或者规范](#日常前端代码开发中有哪些值得用ES6去改进的编程优化或者规范)
   
   
 
@@ -9013,385 +9035,6 @@ ip地址
 怎么修改默认行为，你总可以在 Reflect 上获取默认行为。
 ```
 
-### ES6
-```
-新增模板字符串（为JavaScript提供了简单的字符串插值功能）
-箭头函数
-for-of（用来遍历数据—例如数组中的值。）
-arguments对象可被不定参数和默认参数完美代替。
-ES6将promise对象纳入规范，提供了原生的Promise对象。
-增加了let和const命令，用来声明变量。
-增加了块级作用域。
-let命令实际上就增加了块级作用域。
-还有就是引入module模块的概念
-```
- 
-  #### es6新特性
-- 1.箭头函数
-- 2.新增模板字符串，为 JavaScript 提供了简单的字符串插值功能
-- 3.新增了 let 和 const 命令，用来声明变量
-```
-let 所声明的变量，只在let 命令所在的代码块内有效。const 声明的变量是常量，不能被修改
-```
-- 4.增加了块级作用域，let 命令实际上就增加了块级作用域
-- 5.es6 将 Promise 对象纳入规范，提供了原生的 Promise 对象
-- 6.提供了 set 和 map 的数据结构
-- 7.for-of 用来遍历数据，例如数组中的值
-- 8.arguments 对象可被不定参数和默认参数完美代替
-- 9.还有就是引入 module 模块的概念
-
-```
-5.所谓Promise，简单说就是一个容器，里面保存着某个未来
-6.才会结束的事件（通常是一个异步操作）的结果。
-从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。
-Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
-我们可以通过Promise的构造函数来创建Promise对象，
-并在内部封装一个异步执行的结果。
-
-如果我们想要等待异步执行完成，做一些事情，
-我们可以通过promise的then方法来实现
-
-如果想要处理promise异步执行失败的事件，还可以跟上catch
-```
-
-```
-6. Set，本质与数组类似。不同在于Set中只能保存不同元素，
-如果元素相同会被忽略。
-map，本质是与Object类似的结构。不同在于，
-Object强制规定key只能是字符串。
-而Map结构的key可以是任意对象。
-即：object是 <string,object>集合map是<object,object>集合
-```
-
-  #### let var const
-```
-let命令不存在变量提升，如果在let前使用，会导致报错
-如果块区中存在let和const命令，就会形成封闭作用域
-不允许重复声明，因此，不能在函数内部重新声明参数
-```
-
-```
-1.声明的变量只在声明时的代码块内有效
-2.不存在声明提升
-3.存在暂时性死区，如果在变量声明前使用，会报错
-4.不允许重复声明，重复声明会报错
-```
-
-```
-let：
-允许你声明一个作用域被限制在块级中的变量、语句或者表达式
-
-let绑定不受变量提升的约束，这意味着let声明不会被提升到当前
-
-该变量处于从块开始到初始化处理的“暂存死区”
-
-var：
-声明变量的作用域限制在其声明位置的上下文中，而非声明变量总是全局的
-
-由于变量声明（以及其他声明）总是在任意代码执行之前处理的，
-所以在代码中的任意位置声明变量总是等效于在代码开头声明
-
-const：
-声明创建一个值的只读引用 (即指针)
-
-基本数据当值发生改变时，那么其对应的指针也将发生改变，
-故造成 const申明基本数据类型时
-
-再将其值改变时，将会造成报错， 例如 const a = 3 ; a = 5时 将会报错
-
-但是如果是复合类型时，如果只改变复合类型的其中某个Value项时， 
-将还是正常使用
-```
-
-```
-对于var、let、const他们三个的比较和总结，我们用几段代码来说明一下：
-const a1 = 100;
-a1 = 200;  //报错Assignment to constant variable
-上述代码说明了const定义的是一个常量，而且更改之后会报错。
-
-var a1 = 100;
-let a2 = 100;
-const a3 = 100;
-console.log(window.a1);  
-100console.log(window.a2);  //undefined
-console.log(window.a3);  //undefined
-上述代码说明了var定义的变量会挂载到window上，而let和const定义的则不会。
-
-console.log(a1);  //undefinedvar a1 = 100;
-console.log(a2);  //报错const a2 = 100;
-console.log(a3);  //报错let a3 = 100;
-上述代码说明了var定义的变量会提升，let和const定义的则不会。
-let和const必须严格遵守先定义在访问的原则。
-
-if (true) {    
-	var a1 = 100;    
-	let a2 = 100;    
-	const a3 = 100;
-}
-console.log(a1) //100
-console.log(a2) //报错
-console.log(a3) //报错
-let和const定义的值，其作用域会被限制在定义的
-作用域中，不能被别的作用于访问，但是var可以。
-
-const a = '123';
-a = '456'; //报错
-const obj = {    
-        name : 1
-}
-obj.name = 2; //正确
-const定义的基本数据类型不可更改，定义的
-引用数据类型可以更改。因为基本数据类型保存在栈中，
-即定义的常量值即为后边赋的值。引用数据类型保存
-在堆中，但是他的地址保存在栈中，用const定义的
-引用数据类型中保存的值实际上为此引用数据类型
-在栈中的地址，所以只要地址不改变，
-改变引用数据类型中的字段是没有问题的。
-```
-
-  #### 箭头函数
-```
-箭头函数的几种基本写法如下：
-let func = (num)=>num ; //表示传入num，返回num，省略了return关键字
-let func1 = num=>num;   //如果只传递一个参数，可以省略括号
-let func2 = ()=>{    //比较标准的写法
-    console.log(111)
-}
-箭头函数中的this是常考的点，下面我们用es5
-的this和箭头函数中的this做一个比较，代码如下：
-var obj1 = {
-    name : "Edward",
-    print : function(){
-        console.log(this.name); //Edward
-    }
-}
-obj1.print()
-
-var obj2 = {
-    name : "Eric",
-    print : ()=>{
-        console.log(this.name); //undefined
-    }
-}
-obj2.print()
-
-上述代码中，es5函数中的this指向调用这个函数的
-对象obj1，所以可以打印出name值。箭头函数中的
-this指向的并不是调用这个函数的对象obj2，
-所以打印不出name值。
-var obj2 = {
-    name : "Eric",
-    print : ()=>{
-        console.log(this.name); //undefined
-    }
-}
-obj2.print.call(obj2);
-上述代码中我们试着用call方法改变print函数的
-this指向，发现依然是没有效果的。
-那么箭头函数中的this指向谁呢？我们接着看：
-var obj2 = {
-    name : "Eric",
-    print : ()=>{
-        console.log(this) ;//Window
-    }
-}
-obj2.print.call(obj2);
-经过打印后得知箭头函数中的this指向了window对象，
-下面我们接着看：
-function handle(){
-    return ()=>{
-        console.log(this.name) //edward
-    }
-}
-var obj = {
-    name : 'edward',
-    handle : handle
-}
-obj.handle()()
-上述代码中运行街头函数后得知this指向了obj对象。
-综合上边代码，可以发现，
-箭头函数的this指向了他所在函数的父级作用域。
-var a = ()=>{
-    console.log(arguments); //不是[1,2,....]
-}
-a(1,2)
-上述代码运行时，并不能获取正确的arguments，即箭头函数不能使用
-
-arguments对象
-var Humen = (name)=>{  //报错
-    this.name = name
-}
-var humen = new Humen('edward');
-console.log(humen)
-上述代码中使用箭头函数作为构造函数发现报错了，
-即箭头函数不能作为构造函数，
-因为es6中有class关键字可以做这个事儿。
-```
-
-  #### 模板字符串
-```
-这个比较简单，直接上代码。
-var a = '100';
-var str = `我今天考了${a}分`;
-console.log(str)
-```
-
-  #### promise的用法和几种状态
-```
-var a = Math.random()
-new Promise((resolve,reject)=>{
-    if(a > 0.5){
-        resolve(a)
-    }else{
-        reject(a)
-    }
-}).then((val)=>{
-    console.log(val)
-}).catch((val)=>{
-    console.log(val)
-}).finally(()=>{
-    console.log("不管什么状态都会执行")
-})
-上述代码中，promise一共三种状态，在还没有生成a的
-确定值的时候，promise处于pending状态。当生成了a的值，
-如果a大于0.5，运行resolve即fulfilled状态，
-如果a小雨0.5运行reject()即reject状态。
-其中resolve对应then，reject对象catch。
-finally无论是resolve或者reject都会执行。   
-```
-
-  #### for in和for of的区别
-```
-for in用来遍历普通对象，for of用于遍历可迭代对象。
-下边我们用代码来实现一下：
-var obj = {
-    name : 'edward',
-    age : 100
-}
-var arr = ['a','b']
-for(var i in obj){
-    console.log(i)  ; //name age
-    console.log(obj[i]) //edward 100
-}
-for(var i of arr){
-    console.log(i)  ; //a , b
-}
-```
-
-- for in性能很差，迭代当前对象中可枚举的属性，并且一直查找到原型上去。
-
-- 问题1：遍历顺序数字优先
-- 问题2：无法遍历symbol属性
-- 问题3：可以遍历到原型属性中可枚举的
-```
-let obj = {
-  name: 'poetry',
-  age: 22,
-  [Symbol('aa')]: 100,
-  0: 200,
-  1: 300
-}
-数字优先，不能遍历symbol属性
-```
-```
-for(let key in obj) {
-  // 不遍历原型上的属性
-  if(!obj.hasOwnProperty(key)) {
-    break;
-  }
-}
-```
-遍历obj的私有属性拼接
-```
-let keys = Object.keys(obj)
-keys = keys.concat(Object.getOwnPropertySymbols(obj1))
-keys.forEach(v=>{
-  console.log(v)
-})
-```
-
-for of
-- 部分数据结构实现了迭代器规范
-  - Symbol.itertor
-  - 数组/set/map
-  - 对象没有实现，for of不能遍历对象
-```
-// 数组具备迭代器规范，模拟实现
-var arr = [1,2,3,4,5]
-
-arr[Symbol.iterator] = function() {
-  let self = this, index = 0;
-
-  return {
-    next() {
-      if(index > self.length - 1) {
-        return {
-          done: true,
-          value: undefined
-        }
-      }
-      return {
-        done: false,
-        value: self[index++]
-      }
-    }
-  }
-}
-```
-```
-// 使对象具备可迭代特性
-let obj = {
-  0: 100,
-  1: 200,
-  length: 2
-}
-
-obj[Symbol.iterator] = Array.prototype[Symbol.iterator]
-
-for(var val of obj) {
-  console.log(val)
-}
-```
-
-  #### async/await
-```
-function demo1(){
-    return new Promise((resolve,reject)=>{
-        resolve(100)
-    })
-}
-
-async function handle(){
-    var a = await demo1()
-    console.log(a)
-}
-handle()
-上述代码简单介绍了async定义函数和await的用法。
-其中await后边跟的demo1函数如果返回一个promise对象，
-则a的值为promise中resolve传入的值。如果demo1没有
-返回一个promise对象，则a的值为undefined。
-当执行async函数，遇到await时，不管后边的demo1中
-是否存在异步，都先要执行完demo1，再往下执行async
-定义的函数中的其他语句。
-
-原理：async顾名思义是异步的意思，即用async申明的
-函数为异步函数，await是等待的意思，就是等异步完成，
-并且await只能在async中调用。async能简化Promise操作，
-await得到Promise对象之后就等待Promise接下来的
-resolve或者reject。当你要对执行的函数进行排序时，
-只需要将函数的位置依次写道await后边即可。
- ```
-
-
-  - [arguments对象](#arguments对象)
-  
-
-  #### 解构赋值
-```
-var [a,b] = [1,2];
-console.log(a , b); //1 2
-```
-
 
 ### 实现
 
@@ -11542,12 +11185,1057 @@ delete Scope[0]; // remove specialObject from the front of scope chain
 
 
 
+### ES6
+```
+新增模板字符串（为JavaScript提供了简单的字符串插值功能）
+箭头函数
+for-of（用来遍历数据—例如数组中的值。）
+arguments对象可被不定参数和默认参数完美代替。
+ES6将promise对象纳入规范，提供了原生的Promise对象。
+增加了let和const命令，用来声明变量。
+增加了块级作用域。
+let命令实际上就增加了块级作用域。
+还有就是引入module模块的概念
+```
+ 
+  #### es6新特性
+- 1.箭头函数
+- 2.新增模板字符串，为 JavaScript 提供了简单的字符串插值功能
+- 3.新增了 let 和 const 命令，用来声明变量
+```
+let 所声明的变量，只在let 命令所在的代码块内有效。const 声明的变量是常量，不能被修改
+```
+- 4.增加了块级作用域，let 命令实际上就增加了块级作用域
+- 5.es6 将 Promise 对象纳入规范，提供了原生的 Promise 对象
+- 6.提供了 set 和 map 的数据结构
+- 7.for-of 用来遍历数据，例如数组中的值
+- 8.arguments 对象可被不定参数和默认参数完美代替
+- 9.还有就是引入 module 模块的概念
+
+```
+5.所谓Promise，简单说就是一个容器，里面保存着某个未来
+6.才会结束的事件（通常是一个异步操作）的结果。
+从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。
+Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
+我们可以通过Promise的构造函数来创建Promise对象，
+并在内部封装一个异步执行的结果。
+
+如果我们想要等待异步执行完成，做一些事情，
+我们可以通过promise的then方法来实现
+
+如果想要处理promise异步执行失败的事件，还可以跟上catch
+```
+
+```
+6. Set，本质与数组类似。不同在于Set中只能保存不同元素，
+如果元素相同会被忽略。
+map，本质是与Object类似的结构。不同在于，
+Object强制规定key只能是字符串。
+而Map结构的key可以是任意对象。
+即：object是 <string,object>集合map是<object,object>集合
+```
+
+  #### let var const
+```
+let命令不存在变量提升，如果在let前使用，会导致报错
+如果块区中存在let和const命令，就会形成封闭作用域
+不允许重复声明，因此，不能在函数内部重新声明参数
+```
+
+```
+1.声明的变量只在声明时的代码块内有效
+2.不存在声明提升
+3.存在暂时性死区，如果在变量声明前使用，会报错
+4.不允许重复声明，重复声明会报错
+```
+
+```
+let：
+允许你声明一个作用域被限制在块级中的变量、语句或者表达式
+
+let绑定不受变量提升的约束，这意味着let声明不会被提升到当前
+
+该变量处于从块开始到初始化处理的“暂存死区”
+
+var：
+声明变量的作用域限制在其声明位置的上下文中，而非声明变量总是全局的
+
+由于变量声明（以及其他声明）总是在任意代码执行之前处理的，
+所以在代码中的任意位置声明变量总是等效于在代码开头声明
+
+const：
+声明创建一个值的只读引用 (即指针)
+
+基本数据当值发生改变时，那么其对应的指针也将发生改变，
+故造成 const申明基本数据类型时
+
+再将其值改变时，将会造成报错， 例如 const a = 3 ; a = 5时 将会报错
+
+但是如果是复合类型时，如果只改变复合类型的其中某个Value项时， 
+将还是正常使用
+```
+
+```
+对于var、let、const他们三个的比较和总结，我们用几段代码来说明一下：
+const a1 = 100;
+a1 = 200;  //报错Assignment to constant variable
+上述代码说明了const定义的是一个常量，而且更改之后会报错。
+
+var a1 = 100;
+let a2 = 100;
+const a3 = 100;
+console.log(window.a1);  
+100console.log(window.a2);  //undefined
+console.log(window.a3);  //undefined
+上述代码说明了var定义的变量会挂载到window上，而let和const定义的则不会。
+
+console.log(a1);  //undefinedvar a1 = 100;
+console.log(a2);  //报错const a2 = 100;
+console.log(a3);  //报错let a3 = 100;
+上述代码说明了var定义的变量会提升，let和const定义的则不会。
+let和const必须严格遵守先定义在访问的原则。
+
+if (true) {    
+	var a1 = 100;    
+	let a2 = 100;    
+	const a3 = 100;
+}
+console.log(a1) //100
+console.log(a2) //报错
+console.log(a3) //报错
+let和const定义的值，其作用域会被限制在定义的
+作用域中，不能被别的作用于访问，但是var可以。
+
+const a = '123';
+a = '456'; //报错
+const obj = {    
+        name : 1
+}
+obj.name = 2; //正确
+const定义的基本数据类型不可更改，定义的
+引用数据类型可以更改。因为基本数据类型保存在栈中，
+即定义的常量值即为后边赋的值。引用数据类型保存
+在堆中，但是他的地址保存在栈中，用const定义的
+引用数据类型中保存的值实际上为此引用数据类型
+在栈中的地址，所以只要地址不改变，
+改变引用数据类型中的字段是没有问题的。
+```
+
+  #### 箭头函数
+```
+箭头函数的几种基本写法如下：
+let func = (num)=>num ; //表示传入num，返回num，省略了return关键字
+let func1 = num=>num;   //如果只传递一个参数，可以省略括号
+let func2 = ()=>{    //比较标准的写法
+    console.log(111)
+}
+箭头函数中的this是常考的点，下面我们用es5
+的this和箭头函数中的this做一个比较，代码如下：
+var obj1 = {
+    name : "Edward",
+    print : function(){
+        console.log(this.name); //Edward
+    }
+}
+obj1.print()
+
+var obj2 = {
+    name : "Eric",
+    print : ()=>{
+        console.log(this.name); //undefined
+    }
+}
+obj2.print()
+
+上述代码中，es5函数中的this指向调用这个函数的
+对象obj1，所以可以打印出name值。箭头函数中的
+this指向的并不是调用这个函数的对象obj2，
+所以打印不出name值。
+var obj2 = {
+    name : "Eric",
+    print : ()=>{
+        console.log(this.name); //undefined
+    }
+}
+obj2.print.call(obj2);
+上述代码中我们试着用call方法改变print函数的
+this指向，发现依然是没有效果的。
+那么箭头函数中的this指向谁呢？我们接着看：
+var obj2 = {
+    name : "Eric",
+    print : ()=>{
+        console.log(this) ;//Window
+    }
+}
+obj2.print.call(obj2);
+经过打印后得知箭头函数中的this指向了window对象，
+下面我们接着看：
+function handle(){
+    return ()=>{
+        console.log(this.name) //edward
+    }
+}
+var obj = {
+    name : 'edward',
+    handle : handle
+}
+obj.handle()()
+上述代码中运行街头函数后得知this指向了obj对象。
+综合上边代码，可以发现，
+箭头函数的this指向了他所在函数的父级作用域。
+var a = ()=>{
+    console.log(arguments); //不是[1,2,....]
+}
+a(1,2)
+上述代码运行时，并不能获取正确的arguments，即箭头函数不能使用
+
+arguments对象
+var Humen = (name)=>{  //报错
+    this.name = name
+}
+var humen = new Humen('edward');
+console.log(humen)
+上述代码中使用箭头函数作为构造函数发现报错了，
+即箭头函数不能作为构造函数，
+因为es6中有class关键字可以做这个事儿。
+```
+
+  #### 模板字符串
+```
+这个比较简单，直接上代码。
+var a = '100';
+var str = `我今天考了${a}分`;
+console.log(str)
+```
+
+  #### promise的用法和几种状态
+```
+var a = Math.random()
+new Promise((resolve,reject)=>{
+    if(a > 0.5){
+        resolve(a)
+    }else{
+        reject(a)
+    }
+}).then((val)=>{
+    console.log(val)
+}).catch((val)=>{
+    console.log(val)
+}).finally(()=>{
+    console.log("不管什么状态都会执行")
+})
+上述代码中，promise一共三种状态，在还没有生成a的
+确定值的时候，promise处于pending状态。当生成了a的值，
+如果a大于0.5，运行resolve即fulfilled状态，
+如果a小雨0.5运行reject()即reject状态。
+其中resolve对应then，reject对象catch。
+finally无论是resolve或者reject都会执行。   
+```
+
+  #### for in和for of的区别
+```
+for in用来遍历普通对象，for of用于遍历可迭代对象。
+下边我们用代码来实现一下：
+var obj = {
+    name : 'edward',
+    age : 100
+}
+var arr = ['a','b']
+for(var i in obj){
+    console.log(i)  ; //name age
+    console.log(obj[i]) //edward 100
+}
+for(var i of arr){
+    console.log(i)  ; //a , b
+}
+```
+
+- for in性能很差，迭代当前对象中可枚举的属性，并且一直查找到原型上去。
+
+- 问题1：遍历顺序数字优先
+- 问题2：无法遍历symbol属性
+- 问题3：可以遍历到原型属性中可枚举的
+```
+let obj = {
+  name: 'poetry',
+  age: 22,
+  [Symbol('aa')]: 100,
+  0: 200,
+  1: 300
+}
+数字优先，不能遍历symbol属性
+```
+```
+for(let key in obj) {
+  // 不遍历原型上的属性
+  if(!obj.hasOwnProperty(key)) {
+    break;
+  }
+}
+```
+遍历obj的私有属性拼接
+```
+let keys = Object.keys(obj)
+keys = keys.concat(Object.getOwnPropertySymbols(obj1))
+keys.forEach(v=>{
+  console.log(v)
+})
+```
+
+for of
+- 部分数据结构实现了迭代器规范
+  - Symbol.itertor
+  - 数组/set/map
+  - 对象没有实现，for of不能遍历对象
+```
+// 数组具备迭代器规范，模拟实现
+var arr = [1,2,3,4,5]
+
+arr[Symbol.iterator] = function() {
+  let self = this, index = 0;
+
+  return {
+    next() {
+      if(index > self.length - 1) {
+        return {
+          done: true,
+          value: undefined
+        }
+      }
+      return {
+        done: false,
+        value: self[index++]
+      }
+    }
+  }
+}
+```
+```
+// 使对象具备可迭代特性
+let obj = {
+  0: 100,
+  1: 200,
+  length: 2
+}
+
+obj[Symbol.iterator] = Array.prototype[Symbol.iterator]
+
+for(var val of obj) {
+  console.log(val)
+}
+```
+
+  #### async/await
+```
+function demo1(){
+    return new Promise((resolve,reject)=>{
+        resolve(100)
+    })
+}
+
+async function handle(){
+    var a = await demo1()
+    console.log(a)
+}
+handle()
+上述代码简单介绍了async定义函数和await的用法。
+其中await后边跟的demo1函数如果返回一个promise对象，
+则a的值为promise中resolve传入的值。如果demo1没有
+返回一个promise对象，则a的值为undefined。
+当执行async函数，遇到await时，不管后边的demo1中
+是否存在异步，都先要执行完demo1，再往下执行async
+定义的函数中的其他语句。
+
+原理：async顾名思义是异步的意思，即用async申明的
+函数为异步函数，await是等待的意思，就是等异步完成，
+并且await只能在async中调用。async能简化Promise操作，
+await得到Promise对象之后就等待Promise接下来的
+resolve或者reject。当你要对执行的函数进行排序时，
+只需要将函数的位置依次写道await后边即可。
+ ```
 
 
+  - [arguments对象](#arguments对象)
+  
 
+  #### 解构赋值
+```
+var [a,b] = [1,2];
+console.log(a , b); //1 2
+```
 
+#### ES5、ES6和ES2015有什么区别
+- ES2015特指在2015年发布的新一代JS语言标准，ES6泛指下一代JS语言标准，包含ES2015、ES2016、ES2017、ES2018等。现阶段在绝大部分场景下，ES2015默认等同ES6。ES5泛指上一代语言标准。ES2015可以理解为ES5和ES6的时间分界线
 
+#### babel是什么，有什么作用
+- babel是一个 ES6 转码器，可以将 ES6 代码转为 ES5 代码，以便兼容那些还没支持ES6的平台
 
+#### let有什么用，有了var为什么还要用let
+- 在ES6之前，声明变量只能用var，var方式声明变量其实是很不合理的，准确的说，是因为ES5里面没有块级作用域是很不合理的。没有块级作用域回来带很多难以理解的问题，比如for循环var变量泄露，变量覆盖等问题。let声明的变量拥有自己的块级作用域，且修复了var声明变量带来的变量提升问题。
+
+#### 举一些ES6对String字符串类型做的常用升级优化
+优化部分
+- ES6新增了字符串模板，在拼接大段字符串时，用反斜杠()`取代以往的字符串相加的形式，能保留所有空格和换行，使得字符串拼接看起来更加直观，更加优雅
+
+升级部分
+- ES6在String原型上新增了includes()方法，用于取代传统的只能用indexOf查找包含字符的方法(indexOf返回-1表示没查到不如includes方法返回false更明确，语义更清晰), 此外还新增了startsWith(), endsWith(), padStart(),padEnd(),repeat()等方法，可方便的用于查找，补全字符串
+
+#### 举一些ES6对Array数组类型做的常用升级优化
+优化部分
+- 数组解构赋值。ES6可以直接以let [a,b,c] = [1,2,3]形式进行变量赋值，在声明较多变量时，不用再写很多let(var),且映射关系清晰，且支持赋默认值
+- 扩展运算符。ES6新增的扩展运算符(...)(重要),可以轻松的实现数组和松散序列的相互转化，可以取代arguments对象和apply方法，轻松获取未知参数个数情况下的参数集合。（尤其是在ES5中，arguments并不是一个真正的数组，而是一个类数组的对象，但是扩展运算符的逆运算却可以返回一个真正的数组）。扩展运算符还可以轻松方便的实现数组的复制和解构赋值（let a = [2,3,4]; let b = [...a]）
+
+升级部分
+- ES6在Array原型上新增了find()方法，用于取代传统的只能用indexOf查找包含数组项目的方法,且修复了indexOf查找不到NaN的bug([NaN].indexOf(NaN) === -1).此外还新增了copyWithin(),includes(), fill(),flat()等方法，可方便的用于字符串的查找，补全,转换等
+
+#### 举一些ES6对Number数字类型做的常用升级优化
+优化部分
+- ES6在Number原型上新增了isFinite(), isNaN()方法，用来取代传统的全局isFinite(), isNaN()方法检测数值是否有限、是否是NaN。ES5的isFinite(), isNaN()方法都会先将非数值类型的参数转化为Number类型再做判断，这其实是不合理的，最造成isNaN('NaN') === true的奇怪行为--'NaN'是一个字符串，但是isNaN却说这就是NaN。而Number.isFinite()和Number.isNaN()则不会有此类问题(Number.isNaN('NaN') === false)。（isFinite()同上）
+
+升级部分
+- ES6在Math对象上新增了Math.cbrt()，trunc()，hypot()等等较多的科学计数法运算方法，可以更加全面的进行立方根、求和立方根等等科学计算
+
+#### 举一些ES6对Object类型做的常用升级优化
+优化部分
+- 对象属性变量式声明。ES6可以直接以变量形式声明对象属性或者方法，。比传统的键值对形式声明更加简洁，更加方便，语义更加清晰
+```
+let [apple, orange] = ['red appe', 'yellow orange'];
+let myFruits = {apple, orange};    // let myFruits = {apple: 'red appe', orange: 'yellow orange'};
+```
+- 尤其在对象解构赋值(见优化部分b.)或者模块输出变量时，这种写法的好处体现的最为明显
+```
+let {keys, values, entries} = Object;
+let MyOwnMethods = {keys, values, entries}; // let MyOwnMethods = {keys: keys, values: values, entries: entries}
+```
+- 可以看到属性变量式声明属性看起来更加简洁明了。方法也可以采用简洁写法
+```
+let es5Fun = {
+    method: function(){}
+}; 
+let es6Fun = {
+    method(){}
+}
+```
+- 对象的解构赋值。 ES6对象也可以像数组解构赋值那样，进行变量的解构赋值
+```
+let {apple, orange} = {apple: 'red appe', orange: 'yellow orange'};
+```
+- 对象的扩展运算符(...)。 ES6对象的扩展运算符和数组扩展运算符用法本质上差别不大，毕竟数组也就是特殊的对象。对象的扩展运算符一个最常用也最好用的用处就在于可以轻松的取出一个目标对象内部全部或者部分的可遍历属性，从而进行对象的合并和分解
+```
+let {apple, orange, ...otherFruits} = {apple: 'red apple', orange: 'yellow orange', grape: 'purple grape', peach: 'sweet peach'}; 
+// otherFruits  {grape: 'purple grape', peach: 'sweet peach'}
+// 注意: 对象的扩展运算符用在解构赋值时，扩展运算符只能用在最有一个参数(otherFruits后面不能再跟其他参数)
+let moreFruits = {watermelon: 'nice watermelon'};
+let allFruits = {apple, orange, ...otherFruits, ...moreFruits};
+```
+- super 关键字。ES6在Class类里新增了类似this的关键字super。同this总是指向当前函数所在的对象不同，super关键字总是指向当前函数所在对象的原型对象
+
+升级部分
+- ES6在Object原型上新增了is()方法，做两个目标对象的相等比较，用来完善'==='方法。'==='方法中NaN === NaN //false其实是不合理的，Object.is修复了这个小bug。(Object.is(NaN, NaN) // true)
+- ES6在Object原型上新增了assign()方法，用于对象新增属性或者多个对象合并
+```
+const target = { a: 1 };
+const source1 = { b: 2 };
+const source2 = { c: 3 };
+Object.assign(target, source1, source2);
+target // {a:1, b:2, c:3}
+```
+- 注意: assign合并的对象target只能合并source1、source2中的自身属性，并不会合并source1、source2中的继承属性，也不会合并不可枚举的属性，且无法正确复制get和set属性（会直接执行get/set函数，取return的值）
+
+- ES6在Object原型上新增了getOwnPropertyDescriptors()方法，此方法增强了ES5中getOwnPropertyDescriptor()方法，可以获取指定对象所有自身属性的描述对象。结合defineProperties()方法，可以完美复制对象，包括复制get和set属性
+- ES6在Object原型上新增了getPrototypeOf()和setPrototypeOf()方法，用来获取或设置当前对象的prototype对象。这个方法存在的意义在于，ES5中获取设置prototype对像是通过__proto__属性来实现的，然而__proto__属性并不是ES规范中的明文规定的属性，只是浏览器各大产商“私自”加上去的属性，只不过因为适用范围广而被默认使用了，再非浏览器环境中并不一定就可以使用，所以为了稳妥起见，获取或设置当前对象的prototype对象时，都应该采用ES6新增的标准用法
+- ES6在Object原型上还新增了Object.keys()，Object.values()，Object.entries()方法，用来获取对象的所有键、所有值和所有键值对数组
+
+#### 举一些ES6对Function函数类型做的常用升级优化
+优化部分
+- 箭头函数(核心)。箭头函数是ES6核心的升级项之一，箭头函数里没有自己的this,这改变了以往JS函数中最让人难以理解的this运行机制。主要优化点
+
+- 箭头函数内的this指向的是函数定义时所在的对象，而不是函数执行时所在的对象。ES5函数里的this总是指向函数执行时所在的对象，这使得在很多情况下this的指向变得很难理解，尤其是非严格模式情况下，this有时候会指向全局对象，这甚至也可以归结为语言层面的bug之一。ES6的箭头函数优化了这一点，它的内部没有自己的this,这也就导致了this总是指向上一层的this，如果上一层还是箭头函数，则继续向上指，直到指向到有自己this的函数为止，并作为自己的this
+- 箭头函数不能用作构造函数，因为它没有自己的this，无法实例化
+- 也是因为箭头函数没有自己的this,所以箭头函数 内也不存在arguments对象。（可以用扩展运算符代替）
+- 函数默认赋值。ES6之前，函数的形参是无法给默认值得，只能在函数内部通过变通方法实现。ES6以更简洁更明确的方式进行函数默认赋值
+```
+function es6Fuc (x, y = 'default') {
+    console.log(x, y);
+}
+es6Fuc(4) // 4, default
+```
+
+升级部分
+- ES6新增了双冒号运算符，用来取代以往的bind，call,和apply。(浏览器暂不支持，Babel已经支持转码)
+```
+foo::bar;
+// 等同于
+bar.bind(foo);
+
+foo::bar(...arguments);
+// 等同于
+bar.apply(foo, arguments);
+```
+
+#### Symbol是什么，有什么作用
+- Symbol是ES6引入的第七种原始数据类型（说法不准确，应该是第七种数据类型，Object不是原始数据类型之一，已更正），所有Symbol()生成的值都是独一无二的，可以从根本上解决对象属性太多导致属性名冲突覆盖的问题。对象中Symbol()属性不能被for...in遍历，但是也不是私有属性
+
+#### Set是什么，有什么作用
+- Set是ES6引入的一种类似Array的新的数据结构，Set实例的成员类似于数组item成员，区别是Set实例的成员都是唯一，不重复的。这个特性可以轻松地实现数组去重
+
+#### Map是什么，有什么作用
+- Map是ES6引入的一种类似Object的新的数据结构，Map可以理解为是Object的超集，打破了以传统键值对形式定义对象，对象的key不再局限于字符串，也可以是Object。可以更加全面的描述对象的属性
+
+#### 介绍下Set、Map、WeakSet和WeakMap的区别
+- Set——对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用
+- WeakSet——成员都是对象；成员都是弱引用，可以被垃圾回收机制回收，可以用来保存 DOM 节点，不容易造成内存泄漏；
+- Map——本质上是键值对的集合，类似集合；可以遍历，方法很多，可以跟各种数据格式转换。
+- WeakMap——只接受对象最为键名（null 除外），不接受其他类型的值作为键名；键名是弱引用，键值可以是任意的，键名所指向的对象可以被垃圾回收，此时键名是无效的；不能遍历，方法有 get、set、has、delet
+
+#### Proxy是什么，有什么作用
+- Proxy是ES6新增的一个构造函数，可以理解为JS语言的一个代理，用来改变JS默认的一些语言行为，包括拦截默认的get/set等底层方法，使得JS的使用自由度更高，可以最大限度的满足开发者的需求。比如通过拦截对象的get/set方法，可以轻松地定制自己想要的key或者value。下面的例子可以看到，随便定义一个myOwnObj的key,都可以变成自己想要的函数`
+```
+function createMyOwnObj() {
+	//想把所有的key都变成函数，或者Promise,或者anything
+	return new Proxy({}, {
+		get(target, propKey, receiver) {
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					let randomBoolean = Math.random() > 0.5;
+					let Message;
+					if (randomBoolean) {
+						Message = `你的${propKey}运气不错，成功了`;
+						resolve(Message);
+					} else {
+						Message = `你的${propKey}运气不行，失败了`;
+						reject(Message);
+					}
+				}, 1000);
+			});
+		}
+	});
+}
+
+let myOwnObj = createMyOwnObj();
+
+myOwnObj.hahaha.then(result => {
+	console.log(result) //你的hahaha运气不错，成功了
+}).catch(error => {
+	console.log(error) //你的hahaha运气不行，失败了
+})
+
+myOwnObj.wuwuwu.then(result => {
+	console.log(result) //你的wuwuwu运气不错，成功了
+}).catch(error => {
+	console.log(error) //你的wuwuwu运气不行，失败了
+})
+```
+
+#### Reflect是什么，有什么作用
+- Reflect是ES6引入的一个新的对象，他的主要作用有两点，一是将原生的一些零散分布在Object、Function或者全局函数里的方法(如apply、delete、get、set等等)，统一整合到Reflect上，这样可以更加方便更加统一的管理一些原生API。其次就是因为Proxy可以改写默认的原生API，如果一旦原生API别改写可能就找不到了，所以Reflect也可以起到备份原生API的作用，使得即使原生API被改写了之后，也可以在被改写之后的API用上默认的API
+
+#### Promise是什么，有什么作用
+- Promise是ES6引入的一个新的对象，他的主要作用是用来解决JS异步机制里，回调机制产生的“回调地狱”。它并不是什么突破性的API，只是封装了异步回调形式，使得异步回调可以写的更加优雅，可读性更高，而且可以链式调用
+
+#### Iterator是什么，有什么作用
+- Iterator是ES6中一个很重要概念，它并不是对象，也不是任何一种数据类型。因为ES6新增了Set、Map类型，他们和Array、Object类型很像，Array、Object都是可以遍历的，但是Set、Map都不能用for循环遍历，解决这个问题有两种方案，一种是为Set、Map单独新增一个用来遍历的API，另一种是为Set、Map、Array、Object新增一个统一的遍历API，显然，第二种更好，ES6也就顺其自然的需要一种设计标准，来统一所有可遍历类型的遍历方式。Iterator正是这样一种标准。或者说是一种规范理念
+- 就好像JavaScript是ECMAScript标准的一种具体实现一样，Iterator标准的具体实现是Iterator遍历器。Iterator标准规定，所有部署了key值为[Symbol.iterator]，且[Symbol.iterator]的value是标准的Iterator接口函数(标准的Iterator接口函数: 该函数必须返回一个对象，且对象中包含next方法，且执行next()能返回包含value/done属性的Iterator对象)的对象，都称之为可遍历对象，next()后返回的Iterator对象也就是Iterator遍历器
+```
+//obj就是可遍历的，因为它遵循了Iterator标准，且包含[Symbol.iterator]方法，方法函数也符合标准的Iterator接口规范。
+//obj.[Symbol.iterator]() 就是Iterator遍历器
+let obj = {
+  data: [ 'hello', 'world' ],
+  [Symbol.iterator]() {
+    const self = this;
+    let index = 0;
+    return {
+      next() {
+        if (index < self.data.length) {
+          return {
+            value: self.data[index++],
+            done: false
+          };
+        } else {
+          return { value: undefined, done: true };
+        }
+      }
+    };
+  }
+};
+```
+
+- ES6给Set、Map、Array、String都加上了[Symbol.iterator]方法，且[Symbol.iterator]方法函数也符合标准的Iterator接口规范，所以Set、Map、Array、String默认都是可以遍历的
+
+```
+//Array
+let array = ['red', 'green', 'blue'];
+array[Symbol.iterator]() //Iterator遍历器
+array[Symbol.iterator]().next() //{value: "red", done: false}
+
+//String
+let string = '1122334455';
+string[Symbol.iterator]() //Iterator遍历器
+string[Symbol.iterator]().next() //{value: "1", done: false}
+
+//set
+let set = new Set(['red', 'green', 'blue']);
+set[Symbol.iterator]() //Iterator遍历器
+set[Symbol.iterator]().next() //{value: "red", done: false}
+
+//Map
+let map = new Map();
+let obj= {map: 'map'};
+map.set(obj, 'mapValue');
+map[Symbol.iterator]().next()  {value: Array(2), done: false}
+```
+
+#### for...in和for...of有什么区别
+- ES6统一了遍历标准，制定了可遍历对象，那么用什么方法去遍历呢？答案就是用for...of。ES6规定，有所部署了载了Iterator接口的对象(可遍历对象)都可以通过for...of去遍历，而for..in仅仅可以遍历对象
+
+- 这也就意味着，数组也可以用for...of遍历，这极大地方便了数组的取值，且避免了很多程序用for..in去遍历数组的恶习
+
+#### Generator函数是什么，有什么作用
+- 如果说JavaScript是ECMAScript标准的一种具体实现、Iterator遍历器是Iterator的具体实现，那么Generator函数可以说是Iterator接口的具体实现方式。
+- 执行Generator函数会返回一个遍历器对象，每一次Generator函数里面的yield都相当一次遍历器对象的next()方法，并且可以通过next(value)方法传入自定义的value,来改变Generator函数的行为。
+- Generator函数可以通过配合Thunk 函数更轻松更优雅的实现异步编程和控制流管理。
+
+generator 原理
+- Generator 是 ES6中新增的语法，和 Promise 一样，都可以用来异步编程
+```
+// 使用 * 表示这是一个 Generator 函数
+// 内部可以通过 yield 暂停代码
+// 通过调用 next 恢复执行
+function* test() {
+  let a = 1 + 2;
+  yield 2;
+  yield 3;
+}
+let b = test();
+console.log(b.next()); // >  { value: 2, done: false }
+console.log(b.next()); // >  { value: 3, done: false }
+console.log(b.next()); // >  { value: undefined, done: true }
+```
+- 从以上代码可以发现，加上 *的函数执行后拥有了 next 函数，也就是说函数执行后返回了一个对象。每次调用 next 函数可以继续执行被暂停的代码。以下是 Generator 函数的简单实现
+```
+// cb 也就是编译过的 test 函数
+function generator(cb) {
+  return (function() {
+    var object = {
+      next: 0,
+      stop: function() {}
+    };
+
+    return {
+      next: function() {
+        var ret = cb(object);
+        if (ret === undefined) return { value: undefined, done: true };
+        return {
+          value: ret,
+          done: false
+        };
+      }
+    };
+  })();
+}
+// 如果你使用 babel 编译后可以发现 test 函数变成了这样
+function test() {
+  var a;
+  return generator(function(_context) {
+    while (1) {
+      switch ((_context.prev = _context.next)) {
+        // 可以发现通过 yield 将代码分割成几块
+        // 每次执行 next 函数就执行一块代码
+        // 并且表明下次需要执行哪块代码
+        case 0:
+          a = 1 + 2;
+          _context.next = 4;
+          return 2;
+        case 4:
+          _context.next = 6;
+          return 3;
+		// 执行完毕
+        case 6:
+        case "end":
+          return _context.stop();
+      }
+    }
+  });
+}
+```
+
+Generator 实现
+- Generator 是 ES6中新增的语法，和 Promise 一样，都可以用来异步编程
+```
+// 使用 * 表示这是一个 Generator 函数
+// 内部可以通过 yield 暂停代码
+// 通过调用 next 恢复执行
+function* test() {
+  let a = 1 + 2;
+  yield 2;
+  yield 3;
+}
+let b = test();
+console.log(b.next()); // >  { value: 2, done: false }
+console.log(b.next()); // >  { value: 3, done: false }
+console.log(b.next()); // >  { value: undefined, done: true }
+从以上代码可以发现，加上 * 的函数执行后拥有了 next函数，也就是说函数执行后返回了一个对象。每次调用 next函数可以继续执行被暂停的代码。以下是 Generator 函数的简单实现
+
+// cb 也就是编译过的 test 函数
+function generator(cb) {
+  return (function() {
+    var object = {
+      next: 0,
+      stop: function() {}
+    };
+
+    return {
+      next: function() {
+        var ret = cb(object);
+        if (ret === undefined) return { value: undefined, done: true };
+        return {
+          value: ret,
+          done: false
+        };
+      }
+    };
+  })();
+}
+// 如果你使用 babel 编译后可以发现 test 函数变成了这样
+function test() {
+  var a;
+  return generator(function(_context) {
+    while (1) {
+      switch ((_context.prev = _context.next)) {
+        // 可以发现通过 yield 将代码分割成几块
+        // 每次执行 next 函数就执行一块代码
+        // 并且表明下次需要执行哪块代码
+        case 0:
+          a = 1 + 2;
+          _context.next = 4;
+          return 2;
+        case 4:
+          _context.next = 6;
+          return 3;
+		// 执行完毕
+        case 6:
+        case "end":
+          return _context.stop();
+      }
+    }
+  });
+}
+```
+
+#### async函数是什么，有什么作用
+- async函数可以理解为内置自动执行器的Generator函数语法糖，它配合ES6的Promise近乎完美的实现了异步编程解决方案
+
+async、await 优缺点
+- async 和 await 相比直接使用 Promise 来说，优势在于处理 then 的调用链，能够更清晰准确的写出代码。缺点在于滥用 await 可能会导致性能问题，因为 await 会阻塞代码，也许之后的异步代码并不依赖于前者，但仍然需要等待前者完成，导致代码失去了并发性
+
+下面来看一个使用 await 的代码。
+```
+var a = 0
+var b = async () => {
+  a = a + await 10
+  console.log('2', a) // -> '2' 10
+  a = (await 10) + a
+  console.log('3', a) // -> '3' 20
+}
+b()
+a++
+console.log('1', a) // -> '1' 1
+```
+- 首先函数b 先执行，在执行到 await 10 之前变量 a 还是 0，因为在 await 内部实现了 generators ，generators 会保留堆栈中东西，所以这时候 a = 0 被保存了下来
+- 因为 await 是异步操作，遇到await就会立即返回一个pending状态的Promise对象，暂时返回执行代码的控制权，使得函数外的代码得以继续执行，所以会先执行 console.log('1', a)
+- 这时候同步代码执行完毕，开始执行异步代码，将保存下来的值拿出来使用，这时候 a = 10
+- 然后后面就是常规执行代码了
+
+#### Class、extends是什么，有什么作用
+- ES6 的class可以看作只是一个ES5生成实例对象的构造函数的语法糖。它参考了java语言，定义了一个类的概念，让对象原型写法更加清晰，对象实例化更像是一种面向对象编程。Class类可以通过extends实现继承。它和ES5构造函数的不同点
+
+类的内部定义的所有方法，都是不可枚举的
+```
+///ES5
+function ES5Fun (x, y) {
+	this.x = x;
+	this.y = y;
+}
+ES5Fun.prototype.toString = function () {
+	 return '(' + this.x + ', ' + this.y + ')';
+}
+var p = new ES5Fun(1, 3);
+p.toString();
+Object.keys(ES5Fun.prototype); //['toString']
+
+//ES6
+class ES6Fun {
+	constructor (x, y) {
+		this.x = x;
+		this.y = y;
+	}
+	toString () {
+		return '(' + this.x + ', ' + this.y + ')';
+	}
+}
+
+Object.keys(ES6Fun.prototype); //[]
+```
+- ES6的class类必须用new命令操作，而ES5的构造函数不用new也可以执行。
+- ES6的class类不存在变量提升，必须先定义class之后才能实例化，不像ES5中可以将构造函数写在实例化之后。
+- ES5 的继承，实质是先创造子类的实例对象this，然后再将父类的方法添加到this上面。ES6 的继承机制完全不同，实质是先将父类实例对象的属性和方法，加到this上面（所以必须先调用super方法），然后再用子类的构造函数修改this。
+
+#### module、export、import是什么，有什么作用
+- module、export、import是ES6用来统一前端模块化方案的设计思路和实现方案。export、import的出现统一了前端模块化的实现方案，整合规范了浏览器/服务端的模块化方法，用来取代传统的AMD/CMD、requireJS、seaJS、commondJS等等一系列前端模块不同的实现方案，使前端模块化更加统一规范，JS也能更加能实现大型的应用程序开发。
+- import引入的模块是静态加载（编译阶段加载）而不是动态加载（运行时加载）。
+- import引入export导出的接口值是动态绑定关系，即通过该接口，可以取到模块内部实时的值
+
+#### 日常前端代码开发中，有哪些值得用ES6去改进的编程优化或者规范
+- 常用箭头函数来取代var self = this;的做法。
+- 常用let取代var命令。
+- 常用数组/对象的结构赋值来命名变量，结构更清晰，语义更明确，可读性更好。
+- 在长字符串多变量组合场合，用模板字符串来取代字符串累加，能取得更好地效果和阅读体验。
+- 用Class类取代传统的构造函数，来生成实例化对象。
+- 在大型应用开发中，要保持module模块化开发思维，分清模块之间的关系，- 常用import、export方法。
+
+#
+22 ES6的了解
+新增模板字符串（为JavaScript提供了简单的字符串插值功能）、箭头函数（操作符左边为输入的参数，而右边则是进行的操作以及返回的值Inputs=>outputs。）、for-of（用来遍历数据—例如数组中的值。）arguments对象可被不定参数和默认参数完美代替。ES6将promise对象纳入规范，提供了原生的Promise对象。增加了let和const命令，用来声明变量。增加了块级作用域。let命令实际上就增加了块级作用域。ES6规定，var命令和function命令声明的全局变量，属于全局对象的属性；let命令、const命令、class命令声明的全局变量，不属于全局对象的属性。。还有就是引入module模块的概念
+
+#
+23 说说你对Promise的理解
+依照 Promise/A+ 的定义，Promise 有四种状态：
+pending: 初始状态, 非 fulfilled 或 rejected.
+fulfilled: 成功的操作.
+rejected: 失败的操作.
+settled: Promise已被fulfilled或rejected，且不是pending
+另外， fulfilled 与 rejected 一起合称 settled
+Promise 对象用来进行延迟(deferred) 和异步(asynchronous ) 计算
+可以把 Promise看成一个状态机。初始是 pending 状态，可以通过函数 resolve 和 reject，将状态转变为 resolved 或者 rejected 状态，状态一旦改变就不能再次变化。
+then 函数会返回一个 Promise 实例，并且该返回值是一个新的实例而不是之前的实例。因为 Promise 规范规定除了 pending 状态，其他状态是不可以改变的，如果返回的是一个相同实例的话，多个 then调用就失去意义了
+#
+24 Promise 的构造函数
+构造一个 Promise，最基本的用法如下：
+
+var promise = new Promise(function(resolve, reject) {
+
+        if (...) {  // succeed
+
+            resolve(result);
+
+        } else {   // fails
+
+            reject(Error(errMessage));
+
+        }
+    });
+Promise 实例拥有 then 方法（具有 then 方法的对象，通常被称为thenable）。它的使用方法如下：
+
+promise.then(onFulfilled, onRejected)
+接收两个函数作为参数，一个在 fulfilled 的时候被调用，一个在rejected的时候被调用，接收参数就是 future，onFulfilled 对应 resolve, onRejected 对应 reject
+
+什么是 Promise ？
+
+Promise 就是一个对象，用来表示并传递异步操作的最终结果
+Promise 最主要的交互方式：将回调函数传入 then 方法来获得最终结果或出错原因
+Promise 代码书写上的表现：以“链式调用”代替回调函数层层嵌套（回调地狱）
+#
+25 谈一谈你了解ECMAScript6的新特性？
+块级作用区域 let a = 1;
+可定义常量 const PI = 3.141592654;
+变量解构赋值 var [a, b, c] = [1, 2, 3];
+字符串的扩展(模板字符串) var sum =${a + b};
+数组的扩展(转换数组类型) Array.from($('li'));
+函数的扩展(扩展运算符) [1, 2].push(...[3, 4, 5]);
+对象的扩展(同值相等算法) Object.is(NaN, NaN);
+新增数据类型(Symbol) let uid = Symbol('uid');
+新增数据结构(Map) let set = new Set([1, 2, 2, 3]);
+for...of循环 for(let val of arr){};
+Promise对象 var promise = new Promise(func);
+Generator函数 function* foo(x){yield x; return x*x;}
+引入Class(类) class Foo {}
+引入模块体系 export default func;
+引入async函数[ES7]
+async function asyncPrint(value, ms) {
+      await timeout(ms);
+      console.log(value)
+     }
+     
+#
+26 Object.is() 与原来的比较操作符 ===、== 的区别？
+== 相等运算符，比较时会自动进行数据类型转换
+=== 严格相等运算符，比较时不进行隐式类型转换
+Object.is 同值相等算法，在 === 基础上对 0 和 NaN 特别处理
++0 === -0 //true
+NaN === NaN // false
+
+Object.is(+0, -0) // false
+Object.is(NaN, NaN) // true
+#
+27 什么是 Babel
+Babel 是一个 JS 编译器，自带一组 ES6 语法转化器，用于转化 JS 代码。 这些转化器让开发者提前使用最新的 JS语法(ES6/ES7)，而不用等浏览器全部兼容。
+Babel 默认只转换新的 JS 句法(syntax)，而不转换新的API。
+#
+28 symbol 有什么用处
+可以用来表示一个独一无二的变量防止命名冲突。但是面试官问还有吗？我没想出其他的用处就直接答我不知道了，还可以利用 symbol 不会被常规的方法（除了 Object.getOwnPropertySymbols 外）遍历到，所以可以用来模拟私有变量。
+
+主要用来提供遍历接口，布置了 symbol.iterator 的对象才可以使用 for···of 循环，可以统一处理数据结构。调用之后回返回一个遍历器对象，包含有一个 next 方法，使用 next 方法后有两个返回值 value 和 done 分别表示函数当前执行位置的值和是否遍历完毕。
+
+Symbol.for() 可以在全局访问 symbol
+
+#
+29 模块化
+在有 Babel 的情况下，我们可以直接使用 ES6的模块化
+
+// file a.js
+export function a() {}
+export function b() {}
+// file b.js
+export default function() {}
+
+import {a, b} from './a.js'
+import XXX from './b.js'
+CommonJS
+
+CommonJs 是 Node 独有的规范，浏览器中使用就需要用到 Browserify解析了。
+
+// a.js
+module.exports = {
+    a: 1
+}
+// or
+exports.a = 1
+
+// b.js
+var module = require('./a.js')
+module.a // -> log 1
+在上述代码中，module.exports 和 exports 很容易混淆，让我们来看看大致内部实现
+
+var module = require('./a.js')
+module.a
+// 这里其实就是包装了一层立即执行函数，这样就不会污染全局变量了，
+// 重要的是 module 这里，module 是 Node 独有的一个变量
+module.exports = {
+    a: 1
+}
+// 基本实现
+var module = {
+  exports: {} // exports 就是个空对象
+}
+// 这个是为什么 exports 和 module.exports 用法相似的原因
+var exports = module.exports
+var load = function (module) {
+    // 导出的东西
+    var a = 1
+    module.exports = a
+    return module.exports
+};
+再来说说 module.exports 和exports，用法其实是相似的，但是不能对 exports 直接赋值，不会有任何效果。
+
+对于 CommonJS 和 ES6 中的模块化的两者区别是：
+
+前者支持动态导入，也就是 require(${path}/xx.js)，后者目前不支持，但是已有提案,前者是同步导入，因为用于服务端，文件都在本地，同步导入即使卡住主线程影响也不大。
+而后者是异步导入，因为用于浏览器，需要下载文件，如果也采用同步导入会对渲染有很大影响
+前者在导出时都是值拷贝，就算导出的值变了，导入的值也不会改变，所以如果想更新值，必须重新导入一次。
+但是后者采用实时绑定的方式，导入导出的值都指向同一个内存地址，所以导入值会跟随导出值变化
+后者会编译成 require/exports 来执行的
+AMD
+
+AMD 是由 RequireJS 提出的
+
+// AMD
+define(['./a', './b'], function(a, b) {
+    a.do()
+    b.do()
+})
+define(function(require, exports, module) {   
+    var a = require('./a')  
+    a.doSomething()   
+    var b = require('./b')
+    b.doSomething()
+})
+#
+30 箭头函数的特点
+function a() {
+    return () => {
+        return () => {
+        	console.log(this)
+        }
+    }
+}
+console.log(a()()())
+箭头函数其实是没有 this 的，这个函数中的 this 只取决于他外面的第一个不是箭头函数的函数的 this。在这个例子中，因为调用 a 符合前面代码中的第一个情况，所以 this 是window。并且 this一旦绑定了上下文，就不会被任何代码改变
+
+#
+31 ES5 / ES6 的继承除了写法以外还有什么区别
+ES5 的继承实质上是先创建子类的实例对象，然后再将父类的方法添加到 this 上（Parent.apply(this)）
+ES6 的继承机制完全不同，实质上是先创建父类的实例对象 this（所以必须先调用父类的 super()方法），然后再用子类的构造函数修改 this。
+ES5 的继承时通过原型或构造函数机制来实现。
+ES6 通过 class 关键字定义类，里面有构造方法，类之间通过 extends 关键字实现继承。
+子类必须在 constructor 方法中调用 super 方法，否则新建实例报错。因为子类没有自己的 this 对象，而是继承了父类的 this 对象，然后对其进行加工。如果不调用 super 方法，子类得不到 this 对象。
+注意 super 关键字指代父类的实例，即父类的 this 对象。
+注意：在子类构造函数中，调用 super 后，才可使用 this 关键字，否则报错。function 声明会提升，但不会初始化赋值。Foo 进入暂时性死区，类似于 let、const 声明变量
+#
+32 全局作用域中，用 const 和 let 声明的变量不在 window 上，那到底在哪里？如何去获取？
+// 在 ES5 中，顶层对象的属性和全局变量是等价的，var 命令和 function 命令声明的全局变量，自然也是顶层对象。
+var a = 12;
+function f(){};
+console.log(window.a);
+// 12console.log(window.f);
+// f(){}
+
+// 但 ES6 规定，var 命令和 function 命令声明的全局变量，依旧是顶层对象的属性，但 let 命令、const 命令、class 命令声明的全局变量，不属于顶层对象的属性。
+let aa = 1;
+const bb = 2;
+console.log(window.aa);
+// undefinedconsole.log(window.bb);
+// undefined
+
+// 在哪里？怎么获取？通过在设置断点，看看浏览器是怎么处理的：
+//通过上图也可以看到，在全局作用域中，用 let 和 const 声明的全局变量并没
+//有在全局对象中，只是一个块级作用域（Script）中怎么获取？在定义变量的块级作用域中就能获取啊，既然不属于顶层对象，那就不加 window（global）呗。
+let aa = 1;
+const bb = 2;
+console.log(aa);
+// 1console.log(bb);
+// 2
+#
+33 介绍下 Set、Map、WeakSet 和 WeakMap 的区别
+Set
+
+成员不能重复
+只有健值，没有健名，有点类似数组
+可以遍历，方法有add, delete,has
+weakSet
+
+成员都是对象
+成员都是弱引用，随时可以消失。 可以用来保存DOM节点，不容易造成内存泄漏
+不能遍历，方法有add, delete,has
+Map
+
+本质上是健值对的集合，类似集合
+可以遍历，方法很多，可以干跟各种数据格式转换
+weakMap
+
+直接受对象作为健名（null除外），不接受其他类型的值作为健名
+健名所指向的对象，不计入垃圾回收机制
+不能遍历，方法同get,set,has,delete
+#
+34 Promise.all() 和 Promise.allSettled()的比较
+#Promise.allSettled()
+接受的结果与入参时的promise实例一一对应，且结果的每一项都是一个对象，告诉你结果和值，对象内都有一个属性叫“status”，用来明确知道对应的这个promise实例的状态（fulfilled或rejected），fulfilled时，对象有value属性，rejected时有reason属性，对应两种状态的返回值。
+
+const resolved = Promise.resolve(42);
+const rejected = Promise.reject(-1);
+
+const allSettledPromise = Promise.allSettled([resolved, rejected]);
+
+allSettledPromise.then(function (results) {
+  console.log(results);
+});
+// [
+//    { status: 'fulfilled', value: 42 },
+//    { status: 'rejected', reason: -1 }
+// ]
+重要的一点是，他不论接受入参的promise本身的状态，会返回所有promise的结果，但这一点Promise.all做不到，如果你需要知道所有入参的异步操作的所有结果，或者需要知道这些异步操作是否全部结束，应该使用promise.allSettled()
+
+#Promise.all()
+只有当所有入参的promise实例都是fulfilled状态，才会在Promise.all().then()方法中结果，返回结果也是与入参一一对应，结果中只包含实际的resolve的结果，不包含类似allSettled的status和value属性。
 
 
 
