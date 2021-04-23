@@ -18,12 +18,20 @@
   - [typeof操作符](#typeof操作符)
     - [typeof NaN的结果是什么](#typeof-NaN的结果是什么)
   - [instanceof](#instanceof)
+  - [typeof和instanceof区别](#typeof和instanceof区别)
   - [constructor](#constructor)
   - [Object.prototype.toString.call()](#ObjectprototypetoStringcall)
   - [判断是否是promise对象](#判断是否是promise对象)
   - [封装javascript的类型判断函数](#封装javascript的类型判断函数)
+  - [Object.is和===的区别](#Objectis和的区别)
 
 - [js类型转换](#js类型转换)
+  - [转化规则](#转化规则)
+  - [转Boolean](#转Boolean)
+  - [对象转原始类型是根据什么流程运行的](#对象转原始类型是根据什么流程运行的)
+  - [如何让if(a == 1 && a == 2)条件成立](#如何让ifa--1--a--2条件成立)
+  - [四则运算符](#四则运算符)
+  - [比较运算符](#比较运算符)
   - [其他值到字符串的转换规则](#其他值到字符串的转换规则)
   - [其他值到数字值的转换规则](#其他值到数字值的转换规则)
   - [其他值到布尔类型的值的转换规则](#其他值到布尔类型的值的转换规则)
@@ -32,6 +40,8 @@
   - [Symbol值的强制类型转换](#Symbol值的强制类型转换)
   - [将浮点数点左边的数每三位添加一个逗号,12000000.11转化为『12,000,000.11』](#将浮点数点左边的数每三位添加一个逗号1200000011转化为1200000011)
   - [解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字,区别](#解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字区别)
+  - [[] == ![]结果是什么？为什么](#--结果是什么为什么)
+  - [==和===有什么区别](#==和===有什么区别)
 
 - [js属性](#js属性)
   - [内部属性[[Class]]是什么](#内部属性Class是什么)
@@ -84,15 +94,25 @@
   - [isNaN和Number.isNaN函数的区别](#isNaN和NumberisNaN函数的区别)
   - [Javascript全局函数和全局变量](#Javascript全局函数和全局变量)
   - [什么是闭包，为什么要用它](#什么是闭包，为什么要用它)
+  - [闭包产生的原因](#闭包产生的原因)
+  - [闭包有哪些表现形式](#闭包有哪些表现形式)
+  - [如何解决下面的循环输出问题](#如何解决下面的循环输出问题)
   - [使用闭包实现每隔一秒打印1,2,3,4](#使用闭包实现每隔一秒打印1234)
   - [eval是做什么的](#eval是做什么的)
 
 - [js原型和原型链](#js原型和原型链)
+  - [原型/构造函数/实例](#原型构造函数实例)
+  - [原型对象和构造函数有何关系](#原型对象和构造函数有何关系)
+  - [能不能描述一下原型链](#能不能描述一下原型链)
   - [js获取原型的方法](#js获取原型的方法)
   - [Javascript中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是](#Javascript中有一个函数执行时对象查找时永远不会去查找原型这个函数是)
 
 - [js继承](#js继承)
+  - [借助call](#借助call)
   - [原型链继承](#原型链继承)
+  - [将call和原型链组合](#将call和原型链组合)
+  - [组合继承的优化1](#组合继承的优化1)
+  - [(最推荐使用):组合继承的优化2](#最推荐使用组合继承的优化2)
   - [构造函数继承](#构造函数继承)
   - [实例继承](#实例继承)
   - [拷贝继承](#拷贝继承)
@@ -100,8 +120,13 @@
   - [寄生组合继承](#寄生组合继承)
     - [寄生式组合继承的实现](#寄生式组合继承的实现)
   - [es6使用extends关键字扩展一个类并继承它的行为](#es6使用extends关键字扩展一个类并继承它的行为)
+  - [ES6的extends被编译后的JavaScript代码](#ES6的extends被编译后的JavaScript代码)
+  - [从设计思想上谈谈继承本身的问题](#从设计思想上谈谈继承本身的问题)
+  - [继承-简版](#继承-简版)
+
 
 - [this对象](#this对象)
+  - [this](#this)
   - [this指向](#this指向)
   - [call、apply、bind](#callapplybind)
   - [.call()和.apply()的区别](#call和apply的区别)
@@ -677,120 +702,7 @@ if(3n){//条件为true
 浏览器兼容性
 - 其实现在的兼容性并不怎么好，只有chrome67、firefox、Opera这些主流实现，要正式成为规范，其实还有很长的路要走。
 
-
-
-#1.5 0.1+0.2为什么不等于0.3？
-0.1和0.2在转换成二进制后会无限循环，由于标准位数的限制后面多余的位数会被截掉，此时就已经出现了精度的损失，相加后因浮点数小数位的限制而截断的二进制数字在转换为十进制就会变成0.30000000000000004
-
-
-
-#
-3 数据类型转换
-大家都知道 JS 中在使用运算符号或者对比符时，会自带隐式转换，规则如下:
-
-#3.1 转化规则
--、*、/、%：一律转换成数值后计算
-+：
-数字 + 字符串 = 字符串， 运算顺序是从左到右
-数字 + 对象， 优先调用对象的valueOf -> toString
-数字 + boolean/null -> 数字
-数字 + undefined -> NaN
-[1].toString() === '1'
-{}.toString() === '[object object]'
-NaN !== NaN 、+undefined 为 NaN
-首先我们要知道，在 JS 中类型转换只有三种情况，分别是：
-
-转换为布尔值
-转换为数字
-转换为字符串
-类型转换
-
-#3.2 转Boolean
-在条件判断时，除了 undefined，null， false， NaN， ''， 0， -0，其他所有值都转为 true，包括所有对象
-
-#3.3 对象转原始类型是根据什么流程运行的
-对象转原始类型，会调用内置的[ToPrimitive]函数，对于该函数而言，其逻辑如下：
-
-如果有Symbol.toPrimitive()方法，优先调用再返回
-调用valueOf()，如果转换为原始类型，则返回
-调用toString()，如果转换为原始类型，则返回
-如果都没有返回原始类型，会报错
-var obj = {
-  value: 3,
-  valueOf() {
-    return 4;
-  },
-  toString() {
-    return '5'
-  },
-  [Symbol.toPrimitive]() {
-    return 6
-  }
-}
-console.log(obj + 1); // 输出7
-#3.4 如何让if(a == 1 && a == 2)条件成立
-其实就是上一个问题的应用。
-
-var a = {
-  value: 0,
-  valueOf: function() {
-    this.value++;
-    return this.value;
-  }
-};
-console.log(a == 1 && a == 2);//true
-#3.5 四则运算符
-它有以下几个特点：
-
-运算中其中一方为字符串，那么就会把另一方也转换为字符串
-如果一方不是字符串或者数字，那么会将它转换为数字或者字符串
-1 + '1' // '11'
-true + true // 2
-4 + [1,2,3] // "41,2,3"
-对于第一行代码来说，触发特点一，所以将数字 1 转换为字符串，得到结果 '11'
-对于第二行代码来说，触发特点二，所以将 true 转为数字 1
-对于第三行代码来说，触发特点二，所以将数组通过 toString转为字符串 1,2,3，得到结果 41,2,3
-另外对于加法还需要注意这个表达式 'a' + + 'b'
-
-'a' + + 'b' // -> "aNaN"
-因为 + 'b' 等于 NaN，所以结果为 "aNaN"，你可能也会在一些代码中看到过 + '1'的形式来快速获取 number 类型。
-那么对于除了加法的运算符来说，只要其中一方是数字，那么另一方就会被转为数字
-4 * '3' // 12
-4 * [] // 0
-4 * [1, 2] // NaN
-#3.6 比较运算符
-如果是对象，就通过 toPrimitive 转换对象
-如果是字符串，就通过 unicode 字符索引来比较
-let a = {
-  valueOf() {
-    return 0
-  },
-  toString() {
-    return '1'
-  }
-}
-a > -1 // true
-在以上代码中，因为 a 是对象，所以会通过 valueOf 转换为原始类型再比较值。
-
-#3.7 [] == ![]结果是什么？为什么？
-== 中，左右两边都需要转换为数字然后进行比较
-[]转换为数字为0
-![] 首先是转换为布尔值，由于[]作为一个引用类型转换为布尔值为true
-因此![]为false，进而在转换成数字，变为0
-0 == 0 ， 结果为true
-#3.8 == 和 ===有什么区别
-===叫做严格相等，是指：左右两边不仅值要相等，类型也要相等，例如'1'===1的结果是false，因为一边是string，另一边是number
-
-==不像===那样严格，对于一般情况，只要值相等，就返回true，但==还涉及一些类型转换，它的转换规则如下
-
-两边的类型是否相同，相同的话就比较值的大小，例如1==2，返回false
-判断的是否是null和undefined，是的话就返回true
-判断的类型是否是String和Number，是的话，把String类型转换成Number，再进行比较
-判断其中一方是否是Boolean，是的话就把Boolean转换成Number`，再进行比较
-如果其中一方为Object，且另一方为String、Number或者Symbol，会将Object转换成字符串，再进行比较
-
-### js类型判断
-
+  ### js类型判断
 typeof，instanceof，constructor，Object.prototype.toString.call()
 ```
 （1）typeof：
@@ -823,43 +735,31 @@ function type(obj) {
 }
 ```
 
-
-
-#2.3 Object.is和===的区别
-Object在严格等于的基础上修复了一些特殊情况下的失误，具体来说就是+0和-0，NaN和NaN。 源码如下
-
-function is(x, y) {
-  if (x === y) {
-    //运行到1/x === 1/y的时候x和y都为0，但是1/+0 = +Infinity， 1/-0 = -Infinity, 是不一样的
-    return x !== 0 || y !== 0 || 1 / x === 1 / y;
-  } else {
-    //NaN===NaN是false,这是不对的，我们在这里做一个拦截，x !== x，那么一定是 NaN, y 同理
-    //两个都是NaN的时候返回true
-    return x !== x && y !== y;
-  }
-}
-#2.4 总结
-typeof
-直接在计算机底层基于数据类型的值（二进制）进行检测
-typeof null为object 原因是对象存在在计算机中，都是以000开始的二进制存储，所以检测出来的结果是对象
-typeof 普通对象/数组对象/正则对象/日期对象 都是object
-typeof NaN === 'number'
-instanceof
-检测当前实例是否属于这个类的
-底层机制：只要当前类出现在实例的原型上，结果都是true
-不能检测基本数据类型
-constructor
-支持基本类型
-constructor可以随便改，也不准
-Object.prototype.toString.call([val])
-返回当前实例所属类信息
-判断 Target 的类型，单单用 typeof 并无法完全满足，这其实并不是 bug，本质原因是 JS 的万物皆对象的理论。因此要真正完美判断时，我们需要区分对待:
-
-基本类型(null): 使用 String(null)
-基本类型(string / number / boolean / undefined) + function: - 直接使用 typeof即可
-其余引用类型(Array / Date / RegExp Error): 调用toString后根据[object XXX]进行判断
+  #### 总结
+- typeof
+  - 直接在计算机底层基于数据类型的值（二进制）进行检测
+  - typeof null为object 原因是对象存在在计算机中，都是以000开始的二进制存储，所以检测出来的结果是对象
+  - typeof 普通对象/数组对象/正则对象/日期对象 都是object
+  - typeof NaN === 'number'
+- instanceof
+  - 检测当前实例是否属于这个类的
+  - 底层机制：只要当前类出现在实例的原型上，结果都是true
+  - 不能检测基本数据类型
+- constructor
+  - 支持基本类型
+  - constructor可以随便改，也不准
+- Object.prototype.toString.call([val])
+  - 返回当前实例所属类信息
+```
+判断 Target 的类型，单单用 typeof 并无法完全满足，
+这其实并不是 bug，本质原因是 JS 的万物皆对象的理论。
+因此要真正完美判断时，我们需要区分对待:
+```
+- 基本类型(null): 使用 String(null)
+- 基本类型(string / number / boolean / undefined) + function: - 直接使用 typeof即可
+- 其余引用类型(Array / Date / RegExp Error): 调用toString后根据[object XXX]进行判断
 很稳的判断封装:
-
+```
 let class2type = {}
 'Array Date RegExp Object Error'.split(' ').forEach(e => class2type[ '[object ' + e + ']' ] = e.toLowerCase()) 
 
@@ -867,6 +767,7 @@ function type(obj) {
     if (obj == null) return String(obj)
     return typeof obj === 'object' ? class2type[ Object.prototype.toString.call(obj) ] || 'object' : typeof obj
 }
+```
 
   #### typeof操作符
 优点：能够快速区分基本数据类型 
@@ -1008,25 +909,28 @@ console.log({} instanceof Object);                   // true
 - 优点：能够区分Array、Object和Function，适合用于判断自定义的类实例对象
 - 缺点：Number，Boolean，String基本数据类型不能判断
 
-#2.2 typeof 于 instanceof 区别
-typeof 对于基本类型，除了 null都可以显示正确的类型
-
+  #### typeof和instanceof区别
+- typeof 对于基本类型，除了 null都可以显示正确的类型
+```
 typeof 1 // 'number'
 typeof '1' // 'string'
 typeof undefined // 'undefined'
 typeof true // 'boolean'
 typeof Symbol() // 'symbol'
 typeof b // b 没有声明，但是还会显示 undefined
-typeof 对于对象，除了函数都会显示 object
-
+```
+- typeof 对于对象，除了函数都会显示 object
+```
 typeof [] // 'object'
 typeof {} // 'object'
 typeof console.log // 'function'
-对于 null 来说，虽然它是基本类型，但是会显示 object，这是一个存在很久了的 Bug
-
+```
+- 对于 null 来说，虽然它是基本类型，但是会显示 object，这是一个存在很久了的 Bug
+```
 typeof null // 'object'
-instanceof 可以正确的判断对象的类型，因为内部机制是通过判断对象的原型链中是不是能找到类型的 iprototype
-
+```
+- instanceof 可以正确的判断对象的类型，因为内部机制是通过判断对象的原型链中是不是能找到类型的 iprototype
+```
 // 我们也可以试着实现一下 instanceof
 function instanceof(left, right) {
     // 获得类型的原型
@@ -1042,6 +946,7 @@ function instanceof(left, right) {
     	left = left.__proto__
     }
 }
+```
 
   #### constructor
 ```
@@ -1128,7 +1033,133 @@ function getType(value) {
 }
 ```
 
+  #### Object.is和===的区别
+- Object在严格等于的基础上修复了一些特殊情况下的失误，具体来说就是+0和-0，NaN和NaN。 源码如下
+```
+function is(x, y) {
+  if (x === y) {
+    //运行到1/x === 1/y的时候x和y都为0，但是1/+0 = +Infinity， 1/-0 = -Infinity, 是不一样的
+    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+  } else {
+    //NaN===NaN是false,这是不对的，我们在这里做一个拦截，x !== x，那么一定是 NaN, y 同理
+    //两个都是NaN的时候返回true
+    return x !== x && y !== y;
+  }
+}
+```
+
+
 ### js类型转换
+- 大家都知道 JS 中在使用运算符号或者对比符时，会自带隐式转换，规则如下:
+
+#### 转化规则
+- -、*、/、%：一律转换成数值后计算
+- +：
+  - 数字 + 字符串 = 字符串， 运算顺序是从左到右
+  - 数字 + 对象， 优先调用对象的valueOf -> toString
+  - 数字 + boolean/null -> 数字
+  - 数字 + undefined -> NaN
+- [1].toString() === '1'
+- {}.toString() === '[object object]'
+- NaN !== NaN 、+undefined 为 NaN
+```
+首先我们要知道，在 JS 中类型转换只有三种情况，分别是：
+```
+- 转换为布尔值
+- 转换为数字
+- 转换为字符串
+```
+原始值                     转换目标           结果
+number                     布尔值         除了0、-0、NaN都为true
+string                     布尔值         除了空串都为true
+undefined、null            布尔值         FALSE
+引用类型                    布尔值         TRUE
+number                     字符串         5 => '5'
+Boolean、函数、Symbol       字符串        'true'
+数组                       字符串         [1,2] => '1,2'
+对象                       字符串         '[object Object]'
+string                     数字          '1' => 1,'a' => NaN
+数组                       数字           空数组为0，存在一个元素且为数字转数字，其他情况NaN
+null                       数字            0
+除了数组的引用类型           数字           NaN
+Symbol                     数字           抛错
+```
+
+#### 转Boolean
+- 在条件判断时，除了 undefined，null， false， NaN， ''， 0， -0，其他所有值都转为 true，包括所有对象
+
+#### 对象转原始类型是根据什么流程运行的
+- 对象转原始类型，会调用内置的[ToPrimitive]函数，对于该函数而言，其逻辑如下：
+  - 如果有Symbol.toPrimitive()方法，优先调用再返回
+  - 调用valueOf()，如果转换为原始类型，则返回
+  - 调用toString()，如果转换为原始类型，则返回
+  - 如果都没有返回原始类型，会报错
+```
+var obj = {
+  value: 3,
+  valueOf() {
+    return 4;
+  },
+  toString() {
+    return '5'
+  },
+  [Symbol.toPrimitive]() {
+    return 6
+  }
+}
+console.log(obj + 1); // 输出7
+```
+
+#### 如何让if(a == 1 && a == 2)条件成立
+其实就是上一个问题的应用。
+```
+var a = {
+  value: 0,
+  valueOf: function() {
+    this.value++;
+    return this.value;
+  }
+};
+console.log(a == 1 && a == 2);//true
+```
+
+#### 四则运算符
+它有以下几个特点：
+- 运算中其中一方为字符串，那么就会把另一方也转换为字符串
+- 如果一方不是字符串或者数字，那么会将它转换为数字或者字符串
+```
+1 + '1' // '11'
+true + true // 2
+4 + [1,2,3] // "41,2,3"
+```
+- 对于第一行代码来说，触发特点一，所以将数字 1 转换为字符串，得到结果 '11'
+- 对于第二行代码来说，触发特点二，所以将 true 转为数字 1
+- 对于第三行代码来说，触发特点二，所以将数组通过 toString转为字符串 1,2,3，得到结果 41,2,3
+
+另外对于加法还需要注意这个表达式 'a' + + 'b'
+
+- 'a' + + 'b' // -> "aNaN"
+因为 + 'b' 等于 NaN，所以结果为 "aNaN"，你可能也会在一些代码中看到过 + '1'的形式来快速获取 number 类型。
+- 那么对于除了加法的运算符来说，只要其中一方是数字，那么另一方就会被转为数字
+4 * '3' // 12
+4 * [] // 0
+4 * [1, 2] // NaN
+
+#### 比较运算符
+- 如果是对象，就通过 toPrimitive 转换对象
+- 如果是字符串，就通过 unicode 字符索引来比较
+```
+let a = {
+  valueOf() {
+    return 0
+  },
+  toString() {
+    return '1'
+  }
+}
+a > -1 // true
+```
+- 在以上代码中，因为 a 是对象，所以会通过 valueOf 转换为原始类型再比较值。
 
   #### 其他值到字符串的转换规则
 ```
@@ -1246,6 +1277,26 @@ function format2(number) {
 解析按从左到右的顺序，如果遇到非数字字符就停止。而转换
 （如 Number ()）不允许出现非数字字符，否则会失败并返回 NaN。
 ```
+
+#### [] == ![]结果是什么？为什么
+- == 中，左右两边都需要转换为数字然后进行比较
+- []转换为数字为0
+- ![] 首先是转换为布尔值，由于[]作为一个引用类型转换为布尔值为true
+- 因此![]为false，进而在转换成数字，变为0
+- 0 == 0 ， 结果为true
+
+#### ==和===有什么区别
+- ===叫做严格相等，是指：左右两边不仅值要相等，类型也要相等，例如'1'===1的结果是false，因为一边是string，另一边是number
+
+- ==不像===那样严格，对于一般情况，只要值相等，就返回true，但==还涉及一些类型转换，它的转换规则如下
+
+  - 两边的类型是否相同，相同的话就比较值的大小，例如1==2，返回false
+  - 判断的是否是null和undefined，是的话就返回true
+  - 判断的类型是否是String和Number，是的话，把String类型转换成Number，再进行比较
+  - 判断其中一方是否是Boolean，是的话就把Boolean转换成Number`，再进行比较
+  - 如果其中一方为Object，且另一方为String、Number或者Symbol，会将Object转换成字符串，再进行比较
+
+
 
 ### js属性
 
@@ -3070,6 +3121,153 @@ for (var i = 0; i < 5; i++) {
 这样每一个延时器到时间后打印的就是0 1 2 3 4。
 ```
 
+- 闭包是指有权访问另外一个函数作用域中的变量的函数，
+- 闭包是指那些能够访问自由变量的函数。
+  - （其中自由变量，指在函数中使用的，但既不是函数参数arguments也不是函数的局部变量的变量，其实就是另外一个函数作用域中的变量。）
+
+#### 闭包产生的原因
+- 首先要明白作用域链的概念，其实很简单，在ES5中只存在两种作用域————全局作用域和函数作用域，当访问一个变量时，解释器会首先在当前作用域查找标示符，如果没有找到，就去父作用域找，直到找到该变量的标示符或者不在父作用域中，这就是作用域链，值得注意的是，每一个子函数都会拷贝上级的作用域，形成一个作用域的链条。 比如:
+```
+var a = 1;
+function f1() {
+  var a = 2
+  function f2() {
+    var a = 3;
+    console.log(a);//3
+  }
+}
+```
+- 在这段代码中，f1的作用域指向有全局作用域(window)和它本身，而f2的作用域指向全局作用域(window)、f1和它本身。而且作用域是从最底层向上找，直到找到全局作用域window为止，如果全局还没有的话就会报错。就这么简单一件事情
+
+- 闭包产生的本质就是，当前环境中存在指向父级作用域的引用。还是举上面的例子:
+```
+function f1() {
+  var a = 2
+  function f2() {
+    console.log(a);//2
+  }
+  return f2;
+}
+var x = f1();
+x();
+```
+- 这里x会拿到父级作用域中的变量，输出2。因为在当前环境中，含有对f2的引用，f2恰恰引用了window、f1和f2的作用域。因此f2可以访问到f1的作用域的变量。
+
+- 那是不是只有返回函数才算是产生了闭包呢？
+- 回到闭包的本质，我们只需要让父级作用域的引用存在即可，因此我们还可以这么做：
+```
+var f3;
+function f1() {
+  var a = 2
+  f3 = function() {
+    console.log(a);
+  }
+}
+f1();
+f3();
+```
+- 让f1执行，给f3赋值后，等于说现在f3拥有了window、f1和f3本身这几个作用域的访问权限，还是自底向上查找，最近是在f1中找到了a,因此输出2。
+- 在这里是外面的变量f3存在着父级作用域的引用，因此产生了闭包，形式变了，本质没有改变
+
+#### 闭包有哪些表现形式
+明白了本质之后，我们就来看看，在真实的场景中，
+究竟在哪些地方能体现闭包的存在？
+
+- 返回一个函数。刚刚已经举例。
+- 作为函数参数传递
+```
+var a = 1;
+function foo(){
+  var a = 2;
+  function baz(){
+    console.log(a);
+  }
+  bar(baz);
+}
+function bar(fn){
+  // 这就是闭包
+  fn();
+}
+// 输出2，而不是1
+foo();
+```
+- 在定时器、事件监听、Ajax请求、跨窗口通信、Web Workers或者任何异步中，只要使用了回调函数，实际上就是在使用闭包
+
+以下的闭包保存的仅仅是window和当前作用域。
+```
+// 定时器
+setTimeout(function timeHandler(){
+  console.log('111');
+}，100)
+
+// 事件监听
+$('#app').click(function(){
+  console.log('DOM Listener');
+})
+```
+- IIFE(立即执行函数表达式)创建闭包, 保存了全局作用域window和当前函数的作用域，因此可以访问全局的变量
+```
+var a = 2;
+(function IIFE(){
+  // 输出2
+  console.log(a);
+})();
+```
+
+#### 如何解决下面的循环输出问题
+```
+for(var i = 1; i <= 5; i ++){
+  setTimeout(function timer(){
+    console.log(i)
+  }, 0)
+}
+```
+- 为什么会全部输出6？如何改进，让它输出1，2，3，4，5？(方法越多越好) 因为setTimeout为宏任务，由于JS中单线程eventLoop机制，在主线程同步任务执行完后才去执行宏任务，因此循环结束后setTimeout中的回调才依次执行，但输出i的时候当前作用域没有，往上一级再找，发现了i,此时循环已经结束，i变成了6。因此会全部输出6。
+
+解决方法：
+- 利用IIFE(立即执行函数表达式)当每次for循环时，把此时的i变量传递到定时器中
+```
+for(var i = 1;i <= 5;i++){
+  (function(j){
+    setTimeout(function timer(){
+      console.log(j)
+    }, 0)
+  })(i)
+}
+```
+- 给定时器传入第三个参数, 作为timer函数的第一个函数参数
+```
+for(var i=1;i<=5;i++){
+  setTimeout(function timer(j){
+    console.log(j)
+  }, 0, i)
+}
+```
+- 使用ES6中的let
+```
+for(let i = 1; i <= 5; i++){
+  setTimeout(function timer(){
+    console.log(i)
+  },0)
+}
+```
+- let使JS发生革命性的变化，让JS有函数作用域变为了块级作用域，用let后作用域链不复存在。代码的作用域以块级为单位，以上面代码为例:
+```
+// i = 1
+{
+  setTimeout(function timer(){
+    console.log(1)
+  },0)
+}
+// i = 2
+{
+  setTimeout(function timer(){
+    console.log(2)
+  },0)
+}
+// i = 3
+```
+
   #### 使用闭包实现每隔一秒打印1,2,3,4
 ```js
 // 使用闭包实现
@@ -3131,6 +3329,50 @@ JavaScript 对象是通过引用来传递的，我们创建的每个新对象实
 
 关系：instance.constructor.prototype = instance.__proto__
 ```
+
+#### 原型/构造函数/实例
+- 原型(prototype): 一个简单的对象，用于实现对象的 属性继承。可以简单的理解成对象的爹。在 Firefox 和 Chrome 中，每个JavaScript对象中都包含一个__proto__(非标准)的属性指向它爹(该对象的原型)，可obj.__proto__进行访问。
+- 构造函数: 可以通过new来 新建一个对象 的函数。
+- 实例: 通过构造函数和new创建出来的对象，便是实例。 实例通过__proto__指向原型，通过constructor指向构造函数。
+```
+以Object为例，我们常用的Object便是一个构造函数，
+因此我们可以通过它构建实例。
+```
+```
+// 实例
+const instance = new Object()
+```
+```
+则此时， 实例为instance, 构造函数为Object，我们知道，
+构造函数拥有一个prototype的属性指向原型，因此原型为:
+```
+```
+// 原型
+const prototype = Object.prototype
+```
+这里我们可以来看出三者的关系:
+- 实例.__proto__ === 原型
+- 原型.constructor === 构造函数
+- 构造函数.prototype === 原型
+```
+// 这条线其实是是基于原型进行获取的，可以理解成一条基于原型的映射线
+// 例如: 
+// const o = new Object()
+// o.constructor === Object   --> true
+// o.__proto__ = null;
+// o.constructor === Object   --> false
+实例.constructor === 构造函数
+```
+
+#### 原型对象和构造函数有何关系
+- 在JavaScript中，每当定义一个函数数据类型(普通函数、类)时候，都会天生自带一个prototype属性，这个属性指向函数的原型对象。
+- 当函数经过new调用时，这个函数就成为了构造函数，返回一个全新的实例对象，这个实例对象有一个__proto__属性，指向构造函数的原型对象。
+
+#### 能不能描述一下原型链
+- JavaScript对象通过__proto__ 指向父类对象，直到指向Object对象为止，这样就形成了一个原型指向的链条, 即原型链
+
+- 对象的 hasOwnProperty() 来检查对象自身中是否含有该属性
+- 使用 in 检查对象中是否含有某个属性时，如果对象中没有但是原型链中有，也会返回 true
 
   #### js获取原型的方法
 ```
@@ -3218,6 +3460,19 @@ Animal.prototype.eat = function(food) {
 };
 ```
 
+#### 借助call
+```
+ function Parent1(){
+    this.name = 'parent1';
+  }
+  function Child1(){
+    Parent1.call(this);
+    this.type = 'child1'
+  }
+  console.log(new Child1);
+```
+- 这样写的时候子类虽然能够拿到父类的属性值，但是问题是父类原型对象中一旦存在方法那么子类无法继承。那么引出下面的方法。
+
   #### 原型链继承
 ```
 核心：将父类的实例作为子类的原型
@@ -3244,6 +3499,82 @@ console.log(cat instanceof Cat);    //true
 3.来自原型对象的引用属性是所有实例共享的
 4.创建子类的实例时，无法向父类构造函数传参
 ```
+
+```
+ function Parent2() {
+    this.name = 'parent2';
+    this.play = [1, 2, 3]
+  }
+  function Child2() {
+    this.type = 'child2';
+  }
+  Child2.prototype = new Parent2();
+
+  console.log(new Child2());
+```
+- 看似没有问题，父类的方法和属性都能够访问，但实际上有一个潜在的不足。举个例子：
+```
+var s1 = new Child2();
+var s2 = new Child2();
+s1.play.push(4);
+console.log(s1.play, s2.play);
+```
+- 明明我只改变了s1的play属性，为什么s2也跟着变了呢？很简单，因为两个实例使用的是同一个原型对象。
+
+那么还有更好的方式么？
+
+#### 将call和原型链组合
+```
+  function Parent3 () {
+    this.name = 'parent3';
+    this.play = [1, 2, 3];
+  }
+  function Child3() {
+    Parent3.call(this);
+    this.type = 'child3';
+  }
+  Child3.prototype = new Parent3();
+  var s3 = new Child3();
+  var s4 = new Child3();
+  s3.play.push(4);
+  console.log(s3.play, s4.play);
+```
+- 之前的问题都得以解决。但是这里又徒增了一个新问题，那就是Parent3的构造函数会多执行了一次（Child3.prototype = new Parent3();）。这是我们不愿看到的。那么如何解决这个问题？
+
+#### 组合继承的优化1
+```
+  function Parent4 () {
+    this.name = 'parent4';
+    this.play = [1, 2, 3];
+  }
+  function Child4() {
+    Parent4.call(this);
+    this.type = 'child4';
+  }
+  Child4.prototype = Parent4.prototype;
+```
+- 这里让将父类原型对象直接给到子类，父类构造函数只执行一次，而且父类属性和方法均能访问，但是我们来测试一下：
+```
+var s3 = new Child4();
+var s4 = new Child4();
+console.log(s3)
+```
+- 子类实例的构造函数是Parent4，显然这是不对的，应该是Child4。
+
+#### (最推荐使用):组合继承的优化2
+```
+ function Parent5 () {
+    this.name = 'parent5';
+    this.play = [1, 2, 3];
+  }
+  function Child5() {
+    Parent5.call(this);
+    this.type = 'child5';
+  }
+  Child5.prototype = Object.create(Parent5.prototype);
+  Child5.prototype.constructor = Child5;
+```
+- 这是最推荐的一种方式，接近完美的继承，它的名字也叫做寄生组合继承。
 
   #### 构造函数继承
 ```
@@ -3443,6 +3774,168 @@ console.log(cat instanceof Reptile); //true
 console.log(cat instanceof Animal2); //true
 ```
 
+#### ES6的extends被编译后的JavaScript代码
+- ES6的代码最后都是要在浏览器上能够跑起来的，这中间就利用了babel这个编译工具，将ES6的代码编译成ES5让一些不支持新语法的浏览器也能运行。
+
+那最后编译成了什么样子呢？
+```
+function _possibleConstructorReturn(self, call) {
+    // ...
+    return call && (typeof call === 'object' || typeof call === 'function') ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+    // ...
+    //看到没有
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+
+var Parent = function Parent() {
+    // 验证是否是 Parent 构造出来的 this
+    _classCallCheck(this, Parent);
+};
+
+var Child = (function (_Parent) {
+    _inherits(Child, _Parent);
+
+    function Child() {
+        _classCallCheck(this, Child);
+
+        return _possibleConstructorReturn(this, (Child.__proto__ || Object.getPrototypeOf(Child)).apply(this, arguments));
+    }
+
+    return Child;
+}(Parent));
+```
+- 核心是_inherits函数，可以看到它采用的依然也是第五种方式————寄生组合继承方式，同时证明了这种方式的成功。不过这里加了一个Object.setPrototypeOf(subClass, superClass)，这是用来干啥的呢？
+
+- 答案是用来继承父类的静态方法。这也是原来的继承方式疏忽掉的地方。
+
+- 追问: 面向对象的设计一定是好的设计吗？
+  - 不一定。从继承的角度说，这一设计是存在巨大隐患的。
+
+#### 从设计思想上谈谈继承本身的问题
+- 假如现在有不同品牌的车，每辆车都有drive、music、addOil这三个方法。
+```
+class Car{
+  constructor(id) {
+    this.id = id;
+  }
+  drive(){
+    console.log("wuwuwu!");
+  }
+  music(){
+    console.log("lalala!")
+  }
+  addOil(){
+    console.log("哦哟！")
+  }
+}
+class otherCar extends Car{}
+```
+
+```
+现在可以实现车的功能，并且以此去扩展不同的车。
+
+但是问题来了，新能源汽车也是车，但是它并不需要addOil(加油)。
+
+如果让新能源汽车的类继承Car的话，也是有问题的，
+俗称"大猩猩和香蕉"的问题。大猩猩手里有香蕉，但是我现在明明只
+需要香蕉，却拿到了一只大猩猩。也就是说加油这个方法，
+我现在是不需要的，但是由于继承的原因，也给到子类了。
+
+```
+继承的最大问题在于：无法决定继承哪些属性，所有属性都得继承。
+```
+当然你可能会说，可以再创建一个父类啊，把加油的方法给去掉，
+但是这也是有问题的，一方面父类是无法描述所有子类的细节情况的，
+为了不同的子类特性去增加不同的父类，代码势必会大量重复，另一方面一旦
+子类有所变动，父类也要进行相应的更新，代码的耦合性太高，维护性不好。
+```
+
+那如何来解决继承的诸多问题呢？
+- 用组合，这也是当今编程语法发展的趋势，比如golang完全采用的是面向组合的设计方式。
+```
+顾名思义，面向组合就是先设计一系列零件，然后将这些零件进行拼装，
+来形成不同的实例或者类。
+```
+```
+function drive(){
+  console.log("wuwuwu!");
+}
+function music(){
+  console.log("lalala!")
+}
+function addOil(){
+  console.log("哦哟！")
+}
+
+let car = compose(drive, music, addOil);
+let newEnergyCar = compose(drive, music);
+```
+代码干净，复用性也很好。这就是面向组合的设计方式。
+
+#### 继承-简版
+在 ES5 中，我们可以使用如下方式解决继承的问题
+```
+function Super() {}
+Super.prototype.getNumber = function() {
+  return 1
+}
+
+function Sub() {}
+let s = new Sub()
+Sub.prototype = Object.create(Super.prototype, {
+  constructor: {
+    value: Sub,
+    enumerable: false,
+    writable: true,
+    configurable: true
+  }
+})
+```
+- 以上继承实现思路就是将子类的原型设置为父类的原型
+- 在 ES6 中，我们可以通过 class 语法轻松解决这个问题
+```
+class MyDate extends Date {
+  test() {
+    return this.getTime()
+  }
+}
+let myDate = new MyDate()
+myDate.test()
+```
+- 但是 ES6 不是所有浏览器都兼容，所以我们需要使用 Babel 来编译这段代码。
+- 如果你使用编译过得代码调用 myDate.test()你会惊奇地发现出现了报错
+```
+因为在 JS 底层有限制，如果不是由 Date构造出来的实例的话，
+是不能调用 Date 里的函数的。所以这也侧面的说明了：
+ES6 中的 class 继承与 ES5 中的一般继承写法是不同的。
+```
+- 既然底层限制了实例必须由 Date 构造出来，那么我们可以改变下思路实现继承
+```
+function MyData() {
+
+}
+MyData.prototype.test = function () {
+  return this.getTime()
+}
+let d = new Date()
+Object.setPrototypeOf(d, MyData.prototype)
+Object.setPrototypeOf(MyData.prototype, Date.prototype)
+```
+- 以上继承实现思路：先创建父类实例 => 改变实例原先的 _proto__转而连接到子类的 prototype=> 子类的 prototype 的 __proto__ 改为父类的 prototype。
+- 通过以上方法实现的继承就可以完美解决 JS 底层的这个限制
+
 ### this对象
 ```
 this 是执行上下文中的一个属性，它指向最后一次调用这个方法的对象。
@@ -3476,6 +3969,79 @@ this总是指向函数的直接调用者（而非间接调用者）
 在事件中，this指向触发这个事件的对象，特殊的是，
 IE中的attachEvent中的this总是指向全局对象Window
 ```
+
+#### this
+我们先来看几个函数调用的场景
+```
+function foo() {
+  console.log(this.a)
+}
+var a = 1
+foo()
+
+const obj = {
+  a: 2,
+  foo: foo
+}
+obj.foo()
+
+const c = new foo()
+```
+- 对于直接调用 foo 来说，不管 foo 函数被放在了什么地方，this 一定是window
+- 对于 obj.foo() 来说，我们只需要记住，谁调用了函数，谁就是 this，所以在这个场景下 foo 函数中的 this 就是 obj 对象
+- 对于 new 的方式来说，this 被永远绑定在了 c 上面，不会被任何方式改变 this
+```
+说完了以上几种情况，其实很多代码中的 this 应该就没什么问题了，
+下面让我们看看箭头函数中的 this
+```
+```
+function a() {
+  return () => {
+    return () => {
+      console.log(this)
+    }
+  }
+}
+console.log(a()()())
+```
+- 首先箭头函数其实是没有 this 的，箭头函数中的 this 只取决包裹箭头函数的第一个普通函数的 this。在这个例子中，因为包裹箭头函数的第一个普通函数是 a，所以此时的 this 是 window。另外对箭头函数使用 bind这类函数是无效的。
+- 最后种情况也就是 bind 这些改变上下文的 API 了，对于这些函数来说，this 取决于第一个参数，如果第一个参数为空，那么就是 window。
+- 那么说到 bind，不知道大家是否考虑过，如果对一个函数进行多次 bind，那么上下文会是什么呢？
+```
+let a = {}
+let fn = function () { console.log(this) }
+fn.bind().bind(a)() // => ?
+```
+- 如果你认为输出结果是 a，那么你就错了，其实我们可以把上述代码转换成另一种形式
+```
+// fn.bind().bind(a) 等于
+let fn2 = function fn1() {
+  return function() {
+    return fn.apply()
+  }.apply(a)
+}
+fn2()
+```
+- 可以从上述代码中发现，不管我们给函数 bind 几次，fn 中的 this 永远由第一次 bind 决定，所以结果永远是 window
+```
+let a = { name: 'poetries' }
+function foo() {
+  console.log(this.name)
+}
+foo.bind(a)() // => 'poetries'
+```
+- 以上就是 this 的规则了，但是可能会发生多个规则同时出现的情况，这时候不同的规则之间会根据优先级最高的来决定 this 最终指向哪里。
+- 首先，new 的方式优先级最高，接下来是 bind 这些函数，然后是 obj.foo() 这种调用方式，最后是 foo 这种调用方式，同时，箭头函数的 this 一旦被绑定，就不会再被任何方式所改变。
+
+总结
+```
+this执行主体，谁把它执行的和在哪创建的在哪执行的都没有必然的关系
+```
+- 函数执行，看方法前面是否有点，没有点this是window(严格模式下是undefined)，有点，点前面是谁·this·就是谁
+- 给当前元素的某个事件行为绑定方法，当事件行为触发，方法中的this是当前元素本身（排除attachEvent）
+- 构造函数体中this是当前类的实例
+- 箭头函数中没有执行主体，所用到的this都是所处上下文中的this
+- 可以基于Function.prototype上的call/apply/bind改变this指向
 
   #### this指向
 ```
@@ -9456,6 +10022,8 @@ console.log(generateMixed(7))
 使用 es6 的 Number.EPSILON
 ```
 
+- 0.1和0.2在转换成二进制后会无限循环，由于标准位数的限制后面多余的位数会被截掉，此时就已经出现了精度的损失，相加后因浮点数小数位的限制而截断的二进制数字在转换为十进制就会变成0.30000000000000004
+
   #### 原码、反码和补码的介绍
 ```
 原码是计算机中对数字的二进制的定点表示方法，最高位表示符号位，
@@ -9949,472 +10517,10 @@ new new Foo().getName(); // 3
 
 
 
-#
-4 闭包
-红宝书(p178)上对于闭包的定义：闭包是指有权访问另外一个函数作用域中的变量的函数，
 
-MDN 对闭包的定义为：闭包是指那些能够访问自由变量的函数。
 
-（其中自由变量，指在函数中使用的，但既不是函数参数arguments也不是函数的局部变量的变量，其实就是另外一个函数作用域中的变量。）
-#4.1 闭包产生的原因
-首先要明白作用域链的概念，其实很简单，在ES5中只存在两种作用域————全局作用域和函数作用域，当访问一个变量时，解释器会首先在当前作用域查找标示符，如果没有找到，就去父作用域找，直到找到该变量的标示符或者不在父作用域中，这就是作用域链，值得注意的是，每一个子函数都会拷贝上级的作用域，形成一个作用域的链条。 比如:
 
-var a = 1;
-function f1() {
-  var a = 2
-  function f2() {
-    var a = 3;
-    console.log(a);//3
-  }
-}
-在这段代码中，f1的作用域指向有全局作用域(window)和它本身，而f2的作用域指向全局作用域(window)、f1和它本身。而且作用域是从最底层向上找，直到找到全局作用域window为止，如果全局还没有的话就会报错。就这么简单一件事情
 
-闭包产生的本质就是，当前环境中存在指向父级作用域的引用。还是举上面的例子:
-
-function f1() {
-  var a = 2
-  function f2() {
-    console.log(a);//2
-  }
-  return f2;
-}
-var x = f1();
-x();
-这里x会拿到父级作用域中的变量，输出2。因为在当前环境中，含有对f2的引用，f2恰恰引用了window、f1和f2的作用域。因此f2可以访问到f1的作用域的变量。
-
-那是不是只有返回函数才算是产生了闭包呢？
-回到闭包的本质，我们只需要让父级作用域的引用存在即可，因此我们还可以这么做：
-var f3;
-function f1() {
-  var a = 2
-  f3 = function() {
-    console.log(a);
-  }
-}
-f1();
-f3();
-让f1执行，给f3赋值后，等于说现在f3拥有了window、f1和f3本身这几个作用域的访问权限，还是自底向上查找，最近是在f1中找到了a,因此输出2。
-在这里是外面的变量f3存在着父级作用域的引用，因此产生了闭包，形式变了，本质没有改变
-#4.2 闭包有哪些表现形式
-明白了本质之后，我们就来看看，在真实的场景中，究竟在哪些地方能体现闭包的存在？
-
-返回一个函数。刚刚已经举例。
-作为函数参数传递
-var a = 1;
-function foo(){
-  var a = 2;
-  function baz(){
-    console.log(a);
-  }
-  bar(baz);
-}
-function bar(fn){
-  // 这就是闭包
-  fn();
-}
-// 输出2，而不是1
-foo();
-在定时器、事件监听、Ajax请求、跨窗口通信、Web Workers或者任何异步中，只要使用了回调函数，实际上就是在使用闭包
-以下的闭包保存的仅仅是window和当前作用域。
-
-// 定时器
-setTimeout(function timeHandler(){
-  console.log('111');
-}，100)
-
-// 事件监听
-$('#app').click(function(){
-  console.log('DOM Listener');
-})
-IIFE(立即执行函数表达式)创建闭包, 保存了全局作用域window和当前函数的作用域，因此可以访问全局的变量
-var a = 2;
-(function IIFE(){
-  // 输出2
-  console.log(a);
-})();
-#4.3 如何解决下面的循环输出问题
-for(var i = 1; i <= 5; i ++){
-  setTimeout(function timer(){
-    console.log(i)
-  }, 0)
-}
-为什么会全部输出6？如何改进，让它输出1，2，3，4，5？(方法越多越好) 因为setTimeout为宏任务，由于JS中单线程eventLoop机制，在主线程同步任务执行完后才去执行宏任务，因此循环结束后setTimeout中的回调才依次执行，但输出i的时候当前作用域没有，往上一级再找，发现了i,此时循环已经结束，i变成了6。因此会全部输出6。
-
-解决方法：
-
-利用IIFE(立即执行函数表达式)当每次for循环时，把此时的i变量传递到定时器中
-for(var i = 1;i <= 5;i++){
-  (function(j){
-    setTimeout(function timer(){
-      console.log(j)
-    }, 0)
-  })(i)
-}
-给定时器传入第三个参数, 作为timer函数的第一个函数参数
-for(var i=1;i<=5;i++){
-  setTimeout(function timer(j){
-    console.log(j)
-  }, 0, i)
-}
-使用ES6中的let
-for(let i = 1; i <= 5; i++){
-  setTimeout(function timer(){
-    console.log(i)
-  },0)
-}
-let使JS发生革命性的变化，让JS有函数作用域变为了块级作用域，用let后作用域链不复存在。代码的作用域以块级为单位，以上面代码为例:
-
-// i = 1
-{
-  setTimeout(function timer(){
-    console.log(1)
-  },0)
-}
-// i = 2
-{
-  setTimeout(function timer(){
-    console.log(2)
-  },0)
-}
-// i = 3
-...
-#
-5 原型链
-#5.1 原型/构造函数/实例
-原型(prototype): 一个简单的对象，用于实现对象的 属性继承。可以简单的理解成对象的爹。在 Firefox 和 Chrome 中，每个JavaScript对象中都包含一个__proto__(非标准)的属性指向它爹(该对象的原型)，可obj.__proto__进行访问。
-构造函数: 可以通过new来 新建一个对象 的函数。
-实例: 通过构造函数和new创建出来的对象，便是实例。 实例通过__proto__指向原型，通过constructor指向构造函数。
-以Object为例，我们常用的Object便是一个构造函数，因此我们可以通过它构建实例。
-
-// 实例
-const instance = new Object()
-则此时， 实例为instance, 构造函数为Object，我们知道，构造函数拥有一个prototype的属性指向原型，因此原型为:
-
-// 原型
-const prototype = Object.prototype
-这里我们可以来看出三者的关系:
-
-实例.__proto__ === 原型
-原型.constructor === 构造函数
-构造函数.prototype === 原型
-// 这条线其实是是基于原型进行获取的，可以理解成一条基于原型的映射线
-// 例如: 
-// const o = new Object()
-// o.constructor === Object   --> true
-// o.__proto__ = null;
-// o.constructor === Object   --> false
-实例.constructor === 构造函数
-
-
-#5.2 原型对象和构造函数有何关系
-在JavaScript中，每当定义一个函数数据类型(普通函数、类)时候，都会天生自带一个prototype属性，这个属性指向函数的原型对象。
-当函数经过new调用时，这个函数就成为了构造函数，返回一个全新的实例对象，这个实例对象有一个__proto__属性，指向构造函数的原型对象。
-
-
-#5.3 能不能描述一下原型链
-JavaScript对象通过__proto__ 指向父类对象，直到指向Object对象为止，这样就形成了一个原型指向的链条, 即原型链
-
-
-
-对象的 hasOwnProperty() 来检查对象自身中是否含有该属性
-使用 in 检查对象中是否含有某个属性时，如果对象中没有但是原型链中有，也会返回 true
-#
-6 继承
-#6.1 方式1: 借助call
- function Parent1(){
-    this.name = 'parent1';
-  }
-  function Child1(){
-    Parent1.call(this);
-    this.type = 'child1'
-  }
-  console.log(new Child1);
-这样写的时候子类虽然能够拿到父类的属性值，但是问题是父类原型对象中一旦存在方法那么子类无法继承。那么引出下面的方法。
-
-#6.2 方式2: 借助原型链
- function Parent2() {
-    this.name = 'parent2';
-    this.play = [1, 2, 3]
-  }
-  function Child2() {
-    this.type = 'child2';
-  }
-  Child2.prototype = new Parent2();
-
-  console.log(new Child2());
-看似没有问题，父类的方法和属性都能够访问，但实际上有一个潜在的不足。举个例子：
-
-var s1 = new Child2();
-var s2 = new Child2();
-s1.play.push(4);
-console.log(s1.play, s2.play);
-可以看到控制台：
-
-
-
-明明我只改变了s1的play属性，为什么s2也跟着变了呢？很简单，因为两个实例使用的是同一个原型对象。
-
-那么还有更好的方式么？
-
-#6.3 方式3：将前两种组合
-  function Parent3 () {
-    this.name = 'parent3';
-    this.play = [1, 2, 3];
-  }
-  function Child3() {
-    Parent3.call(this);
-    this.type = 'child3';
-  }
-  Child3.prototype = new Parent3();
-  var s3 = new Child3();
-  var s4 = new Child3();
-  s3.play.push(4);
-  console.log(s3.play, s4.play);
-可以看到控制台：
-
-
-
-之前的问题都得以解决。但是这里又徒增了一个新问题，那就是Parent3的构造函数会多执行了一次（Child3.prototype = new Parent3();）。这是我们不愿看到的。那么如何解决这个问题？
-
-#6.4 方式4: 组合继承的优化1
-  function Parent4 () {
-    this.name = 'parent4';
-    this.play = [1, 2, 3];
-  }
-  function Child4() {
-    Parent4.call(this);
-    this.type = 'child4';
-  }
-  Child4.prototype = Parent4.prototype;
-这里让将父类原型对象直接给到子类，父类构造函数只执行一次，而且父类属性和方法均能访问，但是我们来测试一下：
-
-var s3 = new Child4();
-var s4 = new Child4();
-console.log(s3)
-
-
-子类实例的构造函数是Parent4，显然这是不对的，应该是Child4。
-
-#6.5 方式5(最推荐使用): 组合继承的优化2
- function Parent5 () {
-    this.name = 'parent5';
-    this.play = [1, 2, 3];
-  }
-  function Child5() {
-    Parent5.call(this);
-    this.type = 'child5';
-  }
-  Child5.prototype = Object.create(Parent5.prototype);
-  Child5.prototype.constructor = Child5;
-这是最推荐的一种方式，接近完美的继承，它的名字也叫做寄生组合继承。
-
-#6.6 ES6的extends被编译后的JavaScript代码
-ES6的代码最后都是要在浏览器上能够跑起来的，这中间就利用了babel这个编译工具，将ES6的代码编译成ES5让一些不支持新语法的浏览器也能运行。
-
-那最后编译成了什么样子呢？
-
-function _possibleConstructorReturn(self, call) {
-    // ...
-    return call && (typeof call === 'object' || typeof call === 'function') ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-    // ...
-    //看到没有
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-        constructor: {
-            value: subClass,
-            enumerable: false,
-            writable: true,
-            configurable: true
-        }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-
-var Parent = function Parent() {
-    // 验证是否是 Parent 构造出来的 this
-    _classCallCheck(this, Parent);
-};
-
-var Child = (function (_Parent) {
-    _inherits(Child, _Parent);
-
-    function Child() {
-        _classCallCheck(this, Child);
-
-        return _possibleConstructorReturn(this, (Child.__proto__ || Object.getPrototypeOf(Child)).apply(this, arguments));
-    }
-
-    return Child;
-}(Parent));
-核心是_inherits函数，可以看到它采用的依然也是第五种方式————寄生组合继承方式，同时证明了这种方式的成功。不过这里加了一个Object.setPrototypeOf(subClass, superClass)，这是用来干啥的呢？
-
-答案是用来继承父类的静态方法。这也是原来的继承方式疏忽掉的地方。
-
-追问: 面向对象的设计一定是好的设计吗？
-
-不一定。从继承的角度说，这一设计是存在巨大隐患的。
-
-#6.7 从设计思想上谈谈继承本身的问题
-假如现在有不同品牌的车，每辆车都有drive、music、addOil这三个方法。
-
-class Car{
-  constructor(id) {
-    this.id = id;
-  }
-  drive(){
-    console.log("wuwuwu!");
-  }
-  music(){
-    console.log("lalala!")
-  }
-  addOil(){
-    console.log("哦哟！")
-  }
-}
-class otherCar extends Car{}
-现在可以实现车的功能，并且以此去扩展不同的车。
-
-但是问题来了，新能源汽车也是车，但是它并不需要addOil(加油)。
-
-如果让新能源汽车的类继承Car的话，也是有问题的，俗称"大猩猩和香蕉"的问题。大猩猩手里有香蕉，但是我现在明明只需要香蕉，却拿到了一只大猩猩。也就是说加油这个方法，我现在是不需要的，但是由于继承的原因，也给到子类了。
-
-继承的最大问题在于：无法决定继承哪些属性，所有属性都得继承。
-
-当然你可能会说，可以再创建一个父类啊，把加油的方法给去掉，但是这也是有问题的，一方面父类是无法描述所有子类的细节情况的，为了不同的子类特性去增加不同的父类，代码势必会大量重复，另一方面一旦子类有所变动，父类也要进行相应的更新，代码的耦合性太高，维护性不好。
-
-那如何来解决继承的诸多问题呢？
-
-用组合，这也是当今编程语法发展的趋势，比如golang完全采用的是面向组合的设计方式。
-
-顾名思义，面向组合就是先设计一系列零件，然后将这些零件进行拼装，来形成不同的实例或者类。
-
-function drive(){
-  console.log("wuwuwu!");
-}
-function music(){
-  console.log("lalala!")
-}
-function addOil(){
-  console.log("哦哟！")
-}
-
-let car = compose(drive, music, addOil);
-let newEnergyCar = compose(drive, music);
-代码干净，复用性也很好。这就是面向组合的设计方式。
-
-#6.8 继承-简版
-在 ES5 中，我们可以使用如下方式解决继承的问题
-
-function Super() {}
-Super.prototype.getNumber = function() {
-  return 1
-}
-
-function Sub() {}
-let s = new Sub()
-Sub.prototype = Object.create(Super.prototype, {
-  constructor: {
-    value: Sub,
-    enumerable: false,
-    writable: true,
-    configurable: true
-  }
-})
-以上继承实现思路就是将子类的原型设置为父类的原型
-在 ES6 中，我们可以通过 class 语法轻松解决这个问题
-class MyDate extends Date {
-  test() {
-    return this.getTime()
-  }
-}
-let myDate = new MyDate()
-myDate.test()
-但是 ES6 不是所有浏览器都兼容，所以我们需要使用 Babel 来编译这段代码。
-如果你使用编译过得代码调用 myDate.test()你会惊奇地发现出现了报错
-因为在 JS 底层有限制，如果不是由 Date构造出来的实例的话，是不能调用 Date 里的函数的。所以这也侧面的说明了：ES6 中的 class 继承与 ES5 中的一般继承写法是不同的。
-
-既然底层限制了实例必须由 Date 构造出来，那么我们可以改变下思路实现继承
-function MyData() {
-
-}
-MyData.prototype.test = function () {
-  return this.getTime()
-}
-let d = new Date()
-Object.setPrototypeOf(d, MyData.prototype)
-Object.setPrototypeOf(MyData.prototype, Date.prototype)
-以上继承实现思路：先创建父类实例 => 改变实例原先的 _proto__转而连接到子类的 prototype=> 子类的 prototype 的 __proto__ 改为父类的 prototype。
-通过以上方法实现的继承就可以完美解决 JS 底层的这个限制
-#
-7 this
-我们先来看几个函数调用的场景
-
-function foo() {
-  console.log(this.a)
-}
-var a = 1
-foo()
-
-const obj = {
-  a: 2,
-  foo: foo
-}
-obj.foo()
-
-const c = new foo()
-对于直接调用 foo 来说，不管 foo 函数被放在了什么地方，this 一定是window
-对于 obj.foo() 来说，我们只需要记住，谁调用了函数，谁就是 this，所以在这个场景下 foo 函数中的 this 就是 obj 对象
-对于 new 的方式来说，this 被永远绑定在了 c 上面，不会被任何方式改变 this
-说完了以上几种情况，其实很多代码中的 this 应该就没什么问题了，下面让我们看看箭头函数中的 this
-
-function a() {
-  return () => {
-    return () => {
-      console.log(this)
-    }
-  }
-}
-console.log(a()()())
-首先箭头函数其实是没有 this 的，箭头函数中的 this 只取决包裹箭头函数的第一个普通函数的 this。在这个例子中，因为包裹箭头函数的第一个普通函数是 a，所以此时的 this 是 window。另外对箭头函数使用 bind这类函数是无效的。
-最后种情况也就是 bind 这些改变上下文的 API 了，对于这些函数来说，this 取决于第一个参数，如果第一个参数为空，那么就是 window。
-那么说到 bind，不知道大家是否考虑过，如果对一个函数进行多次 bind，那么上下文会是什么呢？
-let a = {}
-let fn = function () { console.log(this) }
-fn.bind().bind(a)() // => ?
-如果你认为输出结果是 a，那么你就错了，其实我们可以把上述代码转换成另一种形式
-
-// fn.bind().bind(a) 等于
-let fn2 = function fn1() {
-  return function() {
-    return fn.apply()
-  }.apply(a)
-}
-fn2()
-可以从上述代码中发现，不管我们给函数 bind 几次，fn 中的 this 永远由第一次 bind 决定，所以结果永远是 window
-
-let a = { name: 'poetries' }
-function foo() {
-  console.log(this.name)
-}
-foo.bind(a)() // => 'poetries'
-以上就是 this 的规则了，但是可能会发生多个规则同时出现的情况，这时候不同的规则之间会根据优先级最高的来决定 this 最终指向哪里。
-
-首先，new 的方式优先级最高，接下来是 bind 这些函数，然后是 obj.foo() 这种调用方式，最后是 foo 这种调用方式，同时，箭头函数的 this 一旦被绑定，就不会再被任何方式所改变。
-
-image.png
-
-总结
-
-this执行主体，谁把它执行的和在哪创建的在哪执行的都没有必然的关系
-
-函数执行，看方法前面是否有点，没有点this是window(严格模式下是undefined)，有点，点前面是谁·this·就是谁
-给当前元素的某个事件行为绑定方法，当事件行为触发，方法中的this是当前元素本身（排除attachEvent）
-构造函数体中this是当前类的实例
-箭头函数中没有执行主体，所用到的this都是所处上下文中的this
-可以基于Function.prototype上的call/apply/bind改变this指向
 #
 8 内存机制
 网上的资料基本是这样说的: 基本数据类型用栈存储，引用数据类型用堆存储。
