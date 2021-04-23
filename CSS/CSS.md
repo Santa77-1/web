@@ -16,6 +16,8 @@
     - [css实现上下固定中间自适应布局](#css实现上下固定中间自适应布局)
     - [css两栏布局的实现](#css两栏布局的实现)
     - [css三栏布局的实现](#css三栏布局的实现)
+    - [左边定宽，右边自适应方案](#左边定宽右边自适应方案)
+    - [左右两边定宽，中间自适应](#左右两边定宽中间自适应)
     - [列出你所知道可以改变页面布局的属性](#列出你所知道可以改变页面布局的属性)
     - [CSS多列等高如何实现？请写出多种等高布局](#CSS多列等高如何实现请写出多种等高布局)
     - [怎么设置子元素均匀分布](#怎么设置子元素均匀分布)
@@ -56,6 +58,8 @@
   - [一个自适应矩形，水平垂直居中，且宽高比为2:1](#一个自适应矩形水平垂直居中且宽高比为21)
   - [一个满屏 品 字布局如何设计](#一个满屏-品-字布局如何设计)
   - [画一条0.5px的线](#画一条05px的线)
+  - [圆？半圆？椭圆？](#圆半圆椭圆)
+  - [CSS画圆半圆扇形三角梯形](#CSS画圆半圆扇形三角梯形)
   - [请用CSS写一个简单的幻灯片效果页面](#请用CSS写一个简单的幻灯片效果页面)
   - [让页面里的字体变清晰，变细用CSS怎么做？（IOS手机浏览器字体齿轮设置）](#让页面里的字体变清晰变细用CSS怎么做IOS手机浏览器字体齿轮设置)
   - [左边宽度固定，右边自适应](#左边宽度固定右边自适应)
@@ -147,6 +151,8 @@
   - [px和em区别](#px和em区别)
   - [px/rpx/em/rem/vw/vh的区别](#pxrpxemremvwvh的区别)
   - [em、px、rem区别](#empxrem区别)
+  - [移动端中css你是使用什么单位](#移动端中css你是使用什么单位)
+  - [rem和em的区别](#rem和em的区别)
   - [rgba()和opacity的透明效果有什么不同](#rgba和opacity的透明效果有什么不同)
 
 - [伪类](#伪类)
@@ -200,6 +206,18 @@
   - [stylus、sass、less区别](#stylussassless区别)
   - [postcss的作用](#postcss的作用)
   - [calc函数](#calc函数)
+  - [CSS加载问题](#CSS加载问题)
+  - [文字单超出显示省略号](#文字单超出显示省略号)
+  - [页面变灰](#页面变灰)
+  - [常规流(文档流)是个怎样的排列关系](#常规流文档流是个怎样的排列关系)
+  - [inline-block的使用场景](#inline-block的使用场景)
+  - [position: fixed什么时候会失效](#positionfixed什么时候会失效)
+  - [GPU加速的原因](#GPU加速的原因)
+  - [说说will-change](#说说will-change)
+  - [z-index和background的覆盖关系](#z-index和background的覆盖关系)
+  - [在移动端中怎样初始化根元素的字体大小](#在移动端中怎样初始化根元素的字体大小)
+  - [移动端中不同手机html默认的字体大小都是一样的吗](#移动端中不同手机html默认的字体大小都是一样的吗)
+
 
 
 
@@ -808,6 +826,239 @@ margin 值来实现的，而不是通过父元素的 padding 来实现的。
   margin-right: 200px;
   height: 100px;
 }
+```
+
+  #### 左边定宽，右边自适应方案
+- float + margin，float + calc
+```
+/* 方案1 */ 
+.left {
+  width: 120px;
+  float: left;
+}
+.right {
+  margin-left: 120px;
+}
+/* 方案2 */ 
+.left {
+  width: 120px;
+  float: left;
+}
+.right {
+  width: calc(100% - 120px);
+  float: left;
+}
+```
+
+如何实现左侧宽度固定，右侧宽度自适应的布局
+```
+<div class="box">
+  <div class="box-left"></div>
+  <div class="box-right"></div>
+</div>
+```
+利用float + margin实现
+```
+.box {
+ height: 200px;
+}
+
+.box > div {
+  height: 100%;
+}
+
+.box-left {
+  width: 200px;
+  float: left;
+  background-color: blue;
+}
+
+.box-right {
+  margin-left: 200px;
+  background-color: red;
+}
+```
+利用calc计算宽度
+```
+.box {
+ height: 200px;
+}
+
+.box > div {
+  height: 100%;
+}
+
+.box-left {
+  width: 200px;
+  float: left;
+  background-color: blue;
+}
+
+.box-right {
+  width: calc(100% - 200px);
+  float: right;
+  background-color: red;
+}
+```
+利用float + overflow实现
+```
+.box {
+ height: 200px;
+}
+
+.box > div {
+  height: 100%;
+}
+
+.box-left {
+  width: 200px;
+  float: left;
+  background-color: blue;
+}
+
+.box-right {
+  overflow: hidden;
+  background-color: red;
+}
+```
+利用flex实现
+```
+.box {
+  height: 200px;
+  display: flex;
+}
+
+.box > div {
+  height: 100%;
+}
+
+.box-left {
+  width: 200px;
+  background-color: blue;
+}
+
+.box-right {
+  flex: 1; // 设置flex-grow属性为1，默认为0
+  overflow: hidden;
+  background-color: red;
+}
+```
+  #### 左右两边定宽，中间自适应
+- float，float + calc, 圣杯布局（设置BFC，margin负值法），flex
+```
+.wrap {
+  width: 100%;
+  height: 200px;
+}
+.wrap > div {
+  height: 100%;
+}
+/* 方案1 */
+.left {
+  width: 120px;
+  float: left;
+}
+.right {
+  float: right;
+  width: 120px;
+}
+.center {
+  margin: 0 120px; 
+}
+/* 方案2 */
+.left {
+  width: 120px;
+  float: left;
+}
+.right {
+  float: right;
+  width: 120px;
+}
+.center {
+  width: calc(100% - 240px);
+  margin-left: 120px;
+}
+/* 方案3 */
+.wrap {
+  display: flex;
+}
+.left {
+  width: 120px;
+}
+.right {
+  width: 120px;
+}
+.center {
+  flex: 1;
+}
+```
+
+两边宽度固定中间自适应的三栏布局
+- 圣杯布局和双飞翼布局是前端工程师需要日常掌握的重要布局方式。两者的功能相同，都是为了实现一个两侧宽度固定，中间宽度自适应的三栏布局。
+
+圣杯布局
+```
+<style>
+body{
+    min-width: 550px;
+}
+#container{
+    padding-left: 200px;
+    padding-right: 150px;
+}
+#container .column{
+    float: left;
+}
+#center{
+    width: 100%;
+}
+#left{
+    width: 200px;
+    margin-left: -100%;
+    position: relative;
+    right: 200px;
+}
+#right{
+    width: 150px;
+    margin-right: -150px;
+}
+</style>
+<div id="container">
+    <div id="center" class="column">center</div>
+    <div id="left" class="column">left</div>
+    <div id="right" class="column">right</div>
+</div>
+```
+双飞翼布局
+```
+<style>
+body {
+    min-width: 500px;
+}
+#container {
+    width: 100%;
+}
+.column {
+    float: left;
+}
+#center {
+    margin-left: 200px;
+    margin-right: 150px;
+}
+#left {
+    width: 200px;
+    margin-left: -100%;
+}
+#right {
+    width: 150px;
+    margin-left: -150px;
+}
+</style>
+<div id="container" class="column">
+    <div id="center">center</div>
+</div>
+<div id="left" class="column">left</div>
+<div id="right" class="column">right</div>
 ```
 
    #### 列出你所知道可以改变页面布局的属性
@@ -1707,6 +1958,18 @@ css文件放在head里、不要用@import
 }
 ```
 
+三角形原理:边框的均分原理
+```
+div {
+  width:0px;
+  height:0px;
+  border-top:10px solid red; 
+  border-right:10px solid transparent; 
+  border-bottom:10px solid transparent; 
+  border-left:10px solid transparent;
+}
+```
+
   ### 用纯CSS创建一个三角形的原理是什么
 ```css
 采用的是相邻边框连接处的均分原理。将元素的宽高设为0，只设置border，
@@ -1784,6 +2047,67 @@ css文件放在head里、不要用@import
 采用border-image的方式
 采用transform:scale()的方式
 ```
+
+- 采用 meta viewport 的方式 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+- 采用 border-image 的方式
+- 采用 transform: scale() 的方式
+
+  ### 圆？半圆？椭圆？
+```
+div {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  margin-top: 20px;
+}
+.box1 { /* 圆 */
+  /* border-radius: 50%; */
+  border-radius: 50px;
+}
+.box2 { /* 半圆 */
+  height: 50px;
+  border-radius: 50px 50px 0 0;
+}
+.box3 { /* 椭圆 */
+  height: 50px;
+  border-radius: 50px/25px; /* x轴/y轴 */
+}
+```
+
+  ### CSS画圆半圆扇形三角梯形
+```
+div{
+    margin: 50px;
+    width: 100px;
+    height: 100px;
+    background: red;
+}
+/* 半圆 */
+.half-circle{
+    height: 50px;
+    border-radius: 50px 50px 0 0;
+}
+/* 扇形 */
+.sector{
+    border-radius: 100px 0 0;
+}
+/* 三角 */
+.triangle{
+    width: 0px;
+    height: 0px;
+    background: none;
+    border: 50px solid red;
+    border-color: red transparent transparent transparent;
+}
+/* 梯形 */
+.ladder{
+    width: 50px;
+    height: 0px;
+    background: none;
+    border: 50px solid red;
+    border-color: red transparent transparent transparent;
+}
+````
 
   ### 请用CSS写一个简单的幻灯片效果页面
 ```
@@ -3260,6 +3584,28 @@ em 值并不是固定的，会继承父级的字体大小： em = 像素值 / �
 - em：相对单位，基准点为父节点字体的大小，如果自身定义了font-size按自身来计算（浏览器默认字体是16px），整个页面内1em不是一个固定的值。
 - rem：相对单位，可理解为”root em”, 相对根节点html的字体大小来计算，CSS3新加属性，chrome/firefox/IE9+支持
 
+  ### 移动端中css你是使用什么单位
+比较常用的：
+- em：定义字体大小时以父级的字体大小为基准；定义长度单位时以当前字体大小为基准。例父级font-size: 14px，则子级font-size: 1em;为font-size: 14px;；若定义长度时，子级的字体大小如果为14px，则子级width: 2em;为width: 24px。
+- rem：以根元素的字体大小为基准。例如html的font-size: 14px，则子级1rem = 14px。
+- %：以父级的宽度为基准。例父级width: 200px，则子级width: 50%;height:50%;为width: 100px;height: 100px;
+- vw和vh：基于视口的宽度和高度(视口不包括浏览器的地址栏工具栏和状态栏)。例如视口宽度为1000px，则60vw = 600px;
+- vmin和vmax：vmin为当前vw 和vh中较小的一个值；vmax为较大的一个值。例如视口宽度375px，视口高度812px，则100vmin = 375px;，100vmax = 812px;
+
+不常用的：
+- ex和ch：ex以字符"x"的高度为基准；例如1ex表示和字符"x"一样长。ch以数字"0"的宽度为基准；例如2ch表示和2个数字"0"一样长。
+
+移动端布局总结：
+- 移动端布局的方式主要使用rem和flex，可以结合各自的优点，比如flex布局很灵活，但是字体的大小不好控制，我们可以使用rem和媒体查询控制字体的大小，媒体查询视口的大小，然后不同的上视口大小下设置设置html的font-size。
+- 可单独制作移动端页面也可响应式pc端移动端共用一个页面。没有好坏，视情况而定，因势利导
+
+  ### rem和em的区别
+em:
+- 定义字体大小时以父级的字体大小为基准；定义长度单位时以当前字体大小为基准。例父级font-size: 14px，则子级font-size: 1em;为font-size: 14px;；若定义长度时，子级的字体大小如果为14px，则子级width: 2em;为width: 24px。
+
+rem:
+- 以根元素的字体大小为基准。例如html的font-size: 14px，则子级1rem = 14px。
+
   ### rgba()和opacity的透明效果有什么不同
 ```
 rgba()和opacity都能实现透明效果，但最大的不同是opacity作用于元素，
@@ -3839,6 +4185,29 @@ cursor
 不可继承的样式：border padding margin width height
 ```
 
+CSS中可继承的属性
+- 可继承的只有：颜色、文字、字体间距、行高对齐方式，列表样式。
+
+- 所有元素可继承：visibility和cursor。
+
+- 内联元素可继承：
+  - letter-spacing
+  - word-spacing
+  - white-space
+  - line-height
+  - color
+  - font
+  - font-family
+  - font-size
+  - font-style
+  - font-variant
+  - font-weight
+  - text-decoration
+  - text-transform
+  - direction
+- 块状：text-indent和text-align。
+- 列表元素可继承：list-style、list-style-type、list-style-position、list-style-image
+
   ###  css合并方法
 ```
 避免使用@import引入多个css文件，可以使用CSS工具将
@@ -4233,6 +4602,28 @@ getComputedStyle等）也会引起回流。因为浏览器需要通过回流计�
 批量修改元素样式：elem.className 和 elem.style.cssText 代替 elem.style.xxx
 ```
 
+回流：
+- 触发条件：当我们对 DOM 结构的修改引发 DOM 几何尺寸变化的时候，会发生回流的过程。
+
+例如以下操作会触发回流：
+- 1.一个 DOM 元素的几何属性变化，常见的几何属性有width、height、padding、margin、left、top、border 等等, 这个很好理解。 2. 使 DOM 节点发生增减或者移动。 3. 读写 offset族、scroll族和client族属性的时候，浏览器为了获取这些值，需要进行回流操作。 4. 调用 window.getComputedStyle 方法。
+
+- 回流过程：由于DOM的结构发生了改变，所以需要从生成DOM这一步开始，重新经过样式计算、生成布局树、建立图层树、再到生成绘制列表以及之后的显示器显示这整一个渲染过程走一遍，开销是非常大的。
+
+重绘：
+- 触发条件：当 DOM 的修改导致了样式的变化，并且没有影响几何属性的时候，会导致重绘(repaint)。
+
+- 重绘过程：由于没有导致 DOM 几何属性的变化，因此元素的位置信息不需要更新，所以当发生重绘的时候，会跳过生存布局树和建立图层树的阶段，直接到生成绘制列表，然后继续进行分块、生成位图等后面一系列操作。
+
+如何避免触发回流和重绘：
+- 避免频繁使用 style，而是采用修改class的方式。
+- 将动画效果应用到position属性为absolute或fixed的元素上。
+- 也可以先为元素设置display: none，操作结束后再把它显示出来。因为在display属性为none的元素上进行的DOM操作不会引发回流和重绘
+- 使用createDocumentFragment进行批量的 DOM 操作。
+- 对于 resize、scroll 等进行防抖/节流处理。
+- 避免频繁读取会引发回流/重绘的属性，如果确实需要多次使用，就用一个变量缓存起来。
+- 利用 CSS3 的transform、opacity、filter这些属性可以实现合成的效果，也就是CPU加速。
+
   ### 什么是fouc，如何避免
 ```
 Flash Of Unstyled Content：用户定义样式表加载之前浏览器使用
@@ -4321,43 +4712,23 @@ postcss可以对sass处理过后的css再处理 最常见的就是autoprefixer
 - calc()函数支持 "+", "-", "*", "/" 运算;
 - 对于不支持 calc()的浏览器，整个属性值表达式将被忽略。不过我们可以对那些不支持calc()的浏览器，使用一个固定值作为回退。
 
-
-
-
-
-
-
-
-
-
-
-
-
-#
-16 浏览器是怎样解析 CSS 选择器的
-样式系统从关键选择器开始匹配，然后左移查找规则选择器的祖先元素。只要选择器的子树一直在工作，样式系统就会持续左移，直到和规则匹配，或者是因为不匹配而放弃该规则。
-试想一下，如果采用从左至右的方式读取CSS规则，那么大多数规则读到最后（最右）才会发现是不匹配的，这样做会费时耗能， 最后有很多都是无用的；而如果采取从右向左的方式，那么只要发现最右边选择器不匹配，就可以直接舍弃了，避免了许多无效匹配。
-#
-17 浏览器如何判断是否支持 webp 格式图片
-宽高判断法。通过创建image对象，将其src属性设置为webp格式的图片，然后在onload事件中获取图片的宽高，如 果能够获取，则说明浏览器支持webp格式图片。如果不能获取或者触发了onerror函数，那么就说明浏览器不支持webp格 式的图片
-canvas判断方法。我们可以动态的创建一个canvas对象，通过canvas的toDataURL将设置为webp格式，然后判断 返回值中是否含有image/webp字段，如果包含则说明支持WebP，反之则不支持
-#
-18 CSS加载问题
+  ### CSS加载问题
 根据页面渲染流程可得知：
+- css加载不会阻塞DOM树的解析;
+- css加载会阻塞DOM树的渲染；
+- css加载会阻塞后面js语句的执行
 
-css加载不会阻塞DOM树的解析;
-css加载会阻塞DOM树的渲染；
-css加载会阻塞后面js语句的执行
-#
-19 文字单超出显示省略号
+  ### 文字单超出显示省略号
+```
 div {
 	width: 200px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+```
 文字多行超出显示省略号
-
+```
 div {
 	width: 200px;
 	display: -webkit-box;
@@ -4365,10 +4736,11 @@ div {
 	-webkit-line-clamp: 3;
 	overflow: hidden;
 }
+```
 该方法适用于WebKit浏览器及移动端。
 
 跨浏览器兼容方案：
-
+```
 p {
     position:relative;
     line-height:1.4em;
@@ -4384,143 +4756,78 @@ p::after {
     right:0;
     padding:0 20px 1px 45px;
 }
-#
-20 页面变灰
+```
+
+  ### 页面变灰
+```
 body {
 	filter: grayscale(100%); /* 百分比或者 0~1 */
 }
-#
-21 CSS中可继承的属性
-可继承的只有：颜色、文字、字体间距、行高对齐方式，列表样式。
+```
 
-所有元素可继承：visibility和cursor。
+  ### 常规流(文档流)是个怎样的排列关系
+- 将窗体自上而下分成一行一行,并在每行中按从左至右的挨次排放元素。
 
-内联元素可继承：
-letter-spacing
-word-spacing
-white-space
-line-height
-color
-font
-font-family
-font-size
-font-style
-font-variant
-font-weight
-text-decoration
-text-transform
-direction
-块状：text-indent和text-align。
-列表元素可继承：list-style、list-style-type、list-style-position、list-style-image
-#
-22 常规流(文档流)是个怎样的排列关系
-将窗体自上而下分成一行一行,并在每行中按从左至右的挨次排放元素。
+  ### inline-block的使用场景
+- 1.要设置某些子元素在一行或者多行内显示，尤其是排列方向一致的情况下，应尽量用inline-block。
+- 2.希望若干个元素平行排列，且在父元素中居中排列，此时可以用inline-block，且给父元素设text-align: center。
+- 3.inline-block可以用一排a {display: inline-block}实现横向导航栏，无论是居左的导航栏还是居右的都适用。
 
-#
-23 inline-block的使用场景
-要设置某些子元素在一行或者多行内显示，尤其是排列方向一致的情况下，应尽量用inline-block。
-希望若干个元素平行排列，且在父元素中居中排列，此时可以用inline-block，且给父元素设text-align: center。
-inline-block可以用一排a {display: inline-block}实现横向导航栏，无论是居左的导航栏还是居右的都适用。
-对于第一种和第三种情况虽然都可以使用float来实现，不过inline-block会比它好一些，原因如下：
+- 对于第一种和第三种情况虽然都可以使用float来实现，不过inline-block会比它好一些，原因如下：
+  - 浮动会脱离文档流，导致父元素高度塌陷
 
-浮动会脱离文档流，导致父元素高度塌陷
-#
-24 position: fixed什么时候会失效？
-我们知道，设置了position: fixed固定定位属性的元素会脱离文档流，达到“超然脱俗”的境界。
+  ### position: fixed什么时候会失效
+```
+我们知道，设置了position: fixed固定定位属性的元素
+会脱离文档流，达到“超然脱俗”的境界。
 
-也就是说此时给这种元素设置top, left, right, bottom等属性是根据浏览器窗口定位的，与其上级元素的位置无关。
-
+也就是说此时给这种元素设置top, left, right, bottom等
+属性是根据浏览器窗口定位的，与其上级元素的位置无关。
+```
 但是有一种情况例外：
+- 若是设置了position: fixed属性的元素，它的祖先元素设置了transform属性则会导致固定定位属性失效。
+- 只要你的transform设置的不是none，都会影响到position: fixed，因为此时就会相对于祖先元素指定坐标，而不是浏览器窗口。
+```
+注意，这个特性表现，目前只在Chrome浏览器/FireFox浏览器下有。
+IE浏览器，包括IE11, fixed还是fixed的表现。
+```
 
-若是设置了position: fixed属性的元素，它的祖先元素设置了transform属性则会导致固定定位属性失效。
-只要你的transform设置的不是none，都会影响到position: fixed，因为此时就会相对于祖先元素指定坐标，而不是浏览器窗口。
-注意，这个特性表现，目前只在Chrome浏览器/FireFox浏览器下有。IE浏览器，包括IE11, fixed还是fixed的表现。
+  ### GPU加速的原因
+- 在合成的情况下，会直接跳过布局和绘制流程，直接进入非主线程处理的部分，即直接交给合成线程处理。交给它处理有两大好处:
 
-#
-25 说一下回流和重绘
-回流：
+- 1.能够充分发挥GPU的优势。合成线程生成位图的过程中会调用线程池，并在其中使用GPU进行加速生成，而 GPU 是擅长处理位图数据的。
+- 2.没有占用主线程的资源，即使主线程卡住了，效果依然能够流畅地展示。
 
-触发条件：当我们对 DOM 结构的修改引发 DOM 几何尺寸变化的时候，会发生回流的过程。
-
-例如以下操作会触发回流：
-
-1.一个 DOM 元素的几何属性变化，常见的几何属性有width、height、padding、margin、left、top、border 等等, 这个很好理解。 2. 使 DOM 节点发生增减或者移动。 3. 读写 offset族、scroll族和client族属性的时候，浏览器为了获取这些值，需要进行回流操作。 4. 调用 window.getComputedStyle 方法。
-
-回流过程：由于DOM的结构发生了改变，所以需要从生成DOM这一步开始，重新经过样式计算、生成布局树、建立图层树、再到生成绘制列表以及之后的显示器显示这整一个渲染过程走一遍，开销是非常大的。
-
-重绘：
-
-触发条件：
-
-当 DOM 的修改导致了样式的变化，并且没有影响几何属性的时候，会导致重绘(repaint)。
-重绘过程：由于没有导致 DOM 几何属性的变化，因此元素的位置信息不需要更新，所以当发生重绘的时候，会跳过生存布局树和建立图层树的阶段，直接到生成绘制列表，然后继续进行分块、生成位图等后面一系列操作。
-如何避免触发回流和重绘：
-
-避免频繁使用 style，而是采用修改class的方式。
-将动画效果应用到position属性为absolute或fixed的元素上。
-也可以先为元素设置display: none，操作结束后再把它显示出来。因为在display属性为none的元素上进行的DOM操作不会引发回流和重绘
-使用createDocumentFragment进行批量的 DOM 操作。
-对于 resize、scroll 等进行防抖/节流处理。
-避免频繁读取会引发回流/重绘的属性，如果确实需要多次使用，就用一个变量缓存起来。
-利用 CSS3 的transform、opacity、filter这些属性可以实现合成的效果，也就是CPU加速。
-#
-26 GPU加速的原因
-在合成的情况下，会直接跳过布局和绘制流程，直接进入非主线程处理的部分，即直接交给合成线程处理。交给它处理有两大好处:
-
-能够充分发挥GPU的优势。合成线程生成位图的过程中会调用线程池，并在其中使用GPU进行加速生成，而 GPU 是擅长处理位图数据的。
-没有占用主线程的资源，即使主线程卡住了，效果依然能够流畅地展示。
-#
-27 说说will-change
-will-change是CSS3新增的标准属性，它的作用很单纯，就是"增强页面渲染性能"，当我们在通过某些行为触发页面进行大面积绘制的时候，浏览器往往是没有准备，只能被动的使用CUP去计算和重绘，由于事先没有准备，对于一些复杂的渲染可能会出现掉帧、卡顿等情况。而will-change则是在真正的行为触发之前告诉浏览器可能要进行重绘了，相当于浏览器把CUP拉上了，能从容的面对接下来的变形。
+  ### 说说will-change
+- will-change是CSS3新增的标准属性，它的作用很单纯，就是"增强页面渲染性能"，当我们在通过某些行为触发页面进行大面积绘制的时候，浏览器往往是没有准备，只能被动的使用CUP去计算和重绘，由于事先没有准备，对于一些复杂的渲染可能会出现掉帧、卡顿等情况。而will-change则是在真正的行为触发之前告诉浏览器可能要进行重绘了，相当于浏览器把CUP拉上了，能从容的面对接下来的变形。
 
 常用的语法主要有：
+- whil-change: scroll-position; 即将开始滚动
+- will-change: contents; 内容要动画或者变化了
+- will-transform; transform相关的属性要变化了(常用)
 
-whil-change: scroll-position; 即将开始滚动
-will-change: contents; 内容要动画或者变化了
-will-transform; transform相关的属性要变化了(常用)
 注意：
+- will-change虽然可以开启加速，但是一定要适度使用
+- 开启加速的代价为手机的耗电量会增加
+- 使用时遵循最小化影响原则，可以对伪元素开启加速，独立渲染
+- 可以写在伪类中，例如hover中，这样移出元素的时候就会自动remove掉will-change了
+- 如果使用JS添加了will-change，注意要及时remove掉，方式就是style.willChange = 'auto'
 
-will-change虽然可以开启加速，但是一定要适度使用
-开启加速的代价为手机的耗电量会增加
-使用时遵循最小化影响原则，可以对伪元素开启加速，独立渲染
-可以写在伪类中，例如hover中，这样移出元素的时候就会自动remove掉will-change了
-如果使用JS添加了will-change，注意要及时remove掉，方式就是style.willChange = 'auto'
-#
-28 z-index和background的覆盖关系
+  ### z-index和background的覆盖关系
+```
+background/border
+        z-index < 0
+	  back块级水平盒子
+	        float浮动盒子
+	             inline/inline-block水平盒子
+			     z-index:auto/z-index:0
+				             z-index > 0
+```
 
-
-#
-29 移动端中css你是使用什么单位
-比较常用的：
-
-em：定义字体大小时以父级的字体大小为基准；定义长度单位时以当前字体大小为基准。例父级font-size: 14px，则子级font-size: 1em;为font-size: 14px;；若定义长度时，子级的字体大小如果为14px，则子级width: 2em;为width: 24px。
-rem：以根元素的字体大小为基准。例如html的font-size: 14px，则子级1rem = 14px。
-%：以父级的宽度为基准。例父级width: 200px，则子级width: 50%;height:50%;为width: 100px;height: 100px;
-vw和vh：基于视口的宽度和高度(视口不包括浏览器的地址栏工具栏和状态栏)。例如视口宽度为1000px，则60vw = 600px;
-vmin和vmax：vmin为当前vw 和vh中较小的一个值；vmax为较大的一个值。例如视口宽度375px，视口高度812px，则100vmin = 375px;，100vmax = 812px;
-不常用的：
-
-ex和ch：ex以字符"x"的高度为基准；例如1ex表示和字符"x"一样长。ch以数字"0"的宽度为基准；例如2ch表示和2个数字"0"一样长。
-移动端布局总结：
-
-移动端布局的方式主要使用rem和flex，可以结合各自的优点，比如flex布局很灵活，但是字体的大小不好控制，我们可以使用rem和媒体查询控制字体的大小，媒体查询视口的大小，然后不同的上视口大小下设置设置html的font-size。
-可单独制作移动端页面也可响应式pc端移动端共用一个页面。没有好坏，视情况而定，因势利导
-#
-30 rem和em的区别
-em:
-
-定义字体大小时以父级的字体大小为基准；定义长度单位时以当前字体大小为基准。例父级font-size: 14px，则子级font-size: 1em;为font-size: 14px;；若定义长度时，子级的字体大小如果为14px，则子级width: 2em;为width: 24px。
-
-rem:
-
-以根元素的字体大小为基准。例如html的font-size: 14px，则子级1rem = 14px。
-
-#
-31 在移动端中怎样初始化根元素的字体大小
+  ### 在移动端中怎样初始化根元素的字体大小
+```
 一个简易版的初始化根元素字体大小。
-
 页面开头处引入下面这段代码，用于动态计算font-size：
-
 (假设你需要的1rem = 20px)
 
 (function () {
@@ -4531,304 +4838,18 @@ rem:
   window.addEventListener('resize', onWindowResize);
   onWindowResize();
 })();
-document.documentElement：获取document的根元素
-html.getBoundingClientRect().width：获取html的宽度(窗口的宽度)
-监听window的resize事件
+```
+- document.documentElement：获取document的根元素
+- html.getBoundingClientRect().width：获取html的宽度(窗口的宽度)
+- 监听window的resize事件
+
 一般还需要配合一个meta头：
-
+```
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-sacle=1.0, maximum-scale=1.0, user-scalable=no" />
-#
-32 移动端中不同手机html默认的字体大小都是一样的吗
-如果没有人为取改变根元素字体大小的话，默认是1rem = 16px；根元素默认的字体大小是16px。
+```
 
-#
-33 编程题
-#画一条 0.5px 的线
-采用 meta viewport 的方式 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-采用 border-image 的方式
-采用 transform: scale() 的方式
-#如何画一个三角形
-三角形原理:边框的均分原理
-
-div {
-  width:0px;
-  height:0px;
-  border-top:10px solid red; 
-  border-right:10px solid transparent; 
-  border-bottom:10px solid transparent; 
-  border-left:10px solid transparent;
-}
-#圆？半圆？椭圆？
-div {
-  width: 100px;
-  height: 100px;
-  background-color: red;
-  margin-top: 20px;
-}
-.box1 { /* 圆 */
-  /* border-radius: 50%; */
-  border-radius: 50px;
-}
-.box2 { /* 半圆 */
-  height: 50px;
-  border-radius: 50px 50px 0 0;
-}
-.box3 { /* 椭圆 */
-  height: 50px;
-  border-radius: 50px/25px; /* x轴/y轴 */
-}
-#左边定宽，右边自适应方案
-float + margin，float + calc
-
-/* 方案1 */ 
-.left {
-  width: 120px;
-  float: left;
-}
-.right {
-  margin-left: 120px;
-}
-/* 方案2 */ 
-.left {
-  width: 120px;
-  float: left;
-}
-.right {
-  width: calc(100% - 120px);
-  float: left;
-}
-#左右两边定宽，中间自适应
-float，float + calc, 圣杯布局（设置BFC，margin负值法），flex
-
-.wrap {
-  width: 100%;
-  height: 200px;
-}
-.wrap > div {
-  height: 100%;
-}
-/* 方案1 */
-.left {
-  width: 120px;
-  float: left;
-}
-.right {
-  float: right;
-  width: 120px;
-}
-.center {
-  margin: 0 120px; 
-}
-/* 方案2 */
-.left {
-  width: 120px;
-  float: left;
-}
-.right {
-  float: right;
-  width: 120px;
-}
-.center {
-  width: calc(100% - 240px);
-  margin-left: 120px;
-}
-/* 方案3 */
-.wrap {
-  display: flex;
-}
-.left {
-  width: 120px;
-}
-.right {
-  width: 120px;
-}
-.center {
-  flex: 1;
-}
-#如何实现左侧宽度固定，右侧宽度自适应的布局
-<div class="box">
-  <div class="box-left"></div>
-  <div class="box-right"></div>
-</div>
-利用float + margin实现
-
-.box {
- height: 200px;
-}
-
-.box > div {
-  height: 100%;
-}
-
-.box-left {
-  width: 200px;
-  float: left;
-  background-color: blue;
-}
-
-.box-right {
-  margin-left: 200px;
-  background-color: red;
-}
-利用calc计算宽度
-
-.box {
- height: 200px;
-}
-
-.box > div {
-  height: 100%;
-}
-
-.box-left {
-  width: 200px;
-  float: left;
-  background-color: blue;
-}
-
-.box-right {
-  width: calc(100% - 200px);
-  float: right;
-  background-color: red;
-}
-利用float + overflow实现
-
-.box {
- height: 200px;
-}
-
-.box > div {
-  height: 100%;
-}
-
-.box-left {
-  width: 200px;
-  float: left;
-  background-color: blue;
-}
-
-.box-right {
-  overflow: hidden;
-  background-color: red;
-}
-利用flex实现
-
-.box {
-  height: 200px;
-  display: flex;
-}
-
-.box > div {
-  height: 100%;
-}
-
-.box-left {
-  width: 200px;
-  background-color: blue;
-}
-
-.box-right {
-  flex: 1; // 设置flex-grow属性为1，默认为0
-  overflow: hidden;
-  background-color: red;
-}
-#两边宽度固定中间自适应的三栏布局
-圣杯布局和双飞翼布局是前端工程师需要日常掌握的重要布局方式。两者的功能相同，都是为了实现一个两侧宽度固定，中间宽度自适应的三栏布局。
-
-圣杯布局
-
-<style>
-body{
-    min-width: 550px;
-}
-#container{
-    padding-left: 200px;
-    padding-right: 150px;
-}
-#container .column{
-    float: left;
-}
-#center{
-    width: 100%;
-}
-#left{
-    width: 200px;
-    margin-left: -100%;
-    position: relative;
-    right: 200px;
-}
-#right{
-    width: 150px;
-    margin-right: -150px;
-}
-</style>
-<div id="container">
-    <div id="center" class="column">center</div>
-    <div id="left" class="column">left</div>
-    <div id="right" class="column">right</div>
-</div>
-双飞翼布局
-
-<style>
-body {
-    min-width: 500px;
-}
-#container {
-    width: 100%;
-}
-.column {
-    float: left;
-}
-#center {
-    margin-left: 200px;
-    margin-right: 150px;
-}
-#left {
-    width: 200px;
-    margin-left: -100%;
-}
-#right {
-    width: 150px;
-    margin-left: -150px;
-}
-</style>
-<div id="container" class="column">
-    <div id="center">center</div>
-</div>
-<div id="left" class="column">left</div>
-<div id="right" class="column">right</div>
-#CSS画圆半圆扇形三角梯形
-div{
-    margin: 50px;
-    width: 100px;
-    height: 100px;
-    background: red;
-}
-/* 半圆 */
-.half-circle{
-    height: 50px;
-    border-radius: 50px 50px 0 0;
-}
-/* 扇形 */
-.sector{
-    border-radius: 100px 0 0;
-}
-/* 三角 */
-.triangle{
-    width: 0px;
-    height: 0px;
-    background: none;
-    border: 50px solid red;
-    border-color: red transparent transparent transparent;
-}
-/* 梯形 */
-.ladder{
-    width: 50px;
-    height: 0px;
-    background: none;
-    border: 50px solid red;
-    border-color: red transparent transparent transparent;
-}
+  ### 移动端中不同手机html默认的字体大小都是一样的吗
+- 如果没有人为取改变根元素字体大小的话，默认是1rem = 16px；根元素默认的字体大小是16px。
 
 
 
