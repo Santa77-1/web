@@ -12,7 +12,10 @@
   - [如何获取安全的undefined值](#如何获取安全的undefined值)
   - [Symbol类型的注意点](#Symbol类型的注意点)
   - [js中整数的安全范围是多少](#js中整数的安全范围是多少)
+  - [JS整数是怎么表示的](#JS整数是怎么表示的)
+  - [Number()的存储空间是多大？如果后台发送了一个超过最大自己的数字怎么办](#Number的存储空间是多大如果后台发送了一个超过最大自己的数字怎么办)
   - ['1'.toString()为什么可以调用](#1toString为什么可以调用)
+  - [如何理解BigInt](#如何理解BigInt)
 
 - [js类型判断](#js类型判断)
   - [typeof操作符](#typeof操作符)
@@ -71,6 +74,7 @@
   - [快速的让一个数组乱序](#快速的让一个数组乱序)
   - [数组去重方法总结](#数组去重方法总结)
   - [数组扁平化](#数组扁平化)
+  - [JS中flat---数组扁平化](#JS中flat数组扁平化)
   - [判断是否是数组](#判断是否是数组)
   - [数组的fill方法](#数组的fill方法)
   - [数组和对象有哪些原生方法](#数组和对象有哪些原生方法)
@@ -84,6 +88,9 @@
   - [Map和WeakMap结构](#Map和WeakMap结构)
   - [Set和WeakSet结构](#Set和WeakSet结构)
   - [{}和[]的valueOf和toString的结果是什么](#和的valueOf和toString的结果是什么)
+  - [如何转化类数组成数组](#如何转化类数组成数组)
+  - [forEach中return有效果吗？如何中断forEach循环](#forEach中return有效果吗如何中断forEach循环)
+  - [JS判断数组中是否包含某个值](#JS判断数组中是否包含某个值)
 
 - [函数](#函数)
   - [JavaScript中，调用函数有哪几种方式](#JavaScript中调用函数有哪几种方式)
@@ -135,6 +142,7 @@
   - [new操作符具体干了什么呢？如何实现](#new操作符具体干了什么呢如何实现)
   - [Javascript的作用域链](#Javascript的作用域链)
   - [JavaScript中的作用域与变量声明提升](#JavaScript中的作用域与变量声明提升)
+  - [变量提升](#变量提升)
 
 - [事件](#事件)
   - [事件是什么？IE与火狐的事件机制有什么区别？如何阻止冒泡](#事件是什么IE与火狐的事件机制有什么区别如何阻止冒泡)
@@ -193,6 +201,8 @@
   - [手写一个Promise](#手写一个Promise)
   - [js中的callback和promise区别](#js中的callback和promise区别)
   - [defer和async](#defer和async)
+  - [js脚本加载问题，async、defer问题](#js脚本加载问题asyncdefer问题)
+  - [async原理](#async原理)
 
 - [模式](#模式)
   - [用过哪些设计模式](#用过哪些设计模式)
@@ -204,6 +214,7 @@
   - [观察者模式和发布订阅模式有什么不同](#观察者模式和发布订阅模式有什么不同)
   - [严格模式的限制](#严格模式的限制)
   - [手写一个观察者模式](#手写一个观察者模式)
+  - [说说JavaScript对象的几种创建方式](#说说JavaScript对象的几种创建方式)
 
 - [模块化](#模块化)
   - [模块化开发怎么做](#模块化开发怎么做)
@@ -219,6 +230,7 @@
   - [虚拟DOM(Virtual DOM),为什么虚拟DOM比原生DOM快](#虚拟DOMVirtual-DOM为什么虚拟DOM比原生DOM快)
   - [如何比较两个DOM树的差异](#如何比较两个DOM树的差异)
   - [介绍DOM0，DOM2，DOM3事件处理方式区别](#介绍DOM0DOM2DOM3事件处理方式区别)
+  - [说说有几种类型的DOM节点](#说说有几种类型的DOM节点)
 
 - [优化](#优化)
   - [项目做过哪些性能优化](#项目做过哪些性能优化)
@@ -258,6 +270,7 @@
   - [写JavaScript的基本规范](#写JavaScript的基本规范)
   - [js的节流与防抖](#js的节流与防抖)
   - [js中的深浅拷贝实现](#js中的深浅拷贝实现)
+  - [JS中浅拷贝的手段有哪些](#JS中浅拷贝的手段有哪些)
   - [js中的命名规则](#js中的命名规则)
   - [对原生Javascript了解程度](#对原生Javascript了解程度)
   - [渐进增强和优雅降级](#渐进增强和优雅降级)
@@ -308,6 +321,7 @@
 
 - [宏任务和微任务](#宏任务和微任务)
   - [requestAnimationFrame](#requestAnimationFrame)
+  - [setTimeout、Promise、Async/Await的区别](#setTimeoutPromiseAsyncAwait的区别)
   - [为什么使用setTimeout实现setInterval？怎么模拟](#为什么使用setTimeout实现setInterval怎么模拟)
   - [event loop](#event-loop)
   - [浏览器宏微任务](#浏览器宏微任务)
@@ -348,6 +362,8 @@
   - [Electron](#Electron)
   - [有四个操作会忽略enumerable为false的属性](#有四个操作会忽略enumerable为false的属性)
   - [一道常被人轻视的前端JS面试题](#一道常被人轻视的前端JS面试题)
+  - [内存机制](#内存机制)
+  - [执行上下文](#执行上下文)
 
   
   
@@ -621,6 +637,12 @@ Symbol.keyFor 方法返回一个已登记的 Symbol 类型值的 key。
 判断一个数是不是有穷的，可以使用 isFinite 函数来判断。
 ```
 
+#### JS整数是怎么表示的
+- 通过 Number 类型来表示，遵循 IEEE754 标准，通过 64 位来表示一个数字，（1 + 11 + 52），最大安全数字是 Math.pow(2, 53) - 1，对于 16 位十进制。（符号位 + 指数位 + 小数部分有效位）
+
+#### Number()的存储空间是多大？如果后台发送了一个超过最大自己的数字怎么办
+- Math.pow(2, 53) ，53 为有效数字，会发生截断，等于 JS 能支持的最大数字。
+
   #### '1'.toString()为什么可以调用
 其实在这个语句运行的过程中做了这样几件事情：
 ```
@@ -735,7 +757,7 @@ function type(obj) {
 }
 ```
 
-  #### 总结
+总结
 - typeof
   - 直接在计算机底层基于数据类型的值（二进制）进行检测
   - typeof null为object 原因是对象存在在计算机中，都是以000开始的二进制存储，所以检测出来的结果是对象
@@ -2739,6 +2761,66 @@ function flatten(arr){
 flatten(arr)   // [1,2,3,4]
 ```
 
+#### JS中flat---数组扁平化
+- 对于前端项目开发过程中，偶尔会出现层叠数据结构的数组，我们需要将多层级数组转化为一级数组（即提取嵌套数组元素最终合并为一个数组），使其内容合并且展开。那么该如何去实现呢？
+
+需求:多维数组=>一维数组
+```
+let ary = [1, [2, [3, [4, 5]]], 6];// -> [1, 2, 3, 4, 5, 6]
+let str = JSON.stringify(ary);
+```
+
+调用ES6中的flat方法
+```
+ary = ary.flat(Infinity);
+```
+
+replace + split
+```
+ary = str.replace(/(\[|\])/g, '').split(',')
+```
+
+replace + JSON.parse
+```
+str = str.replace(/(\[|\])/g, '');
+str = '[' + str + ']';
+ary = JSON.parse(str);
+```
+
+普通递归
+```
+let result = [];
+let fn = function(ary) {
+  for(let i = 0; i < ary.length; i++) {
+    let item = ary[i];
+    if (Array.isArray(ary[i])){
+      fn(item);
+    } else {
+      result.push(item);
+    }
+  }
+}
+```
+
+利用reduce函数迭代
+```
+function flatten(ary) {
+    return ary.reduce((pre, cur) => {
+        return pre.concat(Array.isArray(cur) ? flatten(cur) : cur);
+    }, []);
+}
+let ary = [1, 2, [3, 4], [5, [6, 7]]]
+console.log(flatten(ary))
+```
+
+扩展运算符
+```
+//只要有一个元素有数组，那么循环继续
+while (ary.some(Array.isArray)) {
+  ary = [].concat(...ary);
+}
+```
+
   #### 判断是否是数组
 ```
 Array.isArray(arr
@@ -2947,6 +3029,107 @@ WeakSet 的成员只能是对象，而不能是其他类型的值。WeakSet
 {} 的 valueOf 结果为 {} ，toString 的结果为 "[object Object]"
 
 [] 的 valueOf 结果为 [] ，toString 的结果为 ""
+```
+
+#### 如何转化类数组成数组
+```
+因为arguments本身并不能调用数组方法，它是一个另外一种对象类型，
+只不过属性从0开始排，依次为0，1，2...最后还有callee和length属性。
+我们也把这样的对象称为类数组
+```
+
+常见的类数组还有：
+- 用getElementsByTagName/ClassName()获得的HTMLCollection
+- 用querySelector获得的nodeList
+```
+那这导致很多数组的方法就不能用了，必要时需要我们将它们转换成数组，
+有哪些方法呢？
+```
+
+Array.prototype.slice.call()
+```
+function sum(a, b) {
+  let args = Array.prototype.slice.call(arguments);
+  console.log(args.reduce((sum, cur) => sum + cur));//args可以调用数组原生的方法啦
+}
+sum(1, 2);//3
+```
+Array.from()
+```
+function sum(a, b) {
+  let args = Array.from(arguments);
+  console.log(args.reduce((sum, cur) => sum + cur));//args可以调用数组原生的方法啦
+}
+sum(1, 2);//3
+```
+这种方法也可以用来转换Set和Map哦！
+
+ES6展开运算符
+```
+function sum(a, b) {
+  let args = [...arguments];
+  console.log(args.reduce((sum, cur) => sum + cur));//args可以调用数组原生的方法啦
+}
+sum(1, 2);//3
+```
+利用concat+apply
+```
+function sum(a, b) {
+  let args = Array.prototype.concat.apply([], arguments);//apply方法会把第二个参数展开
+  console.log(args.reduce((sum, cur) => sum + cur));//args可以调用数组原生的方法啦
+}
+sum(1, 2);//3
+```
+
+#### forEach中return有效果吗？如何中断forEach循环
+在forEach中用return不会返回，函数会继续执行。
+```
+let nums = [1, 2, 3];
+nums.forEach((item, index) => {
+  return;//无效
+})
+```
+中断方法：
+- 使用try监视代码块，在需要中断的地方抛出异常。
+- 官方推荐方法（替换方法）：用every和some替代forEach函数。every在碰到return false的时候，中止循环。some在碰到return true的时候，中止循环
+
+#### JS判断数组中是否包含某个值
+方法一：array.indexOf
+- 此方法判断数组中是否存在某个值，如果存在，则返回数组元素的下标，否则返回-1。
+```
+var arr=[1,2,3,4];
+var index=arr.indexOf(3);
+console.log(index);
+```
+
+方法二：array.includes(searcElement[,fromIndex])
+- 此方法判断数组中是否存在某个值，如果存在返回true，否则返回false
+```
+var arr=[1,2,3,4];
+if(arr.includes(3))
+    console.log("存在");
+else
+    console.log("不存在");
+```
+
+方法三：array.find(callback[,thisArg])
+- 返回数组中满足条件的第一个元素的值，如果没有，返回undefined
+```
+var arr=[1,2,3,4];
+var result = arr.find(item =>{
+    return item > 3
+});
+console.log(result);
+```
+
+方法四：array.findeIndex(callback[,thisArg])
+- 返回数组中满足条件的第一个元素的下标，如果没有找到，返回-1
+```
+var arr=[1,2,3,4];
+var result = arr.findIndex(item =>{
+    return item > 3
+});
+console.log(result);
 ```
 
 
@@ -4435,6 +4618,33 @@ var b = 'Hello world'
 他开辟好了空间，但是因为这个声明的特性导致了并不能在声明前使用
 ```
 
+#### 变量提升
+- 当执行 JS 代码时，会生成执行环境，只要代码不是写在函数中的，就是在全局执行环境中，函数中的代码会产生函数执行环境，只此两种执行环境。
+```
+b() // call b
+console.log(a) // undefined
+
+var a = 'Hello world'
+
+function b() {
+    console.log('call b')
+}
+```
+- 想必以上的输出大家肯定都已经明白了，这是因为函数和变量提升的原因。通常提升的解释是说将声明的代码移动到了顶部，这其实没有什么错误，便于大家理解。但是更准确的解释应该是：在生成执行环境时，会有两个阶段。第一个阶段是创建的阶段，JS 解释器会找出需要提升的变量和函数，并且给他们提前在内存中开辟好空间，函数的话会将整个函数存入内存中，变量只声明并且赋值为 undefined，所以在第二个阶段，也就是代码执行阶段，我们可以直接提前使用
+- 在提升的过程中，相同的函数会覆盖上一个函数，并且函数优先于变量提升
+```
+b() // call b second
+
+function b() {
+    console.log('call b fist')
+}
+function b() {
+    console.log('call b second')
+}
+var b = 'Hello world'
+```
+- var 会产生很多错误，所以在 ES6中引入了 let。let不能在声明前使用，但是这并不是常说的 let 不会提升，let提升了，在第一阶段内存也已经为他开辟好了空间，但是因为这个声明的特性导致了并不能在声明前使用
+
 
 ### 事件
 
@@ -5259,6 +5469,13 @@ v8 的垃圾回收机制基于分代回收机制，这个机制又基于世代�
 时候清理掉引用次数为0的值占用的空间
 ```
 
+JavaScript垃圾回收机制的了解
+- 对于在JavaScript中的字符串，对象，数组是没有固定大小的，只有当对他们进行动态分配存储时，解释器就会分配内存来存储这些数据，当JavaScript的解释器消耗完系统中所有可用的内存时，就会造成系统崩溃。
+- 内存泄漏，在某些情况下，不再使用到的变量所占用内存没有及时释放，导致程序运行中，内存越占越大，极端情况下可以导致系统崩溃，服务器宕机。
+- JavaScript有自己的一套垃圾回收机制，JavaScript的解释器可以检测到什么时候程序不再使用这个对象了（数据），就会把它所占用的内存释放掉。
+- 针对JavaScript的来及回收机制有以下两种方法（常用）：标记清除，引用计数
+- 标记清除
+
   #### URL和URI的区别
 ```
 URI: Uniform Resource Identifier      指的是统一资源标识符
@@ -5743,6 +5960,53 @@ async脚本会在脚本加载完后立即执行，
 如果不需要依赖页面中的dom元素，则使用这种脚本。
 ```
 
+#### js脚本加载问题，async、defer问题
+- 如果依赖其他脚本和 DOM 结果，使用 defer
+- 如果与 DOM 和其他脚本依赖不强时，使用 async
+
+script 引入方式
+- html 静态<script>引入
+- js 动态插入<script>
+- <script defer>: 异步加载，元素解析完成后执行
+- <script async>: 异步加载，但执行时会阻塞元素渲染
+
+#### async原理
+async/await语法糖就是使用Generator函数+自动执行器来运作的
+```
+// 定义了一个promise，用来模拟异步请求，作用是传入参数++
+function getNum(num){
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(num+1)
+        }, 1000)
+    })
+}
+
+//自动执行器，如果一个Generator函数没有执行完，则递归调用
+function asyncFun(func){
+  var gen = func();
+
+  function next(data){
+    var result = gen.next(data);
+    if (result.done) return result.value;
+    result.value.then(function(data){
+      next(data);
+    });
+  }
+
+  next();
+}
+
+// 所需要执行的Generator函数，内部的数据在执行完成一步的promise之后，再调用下一步
+var func = function* (){
+  var f1 = yield getNum(1);
+  var f2 = yield getNum(f1);
+  console.log(f2) ;
+};
+asyncFun(func);
+```
+- 在执行的过程中，判断一个函数的promise是否完成，如果已经完成，将结果传入下一个函数，继续重复此步骤
+- 每一个 next() 方法返回值的 value 属性为一个 Promise 对象，所以我们为其添加 then 方法， 在 then 方法里面接着运行 next 方法挪移遍历器指针，直到 Generator函数运行完成
 
 ### 模式
 
@@ -6012,8 +6276,101 @@ var events = (function() {
 })();
 ```
 
+#### 说说JavaScript对象的几种创建方式
+工厂模式,创建方式
+```
+function createPerson(name,age,job){
+    var o = new Object();
+    o.name=name;
+    o.age=age;
+    o.job=job;
+    o.sayName = function(){
+        alert(this.name);
+    }
+}
+var person1 = createPerson("da",1,"it");
+var person2 = createPerson("dada",2,"it");
+```
+构造函数模式
+```
+function Person(name,age,ob){
+    this.name=name;
+    this.age=age;
+    this.job=job;
+    this.sayName = function(){
+        alert(this.name);
+    }
+var person1 = new Person("dada",1,"web");
+var person2 = new Person("dada",2,"web");
+}
+```
+使用原型模式
+```
+function Person(){
+}
+Person.prototype.name = "da";
+Person.prototype.age = 1;
+Person.prototype.job = "web";
+Person.prototype.sayName = function(){
+    alert(this.name);
+}
+ 
+var person1 = new Person();
+person1.sayName();    //"dada"
+ 
+var person2 = new Person();
+person2.sayName();    //"dada"
+ 
+alert(person1.sayName == person2.sayName);   //true
+```
+组合使用构造函数模式和原型模式
+```
+function Person(name,age){
+    this.name = name;
+    this.age = age;
+    this.friends = ["da","dada"];
+}
+Person.prototype = {
+    constructor:Person,
+    sayName:function(){
+        alert(this.name);
+    }
+}
+var person1 = new Person("da1",1);
+var person2 = new Person("da2",2);
+person1.friends.push("dadada");
+console.log(person1.friends);    //["da","dada","dadada"]
+console.log(person2.friends);    //["da","dada"]
+console.log(person1.friends === person2.friends);    //false
+console.log(person1.sayName === person2.sayName);   //true
+```
+动态原型模式
+```
+function Person(name,age,job){
+    this.name=name;
+    this.age=age;
+    this.job=job;
+
+    if(typeof this.sayName!="function"){
+        Person.prototype.sayName=function(){
+            alert(this.name);
+        };
+    }
+}
+```
 
 ### 模块化
+- 模块化开发在现代开发中已是必不可少的一部分，它大大提高了项目的可维护、可拓展和可协作性。通常，我们 在浏览器中使用 ES6 的模块化支持，在 Node 中使用 commonjs 的模块化支持。
+
+分类:
+- es6: import / export
+- commonjs: require / module.exports / exports
+- amd: require / defined
+
+require与import的区别
+- require支持 动态导入，import不支持，正在提案 (babel 下可支持)
+- require是 同步 导入，import属于 异步 导入
+- require是 值拷贝，导出值变化不会影响导入值；import指向 内存地址，导入值会随导出值而变化
 
   #### 模块化开发怎么做
 ```
@@ -6388,6 +6745,12 @@ DOM3级事件处理方式：
 	eventUtil.addListener(input, "textInput", func);
 	eventUtil 是自定义对象，textInput 是DOM3级事件
 ```
+
+#### 说说有几种类型的DOM节点
+- Document节点，整个文档是一个文档节点；
+- Element节点，每个HTML标签是一个元素节点；
+- Attribute节点，每一个HTML属性是一个属性节点；
+- Text节点，包含在HTML元素中的文本是文本节点
 
 
 ### 优化
@@ -8015,6 +8378,79 @@ a[2][0]=1;
 console.log(b);
 ```
 
+#### JS中浅拷贝的手段有哪些
+重要: 什么是拷贝？
+- 首先来直观的感受一下什么是拷贝
+```
+let arr = [1, 2, 3];
+let newArr = arr;
+newArr[0] = 100;
+
+console.log(arr);//[100, 2, 3]
+```
+```
+这是直接赋值的情况，不涉及任何拷贝。当改变newArr的时候，
+由于是同一个引用，arr指向的值也跟着改变。
+```
+
+现在进行浅拷贝:
+
+let arr = [1, 2, 3];
+let newArr = arr.slice();
+newArr[0] = 100;
+
+console.log(arr);//[1, 2, 3]
+当修改newArr的时候，arr的值并不改变。什么原因?因为这里newArr是arr浅拷贝后的结果，newArr和arr现在引用的已经不是同一块空间啦！
+
+这就是浅拷贝！
+
+但是这又会带来一个潜在的问题:
+
+let arr = [1, 2, {val: 4}];
+let newArr = arr.slice();
+newArr[2].val = 1000;
+
+console.log(arr);//[ 1, 2, { val: 1000 } ]
+不是已经不是同一块空间的引用了吗？为什么改变了newArr改变了第二个元素的val值，arr也跟着变了。
+
+这就是浅拷贝的限制所在了。它只能拷贝一层对象。如果有对象的嵌套，那么浅拷贝将无能为力。但幸运的是，深拷贝就是为了解决这个问题而生的，它能
+
+解决无限极的对象嵌套问题，实现彻底的拷贝。当然，这是我们下一篇的重点。 现在先让大家有一个基本的概念。
+
+接下来，我们来研究一下JS中实现浅拷贝到底有多少种方式？
+
+#1. 手动实现
+const shallowClone = (target) => {
+  if (typeof target === 'object' && target !== null) {
+    const cloneTarget = Array.isArray(target) ? []: {};
+    for (let prop in target) {
+      if (target.hasOwnProperty(prop)) {
+          cloneTarget[prop] = target[prop];
+      }
+    }
+    return cloneTarget;
+  } else {
+    return target;
+  }
+}
+#2. Object.assign
+但是需要注意的是，Object.assgin() 拷贝的是对象的属性的引用，而不是对象本身。
+
+let obj = { name: 'sy', age: 18 };
+const obj2 = Object.assign({}, obj, {name: 'sss'});
+console.log(obj2);//{ name: 'sss', age: 18 }
+#3. concat浅拷贝数组
+let arr = [1, 2, 3];
+let newArr = arr.concat();
+newArr[1] = 100;
+console.log(arr);//[ 1, 2, 3 ]
+#4. slice浅拷贝
+开头的例子
+
+#5. ...展开运算符
+let arr = [1, 2, 3];
+let newArr = [...arr];//跟arr.slice()是一样的效果
+
   #### js中的命名规则
 ```
 （1）第一个字符必须是字母、下划线（_）或美元符号（$）
@@ -9329,6 +9765,36 @@ requestAnimationFrame的写法如下(来自张鑫旭大神的博客)：
 这段代码丢进去定义一个低配版requestAnimationFrame方法即可
 ```
 
+#### setTimeout、Promise、Async/Await的区别
+- 首先，我们先来了解一下基本概念：
+  - js EventLoop 事件循环机制:
+  - JavaScript的事件分两种，宏任务(macro-task)和微任务(micro-task)
+- 宏任务：包括整体代码script，setTimeout，setInterval
+- 微任务：Promise.then(非new Promise)，process.nextTick(node中)
+- 事件的执行顺序，是先执行宏任务，然后执行微任务，这个是基础，任务可以有同步任务和异步任务，同步的进入主线程，异步的进入Event Table并注册函数，异步事件完成后，会将回调函数放入Event Queue中(宏任务和微任务是不同的Event Queue)，同步任务执行完成后，会从Event Queue中读取事件放入主线程执行，回调函数中可能还会包含不同的任务，因此会循环执行上述操作。
+- 注意： setTimeOut并不是直接的把你的回掉函数放进上述的异步队列中去，而是在定时器的时间到了之后，把回掉函数放到执行异步队列中去。如果此时这个队列已经有很多任务了，那就排在他们的后面。这也就解释了为什么setTimeOut为什么不能精准的执行的问题了。
+- setTimeout执行需要满足两个条件：
+  - 主进程必须是空闲的状态，如果到时间了，主进程不空闲也不会执行你的回掉函数
+  - 这个回掉函数需要等到插入异步队列时前面的异步函数都执行完了，才会执行
+- 上面是比较官方的解释，说一下自己的理解吧：
+  - 了解了什么是宏任务和微任务，就好理解多了，首先执行 宏任务 => 微任务的Event Queue => 宏任务的Event Queue
+- promise、async/await
+  - 首先，new Promise是同步的任务，会被放到主进程中去立即执行。而.then()函数是异步任务会放到异步队列中去，那什么时候放到异步队列中去呢？当你的promise状态结束的时候，就会立即放进异步队列中去了。
+  - 带async关键字的函数会返回一个promise对象，如果里面没有await，执行起来等同于普通函数；如果没有await，async函数并没有很厉害是不是
+  - await 关键字要在 async 关键字函数的内部，await 写在外面会报错；await如同他的语意，就是在等待，等待右侧的表达式完成。此时的await会让出线程，阻塞async内后续的代码，先去执行async外的代码。等外面的同步代码执行完毕，才会执行里面的后续代码。就算await的不是promise对象，是一个同步函数，也会等这样操作
+
+根据图片显示我们来整理一下流程：
+- 执行console.log('script start')，输出script start；
+- 执行setTimeout，是一个异步动作，放入宏任务异步队列中；
+- 执行async1()，输出async1 start，继续向下执行；
+- 执行async2()，输出async2，并返回了一个promise对象，await让出了线程，把返回的promise加入了微任务异步队列，所以async1()下面的代码也要等待上面完成后继续执行;
+- 执行 new Promise，输出promise1，然后将resolve放入微任务异步队列；
+- 执行console.log('script end')，输出script end；
+- 到此同步的代码就都执行完成了，然后去微任务异步队列里去获取任务
+- 接下来执行resolve（async2返回的promise返回的），输出了async1 end。
+- 然后执行resolve（new Promise的），输出了promise2
+- 最后执行setTimeout，输出了settimeout
+
   #### 为什么使用setTimeout实现setInterval？怎么模拟
 ```
 setInterval 的作用是每隔一段指定时间执行一个函数，但是这个执行
@@ -9367,6 +9833,9 @@ function mySetInterval(fn, timeout) {
   return timer;
 }
 ```
+
+#### setTimeout(fn, 0)多久才执行，Event Loop
+- setTimeout 按照顺序放到队列里面，然后等待函数调用栈清空之后才开始执行，而这些操作进入队列的顺序，则由设定的延迟时间来决定
 
   #### event loop
 ```
@@ -10288,7 +10757,7 @@ vue 也支持组件化，不过是在 MVVM 上的扩展
 都是数据驱动试图
 ```
 
-  #### 87. 如何测试前端代码么？ 知道 BDD, TDD, Unit Test 么？ 知道怎么测试你的前端工程么(mocha, sinon, jasmin, qUnit..)？
+  #### 如何测试前端代码？知道BDD,TDD,Unit Test吗？知道怎么测试你的前端工程吗(mocha,sinon,jasmin,qUnit..)
 ```
 1.前端单元测试是什么
 首先我们要明确测试是什么：
@@ -10508,54 +10977,38 @@ new Foo().getName(); // 3
 new new Foo().getName(); // 3
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-#
-8 内存机制
-网上的资料基本是这样说的: 基本数据类型用栈存储，引用数据类型用堆存储。
-
-看起来没有错误，但实际上是有问题的。可以考虑一下闭包的情况，如果变量存在栈中，那函数调用完栈顶空间销毁，闭包变量不就没了吗？
+#### 内存机制
+- 网上的资料基本是这样说的: 基本数据类型用栈存储，引用数据类型用堆存储。
+- 看起来没有错误，但实际上是有问题的。可以考虑一下闭包的情况，如果变量存在栈中，那函数调用完栈顶空间销毁，闭包变量不就没了吗？
 
 其实还是需要补充一句:
-
-闭包变量是存在堆内存中的。
+- 闭包变量是存在堆内存中的。
 
 具体而言，以下数据类型存储在栈中:
+- boolean
+- null
+- undefined
+- number
+- string
+- symbol
+- bigint
 
-boolean
-null
-undefined
-number
-string
-symbol
-bigint
 而所有的对象数据类型存放在堆中。
-
-值得注意的是，对于赋值操作，原始类型的数据直接完整地复制变量值，对象数据类型的数据则是复制引用地址。
+- 值得注意的是，对于赋值操作，原始类型的数据直接完整地复制变量值，对象数据类型的数据则是复制引用地址。
 
 因此会有下面的情况:
-
+```
 let obj = { a: 1 };
 let newObj = obj;
 newObj.a = 2;
 console.log(obj.a);//变成了2
-之所以会这样，是因为 obj 和 newObj 是同一份堆空间的地址，改变newObj，等于改变了共同的堆内存，这时候通过 obj 来获取这块内存的值当然会改变。 当然，你可能会问: 为什么不全部用栈来保存呢？
-首先，对于系统栈来说，它的功能除了保存变量之外，还有创建并切换函数执行上下文的功能。举个例子:
+```
+- 之所以会这样，是因为 obj 和 newObj 是同一份堆空间的地址，改变newObj，等于改变了共同的堆内存，这时候通过 obj 来获取这块内存的值当然会改变。 当然，你可能会问: 为什么不全部用栈来保存呢？
+- 首先，对于系统栈来说，它的功能除了保存变量之外，还有创建并切换函数执行上下文的功能。举个例子:
+
 当然，你可能会问: 为什么不全部用栈来保存呢？
-
-首先，对于系统栈来说，它的功能除了保存变量之外，还有创建并切换函数执行上下文的功能。举个例子:
-
+- 首先，对于系统栈来说，它的功能除了保存变量之外，还有创建并切换函数执行上下文的功能。举个例子:
+```
 function f(a) {
   console.log(a);
 }
@@ -10565,49 +11018,50 @@ function func(a) {
 }
 
 func(1);
-假设用ESP指针来保存当前的执行状态，在系统栈中会产生如下的过程：
-调用func, 将 func 函数的上下文压栈，ESP指向栈顶。
-执行func，又调用f函数，将 f 函数的上下文压栈，ESP 指针上移。
-执行完 f 函数，将ESP 下移，f函数对应的栈顶空间被回收。
-执行完 func，ESP 下移，func对应的空间被回收。
-图示如下:
+```
+- 假设用ESP指针来保存当前的执行状态，在系统栈中会产生如下的过程：
+- 调用func, 将 func 函数的上下文压栈，ESP指向栈顶。
+- 执行func，又调用f函数，将 f 函数的上下文压栈，ESP 指针上移。
+- 执行完 f 函数，将ESP 下移，f函数对应的栈顶空间被回收。
+- 执行完 func，ESP 下移，func对应的空间被回收。
 
+- 因此你也看到了，如果采用栈来存储相对基本类型更加复杂的对象数据，那么切换上下文的开销将变得巨大！
+- 不过堆内存虽然空间大，能存放大量的数据，但与此同时垃圾内存的回收会带来更大的开销
 
-
-因此你也看到了，如果采用栈来存储相对基本类型更加复杂的对象数据，那么切换上下文的开销将变得巨大！
-不过堆内存虽然空间大，能存放大量的数据，但与此同时垃圾内存的回收会带来更大的开销
-#
-9 执行上下文
+#### 执行上下文
 当执行 JS 代码时，会产生三种执行上下文
+- 全局执行上下文
+- 函数执行上下文
+- eval 执行上下文
 
-全局执行上下文
-函数执行上下文
-eval 执行上下文
 每个执行上下文中都有三个重要的属性
-
-变量对象（VO），包含变量、函数声明和函数的形参，该属性只能在全局上下文中访问
-作用域链（JS 采用词法作用域，也就是说变量的作用域是在定义时就决定了）
-this
+- 变量对象（VO），包含变量、函数声明和函数的形参，该属性只能在全局上下文中访问
+- 作用域链（JS 采用词法作用域，也就是说变量的作用域是在定义时就决定了）
+- this
+```
 var a = 10
 function foo(i) {
   var b = 20
 }
 foo()
+```
 对于上述代码，执行栈中有两个上下文：全局上下文和函数 foo 上下文。
-
+```
 stack = [
     globalContext,
     fooContext
 ]
+```
 对于全局上下文来说，VO大概是这样的
-
+```
 globalContext.VO === globe
 globalContext.VO = {
     a: undefined,
 	foo: <Function>,
 }
+```
 对于函数 foo 来说，VO 不能访问，只能访问到活动对象（AO）
-
+```
 fooContext.VO === foo.AO
 fooContext.AO {
     i: undefined,
@@ -10618,8 +11072,9 @@ fooContext.AO {
 // 该对象是一个伪数组，有 `length` 属性且可以通过下标访问元素
 // 该对象中的 `callee` 属性代表函数本身
 // `caller` 属性代表函数的调用者
-对于作用域链，可以把它理解成包含自身变量对象和上级变量对象的列表，通过 [[Scope]]属性查找上级变量
-
+```
+- 对于作用域链，可以把它理解成包含自身变量对象和上级变量对象的列表，通过 [[Scope]]属性查找上级变量
+```
 fooContext.[[Scope]] = [
     globalContext.VO
 ]
@@ -10628,8 +11083,9 @@ fooContext.Scope = [
     fooContext.VO,
     globalContext.VO
 ]
+```
 接下来让我们看一个老生常谈的例子，var
-
+```
 b() // call b
 console.log(a) // undefined
 
@@ -10638,9 +11094,11 @@ var a = 'Hello world'
 function b() {
 	console.log('call b')
 }
-想必以上的输出大家肯定都已经明白了，这是因为函数和变量提升的原因。通常提升的解释是说将声明的代码移动到了顶部，这其实没有什么错误，便于大家理解。但是更准确的解释应该是：在生成执行上下文时，会有两个阶段。第一个阶段是创建的阶段（具体步骤是创建 VO），JS 解释器会找出需要提升的变量和函数，并且给他们提前在内存中开辟好空间，函数的话会将整个函数存入内存中，变量只声明并且赋值为 undefined，所以在第二个阶段，也就是代码执行阶段，我们可以直接提前使用。
+```
+- 想必以上的输出大家肯定都已经明白了，这是因为函数和变量提升的原因。通常提升的解释是说将声明的代码移动到了顶部，这其实没有什么错误，便于大家理解。但是更准确的解释应该是：在生成执行上下文时，会有两个阶段。第一个阶段是创建的阶段（具体步骤是创建 VO），JS 解释器会找出需要提升的变量和函数，并且给他们提前在内存中开辟好空间，函数的话会将整个函数存入内存中，变量只声明并且赋值为 undefined，所以在第二个阶段，也就是代码执行阶段，我们可以直接提前使用。
 
-在提升的过程中，相同的函数会覆盖上一个函数，并且函数优先于变量提升
+- 在提升的过程中，相同的函数会覆盖上一个函数，并且函数优先于变量提升
+```
 b() // call b second
 
 function b() {
@@ -10650,16 +11108,19 @@ function b() {
 	console.log('call b second')
 }
 var b = 'Hello world'
-var会产生很多错误，所以在 ES6中引入了 let。let不能在声明前使用，但是这并不是常说的 let 不会提升，let 提升了声明但没有赋值，因为临时死区导致了并不能在声明前使用。
+```
+- var会产生很多错误，所以在 ES6中引入了 let。let不能在声明前使用，但是这并不是常说的 let 不会提升，let 提升了声明但没有赋值，因为临时死区导致了并不能在声明前使用。
 
-对于非匿名的立即执行函数需要注意以下一点
+- 对于非匿名的立即执行函数需要注意以下一点
+```
 var foo = 1
 (function foo() {
     foo = 10
     console.log(foo)
 }()) // -> ƒ foo() { foo = 10 ; console.log(foo) }
+```
 因为当 JS 解释器在遇到非匿名的立即执行函数时，会创建一个辅助的特定对象，然后将函数名称作为这个对象的属性，因此函数内部才可以访问到 foo，但是这个值又是只读的，所以对它的赋值并不生效，所以打印的结果还是这个函数，并且外部的值也没有发生更改。
-
+```
 specialObject = {};
 
 Scope = specialObject + Scope;
@@ -10669,432 +11130,41 @@ foo.[[Scope]] = Scope;
 specialObject.foo = foo; // {DontDelete}, {ReadOnly}
 
 delete Scope[0]; // remove specialObject from the front of scope chain
-#小结
+```
+
+小结
 执行上下文可以简单理解为一个对象:
-
-它包含三个部分:
-
-变量对象(VO)
-作用域链(词法作用域)
-this指向
-它的类型:
-
-全局执行上下文
-函数执行上下文
-eval执行上下文
-代码执行过程:
-
-创建 全局上下文 (global EC)
-全局执行上下文 (caller) 逐行 自上而下 执行。遇到函数时，函数执行上下文 (callee) 被push到执行栈顶层
-函数执行上下文被激活，成为 active EC, 开始执行函数中的代码，caller 被挂起
-函数执行完后，callee 被pop移除出执行栈，控制权交还全局上下文 (caller)，继续执行
-#
-10 变量提升
-当执行 JS 代码时，会生成执行环境，只要代码不是写在函数中的，就是在全局执行环境中，函数中的代码会产生函数执行环境，只此两种执行环境。
-
-b() // call b
-console.log(a) // undefined
-
-var a = 'Hello world'
-
-function b() {
-    console.log('call b')
-}
-想必以上的输出大家肯定都已经明白了，这是因为函数和变量提升的原因。通常提升的解释是说将声明的代码移动到了顶部，这其实没有什么错误，便于大家理解。但是更准确的解释应该是：在生成执行环境时，会有两个阶段。第一个阶段是创建的阶段，JS 解释器会找出需要提升的变量和函数，并且给他们提前在内存中开辟好空间，函数的话会将整个函数存入内存中，变量只声明并且赋值为 undefined，所以在第二个阶段，也就是代码执行阶段，我们可以直接提前使用
-
-在提升的过程中，相同的函数会覆盖上一个函数，并且函数优先于变量提升
-b() // call b second
-
-function b() {
-    console.log('call b fist')
-}
-function b() {
-    console.log('call b second')
-}
-var b = 'Hello world'
-var 会产生很多错误，所以在 ES6中引入了 let。let不能在声明前使用，但是这并不是常说的 let 不会提升，let提升了，在第一阶段内存也已经为他开辟好了空间，但是因为这个声明的特性导致了并不能在声明前使用
-
-#
-11 模块化
-模块化开发在现代开发中已是必不可少的一部分，它大大提高了项目的可维护、可拓展和可协作性。通常，我们 在浏览器中使用 ES6 的模块化支持，在 Node 中使用 commonjs 的模块化支持。
-
-分类:
-
-es6: import / export
-commonjs: require / module.exports / exports
-amd: require / defined
-require与import的区别
-
-require支持 动态导入，import不支持，正在提案 (babel 下可支持)
-require是 同步 导入，import属于 异步 导入
-require是 值拷贝，导出值变化不会影响导入值；import指向 内存地址，导入值会随导出值而变化
-#
-12 setTimeout、Promise、Async / Await 的区别
-首先，我们先来了解一下基本概念：
-js EventLoop 事件循环机制:
-JavaScript的事件分两种，宏任务(macro-task)和微任务(micro-task)
-宏任务：包括整体代码script，setTimeout，setInterval
-微任务：Promise.then(非new Promise)，process.nextTick(node中)
-事件的执行顺序，是先执行宏任务，然后执行微任务，这个是基础，任务可以有同步任务和异步任务，同步的进入主线程，异步的进入Event Table并注册函数，异步事件完成后，会将回调函数放入Event Queue中(宏任务和微任务是不同的Event Queue)，同步任务执行完成后，会从Event Queue中读取事件放入主线程执行，回调函数中可能还会包含不同的任务，因此会循环执行上述操作。
-注意： setTimeOut并不是直接的把你的回掉函数放进上述的异步队列中去，而是在定时器的时间到了之后，把回掉函数放到执行异步队列中去。如果此时这个队列已经有很多任务了，那就排在他们的后面。这也就解释了为什么setTimeOut为什么不能精准的执行的问题了。
-setTimeout执行需要满足两个条件：
-主进程必须是空闲的状态，如果到时间了，主进程不空闲也不会执行你的回掉函数
-这个回掉函数需要等到插入异步队列时前面的异步函数都执行完了，才会执行
-上面是比较官方的解释，说一下自己的理解吧：
-了解了什么是宏任务和微任务，就好理解多了，首先执行 宏任务 => 微任务的Event Queue => 宏任务的Event Queue
-promise、async/await
-首先，new Promise是同步的任务，会被放到主进程中去立即执行。而.then()函数是异步任务会放到异步队列中去，那什么时候放到异步队列中去呢？当你的promise状态结束的时候，就会立即放进异步队列中去了。
-带async关键字的函数会返回一个promise对象，如果里面没有await，执行起来等同于普通函数；如果没有await，async函数并没有很厉害是不是
-await 关键字要在 async 关键字函数的内部，await 写在外面会报错；await如同他的语意，就是在等待，等待右侧的表达式完成。此时的await会让出线程，阻塞async内后续的代码，先去执行async外的代码。等外面的同步代码执行完毕，才会执行里面的后续代码。就算await的不是promise对象，是一个同步函数，也会等这样操作
+- 它包含三个部分:
+  - 变量对象(VO)
+  - 作用域链(词法作用域)
+  - this指向
+- 它的类型:
+  - 全局执行上下文
+  - 函数执行上下文
+  - eval执行上下文
+- 代码执行过程:
+  - 创建 全局上下文 (global EC)
+  - 全局执行上下文 (caller) 逐行 自上而下 执行。遇到函数时，函数执行上下文 (callee) 被push到执行栈顶层
+  - 函数执行上下文被激活，成为 active EC, 开始执行函数中的代码，caller 被挂起
+  - 函数执行完后，callee 被pop移除出执行栈，控制权交还全局上下文 (caller)，继续执行
 
 
-根据图片显示我们来整理一下流程：
 
-执行console.log('script start')，输出script start；
-执行setTimeout，是一个异步动作，放入宏任务异步队列中；
-执行async1()，输出async1 start，继续向下执行；
-执行async2()，输出async2，并返回了一个promise对象，await让出了线程，把返回的promise加入了微任务异步队列，所以async1()下面的代码也要等待上面完成后继续执行;
-执行 new Promise，输出promise1，然后将resolve放入微任务异步队列；
-执行console.log('script end')，输出script end；
-到此同步的代码就都执行完成了，然后去微任务异步队列里去获取任务
-接下来执行resolve（async2返回的promise返回的），输出了async1 end。
-然后执行resolve（new Promise的），输出了promise2
-最后执行setTimeout，输出了settimeout
-#
-13 async原理
-async/await语法糖就是使用Generator函数+自动执行器来运作的
 
-// 定义了一个promise，用来模拟异步请求，作用是传入参数++
-function getNum(num){
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(num+1)
-        }, 1000)
-    })
-}
 
-//自动执行器，如果一个Generator函数没有执行完，则递归调用
-function asyncFun(func){
-  var gen = func();
 
-  function next(data){
-    var result = gen.next(data);
-    if (result.done) return result.value;
-    result.value.then(function(data){
-      next(data);
-    });
-  }
 
-  next();
-}
 
-// 所需要执行的Generator函数，内部的数据在执行完成一步的promise之后，再调用下一步
-var func = function* (){
-  var f1 = yield getNum(1);
-  var f2 = yield getNum(f1);
-  console.log(f2) ;
-};
-asyncFun(func);
-在执行的过程中，判断一个函数的promise是否完成，如果已经完成，将结果传入下一个函数，继续重复此步骤
-每一个 next() 方法返回值的 value 属性为一个 Promise 对象，所以我们为其添加 then 方法， 在 then 方法里面接着运行 next 方法挪移遍历器指针，直到 Generator函数运行完成
-#
-14 JS 整数是怎么表示的
-通过 Number 类型来表示，遵循 IEEE754 标准，通过 64 位来表示一个数字，（1 + 11 + 52），最大安全数字是 Math.pow(2, 53) - 1，对于 16 位十进制。（符号位 + 指数位 + 小数部分有效位）
 
-#
-15 Number() 的存储空间是多大？如果后台发送了一个超过最大自己的数字怎么办
-Math.pow(2, 53) ，53 为有效数字，会发生截断，等于 JS 能支持的最大数字。
 
-#
-16 setTimeout(fn, 0)多久才执行，Event Loop
-setTimeout 按照顺序放到队列里面，然后等待函数调用栈清空之后才开始执行，而这些操作进入队列的顺序，则由设定的延迟时间来决定
 
-#
-17 js脚本加载问题，async、defer问题
-如果依赖其他脚本和 DOM 结果，使用 defer
-如果与 DOM 和其他脚本依赖不强时，使用 async
-script 引入方式
 
-html 静态<script>引入
-js 动态插入<script>
-<script defer>: 异步加载，元素解析完成后执行
-<script async>: 异步加载，但执行时会阻塞元素渲染
-#
-18 JavaScript垃圾回收机制的了解
-对于在JavaScript中的字符串，对象，数组是没有固定大小的，只有当对他们进行动态分配存储时，解释器就会分配内存来存储这些数据，当JavaScript的解释器消耗完系统中所有可用的内存时，就会造成系统崩溃。
-内存泄漏，在某些情况下，不再使用到的变量所占用内存没有及时释放，导致程序运行中，内存越占越大，极端情况下可以导致系统崩溃，服务器宕机。
-JavaScript有自己的一套垃圾回收机制，JavaScript的解释器可以检测到什么时候程序不再使用这个对象了（数据），就会把它所占用的内存释放掉。
-针对JavaScript的来及回收机制有以下两种方法（常用）：标记清除，引用计数
-标记清除
-#
-19 说说有几种类型的DOM节点
-Document节点，整个文档是一个文档节点；
-Element节点，每个HTML标签是一个元素节点；
-Attribute节点，每一个HTML属性是一个属性节点；
-Text节点，包含在HTML元素中的文本是文本节点
-#
-20 说说JavaScript对象的几种创建方式
-#工厂模式,创建方式
-function createPerson(name,age,job){
-    var o = new Object();
-    o.name=name;
-    o.age=age;
-    o.job=job;
-    o.sayName = function(){
-        alert(this.name);
-    }
-}
-var person1 = createPerson("da",1,"it");
-var person2 = createPerson("dada",2,"it");
-#构造函数模式
-function Person(name,age,ob){
-    this.name=name;
-    this.age=age;
-    this.job=job;
-    this.sayName = function(){
-        alert(this.name);
-    }
-var person1 = new Person("dada",1,"web");
-var person2 = new Person("dada",2,"web");
-}
-#使用原型模式
-function Person(){
-}
-Person.prototype.name = "da";
-Person.prototype.age = 1;
-Person.prototype.job = "web";
-Person.prototype.sayName = function(){
-    alert(this.name);
-}
- 
-var person1 = new Person();
-person1.sayName();    //"dada"
- 
-var person2 = new Person();
-person2.sayName();    //"dada"
- 
-alert(person1.sayName == person2.sayName);   //true
-#组合使用构造函数模式和原型模式
-function Person(name,age){
-    this.name = name;
-    this.age = age;
-    this.friends = ["da","dada"];
-}
-Person.prototype = {
-    constructor:Person,
-    sayName:function(){
-        alert(this.name);
-    }
-}
-var person1 = new Person("da1",1);
-var person2 = new Person("da2",2);
-person1.friends.push("dadada");
-console.log(person1.friends);    //["da","dada","dadada"]
-console.log(person2.friends);    //["da","dada"]
-console.log(person1.friends === person2.friends);    //false
-console.log(person1.sayName === person2.sayName);   //true
-#动态原型模式
-function Person(name,age,job){
-    this.name=name;
-    this.age=age;
-    this.job=job;
 
-    if(typeof this.sayName!="function"){
-        Person.prototype.sayName=function(){
-            alert(this.name);
-        };
-    }
-}
-#
-21 如何转化类数组成数组
-因为arguments本身并不能调用数组方法，它是一个另外一种对象类型，只不过属性从0开始排，依次为0，1，2...最后还有callee和length属性。我们也把这样的对象称为类数组
 
-常见的类数组还有：
 
-用getElementsByTagName/ClassName()获得的HTMLCollection
-用querySelector获得的nodeList
-那这导致很多数组的方法就不能用了，必要时需要我们将它们转换成数组，有哪些方法呢？
 
-#Array.prototype.slice.call()
-function sum(a, b) {
-  let args = Array.prototype.slice.call(arguments);
-  console.log(args.reduce((sum, cur) => sum + cur));//args可以调用数组原生的方法啦
-}
-sum(1, 2);//3
-#Array.from()
-function sum(a, b) {
-  let args = Array.from(arguments);
-  console.log(args.reduce((sum, cur) => sum + cur));//args可以调用数组原生的方法啦
-}
-sum(1, 2);//3
-这种方法也可以用来转换Set和Map哦！
 
-#ES6展开运算符
-function sum(a, b) {
-  let args = [...arguments];
-  console.log(args.reduce((sum, cur) => sum + cur));//args可以调用数组原生的方法啦
-}
-sum(1, 2);//3
-#利用concat+apply
-function sum(a, b) {
-  let args = Array.prototype.concat.apply([], arguments);//apply方法会把第二个参数展开
-  console.log(args.reduce((sum, cur) => sum + cur));//args可以调用数组原生的方法啦
-}
-sum(1, 2);//3
-#
-22 forEach中return有效果吗？如何中断forEach循环？
-在forEach中用return不会返回，函数会继续执行。
 
-let nums = [1, 2, 3];
-nums.forEach((item, index) => {
-  return;//无效
-})
-中断方法：
-
-使用try监视代码块，在需要中断的地方抛出异常。
-官方推荐方法（替换方法）：用every和some替代forEach函数。every在碰到return false的时候，中止循环。some在碰到return true的时候，中止循环
-#
-23 JS判断数组中是否包含某个值
-#方法一：array.indexOf
-此方法判断数组中是否存在某个值，如果存在，则返回数组元素的下标，否则返回-1。
-
-var arr=[1,2,3,4];
-var index=arr.indexOf(3);
-console.log(index);
-#方法二：array.includes(searcElement[,fromIndex])
-此方法判断数组中是否存在某个值，如果存在返回true，否则返回false
-
-var arr=[1,2,3,4];
-if(arr.includes(3))
-    console.log("存在");
-else
-    console.log("不存在");
-#方法三：array.find(callback[,thisArg])
-返回数组中满足条件的第一个元素的值，如果没有，返回undefined
-
-var arr=[1,2,3,4];
-var result = arr.find(item =>{
-    return item > 3
-});
-console.log(result);
-#方法四：array.findeIndex(callback[,thisArg])
-返回数组中满足条件的第一个元素的下标，如果没有找到，返回-1
-
-var arr=[1,2,3,4];
-var result = arr.findIndex(item =>{
-    return item > 3
-});
-console.log(result);
-#
-24 JS中flat---数组扁平化
-对于前端项目开发过程中，偶尔会出现层叠数据结构的数组，我们需要将多层级数组转化为一级数组（即提取嵌套数组元素最终合并为一个数组），使其内容合并且展开。那么该如何去实现呢？
-
-需求:多维数组=>一维数组
-
-let ary = [1, [2, [3, [4, 5]]], 6];// -> [1, 2, 3, 4, 5, 6]
-let str = JSON.stringify(ary);
-#调用ES6中的flat方法
-ary = ary.flat(Infinity);
-#replace + split
-ary = str.replace(/(\[|\])/g, '').split(',')
-#replace + JSON.parse
-str = str.replace(/(\[|\])/g, '');
-str = '[' + str + ']';
-ary = JSON.parse(str);
-#普通递归
-let result = [];
-let fn = function(ary) {
-  for(let i = 0; i < ary.length; i++) {
-    let item = ary[i];
-    if (Array.isArray(ary[i])){
-      fn(item);
-    } else {
-      result.push(item);
-    }
-  }
-}
-#利用reduce函数迭代
-function flatten(ary) {
-    return ary.reduce((pre, cur) => {
-        return pre.concat(Array.isArray(cur) ? flatten(cur) : cur);
-    }, []);
-}
-let ary = [1, 2, [3, 4], [5, [6, 7]]]
-console.log(flatten(ary))
-#扩展运算符
-//只要有一个元素有数组，那么循环继续
-while (ary.some(Array.isArray)) {
-  ary = [].concat(...ary);
-}
-#
-25 JS中浅拷贝的手段有哪些
-#重要: 什么是拷贝？
-首先来直观的感受一下什么是拷贝
-
-let arr = [1, 2, 3];
-let newArr = arr;
-newArr[0] = 100;
-
-console.log(arr);//[100, 2, 3]
-这是直接赋值的情况，不涉及任何拷贝。当改变newArr的时候，由于是同一个引用，arr指向的值也跟着改变。
-
-现在进行浅拷贝:
-
-let arr = [1, 2, 3];
-let newArr = arr.slice();
-newArr[0] = 100;
-
-console.log(arr);//[1, 2, 3]
-当修改newArr的时候，arr的值并不改变。什么原因?因为这里newArr是arr浅拷贝后的结果，newArr和arr现在引用的已经不是同一块空间啦！
-
-这就是浅拷贝！
-
-但是这又会带来一个潜在的问题:
-
-let arr = [1, 2, {val: 4}];
-let newArr = arr.slice();
-newArr[2].val = 1000;
-
-console.log(arr);//[ 1, 2, { val: 1000 } ]
-不是已经不是同一块空间的引用了吗？为什么改变了newArr改变了第二个元素的val值，arr也跟着变了。
-
-这就是浅拷贝的限制所在了。它只能拷贝一层对象。如果有对象的嵌套，那么浅拷贝将无能为力。但幸运的是，深拷贝就是为了解决这个问题而生的，它能
-
-解决无限极的对象嵌套问题，实现彻底的拷贝。当然，这是我们下一篇的重点。 现在先让大家有一个基本的概念。
-
-接下来，我们来研究一下JS中实现浅拷贝到底有多少种方式？
-
-#1. 手动实现
-const shallowClone = (target) => {
-  if (typeof target === 'object' && target !== null) {
-    const cloneTarget = Array.isArray(target) ? []: {};
-    for (let prop in target) {
-      if (target.hasOwnProperty(prop)) {
-          cloneTarget[prop] = target[prop];
-      }
-    }
-    return cloneTarget;
-  } else {
-    return target;
-  }
-}
-#2. Object.assign
-但是需要注意的是，Object.assgin() 拷贝的是对象的属性的引用，而不是对象本身。
-
-let obj = { name: 'sy', age: 18 };
-const obj2 = Object.assign({}, obj, {name: 'sss'});
-console.log(obj2);//{ name: 'sss', age: 18 }
-#3. concat浅拷贝数组
-let arr = [1, 2, 3];
-let newArr = arr.concat();
-newArr[1] = 100;
-console.log(arr);//[ 1, 2, 3 ]
-#4. slice浅拷贝
-开头的例子
-
-#5. ...展开运算符
-let arr = [1, 2, 3];
-let newArr = [...arr];//跟arr.slice()是一样的效果
 #
 26 数组(array)
 map: 遍历数组，返回回调返回值组成的新数组
