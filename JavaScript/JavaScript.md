@@ -369,16 +369,17 @@
 
 
 - [ES6](#ES6)
+  - [ES6的了解](#ES6的了解)
+  - [ES5、ES6和ES2015有什么区别](#ES5ES6和ES2015有什么区别)
   - [es6新特性](#es6新特性)
   - [let var const](#let-var-const)
+  - [全局作用域中，用const和let声明的变量不在window上，那到底在哪里？如何去获取](#全局作用域中用const和let声明的变量不在window上那到底在哪里如何去获取)
   - [箭头函数](#箭头函数)
   - [模板字符串](#模板字符串)
-  - [promise的用法和几种状态](#promise的用法和几种状态)
   - [for in和for of的区别](#箭头函数)
   - [arguments对象](#arguments对象)
   - [async/await](#asyncawait)
   - [解构赋值](#解构赋值)
-  - [ES5、ES6和ES2015有什么区别](#ES5ES6和ES2015有什么区别)
   - [babel是什么，有什么作用](#babel是什么有什么作用)
   - [let有什么用，有了var为什么还要用let](#let有什么用有了var为什么还要用let)
   - [举一些ES6对String字符串类型做的常用升级优化](#举一些ES6对String字符串类型做的常用升级优化)
@@ -393,6 +394,9 @@
   - [Proxy是什么，有什么作用](#Proxy是什么有什么作用)
   - [Reflect是什么，有什么作用](#Reflect是什么有什么作用)
   - [Promise是什么，有什么作用](#Promise是什么有什么作用)
+  - [Promise的构造函数](#Promise的构造函数)
+  - [promise的用法和几种状态](#promise的用法和几种状态)
+  - [Promise.all()和Promise.allSettled()的比较](#Promiseall和PromiseallSettled的比较)
   - [Iterator是什么，有什么作用](#Iterator是什么有什么作用)
   - [for...in和for...of有什么区别](#forin和forof有什么区别)
   - [Generator函数是什么，有什么作用](#Generator函数是什么有什么作用)
@@ -400,8 +404,8 @@
   - [Class、extends是什么，有什么作用](#Classextends是什么有什么作用)
   - [module、export、import是什么，有什么作用](#moduleexportimport是什么有什么作用)
   - [日常前端代码开发中，有哪些值得用ES6去改进的编程优化或者规范](#日常前端代码开发中有哪些值得用ES6去改进的编程优化或者规范)
-  
-  
+  - [es6模块化](#es6模块化)
+  - [ES5/ES6的继承除了写法以外还有什么区别](#ES5ES6的继承除了写法以外还有什么区别)
 
 
 
@@ -1828,6 +1832,17 @@ Object.is 在三等号判等的基础上特别处理了 NaN 、-0 和 +0 ，
 保证 -0 和 +0 不再相同，但 Object.is(NaN, NaN) 会返回 true.
 
 Object.is 应被认为有其特殊的用途，而不能用它认为它比其它的相等对比更宽松或严格。
+```
+
+- == 相等运算符，比较时会自动进行数据类型转换
+- === 严格相等运算符，比较时不进行隐式类型转换
+- Object.is 同值相等算法，在 === 基础上对 0 和 NaN 特别处理
+```
++0 === -0 //true
+NaN === NaN // false
+
+Object.is(+0, -0) // false
+Object.is(NaN, NaN) // true
 ```
 
   #### Object.assign()
@@ -11198,6 +11213,12 @@ let命令实际上就增加了块级作用域。
 还有就是引入module模块的概念
 ```
  
+#### ES6的了解
+- 新增模板字符串（为JavaScript提供了简单的字符串插值功能）、箭头函数（操作符左边为输入的参数，而右边则是进行的操作以及返回的值Inputs=>outputs。）、for-of（用来遍历数据—例如数组中的值。）arguments对象可被不定参数和默认参数完美代替。ES6将promise对象纳入规范，提供了原生的Promise对象。增加了let和const命令，用来声明变量。增加了块级作用域。let命令实际上就增加了块级作用域。ES6规定，var命令和function命令声明的全局变量，属于全局对象的属性；let命令、const命令、class命令声明的全局变量，不属于全局对象的属性。。还有就是引入module模块的概念
+
+#### ES5、ES6和ES2015有什么区别
+- ES2015特指在2015年发布的新一代JS语言标准，ES6泛指下一代JS语言标准，包含ES2015、ES2016、ES2017、ES2018等。现阶段在绝大部分场景下，ES2015默认等同ES6。ES5泛指上一代语言标准。ES2015可以理解为ES5和ES6的时间分界线
+
   #### es6新特性
 - 1.箭头函数
 - 2.新增模板字符串，为 JavaScript 提供了简单的字符串插值功能
@@ -11233,6 +11254,28 @@ map，本质是与Object类似的结构。不同在于，
 Object强制规定key只能是字符串。
 而Map结构的key可以是任意对象。
 即：object是 <string,object>集合map是<object,object>集合
+```
+
+- 块级作用区域 let a = 1;
+- 可定义常量 const PI = 3.141592654;
+- 变量解构赋值 var [a, b, c] = [1, 2, 3];
+- 字符串的扩展(模板字符串) var sum =${a + b};
+- 数组的扩展(转换数组类型) Array.from($('li'));
+- 函数的扩展(扩展运算符) [1, 2].push(...[3, 4, 5]);
+- 对象的扩展(同值相等算法) Object.is(NaN, NaN);
+- 新增数据类型(Symbol) let uid = Symbol('uid');
+- 新增数据结构(Map) let set = new Set([1, 2, 2, 3]);
+- for...of循环 for(let val of arr){};
+- Promise对象 var promise = new Promise(func);
+- Generator函数 function* foo(x){yield x; return x*x;}
+- 引入Class(类) class Foo {}
+- 引入模块体系 export default func;
+- 引入async函数[ES7]
+```
+async function asyncPrint(value, ms) {
+      await timeout(ms);
+      console.log(value)
+     }
 ```
 
   #### let var const
@@ -11321,6 +11364,32 @@ const定义的基本数据类型不可更改，定义的
 改变引用数据类型中的字段是没有问题的。
 ```
 
+#### 全局作用域中，用const和let声明的变量不在window上，那到底在哪里？如何去获取
+```
+// 在 ES5 中，顶层对象的属性和全局变量是等价的，var 命令和 function 命令声明的全局变量，自然也是顶层对象。
+var a = 12;
+function f(){};
+console.log(window.a);
+// 12console.log(window.f);
+// f(){}
+
+// 但 ES6 规定，var 命令和 function 命令声明的全局变量，依旧是顶层对象的属性，但 let 命令、const 命令、class 命令声明的全局变量，不属于顶层对象的属性。
+let aa = 1;
+const bb = 2;
+console.log(window.aa);
+// undefinedconsole.log(window.bb);
+// undefined
+
+// 在哪里？怎么获取？通过在设置断点，看看浏览器是怎么处理的：
+//通过上图也可以看到，在全局作用域中，用 let 和 const 声明的全局变量并没
+//有在全局对象中，只是一个块级作用域（Script）中怎么获取？在定义变量的块级作用域中就能获取啊，既然不属于顶层对象，那就不加 window（global）呗。
+let aa = 1;
+const bb = 2;
+console.log(aa);
+// 1console.log(bb);
+// 2
+```
+
   #### 箭头函数
 ```
 箭头函数的几种基本写法如下：
@@ -11400,36 +11469,24 @@ console.log(humen)
 因为es6中有class关键字可以做这个事儿。
 ```
 
+```
+function a() {
+    return () => {
+        return () => {
+        	console.log(this)
+        }
+    }
+}
+console.log(a()()())
+```
+- 箭头函数其实是没有 this 的，这个函数中的 this 只取决于他外面的第一个不是箭头函数的函数的 this。在这个例子中，因为调用 a 符合前面代码中的第一个情况，所以 this 是window。并且 this一旦绑定了上下文，就不会被任何代码改变
+
   #### 模板字符串
 ```
 这个比较简单，直接上代码。
 var a = '100';
 var str = `我今天考了${a}分`;
 console.log(str)
-```
-
-  #### promise的用法和几种状态
-```
-var a = Math.random()
-new Promise((resolve,reject)=>{
-    if(a > 0.5){
-        resolve(a)
-    }else{
-        reject(a)
-    }
-}).then((val)=>{
-    console.log(val)
-}).catch((val)=>{
-    console.log(val)
-}).finally(()=>{
-    console.log("不管什么状态都会执行")
-})
-上述代码中，promise一共三种状态，在还没有生成a的
-确定值的时候，promise处于pending状态。当生成了a的值，
-如果a大于0.5，运行resolve即fulfilled状态，
-如果a小雨0.5运行reject()即reject状态。
-其中resolve对应then，reject对象catch。
-finally无论是resolve或者reject都会执行。   
 ```
 
   #### for in和for of的区别
@@ -11564,11 +11621,11 @@ var [a,b] = [1,2];
 console.log(a , b); //1 2
 ```
 
-#### ES5、ES6和ES2015有什么区别
-- ES2015特指在2015年发布的新一代JS语言标准，ES6泛指下一代JS语言标准，包含ES2015、ES2016、ES2017、ES2018等。现阶段在绝大部分场景下，ES2015默认等同ES6。ES5泛指上一代语言标准。ES2015可以理解为ES5和ES6的时间分界线
-
 #### babel是什么，有什么作用
 - babel是一个 ES6 转码器，可以将 ES6 代码转为 ES5 代码，以便兼容那些还没支持ES6的平台
+
+- Babel 是一个 JS 编译器，自带一组 ES6 语法转化器，用于转化 JS 代码。 这些转化器让开发者提前使用最新的 JS语法(ES6/ES7)，而不用等浏览器全部兼容。
+- Babel 默认只转换新的 JS 句法(syntax)，而不转换新的API。
 
 #### let有什么用，有了var为什么还要用let
 - 在ES6之前，声明变量只能用var，var方式声明变量其实是很不合理的，准确的说，是因为ES5里面没有块级作用域是很不合理的。没有块级作用域回来带很多难以理解的问题，比如for循环var变量泄露，变量覆盖等问题。let声明的变量拥有自己的块级作用域，且修复了var声明变量带来的变量提升问题。
@@ -11676,6 +11733,13 @@ bar.apply(foo, arguments);
 #### Symbol是什么，有什么作用
 - Symbol是ES6引入的第七种原始数据类型（说法不准确，应该是第七种数据类型，Object不是原始数据类型之一，已更正），所有Symbol()生成的值都是独一无二的，可以从根本上解决对象属性太多导致属性名冲突覆盖的问题。对象中Symbol()属性不能被for...in遍历，但是也不是私有属性
 
+symbol 有什么用处
+- 可以用来表示一个独一无二的变量防止命名冲突。但是面试官问还有吗？我没想出其他的用处就直接答我不知道了，还可以利用 symbol 不会被常规的方法（除了 Object.getOwnPropertySymbols 外）遍历到，所以可以用来模拟私有变量。
+
+- 主要用来提供遍历接口，布置了 symbol.iterator 的对象才可以使用 for···of 循环，可以统一处理数据结构。调用之后回返回一个遍历器对象，包含有一个 next 方法，使用 next 方法后有两个返回值 value 和 done 分别表示函数当前执行位置的值和是否遍历完毕。
+
+- Symbol.for() 可以在全局访问 symbol
+
 #### Set是什么，有什么作用
 - Set是ES6引入的一种类似Array的新的数据结构，Set实例的成员类似于数组item成员，区别是Set实例的成员都是唯一，不重复的。这个特性可以轻松地实现数组去重
 
@@ -11687,6 +11751,25 @@ bar.apply(foo, arguments);
 - WeakSet——成员都是对象；成员都是弱引用，可以被垃圾回收机制回收，可以用来保存 DOM 节点，不容易造成内存泄漏；
 - Map——本质上是键值对的集合，类似集合；可以遍历，方法很多，可以跟各种数据格式转换。
 - WeakMap——只接受对象最为键名（null 除外），不接受其他类型的值作为键名；键名是弱引用，键值可以是任意的，键名所指向的对象可以被垃圾回收，此时键名是无效的；不能遍历，方法有 get、set、has、delet
+
+- Set
+  - 成员不能重复
+  - 只有健值，没有健名，有点类似数组
+  - 可以遍历，方法有add, delete,has
+
+- weakSet
+  - 成员都是对象
+  - 成员都是弱引用，随时可以消失。 可以用来保存DOM节点，不容易造成内存泄漏
+  - 不能遍历，方法有add, delete,has
+
+- Map
+  - 本质上是健值对的集合，类似集合
+  - 可以遍历，方法很多，可以干跟各种数据格式转换
+
+- weakMap
+  - 直接受对象作为健名（null除外），不接受其他类型的值作为健名
+  - 健名所指向的对象，不计入垃圾回收机制
+  - 不能遍历，方法同get,set,has,delete
 
 #### Proxy是什么，有什么作用
 - Proxy是ES6新增的一个构造函数，可以理解为JS语言的一个代理，用来改变JS默认的一些语言行为，包括拦截默认的get/set等底层方法，使得JS的使用自由度更高，可以最大限度的满足开发者的需求。比如通过拦截对象的get/set方法，可以轻松地定制自己想要的key或者value。下面的例子可以看到，随便定义一个myOwnObj的key,都可以变成自己想要的函数`
@@ -11732,6 +11815,89 @@ myOwnObj.wuwuwu.then(result => {
 
 #### Promise是什么，有什么作用
 - Promise是ES6引入的一个新的对象，他的主要作用是用来解决JS异步机制里，回调机制产生的“回调地狱”。它并不是什么突破性的API，只是封装了异步回调形式，使得异步回调可以写的更加优雅，可读性更高，而且可以链式调用
+
+- 依照 Promise/A+ 的定义，Promise 有四种状态：
+  - pending: 初始状态, 非 fulfilled 或 rejected.
+  - fulfilled: 成功的操作.
+  - rejected: 失败的操作.
+  - settled: Promise已被fulfilled或rejected，且不是pending
+- 另外， fulfilled 与 rejected 一起合称 settled
+- Promise 对象用来进行延迟(deferred) 和异步(asynchronous ) 计算
+- 可以把 Promise看成一个状态机。初始是 pending 状态，可以通过函数 resolve 和 reject，将状态转变为 resolved 或者 rejected 状态，状态一旦改变就不能再次变化。
+- then 函数会返回一个 Promise 实例，并且该返回值是一个新的实例而不是之前的实例。因为 Promise 规范规定除了 pending 状态，其他状态是不可以改变的，如果返回的是一个相同实例的话，多个 then调用就失去意义了
+
+#### Promise的构造函数
+构造一个 Promise，最基本的用法如下：
+```
+var promise = new Promise(function(resolve, reject) {
+
+        if (...) {  // succeed
+
+            resolve(result);
+
+        } else {   // fails
+
+            reject(Error(errMessage));
+
+        }
+    });
+```
+- Promise 实例拥有 then 方法（具有 then 方法的对象，通常被称为thenable）。它的使用方法如下：
+```
+promise.then(onFulfilled, onRejected)
+```
+- 接收两个函数作为参数，一个在 fulfilled 的时候被调用，一个在rejected的时候被调用，接收参数就是 future，onFulfilled 对应 resolve, onRejected 对应 reject
+
+什么是 Promise ？
+- Promise 就是一个对象，用来表示并传递异步操作的最终结果
+- Promise 最主要的交互方式：将回调函数传入 then 方法来获得最终结果或出错原因
+- Promise 代码书写上的表现：以“链式调用”代替回调函数层层嵌套（回调地狱）
+
+  #### promise的用法和几种状态
+```
+var a = Math.random()
+new Promise((resolve,reject)=>{
+    if(a > 0.5){
+        resolve(a)
+    }else{
+        reject(a)
+    }
+}).then((val)=>{
+    console.log(val)
+}).catch((val)=>{
+    console.log(val)
+}).finally(()=>{
+    console.log("不管什么状态都会执行")
+})
+上述代码中，promise一共三种状态，在还没有生成a的
+确定值的时候，promise处于pending状态。当生成了a的值，
+如果a大于0.5，运行resolve即fulfilled状态，
+如果a小雨0.5运行reject()即reject状态。
+其中resolve对应then，reject对象catch。
+finally无论是resolve或者reject都会执行。   
+```
+
+#### Promise.all()和Promise.allSettled()的比较
+Promise.allSettled()
+- 接受的结果与入参时的promise实例一一对应，且结果的每一项都是一个对象，告诉你结果和值，对象内都有一个属性叫“status”，用来明确知道对应的这个promise实例的状态（fulfilled或rejected），fulfilled时，对象有value属性，rejected时有reason属性，对应两种状态的返回值。
+```
+const resolved = Promise.resolve(42);
+const rejected = Promise.reject(-1);
+
+const allSettledPromise = Promise.allSettled([resolved, rejected]);
+
+allSettledPromise.then(function (results) {
+  console.log(results);
+});
+// [
+//    { status: 'fulfilled', value: 42 },
+//    { status: 'rejected', reason: -1 }
+// ]
+```
+- 重要的一点是，他不论接受入参的promise本身的状态，会返回所有promise的结果，但这一点Promise.all做不到，如果你需要知道所有入参的异步操作的所有结果，或者需要知道这些异步操作是否全部结束，应该使用promise.allSettled()
+
+Promise.all()
+- 只有当所有入参的promise实例都是fulfilled状态，才会在Promise.all().then()方法中结果，返回结果也是与入参一一对应，结果中只包含实际的resolve的结果，不包含类似allSettled的status和value属性。
 
 #### Iterator是什么，有什么作用
 - Iterator是ES6中一个很重要概念，它并不是对象，也不是任何一种数据类型。因为ES6新增了Set、Map类型，他们和Array、Object类型很像，Array、Object都是可以遍历的，但是Set、Map都不能用for循环遍历，解决这个问题有两种方案，一种是为Set、Map单独新增一个用来遍历的API，另一种是为Set、Map、Array、Object新增一个统一的遍历API，显然，第二种更好，ES6也就顺其自然的需要一种设计标准，来统一所有可遍历类型的遍历方式。Iterator正是这样一种标准。或者说是一种规范理念
@@ -11993,95 +12159,9 @@ Object.keys(ES6Fun.prototype); //[]
 - 用Class类取代传统的构造函数，来生成实例化对象。
 - 在大型应用开发中，要保持module模块化开发思维，分清模块之间的关系，- 常用import、export方法。
 
-#
-22 ES6的了解
-新增模板字符串（为JavaScript提供了简单的字符串插值功能）、箭头函数（操作符左边为输入的参数，而右边则是进行的操作以及返回的值Inputs=>outputs。）、for-of（用来遍历数据—例如数组中的值。）arguments对象可被不定参数和默认参数完美代替。ES6将promise对象纳入规范，提供了原生的Promise对象。增加了let和const命令，用来声明变量。增加了块级作用域。let命令实际上就增加了块级作用域。ES6规定，var命令和function命令声明的全局变量，属于全局对象的属性；let命令、const命令、class命令声明的全局变量，不属于全局对象的属性。。还有就是引入module模块的概念
-
-#
-23 说说你对Promise的理解
-依照 Promise/A+ 的定义，Promise 有四种状态：
-pending: 初始状态, 非 fulfilled 或 rejected.
-fulfilled: 成功的操作.
-rejected: 失败的操作.
-settled: Promise已被fulfilled或rejected，且不是pending
-另外， fulfilled 与 rejected 一起合称 settled
-Promise 对象用来进行延迟(deferred) 和异步(asynchronous ) 计算
-可以把 Promise看成一个状态机。初始是 pending 状态，可以通过函数 resolve 和 reject，将状态转变为 resolved 或者 rejected 状态，状态一旦改变就不能再次变化。
-then 函数会返回一个 Promise 实例，并且该返回值是一个新的实例而不是之前的实例。因为 Promise 规范规定除了 pending 状态，其他状态是不可以改变的，如果返回的是一个相同实例的话，多个 then调用就失去意义了
-#
-24 Promise 的构造函数
-构造一个 Promise，最基本的用法如下：
-
-var promise = new Promise(function(resolve, reject) {
-
-        if (...) {  // succeed
-
-            resolve(result);
-
-        } else {   // fails
-
-            reject(Error(errMessage));
-
-        }
-    });
-Promise 实例拥有 then 方法（具有 then 方法的对象，通常被称为thenable）。它的使用方法如下：
-
-promise.then(onFulfilled, onRejected)
-接收两个函数作为参数，一个在 fulfilled 的时候被调用，一个在rejected的时候被调用，接收参数就是 future，onFulfilled 对应 resolve, onRejected 对应 reject
-
-什么是 Promise ？
-
-Promise 就是一个对象，用来表示并传递异步操作的最终结果
-Promise 最主要的交互方式：将回调函数传入 then 方法来获得最终结果或出错原因
-Promise 代码书写上的表现：以“链式调用”代替回调函数层层嵌套（回调地狱）
-#
-25 谈一谈你了解ECMAScript6的新特性？
-块级作用区域 let a = 1;
-可定义常量 const PI = 3.141592654;
-变量解构赋值 var [a, b, c] = [1, 2, 3];
-字符串的扩展(模板字符串) var sum =${a + b};
-数组的扩展(转换数组类型) Array.from($('li'));
-函数的扩展(扩展运算符) [1, 2].push(...[3, 4, 5]);
-对象的扩展(同值相等算法) Object.is(NaN, NaN);
-新增数据类型(Symbol) let uid = Symbol('uid');
-新增数据结构(Map) let set = new Set([1, 2, 2, 3]);
-for...of循环 for(let val of arr){};
-Promise对象 var promise = new Promise(func);
-Generator函数 function* foo(x){yield x; return x*x;}
-引入Class(类) class Foo {}
-引入模块体系 export default func;
-引入async函数[ES7]
-async function asyncPrint(value, ms) {
-      await timeout(ms);
-      console.log(value)
-     }
-     
-#
-26 Object.is() 与原来的比较操作符 ===、== 的区别？
-== 相等运算符，比较时会自动进行数据类型转换
-=== 严格相等运算符，比较时不进行隐式类型转换
-Object.is 同值相等算法，在 === 基础上对 0 和 NaN 特别处理
-+0 === -0 //true
-NaN === NaN // false
-
-Object.is(+0, -0) // false
-Object.is(NaN, NaN) // true
-#
-27 什么是 Babel
-Babel 是一个 JS 编译器，自带一组 ES6 语法转化器，用于转化 JS 代码。 这些转化器让开发者提前使用最新的 JS语法(ES6/ES7)，而不用等浏览器全部兼容。
-Babel 默认只转换新的 JS 句法(syntax)，而不转换新的API。
-#
-28 symbol 有什么用处
-可以用来表示一个独一无二的变量防止命名冲突。但是面试官问还有吗？我没想出其他的用处就直接答我不知道了，还可以利用 symbol 不会被常规的方法（除了 Object.getOwnPropertySymbols 外）遍历到，所以可以用来模拟私有变量。
-
-主要用来提供遍历接口，布置了 symbol.iterator 的对象才可以使用 for···of 循环，可以统一处理数据结构。调用之后回返回一个遍历器对象，包含有一个 next 方法，使用 next 方法后有两个返回值 value 和 done 分别表示函数当前执行位置的值和是否遍历完毕。
-
-Symbol.for() 可以在全局访问 symbol
-
-#
-29 模块化
+#### es6模块化
 在有 Babel 的情况下，我们可以直接使用 ES6的模块化
-
+```
 // file a.js
 export function a() {}
 export function b() {}
@@ -12090,10 +12170,10 @@ export default function() {}
 
 import {a, b} from './a.js'
 import XXX from './b.js'
+```
 CommonJS
-
-CommonJs 是 Node 独有的规范，浏览器中使用就需要用到 Browserify解析了。
-
+- CommonJs 是 Node 独有的规范，浏览器中使用就需要用到 Browserify解析了。
+```
 // a.js
 module.exports = {
     a: 1
@@ -12104,8 +12184,9 @@ exports.a = 1
 // b.js
 var module = require('./a.js')
 module.a // -> log 1
-在上述代码中，module.exports 和 exports 很容易混淆，让我们来看看大致内部实现
-
+```
+- 在上述代码中，module.exports 和 exports 很容易混淆，让我们来看看大致内部实现
+```
 var module = require('./a.js')
 module.a
 // 这里其实就是包装了一层立即执行函数，这样就不会污染全局变量了，
@@ -12125,19 +12206,19 @@ var load = function (module) {
     module.exports = a
     return module.exports
 };
-再来说说 module.exports 和exports，用法其实是相似的，但是不能对 exports 直接赋值，不会有任何效果。
+```
+- 再来说说 module.exports 和exports，用法其实是相似的，但是不能对 exports 直接赋值，不会有任何效果。
 
-对于 CommonJS 和 ES6 中的模块化的两者区别是：
+- 对于 CommonJS 和 ES6 中的模块化的两者区别是：
+  - 前者支持动态导入，也就是 require(${path}/xx.js)，后者目前不支持，但是已有提案,前者是同步导入，因为用于服务端，文件都在本地，同步导入即使卡住主线程影响也不大。
+  - 而后者是异步导入，因为用于浏览器，需要下载文件，如果也采用同步导入会对渲染有很大影响
+  - 前者在导出时都是值拷贝，就算导出的值变了，导入的值也不会改变，所以如果想更新值，必须重新导入一次。
+  - 但是后者采用实时绑定的方式，导入导出的值都指向同一个内存地址，所以导入值会跟随导出值变化
+  - 后者会编译成 require/exports 来执行的
 
-前者支持动态导入，也就是 require(${path}/xx.js)，后者目前不支持，但是已有提案,前者是同步导入，因为用于服务端，文件都在本地，同步导入即使卡住主线程影响也不大。
-而后者是异步导入，因为用于浏览器，需要下载文件，如果也采用同步导入会对渲染有很大影响
-前者在导出时都是值拷贝，就算导出的值变了，导入的值也不会改变，所以如果想更新值，必须重新导入一次。
-但是后者采用实时绑定的方式，导入导出的值都指向同一个内存地址，所以导入值会跟随导出值变化
-后者会编译成 require/exports 来执行的
 AMD
-
-AMD 是由 RequireJS 提出的
-
+- AMD 是由 RequireJS 提出的
+```
 // AMD
 define(['./a', './b'], function(a, b) {
     a.do()
@@ -12149,93 +12230,19 @@ define(function(require, exports, module) {
     var b = require('./b')
     b.doSomething()
 })
-#
-30 箭头函数的特点
-function a() {
-    return () => {
-        return () => {
-        	console.log(this)
-        }
-    }
-}
-console.log(a()()())
-箭头函数其实是没有 this 的，这个函数中的 this 只取决于他外面的第一个不是箭头函数的函数的 this。在这个例子中，因为调用 a 符合前面代码中的第一个情况，所以 this 是window。并且 this一旦绑定了上下文，就不会被任何代码改变
+```
 
-#
-31 ES5 / ES6 的继承除了写法以外还有什么区别
-ES5 的继承实质上是先创建子类的实例对象，然后再将父类的方法添加到 this 上（Parent.apply(this)）
-ES6 的继承机制完全不同，实质上是先创建父类的实例对象 this（所以必须先调用父类的 super()方法），然后再用子类的构造函数修改 this。
-ES5 的继承时通过原型或构造函数机制来实现。
-ES6 通过 class 关键字定义类，里面有构造方法，类之间通过 extends 关键字实现继承。
-子类必须在 constructor 方法中调用 super 方法，否则新建实例报错。因为子类没有自己的 this 对象，而是继承了父类的 this 对象，然后对其进行加工。如果不调用 super 方法，子类得不到 this 对象。
-注意 super 关键字指代父类的实例，即父类的 this 对象。
-注意：在子类构造函数中，调用 super 后，才可使用 this 关键字，否则报错。function 声明会提升，但不会初始化赋值。Foo 进入暂时性死区，类似于 let、const 声明变量
-#
-32 全局作用域中，用 const 和 let 声明的变量不在 window 上，那到底在哪里？如何去获取？
-// 在 ES5 中，顶层对象的属性和全局变量是等价的，var 命令和 function 命令声明的全局变量，自然也是顶层对象。
-var a = 12;
-function f(){};
-console.log(window.a);
-// 12console.log(window.f);
-// f(){}
+#### ES5/ES6的继承除了写法以外还有什么区别
+- ES5 的继承实质上是先创建子类的实例对象，然后再将父类的方法添加到 this 上（Parent.apply(this)）
+- ES6 的继承机制完全不同，实质上是先创建父类的实例对象 this（所以必须先调用父类的 super()方法），然后再用子类的构造函数修改 this。
+- ES5 的继承时通过原型或构造函数机制来实现。
+- ES6 通过 class 关键字定义类，里面有构造方法，类之间通过 extends 关键字实现继承。
+- 子类必须在 constructor 方法中调用 super 方法，否则新建实例报错。因为子类没有自己的 this 对象，而是继承了父类的 this 对象，然后对其进行加工。如果不调用 super 方法，子类得不到 this 对象。
+- 注意 super 关键字指代父类的实例，即父类的 this 对象。
+- 注意：在子类构造函数中，调用 super 后，才可使用 this 关键字，否则报错。function 声明会提升，但不会初始化赋值。Foo 进入暂时性死区，类似于 let、const 声明变量
 
-// 但 ES6 规定，var 命令和 function 命令声明的全局变量，依旧是顶层对象的属性，但 let 命令、const 命令、class 命令声明的全局变量，不属于顶层对象的属性。
-let aa = 1;
-const bb = 2;
-console.log(window.aa);
-// undefinedconsole.log(window.bb);
-// undefined
 
-// 在哪里？怎么获取？通过在设置断点，看看浏览器是怎么处理的：
-//通过上图也可以看到，在全局作用域中，用 let 和 const 声明的全局变量并没
-//有在全局对象中，只是一个块级作用域（Script）中怎么获取？在定义变量的块级作用域中就能获取啊，既然不属于顶层对象，那就不加 window（global）呗。
-let aa = 1;
-const bb = 2;
-console.log(aa);
-// 1console.log(bb);
-// 2
-#
-33 介绍下 Set、Map、WeakSet 和 WeakMap 的区别
-Set
 
-成员不能重复
-只有健值，没有健名，有点类似数组
-可以遍历，方法有add, delete,has
-weakSet
-
-成员都是对象
-成员都是弱引用，随时可以消失。 可以用来保存DOM节点，不容易造成内存泄漏
-不能遍历，方法有add, delete,has
-Map
-
-本质上是健值对的集合，类似集合
-可以遍历，方法很多，可以干跟各种数据格式转换
-weakMap
-
-直接受对象作为健名（null除外），不接受其他类型的值作为健名
-健名所指向的对象，不计入垃圾回收机制
-不能遍历，方法同get,set,has,delete
-#
-34 Promise.all() 和 Promise.allSettled()的比较
-#Promise.allSettled()
-接受的结果与入参时的promise实例一一对应，且结果的每一项都是一个对象，告诉你结果和值，对象内都有一个属性叫“status”，用来明确知道对应的这个promise实例的状态（fulfilled或rejected），fulfilled时，对象有value属性，rejected时有reason属性，对应两种状态的返回值。
-
-const resolved = Promise.resolve(42);
-const rejected = Promise.reject(-1);
-
-const allSettledPromise = Promise.allSettled([resolved, rejected]);
-
-allSettledPromise.then(function (results) {
-  console.log(results);
-});
-// [
-//    { status: 'fulfilled', value: 42 },
-//    { status: 'rejected', reason: -1 }
-// ]
-重要的一点是，他不论接受入参的promise本身的状态，会返回所有promise的结果，但这一点Promise.all做不到，如果你需要知道所有入参的异步操作的所有结果，或者需要知道这些异步操作是否全部结束，应该使用promise.allSettled()
-
-#Promise.all()
-只有当所有入参的promise实例都是fulfilled状态，才会在Promise.all().then()方法中结果，返回结果也是与入参一一对应，结果中只包含实际的resolve的结果，不包含类似allSettled的status和value属性。
 
 
 
