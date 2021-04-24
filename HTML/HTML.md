@@ -2750,23 +2750,593 @@ scroll:
 - firstChild会获取空白节点
 
 
+### 前端安全模块
+
+#### 代码注入XSS
+- 跨网站指令码（英语：Cross-site scripting，通常简称为：XSS）是一种网站应用程式的安全漏洞攻击，是代码注入的一种。它允许恶意使用者将程式码注入到网页上，其他使用者在观看网页时就会受到影响。这类攻击通常包含了 HTML 以及使用者端脚本语言
+- XSS 分为三种：反射型，存储型和 DOM-based
+
+#### 如何攻击
+- XSS 通过修改 HTML节点或者执行 JS代码来攻击网站。
+- 例如通过 URL 获取某些参数
+```
+<!-- http://www.domain.com?name=<script>alert(1)</script> -->
+<div>{{name}}</div>    
+```
+- 上述 URL 输入可能会将 HTML 改为 <div><script>alert(1)</script></div> ，这样页面中就凭空多了一段可执行脚本。这种攻击类型是反射型攻击，也可以说是 DOM-based 攻击
+
+#### 如何防御
+- 最普遍的做法是转义输入输出的内容，对于引号，尖括号，斜杠进行转义
+```
+function escape(str) {
+	str = str.replace(/&/g, "&amp;");
+	str = str.replace(/</g, "&lt;");
+	str = str.replace(/>/g, "&gt;");
+	str = str.replace(/"/g, "&quto;");
+	str = str.replace(/'/g, "&##39;");
+	str = str.replace(/`/g, "&##96;");
+    str = str.replace(/\//g, "&##x2F;");
+    return str
+}
+```
+通过转义可以将攻击代码 <script>alert(1)</script> 变成
+```
+// -> &lt;script&gt;alert(1)&lt;&##x2F;script&gt;
+escape('<script>alert(1)</script>')
+```
+- 对于显示富文本来说，不能通过上面的办法来转义所有字符，因为这样会把需要的格式也过滤掉。这种情况通常采用白名单过滤的办法，当然也可以通过黑名单过滤，但是考虑到需要过滤的标签和标签属性实在太多，更加推荐使用白名单的方式
+```
+var xss = require("xss");
+var html = xss('<h1 id="title">XSS Demo</h1><script>alert("xss");</script>');
+// -> <h1>XSS Demo</h1>&lt;script&gt;alert("xss");&lt;/script&gt;
+console.log(html);
+```
+- 以上示例使用了 js-xss来实现。可以看到在输出中保留了 h1 标签且过滤了 script 标签
+
+#### cookie如何防范XSS攻击
+- XSS(跨站脚本攻击)是指攻击者在返回的 HTML 中嵌入 javascript 脚本，为了减轻这些 攻击，需要在 HTTP 头部配上，set-cookie
+
+- httpOnly 这个属性可以防止 XSS,它会禁止 javascript 脚本来访问 cookie
+- secure- 这个属性告诉浏览器仅在请求为 https 的时候发送 cookie
+
+#### 跨站请求伪造CSRF
+- CSRF 就是利用用户的登录态发起恶意请求
+- CSRF（Cross-site request forgery） 跨站请求伪造，是一种常见的攻击方式。是指 A 网站正常登陆后，cookie 正常保存登录信息，其他网站 B 通过某种方式调用 A 网站接口进行操作，A 的接口会在请求时会自动带上 cookie。
+
+- 同源策略可以通过 html 标签加载资源，而且同源策略不阻止接口请求而是拦截请求结果，CSRF 恰恰占了这两个便宜。
+- 对于 GET 请求，直接放到 <img> 就能神不知鬼不觉地请求跨域接口。
+- 对于 POST 请求，很多例子都使用 form 提交：
+```
+<form action="<nowiki>http://bank.com/transfer.do</nowiki>" method="POST">
+  <input type="hidden" name="acct" value="MARIA" />
+  <input type="hidden" name="amount" value="100000" />
+  <input type="submit" value="View my pictures" />
+</form>
+```
+- 浏览器同源策略不能作为防范 CSRF 的方法 浏览器允许这么做，归根到底就是因为你无法用 js 直接操作获得的结果。
+
+如何攻击
+- 假设网站中有一个通过 Get 请求提交用户评论的接口，那么攻击者就可以在钓鱼网站中加入一个图片，图片的地址就是评论接口
+```
+<img src="http://www.domain.com/xxx?comment='attack'"/>
+```
+
+如何防御
+- Get 请求不对数据进行修改
+- 不让第三方网站访问到用户 Cookie
+- 阻止第三方网站请求接口
+- 请求时附带验证信息，比如验证码或者 token
+
+#### CSRF怎么获取用户的登录态
+- 攻击全称不需要获取cookie，只是在危险的网站欺骗用户去点击已登录的网站链接，利用已登录的网站的自动发送cookie达到目的。因为http请求都会带着请求目标域下的cookie的，向同一个服务器发请求时会带上浏览器保存的对于那个服务器的cookie，而不管你从哪个网站向目标网站发请求
+
+#### cookie通常是不能跨域访问的，那问什么会有csrf攻击
+疑问：
+- csrf说用户访问了A网站，然后又访问恶意网站B, B中也发送请求到A，携带A站的cookie，这样就构成了csrf。 可是cookie好像是不支持跨域的吧？
+
+回答
+- 浏览器会依据加载的域名附带上对应域名cookie，又不是发送b站的cookie。
+- 就是如果用户在a站登录了生成了授权的cookie 之类的，然后访问b站，b站故意构造请求a站的请求，如删除操作之类的，用script，img或者iframe之类的加载a站着个地址，浏览器会附带上a站此登录用户的授权cookie信息，这样就构成crsf，会删除掉当前用户的数据
+
+总结
+- XSS攻击: 注入恶意代码
+  - cookie 设置 httpOnly
+  - 转义页面上的输入内容和输出内容
+- CSRF: 跨站请求伪造，防护:
+  - get不修改数据
+  - 不被第三方网站访问到用户的 cookie
+  - 设置白名单，不被第三方网站请求
+  - 请求校验
+
+#### 浏览器同源策略SOP
+#### 1.同源
+先解释何为同源：协议、域名、端口都一样，就是同源。
+```
+             url                 	   同源
+https://niconico.com(opens new window)	   基准
+https://niconico.com/spirit	            o
+https://sub.niconico.com/spirit	            x
+http://niconico.com/spirit	            x
+https://niconico.com:8080/spirit	    x
+```
+
+#### 2.限制
+- 你之所以会遇到 跨域问题，正是因为 SOP 的各种限制。但是具体来说限制了什么呢？
+- 如果你说 SOP 就是“限制非同源资源的获取”，这不对，最简单的例子是引用图片、css、js 文件等资源的时候就允许跨域。
+- 如果你说 SOP 就是“禁止跨域请求”，这也不对，本质上 SOP 并不是禁止跨域请求，而是在请求后拦截了请求的回应。
+
+其实表面上 SOP 分两种情况：
+- 可以正常引用 iframe、图片等各种资源，但是限制对其内容进行操作
+- 直接限制 ajax 请求，准确来说是限制操作 ajax 响应结果，这会引起后面说到的 CSRF
+
+- 但是，本质上这两条是一样的：总之，对于非同源的资源，浏览器可以“直接使用”，但是程序员和用户不可以对这些数据进行操作，杜绝某些居心不良的行为。这就是现代安全浏览器对用户的保护之一。
+
+下面是 3 个在实际应用中会遇到的例子：
+- 使用 ajax 请求其他跨域 API，最常见的情况，前端新手噩梦
+- iframe 与父页面交流（如 DOM 或变量的获取），出现率比较低，而且解决方法也好懂
+- 对跨域图片（例如来源于 <img> ）进行操作，在 canvas 操作图片的时候会遇到这个问题
+
+如果没有了 SOP：
+- iframe 里的机密信息被肆意读取
+- 更加肆意地进行 CSRF
+- 接口被第三方滥用
+
+#### 3.绕过跨域
+- SOP 虽然让用户更安全，同时也会对程序员带来一定程度的麻烦，因为有时候业务上就是有跨域的需求。绕过跨域的方案由于篇幅所限，并且网上也很多相关文章，所以不在这里展开解决跨域的方案，只给出几个关键词：
+
+对于 ajax
+- 使用 JSONP
+- 后端进行 CORS 配置
+- 后端反向代理
+- 使用 WebSocket
+
+对于 iframe
+- 使用 location.hash 或 window.name 进行信息交流
+- 使用 postMessage
+
+#### 4.浏览器同源策略与ajax
+- 对于 ajax 请求，在获得数据之后你能肆意进行 js 操作。这时候虽然同源策略会阻止响应，但依然会发出请求。因为执行响应拦截的是浏览器而不是后端程序。事实上你的请求已经发到服务器并返回了结果，但是迫于安全策略，浏览器不允许你继续进行 js 操作，所以报出你熟悉的 blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.。
+
+- 所以再强调一次，同源策略不能作为防范 CSRF 的方法。
+
+- 不过可以防范 CSRF 的例外还是有的，浏览器并不是让所有请求都发送成功，上述情况仅限于简单请求，相关知识会在下面 CORS 一节详细解释。
+
+#### 跨域资源共享CORS
+- 跨域是浏览器限制，跨域资源共享（Cross-origin resource sharing）也是服务器与浏览器协调的结果。
+
+- 如果服务器设置了 CORS 相关配置，在返回浏览器的请求头会加上 Access-Control-Allow-Origin，浏览器看到这个字段的值与当前的源匹配，就会解锁跨域限制。
+```
+HTTP/1.1 200 OK
+Date: Sun, 24 Apr 2016 12:43:39 GMT
+Server: Apache
+Access-Control-Allow-Origin: http://www.acceptmeplease.com
+Keep-Alive: timeout=2, max=100
+Connection: Keep-Alive
+Content-Type: application/xml
+Content-Length: 423
+```
+对于 CORS，请求分两种。
+
+#### 1.简单请求
+- 请求方法使用 GET、POST 或 HEAD
+- Content-Type 设为 application/x-www-form-urlencoded、multipart/form-data 或 text/plain
+
+- 符合上面两个条件的都为 CORS 简单请求。简单请求都会直接发到服务器，会造成 CSRF。
+
+#### 2.预检请求
+- 不符合简单请求要求的请求都需要先发送预检请求（Preflight Request）。浏览器会在真正请求前发送 OPTION 方法的请求向服务器询问当前源是否符合 CORS 目标，验证通过后才会发送正式请求。
+
+- 例如使用 application/json 传参的 POST 请求就是非简单请求，会在预检中被拦截。
+
+- 再例如使用 PUT 方法请求，也会发送预检请求。
+
+- 上面提到的可以防范 CSRF 的例外，就是指预检请求。即使跨域成功请求预检，但真正请求并不能发出去，这就保证了 CSRF 无法成功。
+
+#### 3.CORS与cookie
+- 与同域不同，用于跨域的 CORS 请求默认不发送 Cookie 和 HTTP 认证信息，前后端都要在配置中设定请求时带上 cookie。
+- 这就是为什么在进行 CORS 请求时 axios 需要设置 withCredentials: true。
+
+下面是 node.js 的后台 koa 框架的 CORS 设置：
+```
+/**
+ * CORS middleware
+ *
+ * @param {Object} [options]
+ *  - {String|Function(ctx)} origin `Access-Control-Allow-Origin`, default is request Origin header
+ *  - {String|Array} allowMethods `Access-Control-Allow-Methods`, default is 'GET,HEAD,PUT,POST,DELETE,PATCH'
+ *  - {String|Array} exposeHeaders `Access-Control-Expose-Headers`
+ *  - {String|Array} allowHeaders `Access-Control-Allow-Headers`
+ *  - {String|Number} maxAge `Access-Control-Max-Age` in seconds
+ *  - {Boolean} credentials `Access-Control-Allow-Credentials`
+ *  - {Boolean} keepHeadersOnError Add set headers to `err.header` if an error is thrown
+ * @return {Function} cors middleware
+ * @api public
+ */
+```
+- 顺带一提，Access-Control-Allow-Credentials 设为 true 时，Access-Control-Allow-Origin 强制不能设为 *，为了安全，也是挺麻烦
+
+#### 密码安全
+加盐
+- 对于密码存储来说，必然是不能明文存储在数据库中的，否则一旦数据库泄露，会对用户造成很大的损失。并且不建议只对密码单纯通过加密算法加密，因为存在彩虹表的关系
+
+- 通常需要对密码加盐，然后进行几次不同加密算法的加密
+```
+// 加盐也就是给原密码添加字符串，增加原密码长度
+sha256(sha1(md5(salt + password + salt)))
+```
+- 但是加盐并不能阻止别人盗取账号，只能确保即使数据库泄露，也不会暴露用户的真实密码。一旦攻击者得到了用户的账号，可以通过暴力破解的方式破解密码。对于这种情况，通常使用验证码增加延时或者限制尝试次数的方式。并且一旦用户输入了错误的密码，也不能直接提示用户输错密码，而应该提示账号或密码错误
+
+前端加密
+- 虽然前端加密对于安全防护来说意义不大，但是在遇到中间人攻击的情况下，可以避免明文密码被第三方获取
 
 
+### 性能优化相关
+#### 性能优化方式
+#### 1.DNS预解析
+- DNS 解析也是需要时间的，可以通过预解析的方式来预先获得域名所对应的 IP
+```
+<link rel="dns-prefetch" href="//blog.poetries.top">
+```
 
+#### 2.缓存
+- 缓存对于前端性能优化来说是个很重要的点，良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度
+- 通常浏览器缓存策略分为两种：强缓存和协商缓存
 
+强缓存
+- 实现强缓存可以通过两种响应头实现：Expires和 Cache-Control 。强缓存表示在缓存期间不需要请求，state code为 200
+```
+Expires: Wed, 22 Oct 2018 08:41:00 GMT
+```
+- Expires 是 HTTP / 1.0 的产物，表示资源会在 Wed, 22 Oct 2018 08:41:00 GMT 后过期，需要再次请求。并且 Expires 受限于本地时间，如果修改了本地时间，可能会造成缓存失效
+```
+Cache-control: max-age=30
+```
+- Cache-Control 出现于 HTTP / 1.1，优先级高于 Expires 。该属性表示资源会在 30 秒后过期，需要再次请求
 
+协商缓存
+- 如果缓存过期了，我们就可以使用协商缓存来解决问题。协商缓存需要请求，如果缓存有效会返回 304
+- 协商缓存需要客户端和服务端共同实现，和强缓存一样，也有两种实现方式
 
+Last-Modified 和 If-Modified-Since
+- Last-Modified 表示本地文件最后修改日期，If-Modified-Since 会将 Last-Modified的值发送给服务器，询问服务器在该日期后资源是否有更新，有更新的话就会将新的资源发送回来
+- 但是如果在本地打开缓存文件，就会造成 Last-Modified 被修改，所以在 HTTP / 1.1 出现了 ETag
 
+ETag 和 If-None-Match
+- ETag 类似于文件指纹，If-None-Match 会将当前 ETag 发送给服务器，询问该资源 ETag 是否变动，有变动的话就将新的资源发送回来。并且 ETag 优先级比 Last-Modified 高
 
+选择合适的缓存策略
+- 对于大部分的场景都可以使用强缓存配合协商缓存解决，但是在一些特殊的地方可能需要选择特殊的缓存策略
 
+- 对于某些不需要缓存的资源，可以使用 Cache-control: no-store ，表示该资源不需要缓存
+- 对于频繁变动的资源，可以使用 Cache-Control: no-cache 并配合 ETag 使用，表示该资源已被缓存，但是每次都会发送请求询问资源是否更新。
+- 对于代码文件来说，通常使用 Cache-Control: max-age=31536000 并配合策略缓存使用，然后对文件进行指纹处理，一旦文件名变动就会立刻下载新的文件
 
+#### 3.使用HTTP/2.0
+- 因为浏览器会有并发请求限制，在 HTTP / 1.1 时代，每个请求都需要建立和断开，消耗了好几个 RTT 时间，并且由于 TCP 慢启动的原因，加载体积大的文件会需要更多的时间
+- 在 HTTP / 2.0 中引入了多路复用，能够让多个请求使用同一个 TCP 链接，极大的加快了网页的加载速度。并且还支持 Header 压缩，进一步的减少了请求的数据大小
 
+#### 4.预加载
+在开发中，可能会遇到这样的情况。有些资源不需要马上用到，但是希望尽早获取，这时候就可以使用预加载
+预加载其实是声明式的 fetch ，强制浏览器请求资源，并且不会阻塞 onload 事件，可以使用以下代码开启预加载
+<link rel="preload" href="http://example.com">
+预加载可以一定程度上降低首屏的加载时间，因为可以将一些不影响首屏但重要的文件延后加载，唯一缺点就是兼容性不好
 
+#1.5 预渲染
+可以通过预渲染将下载的文件预先在后台渲染，可以使用以下代码开启预渲染
 
+<link rel="prerender" href="http://poetries.com">
+预渲染虽然可以提高页面的加载速度，但是要确保该页面百分百会被用户在之后打开，否则就白白浪费资源去渲染
+#1.6 懒执行与懒加载
+懒执行
 
+懒执行就是将某些逻辑延迟到使用时再计算。该技术可以用于首屏优化，对于某些耗时逻辑并不需要在首屏就使用的，就可以使用懒执行。懒执行需要唤醒，一般可以通过定时器或者事件的调用来唤醒
+懒加载
 
+懒加载就是将不关键的资源延后加载
+懒加载的原理就是只加载自定义区域（通常是可视区域，但也可以是即将进入可视区域）内需要加载的东西。对于图片来说，先设置图片标签的 src 属性为一张占位图，将真实的图片资源放入一个自定义属性中，当进入自定义区域时，就将自定义属性替换为 src 属性，这样图片就会去下载资源，实现了图片懒加载
 
+懒加载不仅可以用于图片，也可以使用在别的资源上。比如进入可视区域才开始播放视频等
+#1.7 文件优化
+图片优化
 
+对于如何优化图片，有 2 个思路
+
+减少像素点
+减少每个像素点能够显示的颜色
+图片加载优化
+
+不用图片。很多时候会使用到很多修饰类图片，其实这类修饰图片完全可以用 CSS 去代替。
+对于移动端来说，屏幕宽度就那么点，完全没有必要去加载原图浪费带宽。一般图片都用 CDN 加载，可以计算出适配屏幕的宽度，然后去请求相应裁剪好的图片
+小图使用 base64格式
+将多个图标文件整合到一张图片中（雪碧图）
+选择正确的图片格式：
+对于能够显示 WebP 格式的浏览器尽量使用 WebP 格式。因为 WebP 格式具有更好的图像数据压缩算法，能带来更小的图片体积，而且拥有肉眼识别无差异的图像质量，缺点就是兼容性并不好
+小图使用 PNG，其实对于大部分图标这类图片，完全可以使用 SVG 代替
+照片使用 JPEG
+其他文件优化
+
+CSS文件放在 head 中
+服务端开启文件压缩功能
+将 script 标签放在 body 底部，因为 JS 文件执行会阻塞渲染。当然也可以把 script 标签放在任意位置然后加上 defer ，表示该文件会并行下载，但是会放到 HTML 解析完成后顺序执行。对于没有任何依赖的 JS文件可以加上 async ，表示加载和渲染后续文档元素的过程将和 JS 文件的加载与执行并行无序进行。 执行 JS代码过长会卡住渲染，对于需要很多时间计算的代码
+可以考虑使用 Webworker。Webworker可以让我们另开一个线程执行脚本而不影响渲染。
+CDN
+
+静态资源尽量使用 CDN 加载，由于浏览器对于单个域名有并发请求上限，可以考虑使用多个 CDN 域名。对于 CDN 加载静态资源需要注意 CDN 域名要与主站不同，否则每次请求都会带上主站的 Cookie
+
+#1.8 其他
+使用 Webpack 优化项目
+
+对于 Webpack4，打包项目使用 production 模式，这样会自动开启代码压缩
+使用 ES6 模块来开启 tree shaking，这个技术可以移除没有使用的代码
+优化图片，对于小图可以使用 base64 的方式写入文件中
+按照路由拆分代码，实现按需加载
+给打包出来的文件名添加哈希，实现浏览器缓存文件
+监控
+
+对于代码运行错误，通常的办法是使用 window.onerror 拦截报错。该方法能拦截到大部分的详细报错信息，但是也有例外
+
+对于跨域的代码运行错误会显示 Script error. 对于这种情况我们需要给 script 标签添加 crossorigin 属性
+对于某些浏览器可能不会显示调用栈信息，这种情况可以通过 arguments.callee.caller 来做栈递归
+对于异步代码来说，可以使用 catch 的方式捕获错误。比如 Promise 可以直接使用 catch 函数，async await 可以使用 try catch
+但是要注意线上运行的代码都是压缩过的，需要在打包时生成 sourceMap 文件便于 debug。
+对于捕获的错误需要上传给服务器，通常可以通过 img 标签的 src发起一个请求
+#
+2 首屏渲染优化
+css / js 分割，使首屏依赖的文件体积最小，内联首屏关键 css / js；
+非关键性的文件尽可能的 异步加载和懒加载，避免阻塞首页渲染；
+使用dns-prefetch / preconnect / prefetch / preload等浏览器提供的资源提示，加快文件传输；
+谨慎控制好 Web字体，一个大字体包足够让你功亏一篑
+控制字体包的加载时机；
+如果使用的字体有限，那尽可能只将使用的文字单独打包，能有效减少体积； 合理利用 Localstorage / server-worker 等存储方式进行 数据与资源缓存
+分清轻重缓急
+重要的元素优先渲染；
+视窗内的元素优先渲染
+服务端渲染(SSR):
+减少首屏需要的数据量，剔除冗余数据和请求；
+控制好缓存，对数据/页面进行合理的缓存；
+页面的请求使用流的形式进行传递；
+优化用户感知
+利用一些动画 过渡效果，能有效减少用户对卡顿的感知；
+尽可能利用 骨架屏(Placeholder) / Loading 等减少用户对白屏的感知；
+动画帧数尽量保证在 30帧 以上，低帧数、卡顿的动画宁愿不要；
+js 执行时间避免超过 100ms，超过的话就需要做
+寻找可 缓存 的点
+任务的 分割异步 或 web worker 执行
+移动端的性能优化
+
+首屏加载和按需加载，懒加载
+资源预加载
+图片压缩处理，使用base64内嵌图片
+合理缓存dom对象
+使用touchstart代替click（click 300毫秒的延迟）
+利用transform:translateZ(0)，开启硬件GUP加速
+不滥用web字体，不滥用float（布局计算消耗性能），减少font-size声明
+使用viewport固定屏幕渲染，加速页面渲染内容
+尽量使用事件代理，避免直接事件绑定
+#
+3 页面基础优化
+引入位置: css 文件<head>中引入， js 文件<body>底部引入
+影响首屏的，优先级很高的 js 也可以头部引入，甚至内联
+减少请求 (http 1.0 - 1.1)，合并请求，正确设置 http 缓存
+减少文件体积
+删除多余代码:
+tree-shaking
+UglifyJs
+code-spliting
+混淆 / 压缩代码，开启 gzip 压缩；
+多份编译文件按条件引入
+针对现代浏览器直接给 ES6 文件，只针对低端浏览器引用编译后的 ES5 文件
+可以利用<script type="module"> / <script type="module">进行条件引入用
+动态 polyfill，只针对不支持的浏览器引入 polyfill；
+图片优化:
+根据业务场景，与UI探讨选择 合适质量，合适尺寸；
+根据需求和平台，选择 合适格式，例如非透明时可用 jpg；非苹果端，使用 webp；
+小图片合成 雪碧图，低于 5K 的图片可以转换成 base64 内嵌
+合适场景下，使用 iconfont 或者 svg；
+使用缓存
+浏览器缓存: 通过设置请求的过期时间，合理运用浏览器缓存；
+CDN缓存: 静态文件合理使用 CDN 缓存技术
+HTML 放于自己的服务器上；
+打包后的图片 / js / css 等资源上传到 CDN 上，文件带上 hash 值；
+由于浏览器对单个域名请求的限制，可以将资源放在多个不同域的 CDN 上，可以绕开该限制；
+服务器缓存: 将不变的数据、页面缓存到 内存 或 远程存储(redis等) 上
+数据缓存: 通过各种存储将不常变的数据进行缓存，缩短数据的获取时间
+#
+4 性能优化方向
+前端性能优化分为两个方向，一是工程化方向，另一个是细节方向
+
+#4.1 工程化方向
+客户端Gzip离线包，服务器资源Gzip压缩。
+JS瘦身，Tree shaking，ES Module，动态Import，动态Polyfill
+图片加载优化，Webp，考虑兼容性，可以提前加载一张图片，嗅探是否支持Webp
+服务端渲染，客户端预渲染
+CDN静态资源
+Webpack Dll，通用优先打包抽离，利用浏览器缓存
+骨架图
+数据预取，包括接口数据，和加载详情页图片
+Webpack本身提供的优化，Base64，资源压缩，Tree shaking，拆包chunk
+减少重定向
+#4.2 细节方向
+图片，图片占位，图片懒加载。 雪碧图
+使用 prefetch / preload 预加载等新特性
+Preload 来告诉浏览器预先请求当前页需要的资源，从而提高这些资源的请求优先级。比如，对于那些本来请求优先级较低的关键请求，我们可以通过设置 Preload 来提升这些请求的优先级
+Prefetch 来告诉浏览器用户将来可能在其他页面（非本页面）可能使用到的资源，那么浏览器会在空闲时，就去预先加载这些资源放在 http 缓存内，最常见的 dns-prefetch。比如，当我们在浏览A页面，如果会通过A页面中的链接跳转到B页面，而B页面中我们有些资源希望尽早提前加载，那么我们就可以在A页面里添加这些资源 Prefetch ，那么当浏览器空闲时，就会去加载这些资源
+所以，对于那些可能在当前页面使用到的资源可以利用 Preload，而对一些可能在将来的某些页面中被使用的资源可以利用 Prefetch。如果从加载优先级上看，Preload 会提升请求优先级；而Prefetch会把资源的优先级放在最低，当浏览器空闲时才去预加载
+服务器合理设置缓存策略
+async（加载完当前js立即执行）/ defer(所有资源加载完之后执行js)
+减少Dom的操作，减少重排重绘
+从客户端层面，首屏减少和客户端交互，合并接口请求
+数据缓存
+首页不加载不可视组件
+防止渲染抖动，控制时序
+减少组件层级
+优先使用Flex布局
+#
+5 长列表优化
+#vue-virtual-scroll-list优化长列表
+虚拟列表的实现原理：只渲染可视区的 dom 节点，其余不可见的数据卷起来，只会渲染可视区域的 dom 节点，提高渲染性能及流畅性，优点是支持海量数据的渲染；
+
+github地址：https://github.com/tangbc/vue-virtual-scroll-list
+
+#Object.freeze优化长列表
+Object.freeze()方法可以冻结一个对象。一个被冻结的对象再也不能被修改；冻结了一个对象则不能向这个对象添加新的属性，不能删除已有属性，不能修改该对象已有属性的可枚举性、可配置性、可写性，以及不能修改已有属性的值。
+对于data()或vuex中冻结的对象，vue不会做getter和setter的转换。因此对于一个不变的、大数据量的数组或Object数据来说，使用Object.freeze()可以有效地提升性能。
+#
+6 卡顿问题解决
+CSS动画效率比JS高，css可以用GPU加速，3d加速。如果非要用JS动画，可以用requestAnimationFrame
+批量进行DOM操作，固定图片容器大小，避免屏幕抖动
+减少重绘重排
+节流和防抖
+减少临时大对象产生，利用对象缓存，主要是减少内存碎片
+异步操作，IntersectionObserver，PostMessage，RequestIdleCallback
+#
+7 编码优化
+编码优化，指的就是 在代码编写时的，通过一些 最佳实践，提升代码的执行性能。通常这并不会带来非常大的收益，但这属于 程序猿的自我修养，而且这也是面试中经常被问到的一个方面，考察自我管理与细节的处理。
+
+数据读取:
+
+通过作用域链 / 原型链 读取变量或方法时，需要更多的耗时，且越长越慢
+对象嵌套越深，读取值也越慢；
+最佳实践
+尽量在局部作用域中进行 变量缓存；
+避免嵌套过深的数据结构，数据扁平化 有利于数据的读取和维护
+循环: 循环通常是编码性能的关键点；
+
+代码的性能问题会再循环中被指数倍放大
+最佳实践
+尽可能 减少循环次数
+减少遍历的数据量；
+完成目的后马上结束循环
+避免在循环中执行大量的运算，避免重复计算，相同的执行结果应该使用缓存；
+js 中使用 倒序循环 会略微提升性能；
+尽量避免使用 for-in 循环，因为它会枚举原型对象，耗时大于普通循环；
+条件流程性能: Map / Object > switch > if-else
+
+// 使用 if-else
+if(type === 1) {
+
+} else if (type === 2) {
+
+} else if (type === 3) {
+
+}
+
+// 使用 switch
+switch (type) {
+	case 1:
+		break;4
+	case 2:
+		break;
+	case 3:
+		break;
+    default:
+        break;
+}
+
+// 使用 Map
+const map = new Map([
+	[1, () => {}],
+	[2, () => {}],
+	[3, () => {}],
+])
+map.get(type)()
+
+// 使用 Objext
+const obj = {
+	1: () => {},
+	2: () => {},
+	3: () => {},
+}
+obj[type]()
+减少 cookie 体积: 能有效减少每次请求的体积和响应时间；
+
+去除不必要的 cookie；
+压缩 cookie 大小；
+设置 domain 与 过期时间；
+dom 优化:
+
+减少访问 dom 的次数，如需多次，将 dom 缓存于变量中；
+减少重绘与回流:
+多次操作合并为一次；
+减少对计算属性的访问
+例如 offsetTop， getComputedStyle 等
+因为浏览器需要获取最新准确的值，因此必须立即进行重排，这样会破坏了浏览器的队列整合，尽量将值进行缓存使用；
+大量操作时，可将 dom 脱离文档流或者隐藏，待操作完成后再重新恢复；
+使用DocumentFragment / cloneNode / replaceChild进行操作；
+使用事件委托，避免大量的事件绑定；
+css 优化:
+
+层级扁平，避免过于多层级的选择器嵌套；
+特定的选择器 好过一层一层查找: .xxx-child-text{} - 优于 .xxx .child .text{}
+减少使用通配符与属性选择器；
+减少不必要的多余属性；
+使用 动画属性实现动画，动画时脱离文档流，开启硬件加速，优先使用 css 动画；
+使用 <link> 替代原生 @import；
+html 优化:
+
+减少 dom 数量，避免不必要的节点或嵌套
+避免<img src="" />空标签，能减少服务器压力，因为 src 为空时，浏览器仍然会发起请求
+IE 向页面所在的目录发送请求；
+Safari、Chrome、Firefox 向页面本身发送请求；
+Opera 不执行任何操作。
+图片提前 指定宽高 或者 脱离文档流，能有效减少因图片加载导致的页面回流；
+语义化标签 有利于 SEO 与浏览器的解析时间；
+减少使用 table 进行布局，避免使用<br />与<hr />
+#
+8 如何根据chrome的timing优化
+#8.1 性能优化API
+Performance。performance.now()与new Date()区别，它是高精度的，且是相对时间，相对于页面加载的那一刻。但是不一定适合单页面场景
+window.addEventListener("load", ""); window.addEventListener("domContentLoaded", "");
+Img的onload事件，监听首屏内的图片是否加载完成，判断首屏事件
+RequestFrameAnmation 和 RequestIdleCallback
+IntersectionObserver、MutationObserver，PostMessage
+Web Worker，耗时任务放在里面执行
+#8.2 检测工具
+Chrome Dev Tools
+Page Speed
+Jspref
+#8.3 前端指标
+image-20210307184052955
+
+window.onload = function(){
+    setTimeout(function(){
+        let t = performance.timing
+        console.log('DNS查询耗时 ：' + (t.domainLookupEnd - t.domainLookupStart).toFixed(0))
+        console.log('TCP链接耗时 ：' + (t.connectEnd - t.connectStart).toFixed(0))
+        console.log('request请求耗时 ：' + (t.responseEnd - t.responseStart).toFixed(0))
+        console.log('解析dom树耗时 ：' + (t.domComplete - t.domInteractive).toFixed(0))
+        console.log('白屏时间 ：' + (t.responseStart - t.navigationStart).toFixed(0))
+        console.log('domready时间 ：' + (t.domContentLoadedEventEnd - t.navigationStart).toFixed(0))
+        console.log('onload时间 ：' + (t.loadEventEnd - t.navigationStart).toFixed(0))
+
+        if(t = performance.memory){
+            console.log('js内存使用占比 ：' + (t.usedJSHeapSize / t.totalJSHeapSize * 100).toFixed(2) + '%')
+        }
+    })
+}
+DNS预解析优化
+
+dns解析是很耗时的，因此如果解析域名过多，会让首屏加载变得过慢，可以考虑dns-prefetch优化
+
+DNS Prefetch 应该尽量的放在网页的前面，推荐放在 后面。具体使用方法如下：
+
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//www.zhix.net">
+<link rel="dns-prefetch" href="//api.share.zhix.net">
+<link rel="dns-prefetch" href="//bdimg.share.zhix.net">
+request请求耗时
+
+不请求，用cache（最好的方式就是尽量引用公共资源，同时设置缓存，不去重新请求资源，也可以运用PWA的离线缓存技术，可以帮助wep实现离线使用）
+前端打包时压缩
+服务器上的zip压缩
+图片压缩（比如tiny），使用webp等高压缩比格式
+把过大的包，拆分成多个较少的包，防止单个资源耗时过大
+同一时间针对同一域名下的请求有一定数量限制，超过限制数目的请求会被阻塞。如果资源来自于多个域下，可以增大并行请求和下载速度
+延迟、异步、预加载、懒加载
+对于非首屏的资源，可以使用 defer 或 async 的方式引入
+也可以按需加载，在逻辑中，只有执行到时才做请求
+对于多屏页面，滚动时才动态载入图片
+解析dom树耗时
 
 
 
