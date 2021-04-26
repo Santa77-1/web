@@ -8138,6 +8138,103 @@ ajax 有那些优缺点?
 - 不容易调试。
 
   #### ajax、axios、fetch区别
+fetch
+- fetch是基于promise实现的，也可以结合async/await。
+- fetch请求默认是不带cookie的，需要设置fetch（URL，{credentials:’include’})。
+Credentials有三种参数：same-origin，include，*
+- 服务器返回400 500 状态码时并不会reject，只有网络出错导致请求不能完成时，fetch才会被reject。
+- 所有版本的 IE 均不支持原生 Fetch。
+- fetch是widow的一个方法；
+
+ajax
+- 是XMLHTTPRequest的一个实例；
+- 只有当状态为200或者304时才会请求成功；
+
+Ajax
+- Ajax前后端数据通信「同源、跨域」
+```
+let xhr = new XMLHttpRequest;
+xhr.open('get', 'http://127.0.0.1:8888/user/list');
+xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        let text = xhr.responseText;
+        console.log(JSON.parse(text));
+    }
+};
+xhr.send(); 
+```
+```$.ajax({
+    url: 'http://127.0.0.1:8888/user/list',
+    method: 'get',
+    success(result) {
+        console.log(result);
+    }
+});
+
+// 用户登录
+// 登录成功 -> 获取用户信息
+
+/* 回调地狱 */
+$.ajax({
+    url: 'http://127.0.0.1:8888/user/login',
+    method: 'post',
+    data: Qs.stringify({
+        account: '18310612838',
+        password: md5('1234567890')
+    }),
+    success(result) {
+        if (result.code === 0) {
+            // 登录成功
+            $.ajax({
+                url: 'http://127.0.0.1:8888/user/list',
+                method: 'get',
+                success(result) {
+                    console.log(result);
+                }
+            });
+        }
+    }
+});
+```
+
+Axios
+- Axios也是对ajax的封装，基于Promise管理请求，解决回调地狱问题
+```
+(async function () {
+    let result = await axios.post('/user/login', {
+        account: '18310612838',
+        password: md5('1234567890')
+    });
+
+    result = await axios.get('/user/list');
+    console.log(result);
+})(); 
+```
+
+Fetch
+- Fetch是ES6新增的通信方法，不是ajax，但是他本身实现数据通信，就是基于promise管理的
+```
+(async function () {
+    let result = await fetch('http://127.0.0.1:8888/user/login', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: Qs.stringify({
+            account: '18310612838',
+            password: md5('1234567890')
+        })
+    }).then(response => {
+        return response.json();
+    });
+
+    result = await fetch('http://127.0.0.1:8888/user/list').then(response => {
+        return response.json();
+    });
+    console.log(result);
+})(); 
+```
+
 ```
 jQuery ajax
 
