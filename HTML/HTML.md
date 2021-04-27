@@ -28,6 +28,7 @@
     - [2.缓存](#2缓存)
     - [3.使用HTTP/2.0](#3使用HTTP20)
     - [4.预加载](#4预加载)
+      - [资源预加载prefetch/preload](#资源预加载prefetchpreload)
     - [5.预渲染](#5预渲染)
     - [6.懒执行与懒加载](#6懒执行与懒加载)
     - [7.文件优化](#7文件优化)
@@ -174,7 +175,6 @@
 - [拖拽有哪些知识点](#拖拽有哪些知识点)
 - [web worker](#web-worker)
 - [用一个div模拟textarea的实现](#用一个div模拟textarea的实现)
-- [资源预加载prefetch/preload](#资源预加载prefetchpreload)
 - [如何解决a标签点击后hover事件失效的问题](#如何解决a标签点击后hover事件失效的问题)
 - [点击一个input依次触发的事件](#点击一个input依次触发的事件)
 - [有写过原生的自定义事件吗](#有写过原生的自定义事件吗)
@@ -760,6 +760,29 @@ ETag 和 If-None-Match
 <link rel="preload" href="http://example.com">
 ```
 - 预加载可以一定程度上降低首屏的加载时间，因为可以将一些不影响首屏但重要的文件延后加载，唯一缺点就是兼容性不好
+
+### 资源预加载prefetch/preload
+```
+都是告知浏览器提前加载文件(图片、视频、js、css等)，
+但执行上是有区别的。
+```
+
+- prefetch：其利用浏览器空闲时间来下载或预取用户在不久的将来可能访问的文档。<link href="/js/xx.js" rel="prefetch">
+- preload : 可以指明哪些资源是在页面加载完成后即刻需要的，浏览器在主渲染机制介入前就进行预加载，这一机制使得资源可以更早的得到加载并可用，且更不易阻塞页面的初步渲染，进而提升性能。 <link href="/js/xxx.js" rel="preload" as="script">需要 as 指定资源类型目前可用的属性类型有如下：
+```
+audio: 音频文件。
+document: 一个将要被嵌入到<frame>或<iframe>内部的HTML文档。
+embed: 一个将要被嵌入到<embed>元素内部的资源。
+fetch: 那些将要通过fetch和XHR请求来获取的资源，比如一个ArrayBuffer或JSON文件。
+font: 字体文件。
+image: 图片文件。
+object: 一个将会被嵌入到<embed>元素内的文件。
+script: JavaScript文件。
+style: 样式表。
+track: WebVTT文件。
+worker: 一个JavaScript的web worker或shared worker。
+video: 视频文件。
+```
 
 #### 5.预渲染
 - 可以通过预渲染将下载的文件预先在后台渲染，可以使用以下代码开启预渲染
@@ -3009,29 +3032,6 @@ postMessage 将结果回传到主线程。这样在进行复杂操作的时候�
 
 ### 用一个div模拟textarea的实现
 - 给 div 添加 contenteditable=true 即可
-
-### 资源预加载prefetch/preload
-```
-都是告知浏览器提前加载文件(图片、视频、js、css等)，
-但执行上是有区别的。
-```
-
-- prefetch：其利用浏览器空闲时间来下载或预取用户在不久的将来可能访问的文档。<link href="/js/xx.js" rel="prefetch">
-- preload : 可以指明哪些资源是在页面加载完成后即刻需要的，浏览器在主渲染机制介入前就进行预加载，这一机制使得资源可以更早的得到加载并可用，且更不易阻塞页面的初步渲染，进而提升性能。 <link href="/js/xxx.js" rel="preload" as="script">需要 as 指定资源类型目前可用的属性类型有如下：
-```
-audio: 音频文件。
-document: 一个将要被嵌入到<frame>或<iframe>内部的HTML文档。
-embed: 一个将要被嵌入到<embed>元素内部的资源。
-fetch: 那些将要通过fetch和XHR请求来获取的资源，比如一个ArrayBuffer或JSON文件。
-font: 字体文件。
-image: 图片文件。
-object: 一个将会被嵌入到<embed>元素内的文件。
-script: JavaScript文件。
-style: 样式表。
-track: WebVTT文件。
-worker: 一个JavaScript的web worker或shared worker。
-video: 视频文件。
-```
 
 ### 如何解决a标签点击后hover事件失效的问题
 改变a标签css属性的排列顺序
