@@ -151,6 +151,7 @@
 - [事件](#事件)
   - [事件是什么？IE与火狐的事件机制有什么区别？如何阻止冒泡](#事件是什么IE与火狐的事件机制有什么区别如何阻止冒泡)
   - [事件的各个阶段](#事件的各个阶段)
+  - [事件冒泡](#事件冒泡)
   - [事件“捕获”和“冒泡”执行顺序和事件的执行次数](#事件捕获和冒泡执行顺序和事件的执行次数)
   - [在一个DOM上同时绑定两个点击事件：一个用捕获，一个用冒泡。事件会执行几次，先执行冒泡还是捕获](#在一个DOM上同时绑定两个点击事件一个用捕获一个用冒泡事件会执行几次先执行冒泡还是捕获)
   - [如何派发事件(dispatchEvent)？（如何进行事件广播？）](#如何派发事件dispatchEvent如何进行事件广播)
@@ -4933,6 +4934,250 @@ stopPropagation函数可以将li的点击冒泡状态取消。
 preventDefault()  取消默认事件  比如a标签、submit按钮
 stopPropagation()  取消事件冒泡
 ```
+
+#### 事件冒泡
+1. 事件
+- 在浏览器客户端应用平台，基本生都是以事件驱动的，即某个事件发生，然后做出相应的动作。
+- 浏览器的事件表示的是某些事情发生的信号。事件的阐述不是本文的重点，尚未了解的朋友，可以访问W3school教程 进行了解，这将有助于更好地理解以下的内容 。
+
+2.冒泡机制
+什么是冒泡呢？
+- 气泡从水底开始往上升，由深到浅，升到最上面。在上升的过程中，气泡会经过不同深度层次的水。
+- 相对应地：这个气泡就相当于我们这里的事件，而水则相当于我们的整个dom树；事件从dom 树的底层 层层往上传递，直至传递到dom的根节点。
+
+简单案例分析
+下面通过一个简单的例案例来阐述冒泡原理：
+- 定义一个html, 里面有三个简单的dom 元素：div1,div2, span，div2包含span，div1 包含div2；而它们都在body 下： 
+```
+<body id="body">
+	<div id="box1" class="box1">
+		<div id="box2" class="box2">
+			<span id="span">This is a span.</span>
+		</div>
+	</div>
+</body>
+```
+
+在这个基础上，我们实现下面的功能：
+- a.body添加 click 事件监听，当body捕获到event事件时，打印出事件发生的时间和 触发事件的节点信息：
+```
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById("body").addEventListener("click",eventHandler);
+	}
+	function eventHandler(event) {
+		console.log("时间："+new Date(event.timeStamp)+" 产生事件的节点：" + event.target.id +"  当前节点："+event.currentTarget.id);
+	}
+</script>
+```
+当我们依次点击"This is span"，div2，div1，body后，输出以下信息：
+分析以上的结果：
+- 无论是body，body 的子元素div1，还是 div的子元素div2，还有 span, 当这些元素被点击click时，都会产生click事件，并且body都会捕获到，然后调用相应的事件处理函数。就像水中的气泡从底往上冒一样，事件也会往上传递。
+- 一般地，事件在传递过程中会有一些信息，这些是事件的组成部分：事件发生的时间+事件发生的地点+ 事件的类型+事件的当前处理者+其他信息，               
+
+完整的html代码如下：
+```
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+<title>Insert title here</title>
+<style type="text/css">
+.box1 {
+	border: green 40px solid;
+	width: 300px;
+	height: 300px;
+	margin: auto;
+}
+ 
+.box2 {
+	border: yellow 40px solid;
+	width: 220px;
+	height: 220px;
+	margin: auto;
+}
+ 
+span {
+	position: relative;
+	left: 50px;
+	top: 50px;
+	background-color: rgba(128, 128, 128, 0.22);
+}
+</style>
+ 
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById("body").addEventListener("click",eventHandler);
+	}
+	function eventHandler(event) {
+		console.log("时间："+new Date(event.timeStamp)+" 产生事件的节点：" + event.target.id +"  当前节点："+event.currentTarget.id);
+	}
+</script>
+ 
+</head>
+<body id="body">
+	<div id="box1" class="box1">
+		<div id="box2" class="box2">
+			<span id="span">This is a span.</span>
+		</div>
+	</div>
+</body>
+</html>
+```
+
+  b.终止事件的冒泡
+- 我们现在想实现这样的功能，在div1 点击的时候，弹出 "你好，我是最外层div。"，点击div2 的时候，弹出 "你好，我是第二层div"；点击span 的时候，弹出"您好，我是span。"。
+
+由此我们会有下面的javascript片段：
+```
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById("box1").addEventListener("click",function(event){
+			alert("您好，我是最外层div。");
+		});
+		document.getElementById("box2").addEventListener("click",function(event){
+			alert("您好，我是第二层div。");
+		});
+		document.getElementById("span").addEventListener("click",function(event){
+			alert("您好，我是span。");
+		});
+	}
+</script>
+```
+- 预期上述代码会单击span 的时候，会出来一个弹出框 "您好，我是span。" 是的，确实弹出了这样的对话框：
+                                                      
+- 然而，不仅仅会产生这个对话框，当点击确定后，会依次弹出下列对话框：
+
+- 这显然不是我们想要的！ 我们希望的是点谁显示谁的信息而已。为什么会出现上述的情况呢？ 原因就在于事件的冒泡，点击span的时候，span 会把产生的事件往上冒泡，作为父节点的div2 和 祖父节点的div1也会收到此事件，于是会做出事件响应，执行响应函数。现在问题是发现了，但是怎么解决呢？
+
+- 方法一：我们来考虑一个形象一点的情况：水中的一个气泡正在从底部往上冒，而你现在在水中，不想让这个气泡往上冒，怎么办呢？——把它扎破！没了气泡，自然不会往上冒了。类似地，对某一个节点而言，如果不想它现在处理的事件继续往上冒泡的话，我们可以终止冒泡：
+
+- 在相应的处理函数内，加入  event.stopPropagation()   ,终止事件的广播分发，这样事件停留在本节点，不会再往外传播了。修改上述的script片段：
+```
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById("box1").addEventListener("click",function(event){
+			alert("您好，我是最外层div。");
+			event.stopPropagation();
+		});
+		document.getElementById("box2").addEventListener("click",function(event){
+			alert("您好，我是第二层div。");
+			event.stopPropagation();
+		});
+		document.getElementById("span").addEventListener("click",function(event){
+			alert("您好，我是span。");
+			event.stopPropagation();
+		});
+	}
+</script>
+```
+经过这样一段代码，点击不同元素会有不同的提示，不会出现弹出多个框的情况了。
+
+- 方法二：事件包含最初触发事件的节点引用 和 当前处理事件节点的引用，那如果节点只处理自己触发的事件即可,不是自己产生的事件不处理。event.target 引用了产生此event对象的dom 节点，而event.currrentTarget 则引用了当前处理节点，我们可以通过这 两个target 是否相等。
+
+- 比如span 点击事件，产生一个event 事件对象，event.target 指向了span元素，span处理此事件时，event.currentTarget 指向的也是span元素，这时判断两者相等，则执行相应的处理函数。而事件传递给 div2 的时候，event.currentTarget变成 div2，这时候判断二者不相等，即事件不是div2 本身产生的，就不作响应处理逻辑。               
+```
+<script type="text/javascript">
+    window.onload = function() {
+        document.getElementById("box1").addEventListener("click",function(event){
+            if(event.target == event.currentTarget)
+            {
+                alert("您好，我是最外层div。");
+            }
+        });
+        document.getElementById("box2").addEventListener("click",function(event){
+            if(event.target == event.currentTarget)
+            {
+                alert("您好，我是第二层div。");
+            }
+        });
+        document.getElementById("span").addEventListener("click",function(event){
+            if(event.target == event.currentTarget)
+            {
+                alert("您好，我是span。");
+                
+            }
+        });
+    }
+</script>
+```
+
+比较：
+- 从事件传递上看：方法一在于取消事件冒泡，即当某些节点取消冒泡后，事件不会再传递；方法二在于不阻止冒泡，过滤需要处理的事件，事件处理后还会继续传递；
+
+优缺点：
+- 方法一缺点：为了实现点击特定的元素显示对应的信息，方法一要求每个元素的子元素也必须终止事件的冒泡传递，即跟别的元素功能上强关联，这样的方法会很脆弱。比如，如果span 元素的处理函数没有执行冒泡终止，则事件会传到div2 上，这样会造成div2 的提示信息；
+
+- 方法二缺点：方法二为每一个元素都增加了事件监听处理函数，事件的处理逻辑都很相似，即都有判断 if(event.target == event.currentTarget)，这样存在了很大的代码冗余，现在是三个元素还好，当有10几个，上百个又该怎么办呢？
+
+- 还有就是为每一个元素都有处理函数，在一定程度上增加逻辑和代码的复杂度。
+
+- 我们再来分析一下方法二：方法二的原理是 元素收到事件后，判断事件是否符合要求，然后做相应的处理，然后事件继续冒泡往上传递；
+
+- 既然事件是冒泡传递的，那可不可以让某个父节点统一处理事件，通过判断事件的发生地（即事件产生的节点），然后做出相应的处理呢？答案是可以的，下面通过给body 元素添加事件监听，然后通过判断event.target 然后对不同的target产生不同的行为。
+
+将方法二的代码重构一下：
+```
+<script type="text/javascript">
+    window.onload = function() {
+        document.getElementById("body").addEventListener("click",eventPerformed);
+    }
+    function eventPerformed(event) {
+        var target = event.target;
+        switch (target.id) {
+        case "span": 
+            alert("您好，我是span。");
+            break;
+        case "div1":
+            alert("您好，我是第二层div。");
+            break;
+        case "div2":
+             alert("您好，我是最外层div。");
+            break;
+        }
+    }
+</script>
+```
+结果会是点击不同的元素，只弹出相符合的提示，不会有多余的提示。
+
+- 通过以上方式，我们把本来每个元素都要有的处理函数，都交给了其祖父节点body 元素来完成了，也就是说，span,div2,div1 将自己的响应逻辑委托给body，让它来完成相应逻辑，自己不实现相应逻辑，这个模式，就是所谓的事件委托。
+
+
+- 事件冒泡 字如其名 就是会逐层向上的触发，与之相对的是 事件捕获 
+
+首先我们要知道什么是 DOM
+- DOM可以理解为是一个树形结构，在DOM模型中，HTML元素是有层次的。当一个HTML元素上产生一个事件时，该事件会在DOM树中元素节点与根节点之间按特定的顺序传播，路径所经过的节点都会收到该事件，这整个传播过程就是DOM事件流。
+
+DOM事件流存在三个阶段：事件捕获阶段、处于目标阶段、事件冒泡阶段。
+- 1，事件捕获：当鼠标点击或者触发DOM元素时，浏览器会从根节点由外而内的进行事件传播
+- 2，事件冒泡：与事件捕获相反，事件冒泡是由内到外进行事件传播，直到根节点。
+- DOM标准事件流的触发的先后顺序为：先捕获再冒泡，即当触发dom事件时，会先进行事件捕获，捕获到事件源之后通过事件传播进行事件冒泡。
+
+常用的冒泡事件的API :
+- 1，addEventListener(event, function, useCapture)  设定一个事件监听器，当某一事件发生通过设定的参数执行操作
+  - 参数 event 是必须的，表示监听的事件，例如 click, touchstart 等，就是之前不加前缀 on 的事件。
+  - 参数 function 是必须的，表示事件触发后调用的函数，可以是外部定义函数，也可以是匿名函数。
+  - 参数 useCapture 是选填的，填true或者false，用于描述事件是冒泡还是捕获，true表示捕获，默认的false表示冒泡。
+
+- 2，removeEventListener(event, function, useCapture)  移除 addEventListener() 添加的事件监听
+  - 具体参数和  addEventListener(event, function, useCapture)  相同
+
+- 3.stopPropagation() 阻止事件的冒泡  
+  - 该函数只阻止事件向祖辈元素的传播，不会阻止该元素自身绑定的其他事件处理函数的函数。
+
+- 4.preventDefault()  取消事件的默认动作
+
+ 
+
+事件委托：
+- e.target表示在事件冒泡中触发事件的源元素
+- event.target.nodeName 　　-- 获取事件触发元素标签name（li,p…）
+- event.target.id　　　　　　--  获取事件触发元素id
+- event.target.className　　-- 获取事件触发元素classname
+- event.target.innerHTML　　-- 获取事件触发元素的内容（li）
+
+
 
   #### 事件“捕获”和“冒泡”执行顺序和事件的执行次数
 ```
