@@ -122,6 +122,10 @@
     - [复杂请求预检检查什么东西](#复杂请求预检检查什么东西)
     - [如果CORS附带身份凭证要怎样做](#如果CORS附带身份凭证要怎样做)
     - [如何减少CORS预请求的次数](#如何减少CORS预请求的次数)
+  - [跨域资源共享CORS](#跨域资源共享CORS)
+    - [1.简单请求](#1简单请求)
+    - [2.预检请求](#2预检请求)
+    - [3.CORS与cookie](#3CORS与cookie)
   - [document.domain](#documentdomain)
   - [postMessage](#postMessage)
 - [网页验证码是干嘛的，是为了解决什么安全问题](#网页验证码是干嘛的是为了解决什么安全问题)
@@ -213,10 +217,6 @@
     - [2.限制](#2限制)
     - [3.绕过跨域](#3绕过跨域)
     - [4.浏览器同源策略与ajax](#4浏览器同源策略与ajax)
-  - [跨域资源共享CORS](#跨域资源共享CORS)
-    - [1.简单请求](#1简单请求)
-    - [2.预检请求](#2预检请求)
-    - [3.CORS与cookie](#3CORS与cookie)
   - [密码安全](#密码安全)
 
 
@@ -2343,6 +2343,61 @@ jsonp(
 #### 如何减少CORS预请求的次数
 - 服务端设置Access-Control-Max-Age字段，在有效时间内浏览器无需再为同一个请求发送预检请求。但是它有局限性：只能为同一个请求缓存，无法针对整个域或者模糊匹配 URL 做缓存。
 
+#### 跨域资源共享CORS
+- 跨域是浏览器限制，跨域资源共享（Cross-origin resource sharing）也是服务器与浏览器协调的结果。
+
+- 如果服务器设置了 CORS 相关配置，在返回浏览器的请求头会加上 Access-Control-Allow-Origin，浏览器看到这个字段的值与当前的源匹配，就会解锁跨域限制。
+```
+HTTP/1.1 200 OK
+Date: Sun, 24 Apr 2016 12:43:39 GMT
+Server: Apache
+Access-Control-Allow-Origin: http://www.acceptmeplease.com
+Keep-Alive: timeout=2, max=100
+Connection: Keep-Alive
+Content-Type: application/xml
+Content-Length: 423
+```
+对于 CORS，请求分两种。
+
+#### 1.简单请求
+- 请求方法使用 GET、POST 或 HEAD
+- Content-Type 设为 application/x-www-form-urlencoded、multipart/form-data 或 text/plain
+
+- 符合上面两个条件的都为 CORS 简单请求。简单请求都会直接发到服务器，会造成 CSRF。
+
+#### 2.预检请求
+- 不符合简单请求要求的请求都需要先发送预检请求（Preflight Request）。浏览器会在真正请求前发送 OPTION 方法的请求向服务器询问当前源是否符合 CORS 目标，验证通过后才会发送正式请求。
+
+- 例如使用 application/json 传参的 POST 请求就是非简单请求，会在预检中被拦截。
+
+- 再例如使用 PUT 方法请求，也会发送预检请求。
+
+- 上面提到的可以防范 CSRF 的例外，就是指预检请求。即使跨域成功请求预检，但真正请求并不能发出去，这就保证了 CSRF 无法成功。
+
+#### 3.CORS与cookie
+- 与同域不同，用于跨域的 CORS 请求默认不发送 Cookie 和 HTTP 认证信息，前后端都要在配置中设定请求时带上 cookie。
+- 这就是为什么在进行 CORS 请求时 axios 需要设置 withCredentials: true。
+
+下面是 node.js 的后台 koa 框架的 CORS 设置：
+```
+/**
+ * CORS middleware
+ *
+ * @param {Object} [options]
+ *  - {String|Function(ctx)} origin `Access-Control-Allow-Origin`, default is request Origin header
+ *  - {String|Array} allowMethods `Access-Control-Allow-Methods`, default is 'GET,HEAD,PUT,POST,DELETE,PATCH'
+ *  - {String|Array} exposeHeaders `Access-Control-Expose-Headers`
+ *  - {String|Array} allowHeaders `Access-Control-Allow-Headers`
+ *  - {String|Number} maxAge `Access-Control-Max-Age` in seconds
+ *  - {Boolean} credentials `Access-Control-Allow-Credentials`
+ *  - {Boolean} keepHeadersOnError Add set headers to `err.header` if an error is thrown
+ * @return {Function} cors middleware
+ * @api public
+ */
+```
+- 顺带一提，Access-Control-Allow-Credentials 设为 true 时，Access-Control-Allow-Origin 强制不能设为 *，为了安全，也是挺麻烦
+
+
 #### document.domain
 - 该方式只能用于二级域名相同的情况下，比如 a.test.com 和 b.test.com 适用于该方式。
 - 只需要给页面添加 document.domain = 'test.com' 表示二级域名都相同就可以实现跨域
@@ -3561,60 +3616,6 @@ https://niconico.com:8080/spirit	    x
 - 所以再强调一次，同源策略不能作为防范 CSRF 的方法。
 
 - 不过可以防范 CSRF 的例外还是有的，浏览器并不是让所有请求都发送成功，上述情况仅限于简单请求，相关知识会在下面 CORS 一节详细解释。
-
-#### 跨域资源共享CORS
-- 跨域是浏览器限制，跨域资源共享（Cross-origin resource sharing）也是服务器与浏览器协调的结果。
-
-- 如果服务器设置了 CORS 相关配置，在返回浏览器的请求头会加上 Access-Control-Allow-Origin，浏览器看到这个字段的值与当前的源匹配，就会解锁跨域限制。
-```
-HTTP/1.1 200 OK
-Date: Sun, 24 Apr 2016 12:43:39 GMT
-Server: Apache
-Access-Control-Allow-Origin: http://www.acceptmeplease.com
-Keep-Alive: timeout=2, max=100
-Connection: Keep-Alive
-Content-Type: application/xml
-Content-Length: 423
-```
-对于 CORS，请求分两种。
-
-#### 1.简单请求
-- 请求方法使用 GET、POST 或 HEAD
-- Content-Type 设为 application/x-www-form-urlencoded、multipart/form-data 或 text/plain
-
-- 符合上面两个条件的都为 CORS 简单请求。简单请求都会直接发到服务器，会造成 CSRF。
-
-#### 2.预检请求
-- 不符合简单请求要求的请求都需要先发送预检请求（Preflight Request）。浏览器会在真正请求前发送 OPTION 方法的请求向服务器询问当前源是否符合 CORS 目标，验证通过后才会发送正式请求。
-
-- 例如使用 application/json 传参的 POST 请求就是非简单请求，会在预检中被拦截。
-
-- 再例如使用 PUT 方法请求，也会发送预检请求。
-
-- 上面提到的可以防范 CSRF 的例外，就是指预检请求。即使跨域成功请求预检，但真正请求并不能发出去，这就保证了 CSRF 无法成功。
-
-#### 3.CORS与cookie
-- 与同域不同，用于跨域的 CORS 请求默认不发送 Cookie 和 HTTP 认证信息，前后端都要在配置中设定请求时带上 cookie。
-- 这就是为什么在进行 CORS 请求时 axios 需要设置 withCredentials: true。
-
-下面是 node.js 的后台 koa 框架的 CORS 设置：
-```
-/**
- * CORS middleware
- *
- * @param {Object} [options]
- *  - {String|Function(ctx)} origin `Access-Control-Allow-Origin`, default is request Origin header
- *  - {String|Array} allowMethods `Access-Control-Allow-Methods`, default is 'GET,HEAD,PUT,POST,DELETE,PATCH'
- *  - {String|Array} exposeHeaders `Access-Control-Expose-Headers`
- *  - {String|Array} allowHeaders `Access-Control-Allow-Headers`
- *  - {String|Number} maxAge `Access-Control-Max-Age` in seconds
- *  - {Boolean} credentials `Access-Control-Allow-Credentials`
- *  - {Boolean} keepHeadersOnError Add set headers to `err.header` if an error is thrown
- * @return {Function} cors middleware
- * @api public
- */
-```
-- 顺带一提，Access-Control-Allow-Credentials 设为 true 时，Access-Control-Allow-Origin 强制不能设为 *，为了安全，也是挺麻烦
 
 #### 密码安全
 加盐
