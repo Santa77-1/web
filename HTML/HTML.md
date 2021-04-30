@@ -77,7 +77,7 @@
     - [2.怎么判断页面是否加载完成](#2怎么判断页面是否加载完成)
     - [3.css加载会造成阻塞吗](#3css加载会造成阻塞吗)
     - [4.为什么JS阻塞页面加载](#4为什么JS阻塞页面加载)
-    - [5.DOMContentLoaded与load的区别](#5DOMContentLoaded与load的区别)
+    - [5.DOMContentLoaded事件和Load事件的区别](#domcontentloaded事件和load事件的区别)
   - [history路由和hash路由](#history路由和hash路由)
   - [performance相关](#performance相关)
 - [浏览器解析过程](#浏览器解析过程)
@@ -99,7 +99,6 @@
   - [渲染页面时常见哪些不良现象？（浏览器渲染过程）](#渲染页面时常见哪些不良现象浏览器渲染过程)
 - [浏览器绘制过程](#浏览器绘制过程)
   - [为什么操作DOM慢？（浏览器绘制过程）](#为什么操作dom慢浏览器绘制过程)
-- [DOMContentLoaded事件和Load事件的区别](#domcontentloaded事件和load事件的区别)
 - [浏览器缓存](#浏览器缓存)
   - [1.强缓存](#1强缓存)
   - [2.协商缓存](#2协商缓存)
@@ -1775,11 +1774,18 @@ if (!Date.now)
 - 当浏览器在执行 JavaScript 程序的时候,GUI 渲染线程会被保存在一个队列中,直到 JS 程序执行完成,才会接着执行
 - 因此如果 JS执行的时间过长,这样就会造成页面的渲染不连贯,导致页面渲染加载阻塞的感觉
 
-#### 5.DOMContentLoaded与load的区别
+#### DOMContentLoaded事件和Load事件的区别
 - 当 DOMContentLoaded 事件触发时,仅当 DOM 解析完成后,不包括样式表,图片。我们前面提到 CSS 加载会阻塞 Dom 的渲染和后面 js 的执行,js 会阻塞 Dom 解析,所以我们可以得到结论:
 - 当文档中没有脚本时,浏览器解析完文档便能触发 DOMContentLoaded 事件。如果文档中包含脚本,则脚本会阻塞文档的解析,而脚本需要等 CSSOM 构建完成才能执行。在任何情况下,DOMContentLoaded 的触发不需要等待图片等其他资源加载完成
 - 当 onload 事件触发时,页面上所有的 DOM,样式表,脚本,图片等资源已经加载完毕
 - DOMContentLoaded -> load
+
+   ```
+    当初始的 HTML 文档被完全加载和解析完成之后，DOMContentLoaded 事件被触发，
+    而无需等待样式表、图像和子框架的加载完成。
+
+    Load 事件是当所有资源加载完成后触发的。
+   ```
 
 ### history路由和hash路由
 hash 路由
@@ -2085,15 +2091,6 @@ window.performance.getEntries()
 
    ```
     一些 DOM 的操作或者属性访问可能会引起页面的回流和重绘，从而引起性能上的消耗。
-   ```
-
-#### DOMContentLoaded事件和Load事件的区别
-
-   ```
-    当初始的 HTML 文档被完全加载和解析完成之后，DOMContentLoaded 事件被触发，
-    而无需等待样式表、图像和子框架的加载完成。
-
-    Load 事件是当所有资源加载完成后触发的。
    ```
 
 ### 浏览器缓存
