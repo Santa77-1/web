@@ -51,6 +51,10 @@
 
 - [常见的浏览器端的存储技术](#常见的浏览器端的存储技术)
   - [cookies、sessionStorage、localStorage的区别](#cookiessessionStoragelocalStorage的区别)
+  - [Token、cookie、Session区别](#TokencookieSession区别)
+    - [Cookie和session的区别](#Cookie和session的区别)
+    - [cookie和token都存放在header中，为什么不会劫持token](#cookie和token都存放在header中为什么不会劫持token)
+    - [介绍下如何实现token加密](#介绍下如何实现token加密)
   - [为什么利用多个域名来存储网站资源会更有效](#为什么利用多个域名来存储网站资源会更有效)
   - [html5的离线储存怎么使用，解释工作原理](#html5的离线储存怎么使用解释工作原理)
   - [浏览器是怎么对html5的离线储存资源进行管理和加载的](#浏览器是怎么对html5的离线储存资源进行管理和加载的)
@@ -108,7 +112,6 @@
   - [4.讲讲304](#4讲讲304)
   - [5.强缓存、协商缓存什么时候用哪个](#5强缓存协商缓存什么时候用哪个)
   - [6.缓存总结](#6缓存总结)
-  - [7.cookie和localSrorage、session、indexDB的区别](#7cookie和localSroragesessionindexDB的区别)
   - [从用户刷新网页开始，一次js请求一般情况下有哪些地方会有缓存处理](#从用户刷新网页开始一次js请求一般情况下有哪些地方会有缓存处理)
 
 
@@ -262,10 +265,6 @@
     - [什么是WebSocket](#什么是WebSocket)
     - [WebSocket是什么样的协议，具体有什么优点](#WebSocket是什么样的协议具体有什么优点)
     - [理解WebSocket协议的底层原理、与HTTP的区别](#理解WebSocket协议的底层原理与HTTP的区别)
-  - [Token、cookie、Session区别](#TokencookieSession区别)
-    - [Cookie和session的区别](#Cookie和session的区别)
-    - [cookie和token都存放在header中，为什么不会劫持token](#cookie和token都存放在header中为什么不会劫持token)
-    - [介绍下如何实现token加密](#介绍下如何实现token加密)
   - [一个图片url访问后直接下载怎样实现](#一个图片url访问后直接下载怎样实现)
   - [fetch发送2次请求的原](#fetch发送2次请求的原因)
   - [GET和POST的区别](#GET和POST的区别)
@@ -1168,6 +1167,45 @@ IE 和 Opera 会清理近期最少使用的 cookie，Firefox 会随机清理 coo
 cookie 的最大大约为 4096 字节，为了兼容性，一般设置不超过 4095 字节
 如果 cookie 被人拦截了，就可以取得所有的 session 信息
 ```
+
+```
+特性	                cookie	                             localStorage         sessionStorage	indexDB
+数据生命周期	  一般由服务器生成，可以设置过期时间	       除非被清理，否则一直存在	页面关闭就清理	   除非被清理，否则一直存在
+数据存储大小	              4K	                             5M                           5M	     无限
+与服务端通信	  每次都会携带在 header 中，对于请求性能影响	      不参与	                不参与	  不参与
+```
+- 从上表可以看到，cookie 已经不建议用于存储。如果没有大量数据存储需求的话，可以使用 localStorage和 sessionStorage 。对于不怎么改变的数据尽量使用 localStorage 存储，否则可以用 sessionStorage 存储。
+
+对于 cookie，我们还需要注意安全性
+```
+ 属性	               作用
+value	      如果用于保存用户登录态，应该将该值加密，不能使用明文的用户标识
+http-only     不能通过 JS访问 Cookie，减少 XSS攻击
+secure	      只能在协议为 HTTPS 的请求中携带
+same-site     规定浏览器不能在跨域请求中携带 Cookie，减少 CSRF 攻击
+```
+
+#### Token、cookie、Session区别
+#### Cookie和session的区别
+- HTTP 是一个无状态协议，因此 Cookie 的最大的作用就是存储 sessionId 用来唯一标识用 户。
+
+- cookie 数据存放在客户的浏览器上，session 数据放在服务器上
+- cookie 不是很安全，别人可以分析存放在本地的 COOKIE 并进行 COOKIE 欺骗 考虑到安全应当使用 session
+- session 会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能 考虑到减轻服务器性能方面，应当使用 COOKIE
+- 单个 cookie 保存的数据不能超过 4K，很多浏览器都限制一个站点最多保存 20 个 cookie
+
+#### cookie和token都存放在header中，为什么不会劫持token
+- 攻击者通过 xss 拿到用户的 cookie 然后就可以伪造 cookie 了
+- 或者通过 csrf 在同个浏览器下面通过浏览器会自动带上 cookie 的特性在通过 用户网站-攻击者网站-攻击者请求用户网站的方式 浏览器会自动带上cookie
+- 但是 token。不会被浏览器带上 问题 2 解决
+- token 是放在 jwt 里面下发给客户端的 而且不一定存储在哪里 不能通过document.cookie 直接拿到，通过 jwt+ip 的方式 可以防止 被劫持 即使被劫持也是无效的 jwt
+
+#### 介绍下如何实现token加密
+- jwt 举例：
+  - 需要一个 secret（随机数）
+  - 后端利用 secret 和加密算法(如：HMAC-SHA256)对 payload(如账号密码) 生成一个字符串(token)，返回前端
+  - 前端每次 request 在 header 中带上 token
+  - 后端用同样的算法解密
 
 ### 为什么利用多个域名来存储网站资源会更有效
 ```
@@ -2178,24 +2216,6 @@ MaxAge = (Date - LastModified) * factor
 ```
 - 强缓存相关字段有 expires，cache-control。如果 cache-control 与 expires 同时存在的话， cache-control 的优先级高于 expires。
 - 协商缓存相关字段有 Last-Modified/If-Modified-Since，Etag/If-None-Match
-
-#### 7.cookie和localSrorage、session、indexDB的区别
-```
-特性	                cookie	                             localStorage         sessionStorage	indexDB
-数据生命周期	  一般由服务器生成，可以设置过期时间	       除非被清理，否则一直存在	页面关闭就清理	   除非被清理，否则一直存在
-数据存储大小	              4K	                             5M                           5M	     无限
-与服务端通信	  每次都会携带在 header 中，对于请求性能影响	      不参与	                不参与	  不参与
-```
-- 从上表可以看到，cookie 已经不建议用于存储。如果没有大量数据存储需求的话，可以使用 localStorage和 sessionStorage 。对于不怎么改变的数据尽量使用 localStorage 存储，否则可以用 sessionStorage 存储。
-
-对于 cookie，我们还需要注意安全性
-```
- 属性	               作用
-value	      如果用于保存用户登录态，应该将该值加密，不能使用明文的用户标识
-http-only     不能通过 JS访问 Cookie，减少 XSS攻击
-secure	      只能在协议为 HTTPS 的请求中携带
-same-site     规定浏览器不能在跨域请求中携带 Cookie，减少 CSRF 攻击
-```
 
 ### 从用户刷新网页开始，一次js请求一般情况下有哪些地方会有缓存处理
 
@@ -4144,28 +4164,6 @@ websocket和HTTP有什么不一样小结
 - 更好的二进制支持
 - 没有同源限制，客户端可以与任意服务器通信
 - 与 HTTP 协议有着良好的兼容性。默认端口也是80和443，并且握手阶段采用 HTTP 协议，因此握手时不容易屏蔽，能通过各种 HTTP 代理服务器
-
-#### Token、cookie、Session区别
-#### Cookie和session的区别
-- HTTP 是一个无状态协议，因此 Cookie 的最大的作用就是存储 sessionId 用来唯一标识用 户。
-
-- cookie 数据存放在客户的浏览器上，session 数据放在服务器上
-- cookie 不是很安全，别人可以分析存放在本地的 COOKIE 并进行 COOKIE 欺骗 考虑到安全应当使用 session
-- session 会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能 考虑到减轻服务器性能方面，应当使用 COOKIE
-- 单个 cookie 保存的数据不能超过 4K，很多浏览器都限制一个站点最多保存 20 个 cookie
-
-#### cookie和token都存放在header中，为什么不会劫持token
-- 攻击者通过 xss 拿到用户的 cookie 然后就可以伪造 cookie 了
-- 或者通过 csrf 在同个浏览器下面通过浏览器会自动带上 cookie 的特性在通过 用户网站-攻击者网站-攻击者请求用户网站的方式 浏览器会自动带上cookie
-- 但是 token。不会被浏览器带上 问题 2 解决
-- token 是放在 jwt 里面下发给客户端的 而且不一定存储在哪里 不能通过document.cookie 直接拿到，通过 jwt+ip 的方式 可以防止 被劫持 即使被劫持也是无效的 jwt
-
-#### 介绍下如何实现token加密
-- jwt 举例：
-  - 需要一个 secret（随机数）
-  - 后端利用 secret 和加密算法(如：HMAC-SHA256)对 payload(如账号密码) 生成一个字符串(token)，返回前端
-  - 前端每次 request 在 header 中带上 token
-  - 后端用同样的算法解密
 
 #### 一个图片url访问后直接下载怎样实现
 - 请求的返回头里面，用于浏览器解析的重要参数就是 OSS 的 API 文档里面的返回 http 头，决定用户下载行为的参数
