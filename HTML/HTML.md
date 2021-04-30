@@ -115,6 +115,13 @@
 - [跨域](#跨域)
   - [JSONP](#JSONP)
   - [CORS](#CORS)
+    - [CORS跨域的原理](#CORS跨域的原理)
+    - [CORS的哪些是简单请求](#CORS的哪些是简单请求)
+    - [CORS的预检请求具体是怎样的](#CORS的预检请求具体是怎样的)
+    - [为什么简单请求不需要预检](#为什么简单请求不需要预检)
+    - [复杂请求预检检查什么东西](#复杂请求预检检查什么东西)
+    - [如果CORS附带身份凭证要怎样做](#如果CORS附带身份凭证要怎样做)
+    - [如何减少CORS预请求的次数](#如何减少CORS预请求的次数)
   - [document.domain](#documentdomain)
   - [postMessage](#postMessage)
 - [网页验证码是干嘛的，是为了解决什么安全问题](#网页验证码是干嘛的是为了解决什么安全问题)
@@ -270,13 +277,6 @@
   - [GET可以上传图片吗](#GET可以上传图片吗)
   - [CDN的作用和原理](#CDN的作用和原理)
     - [如何捕获CDN上的js运行时导致的详细错误信息](#如何捕获CDN上的js运行时导致的详细错误信息)
-  - [CORS跨域的原理](#CORS跨域的原理)
-    - [CORS的哪些是简单请求](#CORS的哪些是简单请求)
-    - [CORS的预检请求具体是怎样的](#CORS的预检请求具体是怎样的)
-    - [为什么简单请求不需要预检](#为什么简单请求不需要预检)
-    - [复杂请求预检检查什么东西](#复杂请求预检检查什么东西)
-    - [如果CORS附带身份凭证要怎样做](#如果CORS附带身份凭证要怎样做)
-    - [如何减少CORS预请求的次数](#如何减少CORS预请求的次数)
   - [在深圳的网页上输入百度，是怎么把这个请求发到北京的](#在深圳的网页上输入百度是怎么把这个请求发到北京的)
   - [为什么使用多域名部署](#为什么使用多域名部署)
   - [页面10张img，http1是怎样的加载表现？怎样解决的](#页面10张imghttp1是怎样的加载表现怎样解决的)
@@ -2247,6 +2247,102 @@ jsonp(
 - 浏览器会自动进行 CORS 通信，实现CORS通信的关键是后端。只要后端实现了 CORS，就实现了跨域。
 - 服务端设置 Access-Control-Allow-Origin 就可以开启 CORS。 该属性表示哪些域名可以访问资源，如果设置通配符则表示所有网站都可以访问资源。
 
+#### CORS跨域的原理
+- 跨域资源共享(CORS)是一种机制，是W3C标准。它允许浏览器向跨源服务器，发出XMLHttpRequest或Fetch请求。并且整个CORS通信过程都是浏览器自动完成的，不需要用户参与。
+
+- 而使用这种跨域资源共享的前提是，浏览器必须支持这个功能，并且服务器端也必须同意这种"跨域"请求。因此实现CORS的关键是服务器需要服务器。通常是有以下几个配置：
+
+- Access-Control-Allow-Origin
+- Access-Control-Allow-Methods
+- Access-Control-Allow-Headers
+- Access-Control-Allow-Credentials
+- Access-Control-Max-Age
+
+过程分析：
+简单回答：
+- 当我们发起跨域请求时，如果是非简单请求，浏览器会帮我们自动触发预检请求，也就是 OPTIONS 请求，用于确认目标资源是否支持跨域。如果是简单请求，则不会触发预检，直接发出正常请求。
+
+- 浏览器会根据服务端响应的 header 自动处理剩余的请求，如果响应支持跨域，则继续发出正常请求，如果不支持，则在控制台显示错误。
+
+详细回答：
+- 浏览器先根据同源策略对前端页面和后台交互地址做匹配，若同源，则直接发送数据请求；若不同源，则发送跨域请求。
+
+- 服务器收到浏览器跨域请求后，根据自身配置返回对应文件头。若未配置过任何允许跨域，则文件头里不包含 Access-Control-Allow-origin 字段，若配置过域名，则返回 Access-Control-Allow-origin + 对应配置规则里的域名的方式。
+
+- 浏览器根据接受到的 响应头里的 Access-Control-Allow-origin 字段做匹配，若无该字段，说明不允许跨域，从而抛出一个错误；若有该字段，则对字段内容和当前域名做比对，如果同源，则说明可以跨域，浏览器接受该响应；若不同源，则说明该域名不可跨域，浏览器不接受该响应，并抛出一个错误。
+
+- 在CORS中有简单请求和非简单请求，简单请求是不会触发CORS的预检请求的，而非简单请求会。
+
+- “需预检的请求”要求必须首先使用 OPTIONS (opens new window)方法发起一个预检请求到服务器，以获知服务器是否允许该实际请求。"预检请求“的使用，可以避免跨域请求对服务器的用户数据产生未预期的影响。
+
+#### CORS的哪些是简单请求
+- 简单请求不会触发CORS的预检请求，若请求满足所有下述条件，则该请求可视为“简单请求”：
+
+简单回答：
+- 只能使用GET、HEAD、POST方法。使用POST方法向服务器发送数据时，Content-Type只能使用application/x-www-form-urlencoded、multipart/form-data或text/plain编码格式。
+- 请求时不能使用自定义的HTTP Headers
+
+详细回答：
+- (一) 使用下列方法之一
+  - GET
+  - HEAD
+  - POST
+- (二) 只能设置以下集合中的请求头
+  - Accept
+  - Accept-Language
+  - Content-Language
+  - Content-Type(但是有限制)
+  - DPR
+  - Downlink
+  - Save-Data
+  - Viewport-Width
+  - Width
+- (三) Content-Type的值仅限于下面的三者之一
+  - text/plain
+  - multipart/form-data
+  - application/x-www-form-urlencoded
+- 请求中的任意XMLHttpRequestUpload (opens new window)对象均没有注册任何事件监听器；XMLHttpRequestUpload (opens new window)对象可以使用 XMLHttpRequest.upload (opens new window)属性访问。
+- 请求中没有使用 ReadableStream (opens new window)对象。
+
+除了上面这些请求外，都是非简单请求。
+
+#### CORS的预检请求具体是怎样的
+- 若是跨域的非简单请求的话，浏览器会首先向服务器发送一个预检请求，以获知服务器是否允许该实际请求。
+
+整个过程大概是：
+- 浏览器给服务器发送一个OPTIONS方法的请求，该请求会携带下面两个首部字段：
+  - Access-Control-Request-Method: 实际请求要用到的方法
+  - Access-Control-Request-Headers: 实际请求会携带哪些首部字段
+- 若是服务器接受后续请求，则这次预请求的响应体中会携带下面的一些字段：
+  - Access-Control-Allow-Methods: 服务器允许使用的方法
+  - Access-Control-Allow-Origin: 服务器允许访问的域名
+  - Access-Control-Allow-Headers: 服务器允许的首部字段
+  - Access-Control-Max-Age: 该响应的有效时间(s),在有效时间内浏览器无需再为同一个请求发送预检请求
+- 预检请求完毕之后，再发送实际请求
+
+这里有两点要注意：
+- Access-Control-Request-Method没有s
+- Access-Control-Allow-Methods有s
+- 关于Access-Control-Max-Age，浏览器自身也有维护一个最大有效时间，如果该首部字段的值超过了最大有效时间，将不会生效，而是以最大有效时间为主。
+
+#### 为什么简单请求不需要预检
+- 因为简单请求虽然是一种定义，不过它定义是有一定理由的，浏览器可能觉得这类请求预检的安全性没有那么大必要，不预检带来性能方面收益更大。
+
+#### 复杂请求预检检查什么东西
+- 预检请求的使用，可以避免跨域请求对服务器的用户数据产生未预期的影响。例如，我某个请求只支持 headers ,cc，你发送了一个 dd 的headers， 那么 options 可以有效拦截，不会发出实体的请求，避免了一些安全问题。
+
+#### 如果CORS附带身份凭证要怎样做
+- 对于跨域 XMLHttpRequest (opens new window)或 Fetch (opens new window)请求，浏览器不会发送身份凭证信息。如果要发送凭证信息，需要设置 XMLHttpRequest的某个特殊标志位。
+
+- 例如我们想要在跨域请求中带上cookie，需要满足3个条件：
+
+- web（浏览器）请求设置withCredentials为true
+- 服务器设置首部字段Access-Control-Allow-Credentials为true
+- 服务器的Access-Control-Allow-Origin不能为*
+
+#### 如何减少CORS预请求的次数
+- 服务端设置Access-Control-Max-Age字段，在有效时间内浏览器无需再为同一个请求发送预检请求。但是它有局限性：只能为同一个请求缓存，无法针对整个域或者模糊匹配 URL 做缓存。
+
 #### document.domain
 - 该方式只能用于二级域名相同的情况下，比如 a.test.com 和 b.test.com 适用于该方式。
 - 只需要给页面添加 document.domain = 'test.com' 表示二级域名都相同就可以实现跨域
@@ -4199,102 +4295,6 @@ CDN原理
 ```
 <script src="https://qq.com/a.js" crossOrigin="anonymous"></script>
 ```
-
-#### CORS跨域的原理
-- 跨域资源共享(CORS)是一种机制，是W3C标准。它允许浏览器向跨源服务器，发出XMLHttpRequest或Fetch请求。并且整个CORS通信过程都是浏览器自动完成的，不需要用户参与。
-
-- 而使用这种跨域资源共享的前提是，浏览器必须支持这个功能，并且服务器端也必须同意这种"跨域"请求。因此实现CORS的关键是服务器需要服务器。通常是有以下几个配置：
-
-- Access-Control-Allow-Origin
-- Access-Control-Allow-Methods
-- Access-Control-Allow-Headers
-- Access-Control-Allow-Credentials
-- Access-Control-Max-Age
-
-过程分析：
-简单回答：
-- 当我们发起跨域请求时，如果是非简单请求，浏览器会帮我们自动触发预检请求，也就是 OPTIONS 请求，用于确认目标资源是否支持跨域。如果是简单请求，则不会触发预检，直接发出正常请求。
-
-- 浏览器会根据服务端响应的 header 自动处理剩余的请求，如果响应支持跨域，则继续发出正常请求，如果不支持，则在控制台显示错误。
-
-详细回答：
-- 浏览器先根据同源策略对前端页面和后台交互地址做匹配，若同源，则直接发送数据请求；若不同源，则发送跨域请求。
-
-- 服务器收到浏览器跨域请求后，根据自身配置返回对应文件头。若未配置过任何允许跨域，则文件头里不包含 Access-Control-Allow-origin 字段，若配置过域名，则返回 Access-Control-Allow-origin + 对应配置规则里的域名的方式。
-
-- 浏览器根据接受到的 响应头里的 Access-Control-Allow-origin 字段做匹配，若无该字段，说明不允许跨域，从而抛出一个错误；若有该字段，则对字段内容和当前域名做比对，如果同源，则说明可以跨域，浏览器接受该响应；若不同源，则说明该域名不可跨域，浏览器不接受该响应，并抛出一个错误。
-
-- 在CORS中有简单请求和非简单请求，简单请求是不会触发CORS的预检请求的，而非简单请求会。
-
-- “需预检的请求”要求必须首先使用 OPTIONS (opens new window)方法发起一个预检请求到服务器，以获知服务器是否允许该实际请求。"预检请求“的使用，可以避免跨域请求对服务器的用户数据产生未预期的影响。
-
-#### CORS的哪些是简单请求
-- 简单请求不会触发CORS的预检请求，若请求满足所有下述条件，则该请求可视为“简单请求”：
-
-简单回答：
-- 只能使用GET、HEAD、POST方法。使用POST方法向服务器发送数据时，Content-Type只能使用application/x-www-form-urlencoded、multipart/form-data或text/plain编码格式。
-- 请求时不能使用自定义的HTTP Headers
-
-详细回答：
-- (一) 使用下列方法之一
-  - GET
-  - HEAD
-  - POST
-- (二) 只能设置以下集合中的请求头
-  - Accept
-  - Accept-Language
-  - Content-Language
-  - Content-Type(但是有限制)
-  - DPR
-  - Downlink
-  - Save-Data
-  - Viewport-Width
-  - Width
-- (三) Content-Type的值仅限于下面的三者之一
-  - text/plain
-  - multipart/form-data
-  - application/x-www-form-urlencoded
-- 请求中的任意XMLHttpRequestUpload (opens new window)对象均没有注册任何事件监听器；XMLHttpRequestUpload (opens new window)对象可以使用 XMLHttpRequest.upload (opens new window)属性访问。
-- 请求中没有使用 ReadableStream (opens new window)对象。
-
-除了上面这些请求外，都是非简单请求。
-
-#### CORS的预检请求具体是怎样的
-- 若是跨域的非简单请求的话，浏览器会首先向服务器发送一个预检请求，以获知服务器是否允许该实际请求。
-
-整个过程大概是：
-- 浏览器给服务器发送一个OPTIONS方法的请求，该请求会携带下面两个首部字段：
-  - Access-Control-Request-Method: 实际请求要用到的方法
-  - Access-Control-Request-Headers: 实际请求会携带哪些首部字段
-- 若是服务器接受后续请求，则这次预请求的响应体中会携带下面的一些字段：
-  - Access-Control-Allow-Methods: 服务器允许使用的方法
-  - Access-Control-Allow-Origin: 服务器允许访问的域名
-  - Access-Control-Allow-Headers: 服务器允许的首部字段
-  - Access-Control-Max-Age: 该响应的有效时间(s),在有效时间内浏览器无需再为同一个请求发送预检请求
-- 预检请求完毕之后，再发送实际请求
-
-这里有两点要注意：
-- Access-Control-Request-Method没有s
-- Access-Control-Allow-Methods有s
-- 关于Access-Control-Max-Age，浏览器自身也有维护一个最大有效时间，如果该首部字段的值超过了最大有效时间，将不会生效，而是以最大有效时间为主。
-
-#### 为什么简单请求不需要预检
-- 因为简单请求虽然是一种定义，不过它定义是有一定理由的，浏览器可能觉得这类请求预检的安全性没有那么大必要，不预检带来性能方面收益更大。
-
-#### 复杂请求预检检查什么东西
-- 预检请求的使用，可以避免跨域请求对服务器的用户数据产生未预期的影响。例如，我某个请求只支持 headers ,cc，你发送了一个 dd 的headers， 那么 options 可以有效拦截，不会发出实体的请求，避免了一些安全问题。
-
-#### 如果CORS附带身份凭证要怎样做
-- 对于跨域 XMLHttpRequest (opens new window)或 Fetch (opens new window)请求，浏览器不会发送身份凭证信息。如果要发送凭证信息，需要设置 XMLHttpRequest的某个特殊标志位。
-
-- 例如我们想要在跨域请求中带上cookie，需要满足3个条件：
-
-- web（浏览器）请求设置withCredentials为true
-- 服务器设置首部字段Access-Control-Allow-Credentials为true
-- 服务器的Access-Control-Allow-Origin不能为*
-
-#### 如何减少CORS预请求的次数
-- 服务端设置Access-Control-Max-Age字段，在有效时间内浏览器无需再为同一个请求发送预检请求。但是它有局限性：只能为同一个请求缓存，无法针对整个域或者模糊匹配 URL 做缓存。
 
 #### 在深圳的网页上输入百度，是怎么把这个请求发到北京的
 - 中间会经过很多的站点，比如会经过湖南，或者其它城市，由各个城市的这些站点一层一层分发下去。通过CDN层层分发
