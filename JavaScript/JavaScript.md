@@ -778,38 +778,7 @@ if(3n){//条件为true
 
   ### js类型判断
 typeof，instanceof，constructor，Object.prototype.toString.call()
-```
-（1）typeof：
-直接在计算机底层基于数据类型的值（二进制）进行检测
-typeof null为object原因是对象存在在计算机中，
-都是以000开始的二进制存储，所以检测出来的结果是对象
-typeof普通对象/数组对象/正则对象/日期对象 都是object
-typeof NaN === 'number'
-（2）instanceof
-检测当前实例是否属于这个类的
-底层机制：只要当前类出现在实例的原型上，结果都是true
-不能检测基本数据类型
-（3）constructor
-支持基本类型
-constructor可以随便改，也不准
-（4）Object.prototype.toString.call([val])
-返回当前实例所属类信息
 
-判断 Target 的类型，单单用 typeof 并无法完全满足，这其实并不是 bug，
-本质原因是 JS 的万物皆对象的理论。因此要真正完美判断时，我们需要区分对待:
-1.基本类型(null): 使用String(null)
-2.基本类型(string / number / boolean / undefined / symbol) + function: 直接使用typeof即可
-3.其余引用类型(Array / Date / RegExp Error): 调用toString后根据[object XXX]进行判断
-很稳的判断封装:
-let class2type = {}
-'Array Date RegExp Object Error'.split(' ').forEach(e => class2type[ '[object ' + e + ']' ] = e.toLowerCase()) 
-function type(obj) {
-    if (obj == null) return String(obj)
-    return typeof obj === 'object' ? class2type[ Object.prototype.toString.call(obj) ] || 'object' : typeof obj
-}
-```
-
-总结
 - typeof
   - 直接在计算机底层基于数据类型的值（二进制）进行检测
   - typeof null为object 原因是对象存在在计算机中，都是以000开始的二进制存储，所以检测出来的结果是对象
