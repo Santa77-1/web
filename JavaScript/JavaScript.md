@@ -451,7 +451,9 @@ a.toString() // 使用时候才会转换为对象类型
 
 ####  js引用数据类型：
 ```
-js引用数据类型：object、array、function
+指的是 Object 类型，
+对象Object（包含普通对象Object，数组对象Array，
+正则对象RegExp，日期对象Date，数学函数Math，函数对象Function）
 ```
 
   #### js有几种类型的值
